@@ -21,7 +21,7 @@ if item != 0
         if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
-            scr_hudMessage(" acquired.",global.fnt_menu,3,invSlot,c_white);
+            scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
             
             //Tutorial Quest
             if tutorialComplete == false
@@ -47,7 +47,7 @@ if item != 0
             hudControl.inventorySlotIcon[i] = invSlot;
             hudControl.inventorySlotType[i] = invType;
             
-            scr_hudMessage(" acquired.",global.fnt_menu,3,invSlot,c_white);
+            scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
             return 1;
         }
     }

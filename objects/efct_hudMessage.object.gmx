@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>position = instance_number(efct_hudMessage);
+amt = 0;
 </string>
           </argument>
         </arguments>
@@ -121,7 +122,7 @@ if position-1 != 0 then position -= 1;
             <string>draw_set_font(hudFont);
 draw_set_color(color);
 draw_sprite_ext(spr_itemDrops,img,5,162+(12*position),1,1,0,c_white,1);
-draw_text(10,160+(12*position),hudString);
+draw_text(10,160+(12*position),hudString+string(amt));
 </string>
           </argument>
         </arguments>

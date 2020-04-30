@@ -209,7 +209,7 @@ if (file_exists("agdtpSaveData.sav"))
     ds_map_destroy(_wrapper);
     print("Game Loaded");
 } else {
-    scr_hudMessage("Previous game data not found.",global.fnt_menu,10,0,c_red);
+    scr_hudMessage("Previous game data not found.",global.fnt_menu,10,0,c_red,0);
     scr_invenAddItem(3,0,1);
     scr_invenAddItem(4,0,2);
     }
