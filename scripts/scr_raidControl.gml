@@ -51,8 +51,11 @@ switch presetSettings
         
         interm = false;
         
-        raidBoss = true;
-        bossID = new_raidBoss();
+        if random(1) < wave/10 && wave > 2
+        {
+            raidBoss = true;
+            bossID = new_raidBoss();
+        }
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow);
         

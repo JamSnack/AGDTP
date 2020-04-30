@@ -31,6 +31,8 @@ follow_speed = 1;
 view_zoom=1;
 view_max_zoom=10;
 
+cloudBkg_xOffset = 0;
+
 </string>
           </argument>
         </arguments>
@@ -90,6 +92,10 @@ if instance_exists(gameControl)
 
 //Parallax Background
 //--Smaller the number the slower the background moves
+cloudBkg_xOffset += 0.1;
+if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;
+
+background_x[0] = view_xview/1.1 + cloudBkg_xOffset;
 background_x[1] = view_xview/1.2;
 background_x[2] = view_xview/1.3;
 background_x[3] = view_xview/2.2;
