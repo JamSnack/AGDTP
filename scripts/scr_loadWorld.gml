@@ -1,0 +1,216 @@
+///scr_loadWorld();
+randomize();
+var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
+var sizeY = 30;
+
+var xx = 0;
+var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
+
+var heightSeed = get_height_seed(15,"FLAT");
+var heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
+
+
+//FlatLands and RAIDBOUND definition
+var _flatX = 32;
+var _flatY = 20;
+var flatLandTotal = _flatX*_flatY;
+
+for(i=0;i<floor(flatLandTotal);i++)
+{
+    //Raid boundaries defined inside the worldControl object.
+    var column = floor(i/_flatX);
+    
+    if i == 0 then RAIDBOUND_Lower = xx+(16*sizeX)-(16);
+    if i == 0 then RAIDBOUND_Upper = (16*sizeX)+(_flatX*16);
+    
+    //Spawn flatland blocks.
+    instance_create(xx+(16*sizeX)+(16*i)-(column*16*_flatX),yy+(16*column),FLATLAND);
+}
+
+
+//Total amount of positions to iterate through.
+var worldLandTotal = ((sizeX*sizeY)*2)+flatLandTotal;
+
+
+//Dirt and Stone layer
+for(i=0;i<160;i++)
+{   
+    var xInterval = (xx+(i*16)); //The x coordinate
+    var c = floor(i/string_length(heightSeed));
+    var heightIndex = real(string_char_at(heightSeed,(i-(c*string_length(heightSeed)))))*16;
+    var heightDirection = real(string_char_at(heightNegativeSeed,(i-(c*string_length(heightNegativeSeed)))));
+    
+    //Interpret heightNegativity
+    // - Figure out whether or not to negate the number.
+    if heightDirection == 0 then heightDirection = -1;
+    
+    //Create a column using the currently selected hight value.
+    for (j=0;j<(heightIndex/16)+(sizeY);j++)
+    {
+        if j > (heightIndex/16)+irandom_range(6,10) then tileType = obj_stone else tileType = obj_dirt;
+        var inst = instance_create(xInterval,yy+(16*j)-(heightIndex*heightDirection)+16,tileType);
+        
+        if inst.x > RAIDBOUND_Lower && inst.x < RAIDBOUND_Upper && inst.y < stoneLayer
+        { with inst instance_destroy(); }
+    }
+        
+}
+
+//Ore veins
+var oreHeight = yy+(16*16);
+var oreHeightMax = yy+(30*16);
+var spawnAmt = 10;
+var veinAmt = irandom(6);
+
+for (i=0;i<spawnAmt;i++)
+{
+    var xInterval_Original = 16*irandom(160);
+    var yInterval_Original = floor(irandom_range(oreHeight,oreHeightMax)/16)*16 //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
+    var yInterval = yInterval_Original;
+    var xInterval = xInterval_Original;
+    
+    
+    for (j=0;j<veinAmt;j++)
+    {
+        //Place tree tiles using previously used xInterval variable.
+        while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
+        { yInterval += choose(16,-16); xInterval += choose(16,-16); }
+
+        if position_meeting(xInterval,yInterval,TILE) then with instance_position(xInterval,yInterval,TILE) instance_destroy();
+        var t = instance_create(xInterval,yInterval,obj_copperOre);
+        
+        xInterval = xInterval_Original;
+        yInterval = yInterval_Original;
+    }
+}
+
+//Spawn Caves
+var pocketHeight = yy+(16*16);
+var pocketHeightMax = yy+(30*16);
+var spawnAmt = 5;
+var chestAmt = 10;
+
+for (i=0;i<spawnAmt;i++)
+{
+    var xInterval_Original = 16*irandom(160);
+    var yInterval_Original = floor(irandom_range(pocketHeight,pocketHeightMax)/16)*16 //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
+    var yInterval = yInterval_Original;
+    var xInterval = xInterval_Original;
+    var holeAmt = irandom(6);
+    
+    //Correct origin coordinates
+    while yInterval <= pocketHeight { yInterval += 16; }
+    
+    //Punch a hole
+    
+    var pos = position_meeting(xInterval,yInterval,TILE);
+    
+    for (j=0;j<(holeAmt*16)*2;j++)
+    {
+        
+        if pos
+        { 
+            with TILE
+            {
+                if point_distance(xInterval,yInterval,x,y) <= (holeAmt*16)+8
+                {
+                    instance_create(x,y,obj_nullLight);
+                    instance_destroy();
+                }
+            }
+            
+            //Chest spawning
+            if chestAmt > 0 && j == ((holeAmt*16)*2)-1
+            {
+                if position_meeting(xInterval,yInterval,obj_nullLight)
+                {
+                    while position_meeting(xInterval,yInterval+16,obj_nullLight) { yInterval+=16; }
+                    
+                    instance_create(xInterval,yInterval,obj_chest); 
+                    chestAmt -= 1; 
+                    //print("chest");
+                }
+            }
+        }
+    }
+    
+}
+
+//Spawn trees
+var spawnAmt = irandom_range(5,15);
+
+for (i=0;i<spawnAmt;i++)
+{
+    var treeHeight = irandom_range(4,7);
+    var xInterval_Original = 16*irandom(160);
+    var yInterval_Original = yy+(16*9); //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
+    var yInterval = yInterval_Original;
+    var xInterval = xInterval_Original;
+    var variance = 16*choose(1,-1);
+    
+    for (j=0;j<treeHeight;j++)
+    {
+        //Check and correct Y position.
+        if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { break; }
+        while position_meeting(xInterval,yInterval+16,obj_tree) || 
+            position_meeting(xInterval,yInterval,obj_tree) 
+            { xInterval += variance; }
+           
+        //Place tree tiles using previously used xInterval variable.
+        while position_meeting(xInterval,yInterval,OBSTA) yInterval += variance;
+        while position_meeting(xInterval,yInterval,obj_tree) yInterval += variance;
+        
+        //(y+16) because the trees spawn one tile above the ground
+        var t = instance_create(xInterval,yInterval,obj_tree);
+        
+        if j == treeHeight-1 then t.canopy = true;
+        
+        xInterval = xInterval_Original;
+        yInterval = yInterval_Original;
+    }
+}
+
+
+//Border layer
+for(i=0;i<sizeX*2+20;i++)
+{
+    instance_create(xx+(i*16),yy+32*sizeY,OBSTA);
+}
+
+//Place Pie
+instance_create((sizeX*16)+((_flatX*16)/2),yy-16,obj_pie);
+
+//Update tiles
+with TILE event_user(1);
+with NOCOL event_user(1);
+with FLATLAND event_user(1);
+
+//Cleanup
+with obj_itemDrop instance_destroy();
+
+//Spawn the player object.
+instance_create(obj_pie.x,obj_pie.y-32,obj_player);
+
+//Load the player's game
+if (file_exists("agdtpSaveData.sav"))
+{
+    var _wrapper = scr_loadJson("agdtpSaveData.sav");
+    var _list = _wrapper[? "ROOT"];
+    
+    for (var k=0;k<ds_list_size(_list);k++)
+    {
+        var _map = _list[| k];
+        
+        //Unpack inventory data
+        var slot = _map[? "slot"];
+        
+        scr_invenAddItem(real(_map[? "icon"]),real(_map[? "amt"]),real(_map[? "type"]));
+    }
+    ds_map_destroy(_wrapper);
+    print("Game Loaded");
+} else {
+    scr_hudMessage("Previous game data not found.",global.fnt_menu,10,0,c_red);
+    scr_invenAddItem(3,0,1);
+    scr_invenAddItem(4,0,2);
+    }
+
