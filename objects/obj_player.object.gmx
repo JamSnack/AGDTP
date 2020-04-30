@@ -44,6 +44,7 @@ armFrame = 0;
 armAngle = 0;
 armAngleGoal = 0;
 toolAnimation = "SWING";
+knockType = "LAND";
 
 //Initialize Player Stats
 maxHp = 100; //Maximum health

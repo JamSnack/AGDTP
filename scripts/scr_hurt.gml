@@ -19,17 +19,18 @@ if knock == true
     speed = -knockAmt;
     direction = dir;
     
-
-    if place_meeting(x+hspeed,y,OBSTA)
+    if knockType == "LAND"
     {
-        hspeed = 0;
+        if place_meeting(x+hspeed,y,OBSTA)
+        {
+            hspeed = 0;
+        }
+        
+        if place_meeting(x,y+vspeed,OBSTA)
+        {
+            vspeed = 0;
+        }
     }
-    
-    if place_meeting(x,y+vspeed,OBSTA)
-    {
-        vspeed = 0;
-    }
-
 }
 
 //--Display pop message--

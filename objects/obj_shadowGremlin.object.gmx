@@ -58,6 +58,7 @@ image_xscale = sign(target.x-x);
 point_direction(x,y,target.x,target.y);
 
 event_inherited();
+knockType = "FLY";
 </string>
           </argument>
         </arguments>

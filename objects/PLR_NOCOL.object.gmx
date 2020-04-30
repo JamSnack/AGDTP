@@ -32,6 +32,7 @@ hurtAlarm = 1;
 tileID = noone;
 type = noone;
 
+knockType = noone;
 </string>
           </argument>
         </arguments>

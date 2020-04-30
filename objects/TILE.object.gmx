@@ -29,6 +29,7 @@
 if y &gt;= stoneLayer then light_level = 0 else light_level = 255;
 drawEffects = true;
 light_saturation = 0;
+knockType = noone;
 </string>
           </argument>
         </arguments>

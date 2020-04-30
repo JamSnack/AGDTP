@@ -60,6 +60,7 @@ alarm[stateLockAlarm] = 20;
 point_direction(x,y,target.x,target.y);
 
 event_inherited();
+knockType = "FLY";
 
 </string>
           </argument>
