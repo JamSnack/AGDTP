@@ -4,7 +4,7 @@ text[1] = ""; //Item Description
 
 switch argument0
 {
-    default: { text[0] = "NIL"; text[1] = "Description not#added yet."; } break;
+    default: { text[0] = "NIL"; text[1] = "WIP"; } break;
     case 1: { text[0] = "Dirt Clump"; text[1] = "A clump of dirt.#Perhaps it can be used to make a#primitive shelter!"; } break; //Dirt Clump
     case 2: { text[0] = "Green Sword"; text[1] = "Damage: 6#Speed: 2#Green mean and fast!"; } break; //Green Sword
     case 3: { text[0] = "Dull Sword"; text[1] = "Damage: 4#Speed: 1#Slow and nearly useless."; } break; //Dull Sword

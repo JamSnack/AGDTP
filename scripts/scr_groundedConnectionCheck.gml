@@ -82,7 +82,7 @@ while true
     ------------------
         */
     {
-        if position_meeting(x1,y1,PLRTILE) { ds_list_add(pastTiles,instance_position(x1,y1,PLRTILE)); print('add'); };
+        if position_meeting(x1,y1,PLRTILE) { ds_list_add(pastTiles,instance_position(x1,y1,PLRTILE)); };
         if position_meeting(x1,y1,PLR_NOCOL) { ds_list_add(pastTiles,instance_position(x1,y1,PLR_NOCOL)); };
     
         //Iterator, down-right-up-left priority.
