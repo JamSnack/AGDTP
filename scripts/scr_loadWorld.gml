@@ -20,8 +20,8 @@ for(i=0;i<floor(flatLandTotal);i++)
     //Raid boundaries defined inside the worldControl object.
     var column = floor(i/_flatX);
     
-    if i == 0 then RAIDBOUND_Lower = xx+(16*sizeX)-(16);
-    if i == 0 then RAIDBOUND_Upper = (16*sizeX)+(_flatX*16);
+    if i == 0 then RAIDBOUND_Lower = xx+(16*sizeX)-(8);
+    if i == 0 then RAIDBOUND_Upper = (16*sizeX)+(_flatX*16)-(8);
     
     //Spawn flatland blocks.
     instance_create(xx+(16*sizeX)+(16*i)-(column*16*_flatX),yy+(16*column),FLATLAND);

@@ -70,11 +70,11 @@ if interm == false
 {
     var flatLandsY = (room_height/2)-(16*3);
 
-    instance_create(RAIDBOUND_Lower,flatLandsY,GREM_BLOCK); //Left Adjacent
-    instance_create(RAIDBOUND_Lower-16,flatLandsY,GREM_BLOCK); //Left Most
+    instance_create(RAIDBOUND_Lower-8,flatLandsY,GREM_BLOCK); //Left Adjacent
+    instance_create(RAIDBOUND_Lower-24,flatLandsY,GREM_BLOCK); //Left Most
     
-    instance_create(RAIDBOUND_Upper,flatLandsY,GREM_BLOCK); //Right Adjacent
-    instance_create(RAIDBOUND_Upper+16,flatLandsY,GREM_BLOCK); //Right Most
+    instance_create(RAIDBOUND_Upper+8,flatLandsY,GREM_BLOCK); //Right Adjacent
+    instance_create(RAIDBOUND_Upper+24,flatLandsY,GREM_BLOCK); //Right Most
     
     //Remove tiles that are in the way of gremlin spawn zone.
     for (i=0;i<4;i++) //A total of 4 tiles can be removed.
@@ -84,10 +84,10 @@ if interm == false
         var raid_Upper = (RAIDBOUND_Upper)+(i*16)-(c*16*2);
         
         //Remove left tiles
-        instance_create(raid_Lower+16,flatLandsY+(c*16)-32,ANTI_TILE);
+        instance_create(raid_Lower+8,flatLandsY+(c*16)-32,ANTI_TILE);
         
         //Remove right tiles
-        instance_create(raid_Upper,flatLandsY+(c*16)-32,ANTI_TILE);
+        instance_create(raid_Upper+8,flatLandsY+(c*16)-32,ANTI_TILE);
     }
     
     wave += 1;

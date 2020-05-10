@@ -110,9 +110,12 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 //Turn around at RAIDBOUNDS
                 if interm == false
                 {
-                    if position_meeting(x+(spd*image_xscale),room_height/2,GREM_BLOCK)
+                    if x < RAIDBOUND_Lower && gremBlockCol == false
                     {
-                        image_xscale = -image_xscale;
+                        image_xscale = 1;
+                    } else if x > RAIDBOUND_Upper && gremBlockCol == false
+                    {
+                        image_xscale = -1;
                     }
                 }
             

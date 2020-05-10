@@ -120,7 +120,7 @@ while true
             { x1 -= 16; continue; } 
             
             
-        else { instance_destroy(); }
+        else { instance_destroy();}
     
     }
     break;
