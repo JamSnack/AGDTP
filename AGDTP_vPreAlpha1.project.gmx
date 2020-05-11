@@ -31,6 +31,7 @@
     <sprite>sprites\spr_treeTile</sprite>
     <sprite>sprites\spr_platform</sprite>
     <sprite>sprites\spr_gremBlock</sprite>
+    <sprite>sprites\spr_fog</sprite>
     <sprite>sprites\spr_multiPlace</sprite>
     <sprite>sprites\spr_portalBlock</sprite>
     <sprite>sprites\spr_gremlinWalk</sprite>
@@ -146,6 +147,9 @@
     <script>scripts\scr_groundedConnectionCheck.gml</script>
     <script>scripts\scr_roomTransition.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\shd_fog.shader</shader>
+  </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
   </fonts>
@@ -208,6 +212,7 @@
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
+    <object>objects\Boundary</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>

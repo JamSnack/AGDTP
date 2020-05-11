@@ -10,10 +10,10 @@
   <HTile>-1</HTile>
   <VTile>-1</VTile>
   <TextureGroups>
-    <TextureGroup0>0</TextureGroup0>
+    <TextureGroup0>1</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>640</width>
-  <height>640</height>
+  <width>64</width>
+  <height>64</height>
   <data>images\bkg_lobbyStars1.png</data>
 </background>

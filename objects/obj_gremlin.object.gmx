@@ -160,7 +160,7 @@ if stateLock == false
         {
             objective = obj_player;
             target = obj_player;
-        } else { target = obj_pie; }
+        } else { target = obj_pie; state = WANDER; stateLock = true; alarm[stateLockAlarm] = 40;  }
     } else if obj_player.dead == true then { target = obj_pie; }
 }
 if instance_exists(objective) 

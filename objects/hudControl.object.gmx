@@ -379,15 +379,21 @@ if settingsMenu = true
     var yy = display_get_gui_height()/2;
     var mx = device_mouse_x_to_gui(0);
     var my = device_mouse_y_to_gui(0);
+    var hbox = 4;
     
     //Show Pop Messages
     
+    //- settings
     //-- In this case, xx-40 and yy-40 are constants denoting the center of the selectionBool sprite.
-    if point_in_rectangle(mx,my,xx-40-20,yy-40-20,xx-40+20,yy-40+20)
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-40-hbox,xx-40+hbox,yy-40+hbox)
     { showPopMessage = !showPopMessage; }
     
+    //- Debug mode
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
+    { dev = !dev; show_debug_overlay(dev); }
     
-    //Exit button
+    
+    //- Exit button
     if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
         //Save the game
@@ -964,6 +970,10 @@ if settingsMenu == true
     //PopMessage Setting
     draw_sprite(spr_ui_selectedBool,showPopMessage,xx-40,yy-40);
     draw_text(xx-32,yy-43,"Show Pop Messages");
+    
+    //Debug setting
+    draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
+    draw_text(xx-32,yy-33,"Debug Mode");
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);

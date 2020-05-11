@@ -31,7 +31,7 @@
     <yoffset>0</yoffset>
   </makerSettings>
   <backgrounds>
-    <background visible="-1" foreground="0" name="bkg_lobbySky" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
+    <background visible="-1" foreground="0" name="bkg_lobbySky" x="0" y="64" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_lobbyStars1" x="0" y="1" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_lobbyStars2" x="0" y="-5" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_lobbyStars3" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
@@ -51,16 +51,58 @@
     <view visible="0" objName="&lt;undefined&gt;" xview="0" yview="0" wview="1024" hview="768" xport="0" yport="0" wport="1024" hport="768" hborder="32" vborder="32" hspeed="-1" vspeed="-1"/>
   </views>
   <instances>
-    <instance objName="OBSTA" x="1064" y="648" name="inst_43ABA308" locked="0" code="" scaleX="200" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="-8" y="432" name="inst_8A8714FC" locked="0" code="" scaleX="1" scaleY="55" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="1176" y="-8" name="inst_D498B866" locked="0" code="" scaleX="175" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="648" y="400" name="inst_2A4E0C5F" locked="0" code="" scaleX="1" scaleY="55" colour="4294967295" rotation="0"/>
     <instance objName="obj_pieBetwixt" x="320" y="488" name="inst_F7416487" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_lobbyPlatform" x="224" y="504" name="inst_B1FACE96" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_player" x="208" y="480" name="inst_D42D26DC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="camera" x="176" y="344" name="inst_EF3BB1BE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="hudControl" x="96" y="88" name="inst_088A84A7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="worldControl" x="120" y="88" name="inst_904CA855" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="496" name="inst_CF874E4F" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="496" name="inst_63C38C53" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="464" name="inst_0965A88B" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="464" name="inst_C9003B26" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="432" name="inst_666B861D" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="432" name="inst_596F10EA" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="336" name="inst_666907F6" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="336" name="inst_8B810AD7" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="368" name="inst_B83F5B37" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="368" name="inst_BE92DDD4" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="400" name="inst_FA30C80F" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="400" name="inst_ADC46EFC" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="528" name="inst_413CC96F" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="528" name="inst_9CDAD688" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="560" name="inst_54D0542B" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="592" name="inst_5C3013E5" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="592" name="inst_A8B9336F" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="624" name="inst_A679FE0C" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="624" name="inst_F81E844D" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="560" name="inst_20436664" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="576" name="inst_D47EFF3B" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="352" name="inst_E47CC39E" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="384" name="inst_E5F4B16C" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="384" name="inst_FCB2E6A2" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="416" name="inst_DD956583" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="416" name="inst_210D08A8" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="448" name="inst_C9CBD933" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="448" name="inst_CEDD45CC" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="480" name="inst_E1A443BE" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="480" name="inst_7B9E4DFB" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="512" name="inst_469895B5" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="512" name="inst_F2DBA1D6" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="544" name="inst_817EBF03" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="544" name="inst_E0A1FB03" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="576" name="inst_4A34145D" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="608" name="inst_96F34D97" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="608" name="inst_6FBC1E8F" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="640" name="inst_FC80E27E" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="640" name="inst_917A4C03" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="352" name="inst_BB97F911" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="320" name="inst_1C32BB77" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="320" name="inst_66E4FC94" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="48" y="288" name="inst_D6BB80E8" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="16" y="288" name="inst_41F374A8" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="592" y="304" name="inst_9C904EE5" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
+    <instance objName="Boundary" x="624" y="304" name="inst_02559F99" locked="0" code="" scaleX="2" scaleY="2" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

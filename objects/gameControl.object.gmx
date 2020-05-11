@@ -37,6 +37,7 @@ waveElement = 0;
 itemElement = 0;
 tutorialComplete = false;
 gameOver = false;
+if dev == true then show_debug_overlay(true);
 
 //Local variables
 canExit = false;
@@ -167,9 +168,13 @@ print('Game Saved');
           <argument>
             <kind>1</kind>
             <string>draw_set_color(c_white);
-draw_text(10,10,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
-if instance_exists(obj_gremlin)
-{ draw_text(10,20,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
+
+if dev == true
+{
+    draw_text(10,10,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
+    if instance_exists(ENEMY)
+    { draw_text(10,20,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
+}
 </string>
           </argument>
         </arguments>

@@ -316,7 +316,7 @@ if dead = false &amp;&amp; g_over == false
         {
             if sprite_index != spr_playerWalk &amp;&amp; (position_meeting(x,y+17,OBSTA) || position_meeting(x,y+17,obj_platform) ) then sprite_index = spr_playerWalk;
             if armIndex != spr_armWalk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = spr_armWalk;
-            if image_speed != (12+((hsp_walk)/10))/60 then image_speed = (12+((hsp_walk)/10))/60;
+            if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
             if hsp == 0 then state = IDLE;
         }
