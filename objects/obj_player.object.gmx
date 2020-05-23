@@ -620,7 +620,7 @@ if dead == false
             case 4:
             {
                 //Consumable
-                if toolReady == true
+                if toolReady == true &amp;&amp; room == rm_zero
                 {
                     scr_useConsumable(hudControl.inventorySlotIcon[hudControl.selectedSlot]);
                 }

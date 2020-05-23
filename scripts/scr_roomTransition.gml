@@ -1,6 +1,18 @@
 ///scr_roomTransition(type,text,font,color,imgSpeed,room);
 if !instance_exists(efct_roomTransition)
 {
+    //Close menus
+    
+    with hudControl
+    {
+        
+        //-Close other menus
+        invOpen = false;
+        showCraftingMenu = false;
+        settingsMenu = false;
+    }
+
+
     var i = instance_create(0,0,efct_roomTransition);
     var type = argument0;
     i.sprite_index = roomTransition_1;

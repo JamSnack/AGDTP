@@ -191,26 +191,6 @@ with obj_itemDrop instance_destroy();
 //Spawn the player object.
 instance_create(obj_pie.x,obj_pie.y-32,obj_player);
 
-//Load the player's game
-if (file_exists("agdtpSaveData.sav"))
-{
-    var _wrapper = scr_loadJson("agdtpSaveData.sav");
-    var _list = _wrapper[? "ROOT"];
-    
-    for (var k=0;k<ds_list_size(_list);k++)
-    {
-        var _map = _list[| k];
-        
-        //Unpack inventory data
-        var slot = _map[? "slot"];
-        
-        scr_invenAddItem(real(_map[? "icon"]),real(_map[? "amt"]),real(_map[? "type"]));
-    }
-    ds_map_destroy(_wrapper);
-    print("Game Loaded");
-} else {
-    scr_hudMessage("Previous game data not found.",global.fnt_menu,10,0,c_red,0);
-    scr_invenAddItem(3,0,1);
-    scr_invenAddItem(4,0,2);
-    }
+//Load inventory
+scr_loadGame();
 

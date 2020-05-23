@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>maxHp = 100;
+            <string>maxHp = 1;
 hp = maxHp;
 canHurt = true;
 hurtAlarm = 0;

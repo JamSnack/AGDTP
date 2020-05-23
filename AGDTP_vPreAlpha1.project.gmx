@@ -146,10 +146,8 @@
     <script>scripts\scr_adjacentChunkTile.gml</script>
     <script>scripts\scr_groundedConnectionCheck.gml</script>
     <script>scripts\scr_roomTransition.gml</script>
+    <script>scripts\scr_loadGame.gml</script>
   </scripts>
-  <shaders name="shaders">
-    <shader type="GLSLES">shaders\shd_fog.shader</shader>
-  </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
   </fonts>

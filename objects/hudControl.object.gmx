@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -655,7 +655,9 @@ if invOpen == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Place Blocks
+            <string>if room == rm_lobby then exit;
+
+///Place Blocks
 var xx = round(mouse_x/16)*16;
 var yy = round(mouse_y/16)*16;
 
@@ -1028,29 +1030,32 @@ draw_set_alpha(1);
           <argument>
             <kind>1</kind>
             <string>///Building indicator
-var xx = round(mouse_x/16)*16;
-var yy = round(mouse_y/16)*16;
-
-var mouse_distance_to_player = point_distance(xx,yy,obj_player.x,obj_player.y);
-
-if selectedSlot != noone &amp;&amp; mouse_distance_to_player &lt; 3*16
+if room == rm_zero
 {
-    if inventorySlotType[selectedSlot] == 3
-    {
-        
-        draw_set_alpha(0.5);
+    var xx = round(mouse_x/16)*16;
+    var yy = round(mouse_y/16)*16;
     
-        if !position_meeting(xx,yy,TILE_ALL) &amp;&amp; 
-        !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) &amp;&amp; 
-        !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &amp;&amp;
-        collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
-        { draw_set_color(c_green) } else draw_set_color(c_red);
+    var mouse_distance_to_player = point_distance(xx,yy,obj_player.x,obj_player.y);
+    
+    if selectedSlot != noone &amp;&amp; mouse_distance_to_player &lt; 3*16
+    {
+        if inventorySlotType[selectedSlot] == 3
+        {
+            
+            draw_set_alpha(0.5);
         
-        draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);
+            if !position_meeting(xx,yy,TILE_ALL) &amp;&amp; 
+            !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) &amp;&amp; 
+            !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &amp;&amp;
+            collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
+            { draw_set_color(c_green) } else draw_set_color(c_red);
+            
+            draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);
+        }
     }
+    
+    draw_set_alpha(1);
 }
-
-draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

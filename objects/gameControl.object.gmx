@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the game
-globalvar canPlace,light,currentTask,elementGoal,waveElement,itemElement,tutorialComplete,gameOver;
+globalvar canPlace,light,currentTask,elementGoal,waveElement,itemElement,gameOver;
 
 canPlace = false; //Whether or not an object can be placed.
 removeReady = true; //Can remove a block or not
@@ -35,7 +35,6 @@ currentTask = 0; //Nothing
 elementGoal = 0;
 waveElement = 0;
 itemElement = 0;
-tutorialComplete = false;
 gameOver = false;
 if dev == true then show_debug_overlay(true);
 
@@ -296,7 +295,7 @@ if dev == true
             <string>if gameOver == true
 {
     event_user(0);
-    room_goto(rm_lobby);
+    scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
 }
 </string>
           </argument>

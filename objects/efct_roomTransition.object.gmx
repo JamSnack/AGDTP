@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0;
-drawText = false;
+drawText = true;
 </string>
           </argument>
         </arguments>
@@ -105,9 +105,7 @@ print("transitioning...");
 {
     image_speed = 0;
     image_index = sprite_get_number(roomTransition_1)-1;
-    
-    drawText = true;
-    alarm[0] = 10;
+    alarm[0] = 30;
 }
 
 </string>

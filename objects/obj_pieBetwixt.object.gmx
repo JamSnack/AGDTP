@@ -102,6 +102,7 @@ if distance_to_object(obj_player) &lt; 16*3
             <kind>1</kind>
             <string>if distance_to_object(obj_player) &lt; 16*3
 {
+    with gameControl event_user(0); //Save the game
     scr_roomTransition("WARP","Warping to: Grassy Highlands...",global.fnt_menu,c_white,45/60,rm_zero);
 }
 </string>

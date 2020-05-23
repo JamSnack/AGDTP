@@ -79,7 +79,11 @@ alarm[0]=1;
 room_goto(room_next(room));
 
 //Font
-global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.",0,0)
+global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.",0,0);
+
+//Other globals
+globalvar tutorialComplete;
+tutorialComplete = false;
 
 </string>
           </argument>
@@ -104,7 +108,7 @@ global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt
           <argument>
             <kind>1</kind>
             <string>///Delayed Surface resize
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
+surface_resize(application_surface,display_get_width(),display_get_height());
 </string>
           </argument>
         </arguments>
@@ -205,6 +209,27 @@ alarm[0]=1;
           <argument>
             <kind>4</kind>
             <string>0</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>alarm[1] = 1;
+</string>
           </argument>
         </arguments>
       </action>
