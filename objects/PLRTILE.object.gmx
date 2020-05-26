@@ -57,6 +57,7 @@ itemDrop = true;
           <argument>
             <kind>1</kind>
             <string>if itemDrop == true then scr_dropItem(tileID,1,type,x,y);
+print(hp);
 
 //ACTION MUST BE DELAYED A FRAME. ALARM USAGE IS NECESSARY.
 scr_updateConnections(x,y);
@@ -118,7 +119,7 @@ scr_groundedConnectionCheck();
             <string>///canHurt reset and hitCheck
 canHurt = true;
 
-if hp &lt;= 0 then itemDrop = false; instance_destroy();
+if hp &lt;= 0 { itemDrop = false; instance_destroy(); }
 </string>
           </argument>
         </arguments>

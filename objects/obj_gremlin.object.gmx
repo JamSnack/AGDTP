@@ -130,8 +130,8 @@ target = obj_player;
           <argument>
             <kind>1</kind>
             <string>if canHurt == false then state = IDLE;
-objective = obj_pie;
 var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
+var plrTileAggroRange = 24;
 
 //Gremlin Ai
 if stateLock == false
@@ -140,13 +140,14 @@ if stateLock == false
     { state = MOVE; objective = target; }
     else if target == obj_pie
     {
-        if position_meeting(x+(16*image_xscale),y,PLRTILE)
+        var plrTile = instance_nearest(x+(16*image_xscale),y,PLRTILE);
+        if distance_to_object(plrTile) &lt;= plrTileAggroRange
         {
-            objective = instance_position(x+(16*image_xscale),y,PLRTILE);
+            objective = plrTile;
             state = MOVE; 
-        } else if position_meeting(x,y+16,PLRTILE)
+        } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
         {
-            objective = instance_position(x,y+16,PLRTILE);
+            objective = instance_position(x,y+plrTileAggroRange,PLRTILE);
             state = MOVE;
         }
         else objective = obj_pie;
@@ -166,6 +167,33 @@ if stateLock == false
 if instance_exists(objective) 
 { ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 
 else target = obj_pie;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+
+draw_text(x,y,string(stateLock));
+draw_text(x,y+15,string(state));
+draw_text(x,y+30,object_get_name(objective));
 </string>
           </argument>
         </arguments>
