@@ -3,8 +3,8 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
-  <persistent>-1</persistent>
+  <depth>-8</depth>
+  <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,72 +25,31 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Display Properties
-globalvar dev;
-dev = true; //Dev tool boolean.
+            <string>//script variables
+targX = x;
+targY = y;
+targSizeX = 0;
+targSizeY = 0;
+sizeX = 0;
+sizeY = 0;
+targObject = noone;
+type = 0;
 
-ideal_width=0;
-ideal_height=247;
-zoom=1;
-max_zooom=1;
-display_width=display_get_width();
-display_height=display_get_height();
 
-aspect_ratio=display_width/display_height;
+//Locals
+displayContents = false;
+destroyRange = 16*2;
+destroy = false;
+init = false; //bool initialized ui
 
-ideal_width=round(ideal_height*aspect_ratio);
-//ideal_height=round(ideal_width / aspect_ratio);
-
-//Perfect Pixel Scaling
-if(display_width mod ideal_width != 0)
-{
-  var d = round(display_width/ideal_width);
-  ideal_width=display_width/d;
-}
-if(display_height mod ideal_height != 0)
-{
-  var d = round(display_height/ideal_height);
-  ideal_height=display_height/d;
-}
-
-//Check for odd numbers
-if(ideal_width &amp; 1)
-  ideal_width++;
-if(ideal_height &amp; 1)
-  ideal_height++;
-    
-//Calculate Max Zoom
-max_zoom=floor(display_width/ideal_width);  
-  
-for(var i=1; i&lt;=room_last; i++)
-{
-  if(room_exists(i))
-  {
-    room_set_view(i,0,true,0,0,ideal_width,ideal_height,0,0,ideal_width,ideal_height,0,0,0,0,-1);
-    room_set_view_enabled(i,true);
-  }
-}
-
-window_set_size(ideal_width,ideal_height);
-display_set_gui_size(ideal_width,ideal_height);
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
-  
-alarm[0]=1;
-room_goto(room_next(room));
-
-//Font
-global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
-
-//Other globals
-globalvar tutorialComplete;
-tutorialComplete = false;
-
+//Ui buttons
+deconstructBaseInit = false; //bool to begin the countdown to base destruction.
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="2" enumb="1">
+    <event eventtype="1" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -107,8 +66,7 @@ tutorialComplete = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Delayed Surface resize
-surface_resize(application_surface,display_get_width(),display_get_height());
+            <string>print('audios!');
 </string>
           </argument>
         </arguments>
@@ -131,14 +89,14 @@ surface_resize(application_surface,display_get_width(),display_get_height());
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Center window
-window_center();
+            <string>///Reset buttons
+deconstructBaseInit = false;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="113">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -155,17 +113,64 @@ window_center();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>zoom = 3;
+            <string>///Animate and Other
 
-window_set_size(ideal_width*zoom,ideal_height*zoom);
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
-alarm[0]=1;
+//Scale and translate the Ui accordingly.
+
+var r = sizeX/targSizeX;
+if sizeX == 0 then r = 0.1;
+
+if destroy == false
+{
+    if sizeX != targSizeX then sizeX = lerp(sizeX,targSizeX,r);
+    if sizeY != targSizeY then sizeY = lerp(sizeY,targSizeY,r);
+} else if destroy == true
+{
+   if sizeX &gt; 0 then sizeX -= ceil(sizeX*0.1);
+   if sizeY &gt; 0 then sizeY -= ceil(sizeY*0.1);
+}
+
+if x != targX then x = lerp(x,targX,r);
+if y != targY then y = lerp(y,targY,r);
+
+
+
+//Display contents
+if displayContents == false &amp;&amp; destroy == false
+{
+    if sizeX == targSizeX &amp;&amp; sizeY == targSizeY
+    {
+        displayContents = true;
+        init = true;
+    }
+}
+
+
+
+//Delete the Ui
+if destroy == false &amp;&amp; init == true
+{
+    var sX = (sizeX/targSizeX)*sizeX;
+    var sY = (sizeY/targSizeY)*sizeY;
+    var b1 = x-sX+8;
+    var b2 = x+sX;
+    var tx = obj_player.x;
+    
+    if (tx &lt; b1-destroyRange || tx &gt; b2+destroyRange) 
+    {
+        destroy = true;
+        displayContents = false;
+    }
+}
+//- instance_destroy the ui.
+if destroy == true &amp;&amp; sizeX &lt;= 0 &amp;&amp; sizeY &lt;= 0 &amp;&amp; init == true then instance_destroy();
+
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="112">
+    <event eventtype="6" enumb="56">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -182,36 +187,50 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>zoom = 1;
-window_set_size(ideal_width*zoom,ideal_height*zoom);
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
-alarm[0]=1;
+            <string>///Ui functionality
+if init == true
+{
+    var sX = (sizeX/targSizeX)*sizeX;
+    var sY = (sizeY/targSizeY)*sizeY;
+    
+    
+    //Destroy cases
+    if destroy == false
+    {
+        if !point_in_rectangle(mouse_x,mouse_y,x-sX,y-sY,x+sX,y+sY)
+        { destroy = true; displayContents = false; }
+    }
+    
+    //- NO RUNNO EL CODEO :))))))))))))))))))))))
+    if destroy == true then exit;
+    
+    
+    //Ui Functionality
+    
+    //- Destroy Base
+    //##Magic Number Explanation: Hitboxes are slightly distorted for some reason. x2 and y2
+    // are roughly offset by 8 &lt; x &lt; 9 pixels at this size.##
+    if point_in_rectangle(mouse_x,mouse_y,x-18,y-27,x+26,y-1)
+    {
+        if deconstructBaseInit == true
+        {
+            scr_deconstructBase();
+            destroy = true;
+            displayContents = false;
+        }
+        else if deconstructBaseInit == false
+        {
+            deconstructBaseInit = true;
+            alarm[0] = room_speed*2;
+        }
+    }
+}
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="70">
-      <action>
-        <libid>1</libid>
-        <id>531</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_fullscreen</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
-          </argument>
-        </arguments>
-      </action>
+    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -228,7 +247,46 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[1] = 1;
+            <string>var sX = (sizeX/targSizeX)*sizeX;
+var sY = (sizeY/targSizeY)*sizeY;
+
+//Draw an arrow to calling object.
+if targetObject != noone &amp;&amp; displayContents == true
+{
+    var tx = targetObject.x;
+    
+    //Boundaries
+    var b1 = x-sX;
+    var b2 = x+sX;
+    
+    //Keep the arrow within the Ui.
+    if tx &lt; b1+8 then tx = b1+8;
+    else if tx &gt; b2 then tx = b2;
+    
+    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY,sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
+}
+
+
+//Draw the ui background.
+draw_nineSliceBox(spr_ui_9slice,x-sX,y-sY,x+sX,y+sY,0);
+
+//Draw UI options
+if displayContents == true
+{
+    switch type
+    {
+        case "PIE":
+        {
+            //Draw Pie buttons
+            draw_nineSliceBox(spr_ui_button,x-14,y-27,x+14,y-9,deconstructBaseInit);
+            if deconstructBaseInit == false
+            { draw_text_transformed(x-12.5,y-18,"Deconstruct#    Base",0.6,0.6,0); }
+            else
+            { draw_text_transformed(x-11,y-18," Are you#  sure?",0.6,0.6,0); }
+        }
+        break;
+    }
+}
 </string>
           </argument>
         </arguments>

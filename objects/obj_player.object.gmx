@@ -69,6 +69,7 @@ pickDamage = 1;
 pickLevel = 0;
 pickRange = 4;
 g_over = false;
+canUseTool = true;
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
@@ -555,7 +556,7 @@ platformCollide = false;
             <kind>1</kind>
             <string>///Use Tool
 //Check for inventory use
-if dead == false
+if dead == false &amp;&amp; canUseTool == true
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
@@ -695,6 +696,29 @@ if distance_to_object(INTERACT) &lt; 32 &amp;&amp; instance_nearest(x,y,INTERACT
 {
     with instance_nearest(x,y,INTERACT) event_user(0);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="16">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>scr_popUiCreate(x,y,x,y-80,3*16,2*16,self,"PIE");
 </string>
           </argument>
         </arguments>
