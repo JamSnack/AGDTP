@@ -82,6 +82,7 @@ stateLock = false;
 
 objective = target;
 state = MOVE;
+image_index = sign(objective.x-x);
 </string>
           </argument>
         </arguments>
@@ -138,9 +139,13 @@ if stateLock == false
 {
     if canSeeTarget 
     { state = MOVE; objective = target; }
-    else if target == obj_pie
+    else
     {
         var plrTile = instance_nearest(x+(16*image_xscale),y,PLRTILE);
+        
+        if instance_exists(PLRTILE)
+        { if plrTile.canHurt == false then plrTile = instance_nearest(plrTile.x,plrTile.y,PLRTILE); }
+        
         if distance_to_object(plrTile) &lt;= plrTileAggroRange
         {
             objective = plrTile;
@@ -151,7 +156,7 @@ if stateLock == false
             state = MOVE;
         }
         else objective = obj_pie;
-    } else if target == obj_player then target = obj_pie;
+    }
     
     //Aggro range
     if target != obj_player
@@ -161,7 +166,7 @@ if stateLock == false
         {
             objective = obj_player;
             target = obj_player;
-        } else { target = obj_pie; state = WANDER; stateLock = true; alarm[stateLockAlarm] = 40;  }
+        }
     } else if obj_player.dead == true then { target = obj_pie; }
 }
 if instance_exists(objective) 
@@ -190,10 +195,6 @@ else target = obj_pie;
           <argument>
             <kind>1</kind>
             <string>draw_self();
-
-draw_text(x,y,string(stateLock));
-draw_text(x,y+15,string(state));
-draw_text(x,y+30,object_get_name(objective));
 </string>
           </argument>
         </arguments>

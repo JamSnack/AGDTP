@@ -6,14 +6,20 @@ if room == rm_zero
 {
     if interm == true
     {
-        for(i=0;i<instance_number(PLRTILE);i++)
-        with instance_find(PLRTILE,i)
+        for(j=0;j<3;j++)
         {
-            if (x > RAIDBOUND_Lower && x < RAIDBOUND_Upper)
+            //Run the clean loop thrice
+            for(i=0;i<instance_number(PLRTILE);i++)
             {
-                itemDrop = true;
-                instance_destroy();
-            } else print('fuck');
+                with instance_find(PLRTILE,i)
+                {
+                    if (x > RAIDBOUND_Lower && x < RAIDBOUND_Upper)
+                    {
+                        itemDrop = true;
+                        instance_destroy();
+                    }
+                }
+            }
         }
     }
 }

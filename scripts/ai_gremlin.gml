@@ -41,7 +41,7 @@ if objective.canHurt == true
         
         state = WANDER;
         stateLock = true;
-        alarm[stateLockAlarm] = 20;
+        alarm[stateLockAlarm] = 30;
     }
 }
 

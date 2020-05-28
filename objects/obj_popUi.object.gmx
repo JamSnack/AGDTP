@@ -103,8 +103,8 @@ if destroy == false
     if sizeY != targSizeY then sizeY = lerp(sizeY,targSizeY,r);
 } else if destroy == true
 {
-   if sizeX &gt; 0 then sizeX -= ceil(sizeX*0.1);
-   if sizeY &gt; 0 then sizeY -= ceil(sizeY*0.1);
+   if sizeX &gt; 0 then sizeX -= ceil(sizeX*0.25);
+   if sizeY &gt; 0 then sizeY -= ceil(sizeY*0.25);
 }
 
 if x != targX then x = lerp(x,targX,r);
@@ -140,7 +140,8 @@ if destroy == false &amp;&amp; init == true
     }
 }
 //- instance_destroy the ui.
-if destroy == true &amp;&amp; sizeX &lt;= 0 &amp;&amp; sizeY &lt;= 0 &amp;&amp; init == true then instance_destroy();
+//--##Magic Numbers: 9 &gt; nineslice box.
+if destroy == true &amp;&amp; sizeX &lt;= 9 &amp;&amp; sizeY &lt;= 9 &amp;&amp; init == true then instance_destroy();
 
 </string>
           </argument>
@@ -227,6 +228,11 @@ if init == true
             <string>var sX = (sizeX/targSizeX)*sizeX;
 var sY = (sizeY/targSizeY)*sizeY;
 
+
+//Draw the ui background.
+draw_nineSliceBox(spr_ui_9slice,x-sX,y-sY,x+sX,y+sY,destroy);
+
+
 //Draw an arrow to calling object.
 if targetObject != noone &amp;&amp; displayContents == true
 {
@@ -240,12 +246,9 @@ if targetObject != noone &amp;&amp; displayContents == true
     if tx &lt; b1+8 then tx = b1+8;
     else if tx &gt; b2 then tx = b2;
     
-    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY,sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
+    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY+(2*floor(sizeY/16)),sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
 }
 
-
-//Draw the ui background.
-draw_nineSliceBox(spr_ui_9slice,x-sX,y-sY,x+sX,y+sY,0);
 
 //Draw UI options
 if displayContents == true
