@@ -57,7 +57,7 @@ if currentTask == 2 then currentTask = 3;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(7,1,3,x,y+4);
+            <string>scr_dropItem(7,1,3,x,y);
 </string>
           </argument>
         </arguments>

@@ -175,6 +175,7 @@ heal_Time += 1;
 var playerX = obj_player.x;
 var playerY = obj_player.y;
 
+//Deactivation and Reactivation updates every two tiles.
 if abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32
 {
     //Activate everything inside the camera view.
@@ -202,9 +203,13 @@ if abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32
             }
         }
     }
+}
+
+//-----------Light up underground tiles----------------
+//Updates every tile.
+if (abs(playerX-plr_xBuffer) &gt; 16 || abs(playerY-plr_yBuffer) &gt; 16)
+{
     
-    
-    //-----------Light up underground tiles----------------
     if playerY &gt; stoneLayer-48
     {
     
@@ -237,6 +242,7 @@ if abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32
         }
     }
 }
+
 
 //------------- Proliferate every tick ---------------------------
 if heal_Time &gt;= room_speed &amp;&amp; interm == true

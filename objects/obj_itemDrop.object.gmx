@@ -3,7 +3,7 @@
   <spriteName>spr_itemDrops</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-2</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -35,7 +35,7 @@ speed = 3.5;
 vsp = 1;
 canPickUp = false;
 time = 0;
-alarm[0] = room_speed*3;
+alarm[0] = room_speed*1; //canPickUp
 </string>
           </argument>
         </arguments>
@@ -124,7 +124,7 @@ switch state
             {
                 speed = 0;
                 state = 1;
-            }    
+            }
     
         //Fall to ground.
         if speed == 0 then state = 1;
@@ -139,9 +139,15 @@ switch state
         if place_meeting(x,y+vsp,OBSTA)
         {
             while !place_meeting(x,y+1,OBSTA)
-            {
-                y+=1;
-            }
+            { y+=1; }
+            
+            vsp = 0;
+            exit;
+        } else if place_meeting(x,y+vsp,obj_platform)
+        {
+            while !place_meeting(x,y+1,obj_platform)
+            { y+=1; }
+            
             vsp = 0;
             exit;
         }

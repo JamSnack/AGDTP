@@ -34,7 +34,7 @@ tool_buffer = noone; //The last tool the player held before switching to buildin
 knockBack = false;
 knockPoint_x = 0;
 knockPoint_y = 0;
-climbSpeed = 1.5;
+climbSpeed = 1;
 platformCollide = true;
 
 image_speed = 10/60;
@@ -218,11 +218,9 @@ if dead = false &amp;&amp; g_over == false
     //Vertical Movement
     var hdir = sign(vsp); //up = -1, down = 1.
     
-    //--Ladder logic
-    if place_meeting(x,y,obj_ladder) 
-    {
-        if !key_jump {vsp = 1;} else vsp = 0;
-    }
+    //Ladder Logic
+    if place_meeting(x,y,obj_ladder)
+    { vsp = 0; }
     
     //--Platform Logic
     if key_down
@@ -433,8 +431,8 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if !place_meeting(x,y-climbSpeed,OBSTA) &amp;&amp; keyboard_check(ord('W')) then y-=climbSpeed
-else if !place_meeting(x,y+climbSpeed,OBSTA) &amp;&amp; keyboard_check(ord('S')) then y+=climbSpeed;
+            <string>if !place_meeting(x,y-climbSpeed,OBSTA) &amp;&amp; key_jump then y-=climbSpeed
+else if !place_meeting(x,y+climbSpeed,OBSTA) &amp;&amp; key_down then y+=climbSpeed;
 
 platformCollide = false;
 </string>
@@ -556,13 +554,18 @@ platformCollide = false;
             <kind>1</kind>
             <string>///Use Tool
 //Check for inventory use
-if dead == false &amp;&amp; canUseTool == true
+if dead == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
-    
-    if !point_in_rectangle(dx,dy,0,35,125,45) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,200) &amp;&amp; hudControl.cursorHoldItem == false
-        
+    //Defines the crafting menu's dimensions.
+    var _cmX = view_wview[0]/2-120;
+    var _cmY = view_hview[0]/2-105;
+    if //Inventory stipulations
+    !point_in_rectangle(dx,dy,0,35,125,45) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,200) 
+    &amp;&amp; hudControl.cursorHoldItem == false &amp;&amp;
+    //Crafting Menu stipulations
+    !(hudControl.showCraftingMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
         switch tool
         {

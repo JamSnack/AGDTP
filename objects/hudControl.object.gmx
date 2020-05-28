@@ -519,6 +519,7 @@ if obj_player.dead == false
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
         
+            //This function represents the crafting menu as a whole.
         if point_in_rectangle(dx,dy,_posX,_posY,250+_posX,200+_posY)
         {   
             for(i=0;i&lt;currentCraftingSlots;i++)
@@ -559,7 +560,7 @@ if obj_player.dead == false
                 } 
             }
             
-        } else { craftIndex = -1; craftSelect = -1; }
+        } else { craftIndex = -1; craftSelect = -1; showCraftingMenu = false; }
     } else { craftIndex = -1; craftSelect = -1; }
 }
 </string>

@@ -17,6 +17,8 @@ switch item
     // Gremlin Talisman
     case 14:
     {   
+        if interm == false then exit;
+        
         worldControl.world_Time = 0;
         scr_raidControl("RAID",0,0,0,0); // Preset Raid
         toolReady = false;
