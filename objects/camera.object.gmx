@@ -33,21 +33,7 @@ view_max_zoom=10;
 
 cloudBkg_xOffset = 0;
 
- if room == rm_lobby
-{
-    //This variable will be used for the stars
-    cloudBkg_xOffset = 0;
-    //if cloudBkg_xOffset &gt; 640 then cloudBkg_xOffset = 0;
-    print('set');
-    background_hspeed[1] = 0.1;
-    background_hspeed[2] = 0.12;
-    background_hspeed[3] = 0.13;
-    
-    background_vspeed[0] = 0.05;
-    background_vspeed[1] = 0.1;
-    background_vspeed[2] = 0.11;
-    background_vspeed[3] = 0.12;
-}
+
 </string>
           </argument>
         </arguments>
@@ -118,7 +104,7 @@ if instance_exists(gameControl)
 //Need to change this to account for other regions in the future ;p
 if room == rm_zero
 {
-    cloudBkg_xOffset += 0.1;
+    cloudBkg_xOffset += 0.05;
     if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;
     
     background_x[0] = view_xview/1.1 + cloudBkg_xOffset;
@@ -129,6 +115,21 @@ if room == rm_zero
     background_y[1] = (-view_yview/5);
     background_y[2] = (-view_yview/5.15)-64;
     background_y[3] = (-view_yview/5.25)-64;
+} else if room == rm_lobby
+{
+    //This variable will be used for the stars
+    cloudBkg_xOffset += 0.05;
+    //if cloudBkg_xOffset &gt; 640 then cloudBkg_xOffset = 0;
+    background_x[1] = view_xview/1.15 + cloudBkg_xOffset;
+    background_x[2] = view_xview/1.3 + cloudBkg_xOffset;
+    background_x[3] = view_xview/1.45 + cloudBkg_xOffset;
+    
+    background_y[1] = (-view_yview/5) + cloudBkg_xOffset/1.1;
+    background_y[2] = (-view_yview/5.15)-64 + cloudBkg_xOffset;
+    background_y[3] = (-view_yview/5.25)-64 + cloudBkg_xOffset;
+    
+    background_vspeed[0] = 0.05;
+
 }
 
 </string>

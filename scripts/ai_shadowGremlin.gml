@@ -47,7 +47,7 @@ switch current_state
     {
         //Direction
         var dir = sign(objective.x-x);
-        var vdir = sign(objective.y-y);
+        var vdir = sign(objective.y-(y+16));
         
         //Horizontal Acceleration
         if dir == -1 //Objective is to the right
@@ -59,9 +59,6 @@ switch current_state
         { if vAccel > -maxAccel then vAccel -= accelRate; }
         else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
         
-        x += hAccel;
-        y += vAccel;
-        
         image_xscale = dir;
         
     }
@@ -69,11 +66,71 @@ switch current_state
     
     case WANDER:
     {
-        
-        x += hAccel;
-        y += vAccel;
         if stateLock == false then state = MOVE;
     }
     break;
 }
 
+
+//------------------------------------------------------
+//Collision and movement
+var targetPlrTile = noone;
+
+if !place_meeting(x+hAccel,y,OBSTA)
+{ x += hAccel; }
+else
+{
+    targetPlrTile = position_meeting(x+hAccel,y,OBSTA);
+}
+
+if !place_meeting(x,y+vAccel,OBSTA)
+{ y += vAccel; }
+else
+{
+    targetPlrTile = position_meeting(x,y+vAccel,OBSTA);
+}
+
+//Attack a tile.
+if instance_exists(targetPlrTile)
+{ 
+    if object_is_ancestor(targetPlrTile,PLRTILE)
+    { with targetPlrTile scr_hurt(other.damage,DEF_HURT,0,0,0); }
+}
+
+//Knockback Collision ---------------------------------------------
+if ( hspeed != 0 || vspeed != 0 )
+{
+    if place_meeting(x+hspeed,y,OBSTA)
+    {
+        var dir = sign(hspeed);
+        
+        while !place_meeting(x+hspeed,y,OBSTA)
+        { x+=dir; }
+        hspeed = 0;
+    }
+    
+    if place_meeting(x,y+vspeed,OBSTA)
+    {
+        var dir = sign(vspeed);
+        
+        while !place_meeting(x,y+vspeed,OBSTA)
+        { y+=dir; }
+    
+        vspeed = 0;
+    }
+    
+    if place_meeting(x,y+4,OBSTA)
+    {
+        var positivity = sign(hspeed);
+    
+        if positivity == 1
+        {
+            hspeed -= DEF_FRIC;
+        } else if positivity == -1
+        {
+            hspeed += DEF_FRIC;
+        }
+        
+        if abs(hspeed) < 1 then hspeed = 0;
+    }
+}

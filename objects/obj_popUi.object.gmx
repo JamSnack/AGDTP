@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-8</depth>
+  <depth>-4</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -258,11 +258,11 @@ if displayContents == true
         case "PIE":
         {
             //Draw Pie buttons
-            draw_nineSliceBox(spr_ui_button,x-14,y-27,x+14,y-9,deconstructBaseInit);
+            draw_nineSliceBox(spr_ui_button,x-17,y-27,x+11,y-9,deconstructBaseInit);
             if deconstructBaseInit == false
-            { draw_text_transformed(x-12.5,y-18,"Deconstruct#    Base",0.6,0.6,0); }
+            { draw_text_transformed(x-15.5,y-18,"Deconstruct#    Base",0.6,0.6,0); }
             else
-            { draw_text_transformed(x-11,y-18," Are you#  sure?",0.6,0.6,0); }
+            { draw_text_transformed(x-13,y-18," Are you#  sure?",0.6,0.6,0); }
         }
         break;
     }

@@ -43,7 +43,7 @@ b_damage = 40; //Bomb damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
 attackCooldown = 3; //How long until the bombKing can launch another attack.
 
 hurtAlarm = 1;
-friction = DEF_FRIC;
+friction = 0.2;
 
 target = obj_pie; //objective priority.
 
@@ -222,9 +222,6 @@ var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
 //Gremlin Ai
 target = obj_pie;
 objective = obj_pie;
-
-if point_distance(x,y,obj_player.x,obj_player.y) &lt; point_distance(target.x,target.y,x,y)
-{ objective = obj_player; }
 
 if instance_exists(objective) 
 { ai_bombKing(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 

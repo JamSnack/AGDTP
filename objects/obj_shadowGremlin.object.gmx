@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 10;
+hp = 12;
 image_speed = 15/60;
 state = WANDER;
 stunned = false;
@@ -164,7 +164,7 @@ vAccel = 0;
             <string>if canHurt == false then state = IDLE;
 var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
 
-//Gremlin Ai
+//Shadow Gremlin Ai
 
 if stateLock == false
 {    

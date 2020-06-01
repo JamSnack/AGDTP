@@ -78,10 +78,10 @@ hp = maxHp;
             <kind>1</kind>
             <string>///Update sprite
 
-var ifRight = position_meeting(x+16,y,TILE_ALL);
-var ifLeft = position_meeting(x-16,y,TILE_ALL);
-var ifUp = position_meeting(x,y-16,TILE_ALL);
-var ifDown = position_meeting(x,y+16,TILE_ALL);
+var ifRight = position_meeting(x+16,y,OBSTA);
+var ifLeft = position_meeting(x-16,y,OBSTA);
+var ifUp = position_meeting(x,y-16,OBSTA);
+var ifDown = position_meeting(x,y+16,OBSTA);
 
 
 
