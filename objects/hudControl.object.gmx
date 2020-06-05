@@ -40,6 +40,7 @@ cursorHoldItem = false;
 cursorItem = noone;
 cursorAmt = noone;
 cursorSlot = noone;
+cursorTags = noone;
 selectedSlot = noone;
 drawCursorItem = false;
 d_click = false;
@@ -67,6 +68,7 @@ craftBuffer = 0; //Last Item crafted
 inventorySlotIcon[maxInvenSlots-1] = 0;
 inventorySlotAmt[maxInvenSlots-1] = 0;
 inventorySlotType[maxInvenSlots-1] = 0;
+inventorySlotTags[maxInvenSlots-1] = 0; //Each slot has '3' tag slots.
 
 
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -74,6 +76,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
     inventorySlotIcon[i] = 0; //Nothing
     inventorySlotAmt[i] = 0; //No items
     inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
+    inventorySlotTags[i] = 0; //No tags
 }
 
 //Settings menu
@@ -260,22 +263,26 @@ for (i=0;i&lt;maxInvenSlots;i++)
         if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4)) &amp;&amp; cursorHoldItem == true
         {
         
-            //-----------------------------Copy current item and place in old slot if need be.----------------------------
+        //-----------------------------Copy current item and place in old slot if need be.----------------------------
             if i != cursorSlot
             {
-                //Replace slots with cursor item.
-                
-                if inventorySlotIcon[i] = cursorItem &amp;&amp; inventorySlotAmt[i] &gt; 0
+            
+            
+            //- Replace slots with cursor item.
+                //-- Case: The new slot is the same item &amp; can be stacked.
+                if inventorySlotIcon[i] == cursorItem &amp;&amp; inventorySlotAmt[i] &gt; 0 //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
                     
-                    //-Update the slot previously picked up
+                    //-Update the slot previously picked up.
+                        //-- Case: the old slot will have no AMT left.
                     if inventorySlotAmt[cursorSlot]-cursorAmt == 0
                     {
                         inventorySlotIcon[cursorSlot] = 0;
                         inventorySlotType[cursorSlot] = 0;
                         inventorySlotAmt[cursorSlot] = 0;
+                        inventorySlotTags[cursorSlot] = 0;
                     } 
-                    else
+                    else //Case: the old slot will have left-over items.
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
                    
                     //Update amount in cursor 
@@ -296,6 +303,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                     inventorySlotIcon[cursorSlot] = inventorySlotIcon[i];
                     inventorySlotAmt[cursorSlot] = inventorySlotAmt[i];
                     inventorySlotType[cursorSlot] = inventorySlotType[i];
+                    inventorySlotTags[cursorSlot] = inventorySlotTags[i];
                 }
                 else
                 {
@@ -304,6 +312,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                         inventorySlotIcon[cursorSlot] = 0;
                         inventorySlotType[cursorSlot] = 0;
                         inventorySlotAmt[cursorSlot] = 0;
+                        inventorySlotTags[cursorSlot] = 0;
                     } 
                     else
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
@@ -315,6 +324,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 inventorySlotIcon[i] = cursorItem;
                 inventorySlotType[i] = cursorType;
                 inventorySlotAmt[i] = cursorAmt;
+                inventorySlotTags[i] = cursorTags;
                 
                 selectedSlot = noone;
                 pickupTimer = 0;
@@ -346,6 +356,7 @@ cursorItem = noone;
 cursorAmt = noone;
 cursorSlot = noone;
 cursorType = noone;
+cursorTags = noone;
 
 
 ///Crafting timer reset
@@ -622,6 +633,7 @@ if invOpen == true
                     cursorAmt = inventorySlotAmt[i];
                     cursorType = inventorySlotType[i];
                     cursorSlot = i;
+                    cursorTags = inventorySlotTags[i];
                     
                     break;
                 }
@@ -738,10 +750,13 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Draw Ui
+            <string>///Draw Ui
 
 var dispWidth = view_wview;
 var dispHeight = view_hview;
+
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
 
 //inventory -----------------------------------------
 if invOpen = true
@@ -926,8 +941,12 @@ if room == rm_zero
 //-----Draw held item
 if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 {
-    draw_sprite_ext(spr_itemDrops,cursorItem,device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),0.75,0.75,0,c_white,1);
-    if cursorAmt &gt; 0 then draw_text(device_mouse_x_to_gui(0)+4,device_mouse_y_to_gui(0)+4,string(cursorAmt));
+    draw_sprite_ext(spr_itemDrops,cursorItem,mx,my,0.75,0.75,0,c_white,1);
+    if cursorAmt &gt; 0 
+    {
+        draw_text(mx+3,my+4,string(cursorAmt));
+        draw_text(mx+4,my+10,cursorTags);
+    }
 }
 
 //-------------------- Healthbars ---------------------------

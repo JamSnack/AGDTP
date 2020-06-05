@@ -76,6 +76,11 @@ friction = 0.3;
 
 //REMOVE LATER-DEMO ONLY
 if room == rm_lobby then audio_stop_all();
+
+//Tags
+var tags = ds_list_create();
+ds_list_add(tags,"strong");
+scr_dropItem(3,0,1,x,y,tags);
 </string>
           </argument>
         </arguments>
