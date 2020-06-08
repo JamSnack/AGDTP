@@ -55,7 +55,7 @@ knockType = noone;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if interm == true then scr_dropItem(tileID,1,type,x,y);
+            <string>if interm == true then scr_dropItem(tileID,1,type,x,y,noone);
 scr_updateConnections(x,y);
 </string>
           </argument>

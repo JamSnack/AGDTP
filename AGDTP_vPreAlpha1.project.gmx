@@ -7,6 +7,7 @@
   <sounds name="sound">
     <sound>sound\snd_overworld_1</sound>
     <sound>sound\snd_wave_1</sound>
+    <sound>sound\snd_theStarsForever</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
@@ -150,6 +151,7 @@
     <script>scripts\scr_loadGame.gml</script>
     <script>scripts\scr_popUiCreate.gml</script>
     <script>scripts\scr_deconstructBase.gml</script>
+    <script>scripts\scr_musicTransition.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>

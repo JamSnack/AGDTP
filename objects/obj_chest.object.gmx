@@ -55,7 +55,7 @@ image_speed = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(9,4,0,x,y);
+            <string>scr_dropItem(9,4,0,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -106,7 +106,7 @@ if opened == false
         
         if itemSelector = copper then amt = cAmt else if itemSelector = stick then amt = sAmt;
         
-        scr_dropItem(itemSelector,amt,type,x,y);
+        scr_dropItem(itemSelector,amt,type,x,y,noone);
     }
 }
 </string>

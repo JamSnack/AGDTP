@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>image_speed = 0;
 drawText = true;
+
+audio_sound_gain(music,0,room_speed*10);
 </string>
           </argument>
         </arguments>
@@ -78,6 +80,8 @@ print("transitioning...");
     image_speed = -speed_current;
     image_index = floor(image_index);
     if image_index &lt;= 0 then instance_destroy();
+    
+    if rm_goto == rm_lobby then scr_musicTransition(snd_theStarsForever,room_speed*20);
 }
 </string>
           </argument>

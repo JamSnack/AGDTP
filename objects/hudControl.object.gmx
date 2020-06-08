@@ -68,7 +68,7 @@ craftBuffer = 0; //Last Item crafted
 inventorySlotIcon[maxInvenSlots-1] = 0;
 inventorySlotAmt[maxInvenSlots-1] = 0;
 inventorySlotType[maxInvenSlots-1] = 0;
-inventorySlotTags[maxInvenSlots-1] = 0; //Each slot has '3' tag slots.
+inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '3' tag slots.
 
 
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -76,7 +76,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
     inventorySlotIcon[i] = 0; //Nothing
     inventorySlotAmt[i] = 0; //No items
     inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
-    inventorySlotTags[i] = 0; //No tags
+    inventorySlotTags[i] = noone; //No tags
 }
 
 //Settings menu
@@ -296,7 +296,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                         scr_invenRemoveItem(inventorySlotIcon[cursorSlot],
                                             inventorySlotAmt[cursorSlot]-cursorAmt,
                                             inventorySlotType[cursorSlot],
-                                            true,cursorSlot);
+                                            true,cursorSlot,inventorySlotTags[cursorSlot]);
                     }
                 
                     //Copy current slot and update the cursorSlot.
@@ -333,7 +333,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 
                 exit;
             }
-        } else if i == cursorSlot &amp;&amp; !point_in_rectangle(dx,dy,0,50-15,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot); selectedSlot = noone; break; }
+        } else if i == cursorSlot &amp;&amp; !point_in_rectangle(dx,dy,0,50-15,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
     }
     
     
@@ -716,7 +716,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                         {
                             instance_create(xx,yy,scr_invenTileIndex(inventorySlotIcon[selectedSlot]));
                             scr_tileUpdate(xx,yy,3,3,8);
-                            scr_invenRemoveItem(0,1,3,false,selectedSlot);
+                            scr_invenRemoveItem(0,1,3,false,selectedSlot,noone);
                             if inventorySlotAmt[selectedSlot] == 0 then selectedSlot = noone;
                             lastPlaceX = xx;
                             lastPlaceY = yy;
@@ -938,14 +938,29 @@ if room == rm_zero
 }
     
     
-//-----Draw held item
+//-----Draw cursor item
 if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 {
+    //-Draw item
     draw_sprite_ext(spr_itemDrops,cursorItem,mx,my,0.75,0.75,0,c_white,1);
+    
+    //-Draw item amount
     if cursorAmt &gt; 0 
     {
         draw_text(mx+3,my+4,string(cursorAmt));
-        draw_text(mx+4,my+10,cursorTags);
+    }
+    
+    //-- Draw item tags
+    if cursorTags != undefined
+    {
+        if ds_exists(cursorTags,ds_type_list)
+        { 
+            for(i=0;i&lt;ds_list_size(cursorTags);i++)
+            {
+                draw_text(mx+4,my+10*i,cursorTags[| i]);
+                print('tag');
+            }
+        }
     }
 }
 

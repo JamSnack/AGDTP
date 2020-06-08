@@ -35,7 +35,7 @@ speed = 3.5;
 vsp = 1;
 canPickUp = false;
 time = 0;
-tags = 0;
+tags = noone;
 alarm[0] = room_speed*1; //canPickUp
 </string>
           </argument>
@@ -59,7 +59,7 @@ alarm[0] = room_speed*1; //canPickUp
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if tags != 0 then ds_list_destroy(tags);
+            <string>//if tags != noone then ds_list_destroy(tags);
 </string>
           </argument>
         </arguments>
@@ -202,7 +202,7 @@ switch state
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if scr_invenAddItem(image_index,amt,type) != -1 then instance_destroy() else {alarm[0] = room_speed*2; canPickUp = false;}
+            <string>if scr_invenAddItem(image_index,amt,type,tags) != -1 then instance_destroy() else {alarm[0] = room_speed*2; canPickUp = false;}
 </string>
           </argument>
         </arguments>

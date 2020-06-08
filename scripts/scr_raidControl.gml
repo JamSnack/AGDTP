@@ -26,8 +26,8 @@ switch presetSettings
             with gameControl event_user(0);
             scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
             
-            scr_dropItem(10,wave,0,obj_player.x,obj_player.y);
-            scr_dropItem(15,wave,0,obj_player.x,obj_player.y);
+            scr_dropItem(10,wave,0,obj_player.x,obj_player.y,noone);
+            scr_dropItem(15,wave,0,obj_player.x,obj_player.y,noone);
         }
         
         //Tutorial quest
@@ -37,8 +37,7 @@ switch presetSettings
         
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
         
-        audio_stop_all();
-        audio_play_sound(snd_overworld_1,10,true);
+        scr_musicTransition(snd_overworld_1,room_speed*10);
     }
     break;
     case "RAID":
@@ -59,8 +58,7 @@ switch presetSettings
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
         
-        audio_stop_all();
-        audio_play_sound(snd_wave_1,10,true);
+        scr_musicTransition(snd_wave_1,room_speed*10);
     }
     break;
 }

@@ -51,7 +51,7 @@ hp = maxHp;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(1,1,0,x,y+4);
+            <string>scr_dropItem(1,1,0,x,y+4,noone);
 </string>
           </argument>
         </arguments>

@@ -74,13 +74,12 @@ if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
 
-//REMOVE LATER-DEMO ONLY
-if room == rm_lobby then audio_stop_all();
-
 //Tags
-var tags = ds_list_create();
-ds_list_add(tags,"strong");
-scr_dropItem(3,0,1,x,y,tags);
+/*var tagz = ds_list_create();
+ds_list_add(tagz,"Taska is the prodigal son.");
+ds_list_add(tagz,"Flamin' Hot Cheeto :)");
+ds_list_add(tagz,"Fuck a Gremlin");
+//scr_dropItem(2,0,1,x+48,y,tags);
 </string>
           </argument>
         </arguments>

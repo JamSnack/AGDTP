@@ -41,12 +41,12 @@ for (i=0;i<maxInvenSlots;i++)
     if i == maxInvenSlots-1
     { //Check for total confirmation
         for (k=0;k<array_length_1d(mats);k++) { if mats[k] != 0 then return false; } // The crafting has failed
-        for (k=0;k<maxInvenSlots;k++) { if amt_remove[k] != 0 then scr_invenRemoveItem(0,amt_remove[k],0,false,k); }
+        for (k=0;k<maxInvenSlots;k++) { if amt_remove[k] != 0 then scr_invenRemoveItem(0,amt_remove[k],0,false,k,noone); }
     }
 } //Crafting succeeds if it makes it through the final check.
 
 //Craft the item
-scr_dropItem(itemID,itemAmt,itemType,obj_player.x,obj_player.y);
+scr_dropItem(itemID,itemAmt,itemType,obj_player.x,obj_player.y,noone);
 
 return true;
 

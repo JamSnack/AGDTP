@@ -1,9 +1,10 @@
-///scr_invenAddItem(item,amt,type);
+///scr_invenAddItem(item,amt,type,tags);
 
 var item = argument0;
 var invSlot;
 var invAmt = argument1; //A '0' is used to indicate whether or not an item is stackable.
 var invType = argument2; // The type of the item. '0' Default. '1' Weapon. '2' Pickaxe. '3' placeable tile.
+var invTags = argument3;
 
 //Get the item to add.
 invSlot = item;
@@ -46,9 +47,14 @@ if item != 0
         if newSlot == true && hudControl.inventorySlotIcon[i] == 0
         {
             print("New slot");
-            hudControl.inventorySlotAmt[i] = invAmt;
-            hudControl.inventorySlotIcon[i] = invSlot;
-            hudControl.inventorySlotType[i] = invType;
+            var _i = i;
+            with hudControl
+            {
+                inventorySlotAmt[_i] = invAmt;
+                inventorySlotIcon[_i] = invSlot;
+                inventorySlotType[_i] = invType;
+                inventorySlotTags[_i] = invTags;
+            }
             
             scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
             return 1;

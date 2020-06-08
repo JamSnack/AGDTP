@@ -51,4 +51,4 @@ switch item
     break;
 }
 
-scr_invenRemoveItem(item,1,4,false,hudControl.selectedSlot);
+scr_invenRemoveItem(item,1,4,false,hudControl.selectedSlot,noone);
