@@ -73,13 +73,6 @@ canUseTool = true;
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
-
-//Tags
-/*var tagz = ds_list_create();
-ds_list_add(tagz,"Taska is the prodigal son.");
-ds_list_add(tagz,"Flamin' Hot Cheeto :)");
-ds_list_add(tagz,"Fuck a Gremlin");
-//scr_dropItem(2,0,1,x+48,y,tags);
 </string>
           </argument>
         </arguments>
@@ -571,6 +564,9 @@ if dead == false
     //Crafting Menu stipulations
     !(hudControl.showCraftingMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
+        var slot = hudControl.selectedSlot;
+        if slot == noone then exit;
+    
         switch tool
         {
             case 1:
@@ -630,7 +626,7 @@ if dead == false
                 //Consumable
                 if toolReady == true &amp;&amp; room == rm_zero
                 {
-                    scr_useConsumable(hudControl.inventorySlotIcon[hudControl.selectedSlot]);
+                    scr_useConsumable(hudControl.inventorySlotIcon[slot]);
                 }
             }
             break;

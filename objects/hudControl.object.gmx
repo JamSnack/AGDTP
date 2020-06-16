@@ -751,7 +751,6 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
           <argument>
             <kind>1</kind>
             <string>///Draw Ui
-
 var dispWidth = view_wview;
 var dispHeight = view_hview;
 
@@ -801,7 +800,7 @@ if invOpen = true
         draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.5,0.5,0,c_white,1);
     }
     
-    draw_set_font(global.fnt_menu);
+    draw_set_font(global.fnt_Ui);
     draw_set_color(c_white);
     
     //-- inventory slots layer two --
@@ -877,7 +876,7 @@ if invOpen == false
         var y2 = -5;
         
         //Draw hotbar item amount (numbers)
-        draw_set_font(global.fnt_menu);
+        draw_set_font(global.fnt_Ui);
         draw_set_color(c_white);
         if inventorySlotAmt[i] &gt; 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
     }
@@ -957,9 +956,9 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
         { 
             for(i=0;i&lt;ds_list_size(cursorTags);i++)
             {
-                draw_text(mx+4,my+10*i,cursorTags[| i]);
-                print('tag');
+                draw_text(mx+4,my+10*i,ds_list_find_value(cursorTags,i));
             }
+            print(string(ds_exists(cursorTags,ds_type_list))+" "+string(ds_list_find_value(cursorTags,0)));
         }
     }
 }

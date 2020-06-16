@@ -128,10 +128,13 @@ with hudControl
             
             if ds_exists(tagList, ds_type_list)
             {
+                var str = "";
+                
                 for (k=0;k&lt;ds_list_size(tagList);k++)
                 {
-                    ds_map_add(_map,"tags",tagList[| k]);
+                    str = str+tagList[| k]+"$";
                 }
+                ds_map_add(_map,"tags",str);
             }
             
             

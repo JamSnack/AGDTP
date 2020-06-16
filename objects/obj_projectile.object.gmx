@@ -25,7 +25,37 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>deadProjectile = false;
+            <string>///Initialize projectile
+
+deadProjectile = false;
+
+//Latent behaviors
+bBouncy = false;
+canBounce = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///BEHAVIOR STUFF
+if canBounce == false then canBounce = true;
 </string>
           </argument>
         </arguments>
@@ -71,7 +101,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>switch type
+            <string>//Type
+
+switch type
 {
     //Linear
     case 0:
@@ -80,6 +112,48 @@
     //Arrows
     case 1:
     { image_angle = direction; if speed &lt; 3 then instance_destroy(); } break;
+}
+
+//Behavior Characteristics
+var lx = lengthdir_x(speed,direction);
+var ly = lengthdir_y(speed,direction);
+
+
+if bBouncy == true
+{
+    var i = instance_place(lx,ly,OBSTA)
+    
+    if canBounce == true &amp;&amp; i
+    {    
+        //Bounce the projectile
+        
+        if instance_exists(i)
+        {
+            //X collisions
+            if place_meeting(x+hspeed,y,OBSTA)
+            { 
+                while !place_meeting(x+sign(hspeed),y,OBSTA)
+                { x+=sign(hspeed); }
+                
+                hspeed = -hspeed; 
+            }
+            
+            
+            //Y collisions
+            if place_meeting(x,y+vspeed,OBSTA)
+            { 
+                while !place_meeting(x,y+sign(vspeed),OBSTA)
+                { y+=sign(vspeed); }
+                
+                vspeed = -vspeed;
+            }
+            
+            friction += 0.05;
+            image_angle = point_direction(x,y,x+hspeed,y+vspeed);
+            canBounce = false;
+            alarm[1] = 2;
+        }
+    }
 }
 </string>
           </argument>

@@ -53,10 +53,28 @@ if item != 0
                 inventorySlotAmt[_i] = invAmt;
                 inventorySlotIcon[_i] = invSlot;
                 inventorySlotType[_i] = invType;
-                inventorySlotTags[_i] = invTags;
+                
+                if invTags != undefined
+                {
+                    if ds_exists(invTags,ds_type_list)
+                    { 
+                        //Create a new list specifically for the inv. slot to use instead of
+                        // referencing a list that will be used again in the future.
+                        // doing this should stop tag replication ;p
+                        var invList = ds_list_create();
+                        
+                        for (_j=0;_j<ds_list_size(invTags);_j++)
+                        {
+                            ds_list_add(invList,invTags[| _j]);
+                        }
+                        
+                        inventorySlotTags[_i] = invList;
+                        ds_list_destroy(invTags);
+                    }
+                }
             }
             
-            scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
+            scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);
             return 1;
         }
     }
