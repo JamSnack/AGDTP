@@ -180,7 +180,7 @@ if abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32
 {
     //Activate everything inside the camera view.
     var outerBoundary = 4*16; //"offscreen" boundary distance from view. 4 tiles
-    var enemyBoundary = 5*16; //tiles enemies are allowed to have active.
+    var enemyBoundary = 5*16; //tiles enemdies are allowed to have active.
     instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
     
     //Deactivate offscreen objects.
@@ -255,7 +255,10 @@ if heal_Time &gt;= room_speed &amp;&amp; interm == true
 }
 
 //------------ World Time -------------------
-if world_Time &gt;= (room_speed*60*3) //3 minutes
+//(30*60) is (room_speed divided by alarm speed, multiplied by 60 seconds in a minute.)
+// multiplied by 3 into 3 minutes.
+// TESTED &gt; IS STUPID ACCURATE
+if world_Time &gt;= ((30*60)*3) //3 minutes
 {
     world_Time = 0;
     scr_raidControl("RAID",0,0,0,0); //Preset raid

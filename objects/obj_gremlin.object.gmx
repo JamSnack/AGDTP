@@ -141,7 +141,8 @@ if stateLock == false
     { state = MOVE; objective = target; }
     else
     {
-        var plrTile = instance_nearest(x+(16*image_xscale),y,PLRTILE);
+        //Magic number '9': sprite width - center = 8, then add 1.
+        var plrTile = instance_nearest(x+(9*image_xscale),y,PLRTILE);
         
         if instance_exists(PLRTILE)
         { if plrTile.canHurt == false then plrTile = instance_nearest(plrTile.x,plrTile.y,PLRTILE); }
@@ -195,6 +196,7 @@ else target = obj_pie;
           <argument>
             <kind>1</kind>
             <string>draw_self();
+draw_text(x,y,string(state));
 </string>
           </argument>
         </arguments>

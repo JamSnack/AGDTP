@@ -31,10 +31,10 @@ hp = 1;
 
 bench = true;
 craftingSet = spr_workbenchCraftableItems;
-canHit = true;
+if room != rm_lobby then canHit = true else canHit = false;
 
 //Tutorial Quest
-if currentTask == 2 then currentTask = 3;
+if room == rm_zero { if currentTask == 2 then currentTask = 3; }
 </string>
           </argument>
         </arguments>

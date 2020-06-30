@@ -43,13 +43,13 @@ with proj
     
     //-Different types of projectiles get different stats
     if _type == 0 { depth = -1; }
-    if _type == 1 { gravity = 0.05; friction = 0;}
+    if _type == 1 { localGrav = 0.1; friction = 0;}
     
     
     
     
     //-APPLY TAG EFFECTS
-    if tagsUnloaded != undefined
+    if ds_exists(tagsUnloaded,ds_type_list)
     {
         for (i=0;i<ds_list_size(tagsUnloaded);i++)
         {

@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize projectile
-
+localGrav = 0;
 deadProjectile = false;
 
 //Latent behaviors
@@ -84,7 +84,7 @@ if canBounce == false then canBounce = true;
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="0">
+    <event eventtype="3" enumb="2">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -101,7 +101,10 @@ if canBounce == false then canBounce = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Type
+            <string>//## NOTE: ENDSTEP B/C GameMaker Gravity affects Y position after the Step event.
+//Collisions are more accurate here.
+
+//Type
 
 switch type
 {
@@ -111,7 +114,7 @@ switch type
     
     //Arrows
     case 1:
-    { image_angle = direction; if speed &lt; 3 then instance_destroy(); } break;
+    { image_angle = direction; if speed &lt;= 1 then instance_destroy(); } break;
 }
 
 //Behavior Characteristics
@@ -148,13 +151,19 @@ if bBouncy == true
                 vspeed = -vspeed;
             }
             
-            friction += 0.05;
-            image_angle = point_direction(x,y,x+hspeed,y+vspeed);
             canBounce = false;
-            alarm[1] = 2;
+            alarm[1] = 1;
+            
+            //Lose speed on contact.
+            if speed &gt; 0
+            { speed -= 0.2; }
         }
     }
 }
+
+//Gravity
+if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
+{ vspeed += localGrav; }
 </string>
           </argument>
         </arguments>
@@ -183,6 +192,8 @@ if bBouncy == true
     var k = knkAmt;
     var d = dmg;
 
+    friction += 0.05;
+    
     with other 
     {
         scr_hurt(d,DEF_HURT,true,k,dir); 
@@ -190,8 +201,6 @@ if bBouncy == true
     }
 
 }
-
-friction += 0.2;
 
 if type == 1 then instance_destroy();
 </string>
@@ -216,7 +225,9 @@ if type == 1 then instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if object_get_name(other.object_index) != "obj_nullLight"
+            <string>if canBounce == true then exit;
+
+if object_get_name(other.object_index) != "obj_nullLight"
 {
     if deadProjectile == false { alarm[0] = room_speed; deadProjectile = true; friction += 0.2; }
     

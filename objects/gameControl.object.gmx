@@ -64,6 +64,7 @@ canExit = false;
           <argument>
             <kind>1</kind>
             <string>///Background control
+if !instance_exists(obj_player) then exit;
 
 var backgroundAlpha;
 var _playerY = obj_player.y;
@@ -182,7 +183,8 @@ print('Game Saved');
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color(c_white);
+            <string>///Draw World Stats
+draw_set_color(c_white);
 
 if dev == true
 {
@@ -194,7 +196,14 @@ if dev == true
     if interm == false 
     { draw_text(10,10,"Wave "+string(wave)); }
     else
-    { draw_text(10,10,"Next Wave: "+string(wave+1)); }
+    { 
+        var frameTime = ((30*60)*3);
+        var realTime = (frameTime/60);
+    
+        draw_text(10,10,"Next Wave: "+string(wave+1)); 
+        draw_text(10,20,"Time: "+string(realTime-(worldControl.world_Time)/60));
+    
+    }
 }
 </string>
           </argument>
