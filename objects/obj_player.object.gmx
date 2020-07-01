@@ -74,7 +74,7 @@ if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
 
-scr_dropItem(12,99,3,x,y,noone);
+scr_dropItem(ITEMID.tile_packedStone,99,3,x,y,noone);
 </string>
           </argument>
         </arguments>

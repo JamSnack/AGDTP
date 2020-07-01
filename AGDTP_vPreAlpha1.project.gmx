@@ -161,7 +161,7 @@
     <objects name="Control">
       <object>objects\gameControl</object>
       <object>objects\hudControl</object>
-      <object>objects\displayControl</object>
+      <object>objects\obj_init</object>
       <object>objects\worldControl</object>
       <object>objects\camera</object>
     </objects>

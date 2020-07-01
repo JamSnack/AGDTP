@@ -81,10 +81,35 @@ room_goto(room_next(room));
 //Font
 global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
 global.fnt_Ui = font_add_sprite_ext(fnt_ui,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
+
 //Other globals
 globalvar tutorialComplete,music;
 music = audio_play_sound(snd_theStarsForever,10,true);
 tutorialComplete = false;
+
+//Item IDs
+enum ITEMID
+{
+    nil,
+    item_dirtClump,
+    weapon_greenSword,
+    weapon_starter,
+    pickaxe_starter,
+    pickaxe_greenPickaxe,
+    tile_packedDirt,
+    tile_workbench,
+    item_stonePiece,
+    item_stick,
+    item_copperOre,
+    weapon_weakBow,
+    tile_copperTurret,
+    tile_ladder,
+    cons_gremTalisman,
+    item_gremEssence,
+    tile_platform,
+    cons_bomb,
+    tile_packedStone
+}
 
 </string>
           </argument>

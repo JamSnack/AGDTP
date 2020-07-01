@@ -81,8 +81,8 @@ var zoom_speed = .1;
 
 view_zoom=clamp(view_zoom,1,view_max_zoom);
 
-view_wview=displayControl.ideal_width/view_zoom;
-view_hview=displayControl.ideal_height/view_zoom;
+view_wview=obj_init.ideal_width/view_zoom;
+view_hview=obj_init.ideal_height/view_zoom;
 
 //Center on camera
 view_xview=x-view_wview/2-10;
