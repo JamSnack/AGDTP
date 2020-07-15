@@ -8,6 +8,7 @@
     <sound>sound\snd_overworld_1</sound>
     <sound>sound\snd_wave_1</sound>
     <sound>sound\snd_theStarsForever</sound>
+    <sound>sound\boss_nilmerg</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
