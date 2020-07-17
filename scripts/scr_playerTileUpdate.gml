@@ -1,9 +1,6 @@
 ///scr_playerTileUpdate(x, y, row, column, size);
 var xx = argument0;
 var yy = argument1;
-var row = argument2; //The amount of tiles in a row
-var col = argument3; //the amount of columns
-var size = argument4; //Cell size
 
 for(i=0;i<9;i++)
 {

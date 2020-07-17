@@ -120,23 +120,26 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 }
                 
                 
-                //Wander forward
+                //- Wander forward
                 if !place_meeting(x+(spd*image_xscale),y,OBSTA)
                 {
                     x += spd*image_xscale;
                 }
                 
                 
-                //Jump if there is a tile in front of the gremlin.
-                if vsp == 0 && place_meeting(x+(spd*image_xscale),y,OBSTA)
+                //- Jump Conditions -
+                //- If tile in front or gap in front
+                if vsp == 0 && 
+                (
+                    place_meeting(x+(spd*image_xscale),y,OBSTA) || 
+                    !place_meeting(x+(spd*image_xscale),y+8,OBSTA) 
+                )
                 {
                     //Jump if it is possible else turn around.
                     if !place_meeting(x+(spd*image_xscale),y-16,OBSTA)
-                    {
-                        vsp = jump_speed;
-                    } else image_xscale = -image_xscale;
+                    { vsp = jump_speed; } 
+                    else image_xscale = -image_xscale;
                 }
-                
             } else state = MOVE;
         }
         break;

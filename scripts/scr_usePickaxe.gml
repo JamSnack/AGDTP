@@ -25,7 +25,7 @@ if instance_exists(col)
             var cy = col.y;
         
             with col { instance_destroy(); }
-            scr_tileUpdate(cx,cy,3,3,8);
+            scr_tileUpdate(cx,cy);
             
         } else col.alarm[0] = room_speed*5;
     }
@@ -48,8 +48,8 @@ if instance_exists(plr_col)
             var cy = plr_col.y;
         
             with plr_col { instance_destroy(); }
-            scr_tileUpdate(cx,cy,3,3,8);
-            scr_playerTileUpdate(cx,cy,3,3,8);
+            scr_tileUpdate(cx,cy);
+            scr_playerTileUpdate(cx,cy);
             
         } else plr_col.alarm[0] = room_speed*5;
     }
@@ -71,8 +71,8 @@ if instance_exists(no_col)
             var cy = no_col.y;
         
             with no_col { instance_destroy(); }
-            scr_tileUpdate(cx,cy,3,3,8);
-            scr_noCollisionTileUpdate(cx,cy,3,3,8);
+            scr_tileUpdate(cx,cy);
+            scr_noCollisionTileUpdate(cx,cy);
             
         } else no_col.alarm[0] = room_speed*5;
     }

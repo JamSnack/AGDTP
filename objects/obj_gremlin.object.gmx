@@ -132,7 +132,7 @@ target = obj_player;
             <kind>1</kind>
             <string>if canHurt == false then state = IDLE;
 var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
-var plrTileAggroRange = 24;
+var plrTileAggroRange = 16*4;
 
 //Gremlin Ai
 if stateLock == false
@@ -141,6 +141,7 @@ if stateLock == false
     { state = MOVE; objective = target; }
     else
     {
+        //Player Tile Aggro logic
         //Magic number '9': sprite width - center = 8, then add 1.
         var plrTile = instance_nearest(x+(9*image_xscale),y,PLRTILE);
         
@@ -159,20 +160,18 @@ if stateLock == false
         else objective = obj_pie;
     }
     
-    //Aggro range
-    if target != obj_player
+    //Player Aggro Logic
+    if target == obj_pie
     {
         if distance_to_object(obj_player) &lt;= aggroRange &amp;&amp; obj_player.dead == false
-        &amp;&amp; !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true) 
-        {
-            objective = obj_player;
-            target = obj_player;
-        } else { target = obj_pie; state = MOVE; stateLock = true; alarm[stateLockAlarm] = 20; }
-    } else if obj_player.dead == true then { target = obj_pie; }
+        &amp;&amp; !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true)
+        { objective = obj_player; } 
+         else 
+        { state = MOVE; stateLock = true; alarm[stateLockAlarm] = 20; }
+    }
 }
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 
-else target = obj_pie;
+{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); }
 </string>
           </argument>
         </arguments>
@@ -196,7 +195,7 @@ else target = obj_pie;
           <argument>
             <kind>1</kind>
             <string>draw_self();
-draw_text(x,y,string(state));
+//draw_text(x,y,string(state));
 </string>
           </argument>
         </arguments>

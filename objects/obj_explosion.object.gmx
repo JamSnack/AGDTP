@@ -103,7 +103,7 @@ with type //TILE or PLRTILE
                 //Check for tile death otherwise heal.
                 if hp &lt;= 0 
                 {
-                    scr_tileUpdate(x,y,3,3,8);
+                    scr_tileUpdate(x,y);
                     instance_destroy();
                     
                 } else alarm[0] = room_speed*5;

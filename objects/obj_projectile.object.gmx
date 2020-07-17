@@ -163,7 +163,7 @@ if bBouncy == true
 
 //Gravity
 if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
-{ vspeed += localGrav; }
+{ vspeed += (localGrav+friction); }
 </string>
           </argument>
         </arguments>

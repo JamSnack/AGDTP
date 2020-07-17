@@ -1,9 +1,6 @@
-///scr_noCollisionTileUpdate(x, y, row, column, size);
+///scr_noCollisionTileUpdate(x, y);
 var xx = argument0;
 var yy = argument1;
-var row = argument2; //The amount of tiles in a row
-var col = argument3; //the amount of columns
-var size = argument4; //Cell size
 
 if position_meeting(x,y,OBSTA) then instance_destroy();
 
