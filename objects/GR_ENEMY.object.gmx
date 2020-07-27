@@ -82,6 +82,8 @@ if interm == false
         worldControl.raidBossID = noone;
     }
 }
+
+event_inherited();
 </string>
           </argument>
         </arguments>

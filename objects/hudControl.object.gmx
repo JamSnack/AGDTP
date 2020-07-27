@@ -796,34 +796,14 @@ if invOpen = true
         }
         
         //Draw item icon
-        var _center = 6;
+        var _center = 6; //Center the sprite onto the slot
         draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.5,0.5,0,c_white,1);
-    }
-    
-    draw_set_font(global.fnt_Ui);
-    draw_set_color(c_white);
-    
-    //-- inventory slots layer two --
-    for (i=0;i&lt;maxInvenSlots;i++)
-    {        
-    
-        var hotbarCount = 7;
-        var column = 7;
-        var c = floor(i/column);
         
-        if i &lt; hotbarCount
-        {
-            var x1 = (10+(i*16));
-            var x2 = (20+(i*16));
-            var y1 = -15;
-            var y2 = -5;
-        } else
-        {
-            var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
-            var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-            var y1 = 5+(16*c);
-            var y2 = 15+(16*c);
-        }
+        
+        //-- inventory slots layer two --
+        
+        draw_set_font(global.fnt_Ui);
+        draw_set_color(c_white);
         
         //Draw item amount
         if inventorySlotAmt[i] &gt; 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
@@ -865,15 +845,6 @@ if invOpen == false
         //Draw hotbar item icon
         var _center = 6;
         draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,scale,scale,0,c_white,1);
-    }
-    
-    //--Layer Two--
-    for (i=0;i&lt;7;i++)
-    {
-        var x1 = (10+(i*16));
-        var x2 = (20+(i*16));
-        var y1 = -15;
-        var y2 = -5;
         
         //Draw hotbar item amount (numbers)
         draw_set_font(global.fnt_Ui);

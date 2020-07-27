@@ -317,6 +317,9 @@ if dead = false &amp;&amp; g_over == false
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
             if hsp == 0 then state = IDLE;
+            
+            //-Update position of audio listener
+            audio_listener_position(x,y,0);
         }
         break;
     }

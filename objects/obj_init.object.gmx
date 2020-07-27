@@ -82,6 +82,8 @@ room_goto(room_next(room));
 global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
 global.fnt_Ui = font_add_sprite_ext(fnt_ui,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
 
+
+
 //Other globals
 globalvar tutorialComplete,music;
 music = audio_play_sound(snd_theStarsForever,10,true);

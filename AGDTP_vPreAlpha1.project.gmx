@@ -154,6 +154,7 @@
     <script>scripts\scr_popUiCreate.gml</script>
     <script>scripts\scr_deconstructBase.gml</script>
     <script>scripts\scr_musicTransition.gml</script>
+    <script>scripts\scr_playSound.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
