@@ -23,4 +23,6 @@ switch argument0
     case 16: { text[0] = "Platform"; text[1] = "Useful for building!"; } break;
     case 17: { text[0] = "Bomb"; text[1] = "Use this to#quickly gather#resources!"; } break;
     case 18: { text[0] = "Packed Stone"; text[1] = "A realiable,#easy-to-gather defense!"; } break;
+    case 19: { text[0] = "Sub-Lime Machine#Gun"; text[1] = "Damage: 2#Firerate: 12#A reliable,#high-firerate fruit!"; } break;
+    
 }

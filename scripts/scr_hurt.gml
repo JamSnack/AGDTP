@@ -36,4 +36,4 @@ if knock == true
 //--Display pop message--
 var c;
 if object_index == obj_player then c = c_red else c = c_yellow;
-scr_popMessage("-"+string(damage),0,0.4,c,x,y);
+scr_popMessage(string(damage),global.fnt_Ui,0.4,c,x,y);

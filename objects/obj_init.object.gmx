@@ -110,7 +110,18 @@ enum ITEMID
     item_gremEssence,
     tile_platform,
     cons_bomb,
-    tile_packedStone
+    tile_packedStone,
+    weapon_subLimeMachineGun,
+}
+
+//Item Types
+enum ITEMTYPE
+{
+    def,
+    weapon,
+    pickaxe,
+    playertile,
+    consumable,
 }
 
 </string>
