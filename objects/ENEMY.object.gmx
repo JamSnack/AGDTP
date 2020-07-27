@@ -34,6 +34,7 @@ while place_meeting(x,y,OBSTA) y -= 16;
 //Audio
 localEmitter = audio_emitter_create();
 audio_emitter_position(localEmitter,x,y,0);
+audio_emitter_gain(localEmitter,4); //volume
 </string>
           </argument>
         </arguments>
@@ -92,36 +93,6 @@ if !point_in_rectangle(x,y,view_xview[0]-outerBoundary,view_yview[0]-outerBounda
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="1">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///UPDATE AUDIO
-//Using "Begin Step" to avoid many instances of event_inhereted(); in the normal Step.
-//This is fine as long as this event goes unused in most enemies.
-
-if (round(x) != round(xprevious) || round(y) != round(yprevious))
-{
-    audio_emitter_position(localEmitter,x,y,0);
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="7" enumb="50">
       <action>
         <libid>1</libid>
@@ -163,7 +134,8 @@ if visible = false then visible = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Hit Check
+            <string>///Hit Event
+scr_playSound(localEmitter,snd_hit,false,4,x,y);
 
 //Death check
 if hp &lt;= 0 then instance_destroy();

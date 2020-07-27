@@ -7,7 +7,10 @@
   <sounds name="sound">
     <sound>sound\snd_overworld_1</sound>
     <sound>sound\snd_wave_1</sound>
+    <sound>sound\snd_hit</sound>
     <sound>sound\snd_theStarsForever</sound>
+    <sound>sound\sndscp_Grasslands</sound>
+    <sound>sound\snd_shoot</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">

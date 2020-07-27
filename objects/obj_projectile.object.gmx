@@ -215,7 +215,7 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
     with other 
     {
         scr_hurt(d,DEF_HURT,true,k,dir); 
-        event_user(0);
+        event_user(0); //register hit event for gremlin
     }
     
     

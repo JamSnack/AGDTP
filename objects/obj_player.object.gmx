@@ -77,6 +77,9 @@ canUseTool = true;
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
+
+//Left/Right audio is reversed by default for some reason. This fixes that.
+audio_listener_orientation(0,0,1000,0,-1,0);
 </string>
           </argument>
         </arguments>
@@ -342,7 +345,11 @@ if dead = false &amp;&amp; g_over == false
             armAngle = 0; 
           }
         }
-    } else if toolAnimation == "STAB"
+        
+    
+       //---Stab--- 
+       
+    } else if toolAnimation == "STAB" 
     {
         if armStabComplete == false
         {
@@ -357,6 +364,7 @@ if dead = false &amp;&amp; g_over == false
             
             if armOffset &lt;= 0
             {
+                //Reset to default values
                 armIndex = spr_armIdle;
                 toolReady = true; 
                 armStabComplete = false;
@@ -651,7 +659,7 @@ if dead == false
                             
                             armOffset = 0;
                             armOffsetGoal = 20;
-                            armOffsetRate = toolFireRate/10;
+                            armOffsetRate = 40/toolFireRate;
                             armStabComplete = false;
                         }
                         break;
@@ -719,7 +727,6 @@ if toolReady == false
 {
     switch toolAnimation
     {
-        //I literally have no idea how the lengthdir values do what they do :(
         case "SWING":
         {
             draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
@@ -738,26 +745,24 @@ if toolReady == false
             //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
             var _dir = point_direction(x,y,mouse_x,mouse_y);
             
-            var yScale = 1; //Pseudo image_yScale used for position the sword animation correctly.
-            if _dir &gt; 180 &amp;&amp; _dir &lt; 360
-            { yScale = -1;  } 
-            print(yScale);
             //- prepare _dir for further processing...
             if image_xscale == -1 then _dir = (_dir-180)*-1;
             
-            var dirRad = degtorad(_dir);
-            var xOffset = cos(dirRad)*armOffset;
-            var yOffset = sin(dirRad)*armOffset;
-             
-            draw_sprite_ext(toolSprite,0,x+lengthdir_x((11+xOffset)*image_xscale,_dir),y+lengthdir_y((10+yOffset)*yScale,_dir),image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+            var yOffset = lengthdir_y((armOffset),_dir);
+            var xOffset = lengthdir_x((armOffset)*image_xscale,_dir);
+            
+            draw_sprite_ext(toolSprite,0,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+            //- STAB arm animator
+            draw_sprite_ext(armIndex,armFrame,x+(xOffset/4)+image_xscale,y+(yOffset/4)+1,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
         }
         break;
     }
-
 }
 
-//- arm, no actions
-draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+//- Default arm animator
+if armOffset == 0
+{ draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,1); }
+
 </string>
           </argument>
         </arguments>
