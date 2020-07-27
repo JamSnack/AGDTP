@@ -43,6 +43,10 @@ armIndex = spr_armIdle;
 armFrame = 0;
 armAngle = 0;
 armAngleGoal = 0;
+armOffset = 0; //Used for thrusting the arm forward or backward!
+armOffsetGoal = 0;
+armOffsetRate = 0;
+armStabComplete = false;
 toolAnimation = "SWING";
 knockType = "LAND";
 
@@ -73,8 +77,6 @@ canUseTool = true;
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
-
-scr_dropItem(ITEMID.tile_packedStone,99,3,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -324,6 +326,7 @@ if dead = false &amp;&amp; g_over == false
     if armAngle == 0 { armFrame = image_index; } else armFrame = 0;
     
     //Animate Arm movement
+    //- Swing
     if armAngle != 0 &amp;&amp; toolAnimation == "SWING"
     {
         //Move the arm back to 0.
@@ -335,6 +338,29 @@ if dead = false &amp;&amp; g_over == false
             toolReady = true; 
             armAngle = 0; 
           }
+        }
+    } else if toolAnimation == "STAB"
+    {
+        if armStabComplete == false
+        {
+            if armOffset &lt; armOffsetGoal 
+            { armOffset += armOffsetRate }
+            else
+            { armStabComplete = true; }
+        } 
+        else
+        {
+            armOffset -= armOffsetRate
+            
+            if armOffset &lt;= 0
+            {
+                armIndex = spr_armIdle;
+                toolReady = true; 
+                armStabComplete = false;
+                armOffset = 0;
+                armOffsetRate = 0;
+                armOffsetGoal = 0;
+            }
         }
     }
     
@@ -349,7 +375,7 @@ if dead = false &amp;&amp; g_over == false
 //---------check for death-----------
 if dead == false
 {
-    if hp &lt;= 0
+    if hp &lt;= 0 || g_over == true
     {
         dead = true;
         alarm[1] = room_speed*5;
@@ -374,6 +400,10 @@ if hspeed != 0 || vspeed != 0
 if !position_meeting(x,y+17,obj_platform) &amp;&amp; place_meeting(x,y,obj_platform) then platformCollide = false 
 else if collision_rectangle(x-4,y+10,x+4,y+15,obj_platform,true,true) then platformCollide = false
 else platformCollide = true;
+
+//Remain inside the room at all times
+x = clamp(x,0,room_width);
+y = clamp(y,0,room_height);
 </string>
           </argument>
         </arguments>
@@ -599,8 +629,27 @@ if dead == false
                         
                             armIndex = spr_armSwing; //Still a straight arm.
                             if image_xscale = 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
+                            
                             toolReady = false;
                             alarm[2] = toolFireRate;
+                        }
+                        break;
+                        
+                        case "STAB":
+                        {
+                            var _dir = point_direction(x,y,mouse_x,mouse_y);
+                            
+                            image_xscale = sign(mouse_x-x);
+                        
+                            armIndex = spr_armSwing; //Still a straight arm.
+                            if image_xscale = 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
+                            toolReady = false;
+                            alarm[2] = toolFireRate;
+                            
+                            armOffset = 0;
+                            armOffsetGoal = 20;
+                            armOffsetRate = toolFireRate/10;
+                            armStabComplete = false;
                         }
                         break;
                     }
@@ -662,17 +711,49 @@ if dead == false
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,0,c_white,1);
 
 //draw arms
+//- Draw tool
 if toolReady == false 
 {
-    if toolAnimation == "SWING"
+    switch toolAnimation
     {
-        draw_sprite_ext(toolSprite,0,x+lengthdir_x(clamp(armAngle,14,11)*image_xscale,clamp(armAngle,26,-10)),y-lengthdir_y(clamp(armAngle,26,-10),armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
-    } else if toolAnimation == "SHOOT"
-    {
-        draw_sprite_ext(toolSprite,0,x+lengthdir_x(clamp(armAngle,14,11)*image_xscale,clamp(armAngle,-60,360)),y-lengthdir_y(clamp(armAngle,40,-10),armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+        //I literally have no idea how the lengthdir values do what they do :(
+        case "SWING":
+        {
+            draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+        } 
+        break;
+        
+        case "SHOOT":
+        {
+            draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+        }
+        break;
+        
+        case "STAB":
+        {
+            //Click to deathpoke the Gremlins.
+            //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+            var _dir = point_direction(x,y,mouse_x,mouse_y);
+            
+            var yScale = 1; //Pseudo image_yScale used for position the sword animation correctly.
+            if _dir &gt; 180 &amp;&amp; _dir &lt; 360
+            { yScale = -1;  } 
+            print(yScale);
+            //- prepare _dir for further processing...
+            if image_xscale == -1 then _dir = (_dir-180)*-1;
+            
+            var dirRad = degtorad(_dir);
+            var xOffset = cos(dirRad)*armOffset;
+            var yOffset = sin(dirRad)*armOffset;
+             
+            draw_sprite_ext(toolSprite,0,x+lengthdir_x((11+xOffset)*image_xscale,_dir),y+lengthdir_y((10+yOffset)*yScale,_dir),image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+        }
+        break;
     }
+
 }
 
+//- arm, no actions
 draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
 </string>
           </argument>

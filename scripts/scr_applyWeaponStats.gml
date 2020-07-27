@@ -7,13 +7,15 @@ var tool_firerate,proj_spd,proj_dec,tool_spr,proj_spr,wep_Dam,wep_Knock,toolAnim
 switch argument0
 {    
     //Green Sword
-    case 2: { toolAnimation = "SWING"; tool_firerate = 35; proj_spd = 3.5; proj_dec = 0.25; tool_spr = spr_swordGreen; proj_spr = spr_projectile1; wep_Dam = 6; wep_Knock = 3; proj_type = 0;} break;
+    case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; tool_firerate = 35; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; wep_Dam = 6; wep_Knock = 3; proj_type = 0;} break;
     
     //Dull Sword
-    case 3: { toolAnimation = "SWING"; tool_firerate = 40; proj_spd = 3.5; proj_dec = 0.25; tool_spr = spr_sword; proj_spr = spr_projectile1; wep_Dam = 4; wep_Knock = 3; proj_type = 0;} break;
+    case ITEMID.weapon_starter: { toolAnimation = "STAB"; tool_firerate = 40; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; wep_Dam = 4; wep_Knock = 3; proj_type = 0;} break;
     
     //Weak Bow
-    case 11: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 2; proj_type = 1;} break;
+    case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 2; proj_type = 1;} break;
+    
+    case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; tool_firerate = 8; proj_spd = 12; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; wep_Dam = 2; wep_Knock = 1; proj_type = 2;} break;
 }
 
 obj_player.toolFireRate = tool_firerate;

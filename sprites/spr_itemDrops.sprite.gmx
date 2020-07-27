@@ -39,5 +39,6 @@
     <frame index="16">images\spr_itemDrops_16.png</frame>
     <frame index="17">images\spr_itemDrops_17.png</frame>
     <frame index="18">images\spr_itemDrops_18.png</frame>
+    <frame index="19">images\spr_itemDrops_19.png</frame>
   </frames>
 </sprite>

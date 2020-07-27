@@ -54,10 +54,6 @@
     <instance objName="camera" x="64" y="0" name="inst_CA470D69" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="gameControl" x="0" y="0" name="inst_46B3AAC2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="worldControl" x="32" y="0" name="inst_65F370E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="1056" y="888" name="inst_43ABA308" locked="0" code="" scaleX="200" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="1176" y="-8" name="inst_D498B866" locked="0" code="" scaleX="175" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="2560" y="440" name="inst_2A4E0C5F" locked="0" code="" scaleX="1" scaleY="55" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="-8" y="424" name="inst_E328B76C" locked="0" code="" scaleX="1" scaleY="55" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

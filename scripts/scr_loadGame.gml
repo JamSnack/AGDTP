@@ -42,7 +42,6 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         {
         
             var split = "$"
-            print(string_length(loadedTags));
             for(j=1;j<string_length(loadedTags)+1;j++)
             { 
                 var str_copy = string_copy(loadedTags,j,1);

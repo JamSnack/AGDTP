@@ -21,8 +21,11 @@ var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
 
 //--------------CREATE PROJECTILE------------------
 
-
-var proj = instance_create(x+8*image_xscale,y+lengthdir_y(2,point_direction(x,y,mouse_x,mouse_y)),obj_projectile);
+    //Player's arm is 14 pixels long, travel this on the X and Y coordinates for proj origin.
+    //SUM: Projectiles are created 14 pixels from x,y in the direction of the arm.
+var proj = instance_create(x,y-6,obj_projectile);
+var _armAngle = armAngle;
+var _projDecay = projDecay;
 
 with proj
 {    
@@ -42,7 +45,7 @@ with proj
     
     
     //-Different types of projectiles get different stats
-    if _type == 0 { depth = -1; }
+    if _type == 0 { alarm[2] = _projDecay; }
     if _type == 1 { localGrav = 0.1; friction = 0;}
     
     
@@ -59,7 +62,7 @@ with proj
                 case "Fast": { speed += 3; } break;
                 case "Burning": {sprite_index = spr_projectile2} break;
                 case "OMG HAXX!!!": {sprite_index = spr_gremBlock; speed += 5; knkAmt += 20; dmg += 100; } break;
-                case "Bouncy": { bBouncy = true; } break;
+                case "Bouncy": { bBouncy = true; canBounce = true; } break;
             }
         }
     }

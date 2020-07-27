@@ -8,7 +8,6 @@
     <sound>sound\snd_overworld_1</sound>
     <sound>sound\snd_wave_1</sound>
     <sound>sound\snd_theStarsForever</sound>
-    <sound>sound\boss_nilmerg</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
@@ -43,6 +42,7 @@
     <sprite>sprites\spr_projectile1</sprite>
     <sprite>sprites\spr_projectile2</sprite>
     <sprite>sprites\spr_sword</sprite>
+    <sprite>sprites\hbox_sword</sprite>
     <sprite>sprites\spr_weakBow</sprite>
     <sprite>sprites\spr_pickaxe</sprite>
     <sprite>sprites\spr_pickaxeGreen</sprite>
@@ -80,6 +80,7 @@
     <sprite>sprites\spr_ui_bossHealthBar</sprite>
     <sprite>sprites\spr_ui_bossHealth</sprite>
     <sprite>sprites\roomTransition_1</sprite>
+    <sprite>sprites\spr_subLimeMachineGun</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

@@ -141,7 +141,6 @@ craftingSpriteSet = 0;
 //Fire equipment queue
 if obj_player.toolReady == true &amp;&amp; equipQueue != noone
 {
-    print('EquipQueue');
     selectedSlot = equipQueue;
     scr_slotEquip(equipQueue);
     equipQueue = noone;
@@ -958,7 +957,6 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
             {
                 draw_text(mx+4,my+10*i,ds_list_find_value(cursorTags,i));
             }
-            print(string(ds_exists(cursorTags,ds_type_list))+" "+string(ds_list_find_value(cursorTags,0)));
         }
     }
 }
