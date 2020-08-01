@@ -26,6 +26,7 @@ var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
 var proj = instance_create(x,y-6,obj_projectile);
 var _armAngle = armAngle;
 var _projDecay = projDecay;
+var _toolFireRate = toolFireRate
 
 with proj
 {    
@@ -40,13 +41,18 @@ with proj
     knkAmt = knockAmt;
     ox = x;
     oy = y;
-    mask_index = spr_projectile1;
     
     
     
     //-Different types of projectiles get different stats
-    if _type == 0 { alarm[2] = _projDecay; }
-    if _type == 1 { localGrav = 0.1; friction = 0;}
+    if _type == 0 
+    { 
+        bStab = true; 
+        armOffsetGoal = 20; //Standard offset goal
+        armOffsetRate = (armOffsetGoal*2)/_toolFireRate;
+        alarm[2] = armOffsetRate*armOffsetGoal; 
+        visible = false;
+    } else if _type == 1 { localGrav = 0.1; friction = 0;}
     
     
     

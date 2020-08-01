@@ -74,6 +74,8 @@ pickLevel = 0;
 pickRange = 4;
 g_over = false;
 canUseTool = true;
+hitSyncX = 0; //Hitbox Synchronizers
+hitSyncY = 0;
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
@@ -360,9 +362,9 @@ if dead = false &amp;&amp; g_over == false
         } 
         else
         {
-            armOffset -= armOffsetRate
-            
-            if armOffset &lt;= 0
+            armOffset -= armOffsetRate;
+
+            if armOffset &lt;= 0 //&amp;&amp; armIndex == spr_armSwing
             {
                 //Reset to default values
                 armIndex = spr_armIdle;
@@ -371,8 +373,18 @@ if dead = false &amp;&amp; g_over == false
                 armOffset = 0;
                 armOffsetRate = 0;
                 armOffsetGoal = 0;
+                hitSyncX = 0;
+                hitSyncY = 0;
             }
         }
+        //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+        var _dir = point_direction(x,y,mouse_x,mouse_y);
+            
+        //- prepare _dir for further processing...
+        if image_xscale == -1 then _dir = (_dir-180)*-1;
+        
+        hitSyncY = y+lengthdir_y((armOffset),_dir);
+        hitSyncX = x+lengthdir_x((armOffset)*image_xscale,_dir);
     }
     
     //Face mouse when using item
@@ -659,7 +671,7 @@ if dead == false
                             
                             armOffset = 0;
                             armOffsetGoal = 20;
-                            armOffsetRate = 40/toolFireRate;
+                            armOffsetRate = (armOffsetGoal*2)/toolFireRate;
                             armStabComplete = false;
                         }
                         break;
@@ -741,6 +753,7 @@ if toolReady == false
         
         case "STAB":
         {
+            if armOffset == 0 then break;
             //Click to deathpoke the Gremlins.
             //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
             var _dir = point_direction(x,y,mouse_x,mouse_y);
@@ -753,7 +766,7 @@ if toolReady == false
             
             draw_sprite_ext(toolSprite,0,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
             //- STAB arm animator
-            draw_sprite_ext(armIndex,armFrame,x+(xOffset/4)+image_xscale,y+(yOffset/4)+1,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+            draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
         }
         break;
     }
