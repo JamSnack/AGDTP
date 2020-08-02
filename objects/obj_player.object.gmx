@@ -638,11 +638,13 @@ if dead == false
     //Defines the crafting menu's dimensions.
     var _cmX = view_wview[0]/2-120;
     var _cmY = view_hview[0]/2-105;
-    if //Inventory stipulations
-    !point_in_rectangle(dx,dy,0,35,125,45) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,200) 
-    &amp;&amp; hudControl.cursorHoldItem == false &amp;&amp;
-    //Crafting Menu stipulations
-    !(hudControl.showCraftingMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
+    if 
+        //- Inventory stipulations
+        !point_in_rectangle(dx,dy,0,35,125,45) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,200) 
+        &amp;&amp; hudControl.cursorHoldItem == false &amp;&amp;
+        
+        //- Crafting Menu stipulations
+        !(hudControl.showCraftingMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
         var slot = hudControl.selectedSlot;
         if slot == noone then exit;

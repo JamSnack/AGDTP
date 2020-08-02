@@ -115,7 +115,7 @@ if canBounce == false then canBounce = true;
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -132,7 +132,8 @@ if canBounce == false then canBounce = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//## NOTE: ENDSTEP B/C GameMaker Gravity affects Y position after the Step event.
+            <string>///Behaviors
+//## NOTE: ENDSTEP B/C GameMaker Gravity affects Y position after the Step event.
 //Collisions are more accurate here.
 
 //Type
@@ -175,20 +176,28 @@ if bBouncy == true
         if instance_exists(OBSTA)
         {
             //X collisions
-            if collision_circle(x+hspeed,y,3,OBSTA,false,true)
+            if collision_circle(x+hspeed,y,1,OBSTA,false,true)
             { 
-                while !place_meeting(x+sign(hspeed),y,OBSTA)
-                { x+=sign(hspeed); }
+                repeat(20)
+                { 
+                    if !place_meeting(x+sign(hspeed),y,OBSTA)
+                    { x+=sign(hspeed); }
+                    else break;
+                }
                 
                 hspeed = -hspeed; 
             }
             
             
             //Y collisions
-            if collision_circle(x,y+vspeed,3,OBSTA,false,true)
+            if collision_circle(x,y+vspeed,1,OBSTA,false,true)
             { 
-                while !place_meeting(x,y+sign(vspeed),OBSTA)
-                { y+=sign(vspeed); }
+                repeat(20)
+                { 
+                    if !place_meeting(x,y+sign(vspeed),OBSTA)
+                    { y+=sign(vspeed); }
+                    else break;
+                }
                 
                 vspeed = -vspeed;
             }
@@ -204,7 +213,7 @@ if bBouncy == true
 
 //Gravity
 if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
-{ vspeed += (localGrav+friction); }
+{ vspeed += (localGrav); }
 </string>
           </argument>
         </arguments>

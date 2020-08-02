@@ -51,7 +51,7 @@ with proj
         armOffsetGoal = 20; //Standard offset goal
         armOffsetRate = _toolFireRate/(armOffsetGoal);
         alarm[2] = armOffsetRate*armOffsetGoal; 
-        //visible = false;
+        visible = dev;
     } else if _type == 1 { localGrav = 0.1; friction = 0;}
     
     
