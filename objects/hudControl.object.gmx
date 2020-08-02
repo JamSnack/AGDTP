@@ -866,7 +866,7 @@ if room == rm_zero
     {
         //- draw background --Change to NineSliceBox
         var _posX = view_wview[0]/2-120;
-        var _posY = view_hview[0]/2-105;
+        var _posY = view[0]/2-105;
         
         draw_set_alpha(0.75);
         draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
@@ -936,8 +936,8 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 var playerHp = obj_player.hp;
 
 if playerHp &gt; 0
-{ draw_nineSliceBox(spr_ui_healthBar,view_wview[0]-110,10,view_wview[0]-110+((playerHp)),13,0); }
-draw_text(view_wview[0]-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
+{ draw_nineSliceBox(spr_ui_healthBar,viewWidth-110,10,viewWidth-110+((playerHp)),13,0); }
+draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
 
 //- Pie health bar
 if instance_exists(obj_pie)
@@ -945,8 +945,8 @@ if instance_exists(obj_pie)
     var pieHp = obj_pie.hp;
 
     if pieHp &gt; 0
-    { draw_nineSliceBox(spr_ui_pieHealth,view_wview[0]-110,20,view_wview[0]-110+((pieHp)),23,0); }
-    draw_text(view_wview[0]-95,20,"HP: "+string(pieHp)+"\"+string(obj_pie.maxHp));
+    { draw_nineSliceBox(spr_ui_pieHealth,viewWidth-110,20,viewWidth-110+((pieHp)),23,0); }
+    draw_text(viewWidth-95,20,"HP: "+string(pieHp)+"\"+string(obj_pie.maxHp));
 }
 
 //- Boss health bar
@@ -1106,12 +1106,11 @@ invOpen = !invOpen;
           <argument>
             <kind>1</kind>
             <string>///Toggle crafting menu
-if room = rm_zero
-{
-    showCraftingMenu = !showCraftingMenu;
-    
-    if currentTask == 1 then currentTask = 2;
-}
+showCraftingMenu = !showCraftingMenu;
+
+if instance_exists(gameControl)
+{ if currentTask == 1 then currentTask = 2; }
+
 </string>
           </argument>
         </arguments>

@@ -82,6 +82,31 @@ friction = 0.3;
 
 //Left/Right audio is reversed by default for some reason. This fixes that.
 audio_listener_orientation(0,0,1000,0,-1,0);
+localEmitter = audio_emitter_create();
+audio_emitter_gain(localEmitter,5);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>audio_emitter_free(localEmitter);
 </string>
           </argument>
         </arguments>
@@ -364,10 +389,10 @@ if dead = false &amp;&amp; g_over == false
         {
             armOffset -= armOffsetRate;
 
-            if armOffset &lt;= 0 //&amp;&amp; armIndex == spr_armSwing
+            if armOffset &lt;= 0
             {
                 //Reset to default values
-                armIndex = spr_armIdle;
+                //- arm index doesn't need to reset.
                 toolReady = true; 
                 armStabComplete = false;
                 armOffset = 0;
@@ -660,6 +685,11 @@ if dead == false
                         
                         case "STAB":
                         {
+                            //Audio
+                            var swish = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4);
+                            scr_playSound(localEmitter,swish,false,5,x+4*image_xscale,y);
+                            
+                            //Initialize Animation
                             var _dir = point_direction(x,y,mouse_x,mouse_y);
                             
                             image_xscale = sign(mouse_x-x);

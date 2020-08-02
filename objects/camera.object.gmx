@@ -28,10 +28,15 @@
             <string>followThis = obj_player;
 follow_speed = 1;
 
+view_min_zoom = 0.8;
 view_zoom=1;
-view_max_zoom=10;
+view_max_zoom=1.2;
 
 cloudBkg_xOffset = 0;
+
+globalvar viewWidth, viewHeight;
+viewWidth = view_wview[0];
+viewHeight = view_hview[0];
 
 
 </string>
@@ -78,8 +83,6 @@ if instance_exists(followThis)
 var zoom_speed = .1;
 //view_zoom+=keyboard_check(vk_up)*zoom_speed;
 //view_zoom-=keyboard_check(vk_down)*zoom_speed;
-
-view_zoom=clamp(view_zoom,1,view_max_zoom);
 
 view_wview=obj_init.ideal_width/view_zoom;
 view_hview=obj_init.ideal_height/view_zoom;
@@ -132,6 +135,54 @@ if room == rm_zero
 
 }
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="61">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>view_zoom -= 0.01;
+view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="60">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>view_zoom+= 0.01;
+view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
         </arguments>

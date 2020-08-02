@@ -11,6 +11,10 @@
     <sound>sound\snd_theStarsForever</sound>
     <sound>sound\sndscp_Grasslands</sound>
     <sound>sound\snd_shoot</sound>
+    <sound>sound\snd_swish1</sound>
+    <sound>sound\snd_swish2</sound>
+    <sound>sound\snd_swish3</sound>
+    <sound>sound\snd_swish4</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">

@@ -4,6 +4,8 @@ var snd = argument1;
 
 if audio_emitter_exists(emitterID)
 { 
+    //print('Sound Played');
+
     //UPDATE AUDIO Position
     audio_emitter_position(localEmitter,argument4,argument5,0);
     audio_play_sound_on(emitterID,snd,argument2,argument3); 
