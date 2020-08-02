@@ -177,36 +177,40 @@ var playerX = obj_player.x;
 var playerY = obj_player.y;
 var view_zoom = camera.view_zoom;
 
-//Deactivation and Reactivation updates every two tiles.
-if (abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32) ||
-    view_zoom != view_zoom_buffer
+//----Deactivation---------
+if view_zoom != view_zoom_buffer
 {
     //Update view_zoom
     view_zoom = view_zoom_buffer;
     
-    //Activate everything inside the camera view.
-    var outerBoundary = 8*16; //"offscreen" boundary distance from view. 6 tiles
-    var enemyBoundary = 5*16; //tiles enemdies are allowed to have active.
-    instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
-    
-    //Deactivate offscreen objects.
-    with TILE event_user(0);
-    with INTERACT scr_deactivateOffscreen(id);
-    with NOCOL scr_deactivateOffscreen(id);
-    with obj_itemDrop scr_deactivateOffscreen(id);
-    
-    //Update player buffer
-    plr_xBuffer = round(playerX);
-    plr_yBuffer = round(playerY);
-    
-    //Activate offscreen tiles for needed enemies.
-    if array_length_1d(enemyActiveList) &gt; 0
+    //-Deactivation and Reactivation updates every two tiles.
+    if (abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32)
     {
-        for (i=0;i&lt;array_length_1d(enemyActiveList);i++)
+            
+        //-Activate everything inside the camera view.
+        var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
+        var enemyBoundary = 5*16; //-tiles enemdies are allowed to have active.
+        instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
+        
+        //-Deactivate offscreen objects.
+        with TILE event_user(0);
+        with INTERACT scr_deactivateOffscreen(id);
+        with NOCOL scr_deactivateOffscreen(id);
+        with obj_itemDrop scr_deactivateOffscreen(id);
+        
+        //-Update player buffer
+        plr_xBuffer = round(playerX);
+        plr_yBuffer = round(playerY);
+        
+        //-Activate offscreen tiles for needed enemies.
+        if array_length_1d(enemyActiveList) &gt; 0
         {
-            with enemyActiveList[i]
+            for (i=0;i&lt;array_length_1d(enemyActiveList);i++)
             {
-             instance_activate_region(x-enemyBoundary,y-enemyBoundary,x+enemyBoundary,y+enemyBoundary,true);
+                with enemyActiveList[i]
+                {
+                 instance_activate_region(x-enemyBoundary,y-enemyBoundary,x+enemyBoundary,y+enemyBoundary,true);
+                }
             }
         }
     }
@@ -219,7 +223,6 @@ if (abs(playerX-plr_xBuffer) &gt; 16 || abs(playerY-plr_yBuffer) &gt; 16)
     
     if playerY &gt; stoneLayer-48
     {
-    
         with TILE
         {
             if light_level &lt; 255
@@ -275,9 +278,6 @@ if world_Time &gt;= ((30*60)*3) //3 minutes
 
 
 alarm[0] = 2;
-
-//Reset alarm
-//if (plr_xBuffer == round(playerX)) &amp;&amp; (plr_yBuffer == round(playerX)) then alarm[0] = 30 else alarm[0] = 2;
 </string>
           </argument>
         </arguments>

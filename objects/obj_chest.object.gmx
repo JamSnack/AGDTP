@@ -102,7 +102,7 @@ if opened == false
         var amt=0;
         var type=0;
         if itemSelector = bow then type = 1;
-        if itemSelector = bomb then type = 4;
+        else if itemSelector = bomb { type = 4; amt = 1; };
         
         if itemSelector = copper then amt = cAmt else if itemSelector = stick then amt = sAmt;
         

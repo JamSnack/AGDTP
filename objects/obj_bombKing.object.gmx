@@ -97,7 +97,10 @@ knockType = "FLY";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if irandom(10) = 1 then scr_dropItem(15,1,0,x,y-4,noone);
+            <string>var r = irandom(99); //0 to 99
+
+if r &lt;= 89 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone);
+if r == 99 then scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,2,x,y-4,noone);
 
 event_inherited();
 </string>

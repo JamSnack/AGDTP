@@ -866,7 +866,7 @@ if room == rm_zero
     {
         //- draw background --Change to NineSliceBox
         var _posX = view_wview[0]/2-120;
-        var _posY = view[0]/2-105;
+        var _posY = view_hview[0]/2-105;
         
         draw_set_alpha(0.75);
         draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
