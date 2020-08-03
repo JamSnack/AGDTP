@@ -1,3 +1,4 @@
+// 2020-08-03 16:16:58
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -91,7 +92,7 @@ else
 }
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone
+if targetPlrTile != noone
 { 
     var _damage = damage;
     with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);

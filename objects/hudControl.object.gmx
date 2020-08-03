@@ -756,7 +756,9 @@ var dispHeight = view_hview;
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
 
-//inventory -----------------------------------------
+
+//Draw Inventory -----------------------------------------
+//#region
 if invOpen = true
 {
     //Inventory background
@@ -851,15 +853,10 @@ if invOpen == false
         if inventorySlotAmt[i] &gt; 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
     }
 }
-
-
-
-
-
-
-
+//#endregion
 
 //-----------------Crafting Menu---------------------------------------
+//#region
 if room == rm_zero
 {
     if showCraftingMenu == true
@@ -905,9 +902,10 @@ if room == rm_zero
         }
     }
 }
-    
+//#endregion
     
 //-----Draw cursor item
+//#region
 if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 {
     //-Draw item
@@ -931,8 +929,10 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
         }
     }
 }
+//#endregion
 
 //-------------------- Healthbars ---------------------------
+//#region
 var playerHp = obj_player.hp;
 
 if playerHp &gt; 0
@@ -962,8 +962,10 @@ if worldControl.raidBoss == true
         draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
     }
 }
+//#endregion
 
 //-------------------Settings Menu-----------------------------
+//#region
 if settingsMenu == true
 {
     var xx = display_get_gui_width()/2;
@@ -998,9 +1000,10 @@ if room == rm_zero
         draw_text_transformed(xx-100,yy+28,scr_getTaskText(currentTask,0,0),1,1,0);
     }
 }
-
+//#endregion
 
 //-------------------Wave Progress Meter----------------------
+//#region
 if interm == false
 {
     draw_text(10,dispHeight-13,"Raid Progress: ");
@@ -1010,6 +1013,8 @@ if interm == false
 
 
 draw_set_alpha(1);
+
+//#endregion
 </string>
           </argument>
         </arguments>

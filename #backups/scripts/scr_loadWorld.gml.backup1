@@ -1,4 +1,6 @@
+// 2020-08-03 16:01:27
 ///scr_loadWorld();
+//Spunk
 randomize();
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
 var sizeY = 30;

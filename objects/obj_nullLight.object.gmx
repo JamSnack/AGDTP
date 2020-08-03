@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>event_inherited();
+if position_meeting(x,y,FLATLAND) then instance_destroy();
+
 hp = 1;
 maxHp = 1;
 level = 0;

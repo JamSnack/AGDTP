@@ -1,3 +1,4 @@
+// 2020-08-03 16:02:00
 ///scr_loadWorld();
 randomize();
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.

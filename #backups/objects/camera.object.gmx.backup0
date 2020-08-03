@@ -1,0 +1,100 @@
+// 2020-08-03 16:37:05
+#event create
+followThis = obj_player;
+follow_speed = 1;
+
+view_min_zoom = 0.8;
+view_zoom=1;
+view_max_zoom=1.2;
+
+cloudBkg_xOffset = 0;
+
+globalvar viewWidth, viewHeight;
+viewWidth = view_wview[0];
+viewHeight = view_hview[0];
+
+
+
+#event step
+//Follow an instance
+if instance_exists(followThis)
+{
+    var fx = followThis.x;
+    var fy = followThis.y;
+    
+    if distance_to_point(fx,fy) > 2
+    {
+        x += ((fx - x)*follow_speed)*0.5;
+        y += ((fy - y)*follow_speed)*0.5;
+        
+        round(x);
+        round(y);
+    }
+    
+}
+
+//Update view
+
+var zoom_speed = .1;
+//view_zoom+=keyboard_check(vk_up)*zoom_speed;
+//view_zoom-=keyboard_check(vk_down)*zoom_speed;
+
+view_wview=obj_init.ideal_width/view_zoom;
+view_hview=obj_init.ideal_height/view_zoom;
+
+//Center on camera
+view_xview=x-view_wview/2-10;
+view_yview=y-view_hview/2-10;
+
+//clamp to room
+view_xview=clamp(view_xview,0,room_width-view_wview);
+view_yview=clamp(view_yview,0,room_height-view_hview);
+
+//GameOver
+if instance_exists(gameControl)
+{ if gameOver == true then followThis = obj_pie; }
+
+
+
+//Parallax Background
+//--Smaller the number the slower the background moves
+
+//Need to change this to account for other regions in the future ;p
+if room == rm_zero
+{
+    cloudBkg_xOffset += 0.05;
+    if cloudBkg_xOffset > 319 then cloudBkg_xOffset = 0;
+    
+    background_x[0] = view_xview/1.1 + cloudBkg_xOffset;
+    background_x[1] = view_xview/1.3;
+    background_x[2] = view_xview/1.6;
+    background_x[3] = view_xview/2.2;
+    
+    background_y[1] = (-view_yview/5.15)-64;
+    background_y[2] = (-view_yview/5.20)-64;
+    background_y[3] = (-view_yview/5.25)-64;
+} else if room == rm_lobby
+{
+    //This variable will be used for the stars
+    cloudBkg_xOffset += 0.05;
+    //if cloudBkg_xOffset > 640 then cloudBkg_xOffset = 0;
+    background_x[1] = view_xview/1.15 + cloudBkg_xOffset;
+    background_x[2] = view_xview/1.3 + cloudBkg_xOffset;
+    background_x[3] = view_xview/1.45 + cloudBkg_xOffset;
+    
+    background_y[1] = (-view_yview/5) + cloudBkg_xOffset/1.1;
+    background_y[2] = (-view_yview/5.15)-64 + cloudBkg_xOffset;
+    background_y[3] = (-view_yview/5.25)-64 + cloudBkg_xOffset;
+    
+    background_vspeed[0] = 0.05;
+
+}
+
+
+#event mouse_wheel_up
+view_zoom+= 0.01;
+view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
+
+#event mouse_wheel_down
+view_zoom -= 0.01;
+view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);

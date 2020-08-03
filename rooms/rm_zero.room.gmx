@@ -33,8 +33,8 @@ audio_sound_gain(sndscp_Grasslands,1,1);</code>
   </makerSettings>
   <backgrounds>
     <background visible="-1" foreground="0" name="bkg_overworldSky" x="0" y="-128" htiled="-1" vtiled="0" hspeed="0" vspeed="0" stretch="0"/>
-    <background visible="0" foreground="0" name="bkg_overworldHillsHigh" x="0" y="16" htiled="-1" vtiled="0" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_overworldHills" x="0" y="-78" htiled="-1" vtiled="0" hspeed="0" vspeed="0" stretch="0"/>
+    <background visible="-1" foreground="0" name="bkg_overworldHillsLow" x="0" y="-78" htiled="-1" vtiled="0" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_overworldGrass" x="0" y="-128" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="-1" foreground="0" name="bkg_cave" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
     <background visible="0" foreground="0" name="" x="0" y="0" htiled="-1" vtiled="-1" hspeed="0" vspeed="0" stretch="0"/>
@@ -55,6 +55,7 @@ audio_sound_gain(sndscp_Grasslands,1,1);</code>
     <instance objName="camera" x="64" y="0" name="inst_CA470D69" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="gameControl" x="0" y="0" name="inst_46B3AAC2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="worldControl" x="32" y="0" name="inst_65F370E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="OBSTA" x="1280" y="872" name="inst_1A1472CE" locked="0" code="" scaleX="160" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
