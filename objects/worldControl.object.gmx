@@ -26,20 +26,15 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
-maxGrem = 5; //Maximum gremlins in the world.
 wave = 0; //Wave number
 interm = true; //intermission boolean
 enemyActiveList[0] = noone; //List of enemies that require chunking.
-spawnRate = 1; //How many times a second to check for and spawn a thing.
-spawnChance = 0; //The chance that the thing will spawn out of 100.
 raidProgress = 0; //How many more gremlins need to die before the raid is complete.
 maxRaidProgress = 100; //Raid goal.
-raidBoss = false; //No raid boss.
-raidBossID = noone; //The instance ID of the boss.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 
 if room == rm_zero 
@@ -57,6 +52,13 @@ world_Time = 0;
 heal_Time = 10; //Heal something (defense) every interval.
 playerTiles = 0;
 view_zoom_buffer = 0; //Remember the last value of the zoom.
+maxGrem = 5; //Maximum gremlins in the world.
+spawnRate = 1; //How many times a second to check for and spawn a thing.
+spawnChance = 0; //The chance that the thing will spawn out of 100.
+raidBoss = false; //No raid boss.
+raidBossID = noone; //The instance ID of the boss.
+specialRaid = false; //Bool telling whether or not a special raid is in progress.
+special_raidID = noone; //The ID of the raid
 </string>
           </argument>
         </arguments>
@@ -118,7 +120,10 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
         while (!position_meeting(xx,yy+16,TILE_ALL) &amp;&amp; !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy &gt; room_height then break; }
     
         //Spawn gremlin
-        new_raidGremlin(xx,yy,random(1),0.3);
+        var flyChance = 0.3;
+        var gremNumber = random(1);
+        
+        new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
     }
     
     //Clear active mob roster

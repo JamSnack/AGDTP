@@ -1,3 +1,4 @@
+// 2020-08-04 11:52:58
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;

@@ -1,3 +1,4 @@
+// 2020-08-04 11:46:10
 ///new_raidGremlin(x,y,gremNumber,flyChance,specialWaveID);
 //instance_create a gremlin based on wave number.
 var gremNumber = argument2; //The number used to generate the gremlin out of 100%
@@ -11,12 +12,6 @@ var flyGremlins;
 //Add land gremlins to the list as the wave number increases.
 switch specialRaidID
 {
-    case "SR_Shadow":
-    {
-        flyChance = 1;
-        flyGremlins[0] = obj_shadowGremlin;
-    }
-    break;
     default:
     {
         landGremlins[0] = obj_gremlin;
@@ -27,6 +22,13 @@ switch specialRaidID
         if wave >= 2 { flyGremlins[0] = obj_shadowGremlin; }
 
     }
+    break;
+    case "SR_Shadow":
+    {
+        flyChance = 1;
+        flyGremlins[0] = obj_shadowGremlin;
+    }
+    break;
 }
 //Select type of mob to spawn: land or flying
 

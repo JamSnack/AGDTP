@@ -136,7 +136,8 @@ craftingSpriteSet = 0;
           <argument>
             <kind>1</kind>
             <string>if invOpen == true
-    { if invenX &lt; invenXMax then invenX += (invenXMax-invenX)*0.1; } else invenX = 0;
+    { if invenX &lt; invenXMax then invenX += (invenXMax-invenX)*0.2; } 
+    else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
     
 //Fire equipment queue
 if obj_player.toolReady == true &amp;&amp; equipQueue != noone
@@ -759,11 +760,11 @@ var my = device_mouse_y_to_gui(0);
 
 //Draw Inventory -----------------------------------------
 //#region
-if invOpen = true
+if invenX &gt; 5
 {
     //Inventory background
-    draw_set_alpha(0.9);
-    draw_nineSliceBox(spr_ui_9slice,0,50,invenX,200,0);
+    //draw_set_alpha(0.9);
+    draw_nineSliceBox(spr_ui_9slice,-10,60,invenX,200,0);
     
     // -- Inventory slots layer 1 --
     for (i=0;i&lt;maxInvenSlots;i++)
@@ -820,7 +821,7 @@ if invOpen = true
 }
 
 //----------------Draw Hotbar-----------------------
-if invOpen == false
+if invenX &lt;= 5
 {
 
     ///--Layer One--

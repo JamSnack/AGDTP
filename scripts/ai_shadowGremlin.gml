@@ -74,6 +74,7 @@ switch current_state
 
 //------------------------------------------------------
 //Collision and movement
+//#region
 var targetPlrTile = noone;
 
 if !place_meeting(x+hAccel,y,OBSTA)
@@ -89,9 +90,10 @@ else
 {
     targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
 }
+//#endregion
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone
+if state != WANDER && targetPlrTile != noone && stateLock == false
 { 
     var _damage = damage;
     with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);

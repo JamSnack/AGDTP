@@ -246,7 +246,7 @@ if targetObject != noone &amp;&amp; displayContents == true
     if tx &lt; b1+8 then tx = b1+8;
     else if tx &gt; b2 then tx = b2;
     
-    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY+(2*floor(sizeY/16)),sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
+    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY+(3*floor(sizeY/16)),sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
 }
 
 

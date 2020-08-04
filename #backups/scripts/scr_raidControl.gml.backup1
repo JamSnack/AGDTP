@@ -1,3 +1,4 @@
+// 2020-08-04 11:52:41
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -140,7 +141,7 @@ if interm == false
 maxRaidProgress = clamp(maxRaidProgress,10,100);
 spawnChance = clamp(spawnChance,0,100);
 maxGrem = clamp(maxGrem,0,25);
-spawnRate = clamp(spawnRate,0,6);
+spawnRate = clamp(spawnRate,0,3);
 
 worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;
