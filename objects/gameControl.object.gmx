@@ -76,8 +76,8 @@ if _playerY &gt; stoneLayer-(16)
         backgroundAlpha = ((_playerY-stoneLayer-16)/(stoneLayer+(16*6)))*9;
     } else backgroundAlpha = 1;
     
-    background_alpha[4] = backgroundAlpha;
-} else { backgroundAlpha = 0; background_alpha[4] = backgroundAlpha;}
+    background_alpha[5] = backgroundAlpha;
+} else { backgroundAlpha = 0; background_alpha[5] = backgroundAlpha;}
 
 </string>
           </argument>
@@ -196,13 +196,8 @@ if dev == true
     if interm == false 
     { draw_text(10,10,"Wave "+string(wave)); }
     else
-    { 
-        var frameTime = ((30*60)*3);
-        var realTime = (frameTime/60);
-    
+    {
         draw_text(10,10,"Next Wave: "+string(wave+1)); 
-        draw_text(10,20,"Time: "+string(realTime-(worldControl.world_Time)/60));
-    
     }
 }
 </string>

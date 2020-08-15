@@ -9,6 +9,8 @@ var bossID = noone;
 var specialRaid = false;
 var special_raidID = noone;
 
+var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
+
 //Spawn Rate is: alarm[0] = room_speed/spawn_rate;
 //Spawn Chance is: if irandom(100) < spawnChance;
 
@@ -26,12 +28,17 @@ switch presetSettings
         raidBoss = false;
         raidProgress = 0;
         
+        //- return to daylight.
+        worldControl.dayTransition = true;
+        worldControl.world_Time = 0;
+        
         //Save the game.
         if wave > 0
         {
             with gameControl event_user(0);
             scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
             
+            //Rewards
             scr_dropItem(10,wave,0,obj_player.x,obj_player.y,noone);
             scr_dropItem(15,wave,0,obj_player.x,obj_player.y,noone);
         }
@@ -43,7 +50,7 @@ switch presetSettings
         
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
         
-        scr_musicTransition(snd_overworld_1,room_speed*10);
+        scr_musicTransition(snd_overworld_1,musicTransitionTime);
     }
     break;
     case "RAID":
@@ -51,7 +58,7 @@ switch presetSettings
         //---------- Normal Raid settings ---------
         // - 5% Chance to turn into a special raid.
         //#region Special Raids
-        if irandom(100) <= 101//20
+        if irandom(100) <= 20
         {
             //Special raids
             special_raidID = choose("SR_Shadow");
@@ -69,9 +76,9 @@ switch presetSettings
                     
                     interm = false;
                     
-                    scr_hudMessage("Special Raid incoming!",0,5,0,c_yellow,0);
+                    scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
                     
-                    scr_musicTransition(snd_wave_1,room_speed*10);
+                    scr_musicTransition(snd_wave_1,musicTransitionTime);
                 }
                 break;
             }
@@ -94,7 +101,7 @@ switch presetSettings
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
         
-        scr_musicTransition(snd_wave_1,room_speed*10);
+        scr_musicTransition(snd_wave_1,musicTransitionTime);
     }
     break;
     

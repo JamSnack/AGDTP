@@ -92,6 +92,7 @@
   <backgrounds name="background">
     <background>background\bkg_cave</background>
     <background>background\bkg_overworldSky</background>
+    <background>background\bkg_overworldNightSky</background>
     <background>background\bkg_overworldGrass</background>
     <background>background\bkg_overworldHills</background>
     <background>background\bkg_overworldHillsLow</background>
@@ -217,6 +218,7 @@
       <object>objects\efct_popMessage</object>
       <object>objects\efct_overMessage</object>
       <object>objects\efct_roomTransition</object>
+      <object>objects\obj_popUi</object>
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
@@ -227,7 +229,6 @@
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
     <object>objects\Boundary</object>
-    <object>objects\obj_popUi</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>

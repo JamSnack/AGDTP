@@ -111,7 +111,7 @@ enum ITEMID
     tile_platform,
     cons_bomb,
     tile_packedStone,
-    weapon_subLimeMachineGun,
+    weapon_subLimeMachineGun
 }
 
 //Item Types
@@ -121,7 +121,7 @@ enum ITEMTYPE
     weapon,
     pickaxe,
     playertile,
-    consumable,
+    consumable
 }
 
 </string>

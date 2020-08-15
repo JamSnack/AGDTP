@@ -107,11 +107,19 @@ canPickUp = true;
           <argument>
             <kind>1</kind>
             <string>///Instance despawning.
+/*
 var world_Time = worldControl.world_Time;
 
 if time &gt; world_Time then instance_destroy();
 
 time = world_Time;
+
+###### 
+NOTE:
+WORLD TIME GETS RESET. THIS CODE GURANTEES ALL ITEM DROPS ARE DESTROYED TRANSITIONING FROM
+WAVE TO INTERMISSION.
+#####
+*/
 </string>
           </argument>
         </arguments>

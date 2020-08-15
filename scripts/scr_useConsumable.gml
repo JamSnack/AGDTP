@@ -2,7 +2,6 @@
 //Return the object associated with the itemID of the tile to place.
 var item = argument0;
 
-
 toolReady = false;
 armIndex = spr_armSwing;
 armAngleGoal = 71;
@@ -17,10 +16,6 @@ switch item
     // Gremlin Talisman
     case 14:
     {   
-        if interm == false then exit;
-        
-        worldControl.world_Time = 0;
-        scr_raidControl("RAID",0,0,0,0); // Preset Raid
         toolReady = false;
         armIndex = spr_armSwing;
         armAngleGoal = 71;
@@ -28,6 +23,10 @@ switch item
         armAngleRate = 0;
         toolSprite = spr_gremBlock;
         alarm[2] = room_speed;
+    
+        if interm == false then exit;
+        
+        scr_raidControl("RAID",0,0,0,0); // Preset Raid
     }
     break;
     

@@ -751,12 +751,11 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
           <argument>
             <kind>1</kind>
             <string>///Draw Ui
-var dispWidth = view_wview;
-var dispHeight = view_hview;
+var dispWidth = viewWidth;
+var dispHeight = viewHeight;
 
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
-
 
 //Draw Inventory -----------------------------------------
 //#region

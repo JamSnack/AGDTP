@@ -110,14 +110,18 @@ if room == rm_zero
     cloudBkg_xOffset += 0.05;
     if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;
     
-    background_x[0] = view_xview/1.1 + cloudBkg_xOffset;
-    background_x[1] = view_xview/1.3;
-    background_x[2] = view_xview/1.6;
-    background_x[3] = view_xview/2.2;
+    var _dayAlpha = worldControl.dayAlpha/0.6; // dayAlpha/[MAGIC NUMBER]: MN is the maximum dayAlpha value.
     
-    background_y[1] = (-view_yview/5.15)-64;
-    background_y[2] = (-view_yview/5.20)-64;
-    background_y[3] = (-view_yview/5.25)-64;
+    background_alpha[1] = _dayAlpha;
+    
+    background_x[1] = view_xview/1.1; //stars
+    background_x[2] = view_xview/1.3; //hills
+    background_x[3] = view_xview/1.6; //hills low
+    background_x[4] = view_xview/2.2; //grass
+    
+    background_y[2] = (-view_yview/5.15)-64;
+    background_y[3] = (-view_yview/5.20)-64;
+    background_y[4] = (-view_yview/5.25)-64;
 } else if room == rm_lobby
 {
     //This variable will be used for the stars
