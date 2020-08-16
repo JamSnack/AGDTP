@@ -154,7 +154,7 @@ var ly = lengthdir_y(speed,direction);
 if bStab == true
 {
     //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
-    var _dir = point_direction(x,y,mouse_x,mouse_y);
+    var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
     
     //- prepare _dir for further processing...
     if image_xscale == -1 then _dir = (_dir-180)*-1;
@@ -238,7 +238,7 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
             <kind>1</kind>
             <string>if other.canHurt == true
 { 
-    var dir = point_direction(x,y,ox,oy);
+    var dir = point_direction(x,y,xprevious,yprevious);
     var k = knkAmt;
     var d = dmg;
 

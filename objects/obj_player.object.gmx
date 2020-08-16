@@ -454,6 +454,9 @@ else platformCollide = true;
 //Remain inside the room at all times
 x = clamp(x,0,room_width);
 y = clamp(y,0,room_height);
+
+//Arm calculations will sometimes cause image_xscale to be zero.
+if image_xscale == 0 then image_xscale = 1;
 </string>
           </argument>
         </arguments>

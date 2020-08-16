@@ -113,24 +113,30 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
     yy = floor(yy/16)*16;
     
     //Spawn mobs outside flat lands + (or during raids)
+    var spawn_at_portal;
+    
     if (xx &gt;= RAIDBOUND_Lower &amp;&amp; xx &lt;= RAIDBOUND_Upper) || interm == false
-    { xx = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); yy = (room_height/2)-(16*4); }
+    {
+        xx = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); 
+        yy = (room_height/2)-(16*4);
+        spawn_at_portal = !interm; //if interm == false then spawn_at_portal = true;
+    }
     
     //Gremlins spawn on top of stuff
     while position_meeting(xx,yy,OBSTA) yy-=16;
     
-    //Check whether or not the enemy will spawn inside the view.
+    //Spawn gremlin
+    var flyChance = 0.3;
+    var gremNumber = random(1);
+    
+    //-Check whether or not the enemy will spawn inside the view.
     if !point_in_rectangle(xx,yy,_viewX,_viewY,_viewW,_viewH)
     {
-        //SpawnGremlins directly ontop of a tile from the sky
+        //--SpawnGremlins directly ontop of a tile from the sky
         while (!position_meeting(xx,yy+16,TILE_ALL) &amp;&amp; !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy &gt; room_height then break; }
-    
-        //Spawn gremlin
-        var flyChance = 0.3;
-        var gremNumber = random(1);
         
         new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
-    }
+    } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID); }
     
     //Clear active mob roster
     if array_length_1d(enemyActiveList) &gt; 3 { enemyActiveList = 0; }

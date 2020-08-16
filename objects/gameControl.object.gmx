@@ -185,6 +185,7 @@ print('Game Saved');
             <kind>1</kind>
             <string>///Draw World Stats
 draw_set_color(c_white);
+draw_set_font(global.fnt_Ui);
 
 if dev == true
 {
