@@ -113,7 +113,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
     yy = floor(yy/16)*16;
     
     //Spawn mobs outside flat lands + (or during raids)
-    var spawn_at_portal;
+    var spawn_at_portal = false;
     
     if (xx &gt;= RAIDBOUND_Lower &amp;&amp; xx &lt;= RAIDBOUND_Upper) || interm == false
     {

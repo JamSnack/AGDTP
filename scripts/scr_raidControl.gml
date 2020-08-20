@@ -32,15 +32,16 @@ switch presetSettings
         worldControl.dayTransition = true;
         worldControl.world_Time = 0;
         
-        //Save the game.
+        //Give wave rewards and Save the game.
         if wave > 0
         {
-            with gameControl event_user(0);
-            scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
-            
             //Rewards
             scr_dropItem(10,wave,0,obj_player.x,obj_player.y,noone);
             scr_dropItem(15,wave,0,obj_player.x,obj_player.y,noone);
+        
+        
+            with gameControl event_user(0);
+            //scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
         }
         
         //Tutorial quest
