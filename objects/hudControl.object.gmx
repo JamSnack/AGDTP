@@ -32,6 +32,11 @@ pickaxeIcon = spr_pickaxe;
 image_speed = 30/60;
 
 //Inventory
+/*NOTE: If the hitboxes for the inventory need to be updated in the future,
+    define them here and update them in here, because each event having a local
+    set of inventory coordinates is very annoying to update :P.
+*/
+
 invOpen = false;
 invenXMax = 125;
 invenX = 0;
@@ -203,7 +208,7 @@ pickupTimerRate = 2;
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-if !point_in_rectangle(dx,dy,0,50-15,invenX,200)
+if !point_in_rectangle(dx,dy,0,50-45,invenX,200)
 {
     cursorHoldItem = false;
     cursorItem = noone;
@@ -234,9 +239,11 @@ if !point_in_rectangle(dx,dy,0,50-15,invenX,200)
           <argument>
             <kind>1</kind>
             <string>///Inventory Interaction
+
+
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0)
-        
+   
 for (i=0;i&lt;maxInvenSlots;i++)
 {
     //inventory slots
@@ -245,14 +252,14 @@ for (i=0;i&lt;maxInvenSlots;i++)
     
     var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
     var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-    var y1 = 5+(16*c);
-    var y2 = 15+(16*c);
+    var y1 = -45+(16*c);
+    var y2 = -35+(16*c);
     
     //Hotbar slots
     var x3 = (10+(i*16));
     var x4 = (20+(i*16));
-    var y3 = -15;
-    var y4 = -5;
+    var y3 = -45;
+    var y4 = -35;
 
     if cursorHoldItem == true
     {
@@ -260,7 +267,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
         
         //---------- SET AN ITEM IN A SLOT -----------------------------
         
-        if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4)) &amp;&amp; cursorHoldItem == true
+        if cursorHoldItem == true &amp;&amp; (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
         {
         
         //-----------------------------Copy current item and place in old slot if need be.----------------------------
@@ -333,7 +340,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 
                 exit;
             }
-        } else if i == cursorSlot &amp;&amp; !point_in_rectangle(dx,dy,0,50-15,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
+        } else if i == cursorSlot &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
     }
     
     
@@ -438,7 +445,7 @@ if settingsMenu = true
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-var hotbarOffset = -15;
+var hotbarOffset = -45;
 
 //Hotbar and inventory interaction
 
@@ -456,14 +463,14 @@ if invOpen == true
                 
                 var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
                 var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-                var y1 = 5+(16*c);
-                var y2 = 15+(16*c);
+                var y1 = -45+(16*c);
+                var y2 = -35+(16*c);
                 
                 //Hotbar slots
                 var x3 = (10+(i*16));
                 var x4 = (20+(i*16));
-                var y3 = -15;
-                var y4 = -5;
+                var y3 = -45;
+                var y4 = -35;
                 
                 //Interaction
                 if point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) &amp;&amp; cursorHoldItem == false &amp;&amp; inventorySlotAmt[i] &gt; 0
@@ -551,7 +558,7 @@ if obj_player.dead == false
                     craftSelect = i;
                     
                     if craftTimer == 0 
-                    { print("zero Time"); scr_craftItem(scr_getCraftingIndex(craftingMenu,craftIndex)); }
+                    { scr_craftItem(scr_getCraftingIndex(craftingMenu,craftIndex)); }
                     
                     break; 
                 } else craftIndex = -1;
@@ -598,7 +605,7 @@ if obj_player.dead == false
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-var hotbarOffset = -15;
+var hotbarOffset = -45;
 
 //Hotbar and inventory interaction
 
@@ -616,14 +623,14 @@ if invOpen == true
                 
                 var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
                 var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-                var y1 = 5+(16*c);
-                var y2 = 15+(16*c);
+                var y1 = -45+(16*c);
+                var y2 = -35+(16*c);
                 
                 //Hotbar slots
                 var x3 = (10+(i*16));
                 var x4 = (20+(i*16));
-                var y3 = -15;
-                var y4 = -5;
+                var y3 = -45;
+                var y4 = -35;
                 
                 //Interaction
                 if point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) &amp;&amp; cursorHoldItem == false || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4) &amp;&amp; cursorHoldItem == false
@@ -668,9 +675,9 @@ if invOpen == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room == rm_lobby then exit;
+            <string>///Place blocks
+if room == rm_lobby then exit;
 
-///Place Blocks
 var xx = round(mouse_x/16)*16;
 var yy = round(mouse_y/16)*16;
 
@@ -763,7 +770,7 @@ if invenX &gt; 5
 {
     //Inventory background
     //draw_set_alpha(0.9);
-    draw_nineSliceBox(spr_ui_9slice,-10,60,invenX,200,0);
+    //draw_nineSliceBox(spr_ui_9slice,-10,20,invenX,200,0);
     
     // -- Inventory slots layer 1 --
     for (i=0;i&lt;maxInvenSlots;i++)
@@ -776,14 +783,14 @@ if invenX &gt; 5
         {
             var x1 = (10+(i*16));
             var x2 = (20+(i*16));
-            var y1 = -15;
-            var y2 = -5;
+            var y1 = -45;
+            var y2 = -35;
         } else
         {
             var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
             var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-            var y1 = 5+(16*c);
-            var y2 = 15+(16*c);
+            var y1 = -45+(16*c);
+            var y2 = -35+(16*c);
         }
                 
         //Draw slots
@@ -832,8 +839,8 @@ if invenX &lt;= 5
     
         var x1 = (10+(i*16));
         var x2 = (20+(i*16));
-        var y1 = -15;
-        var y2 = -5;
+        var y1 = -45;
+        var y2 = -35;
         
         //Draw hotbar slots
         draw_sprite_ext(spr_ui_invenSlot,0,x1,50+y1,0.6,0.6,0,c_white,1);
@@ -862,14 +869,15 @@ if room == rm_zero
     if showCraftingMenu == true
     {
         //- draw background --Change to NineSliceBox
-        var _posX = view_wview[0]/2-120;
-        var _posY = view_hview[0]/2-105;
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
         
         draw_set_alpha(0.75);
         draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
         draw_set_alpha(1);
+        
         //draw crafting buttons
-        if craftingSpriteSet != 0
+        if ( craftingSpriteSet != noone &amp;&amp; craftingMenu != "menu_mod" )
         {
             for(i=0;i&lt;currentCraftingSlots;i++)
             {
@@ -899,6 +907,17 @@ if room == rm_zero
                     draw_text_transformed(121,175,"Items Needed: "+text[2],1,1,0);
                 }
             }
+        } 
+        else if craftingMenu == "menu_mod"
+        {
+            //-------Mod menu-----
+            var size = 16;
+            var x1 = (_posX)-size;
+            var y1 = (_posY)-size;
+            var x2 = (_posX)+size;
+            var y2 = (_posY)+size;
+            
+            draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
         }
     }
 }

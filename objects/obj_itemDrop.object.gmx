@@ -31,12 +31,18 @@ image_speed = 0;
 direction = angle;
 image_angle = angle;
 friction = random_range(0.5,1);
-speed = 3.5;
+speed = 0;
 vsp = 1;
 canPickUp = false;
 time = 0;
 tags = noone;
 alarm[0] = room_speed*1; //canPickUp
+
+bobRate = 0.05;
+bobAmt = 0;
+bobDir = 1; //-1 or 1, dictates whether or not the rate adds or subtracts from the bobAmt.
+bobLinearDir = 1; //The true direction of the line. This will be linearlly interpolated to 1 or -1.
+bobAltitude = 2;
 </string>
           </argument>
         </arguments>
@@ -143,7 +149,13 @@ WAVE TO INTERMISSION.
           <argument>
             <kind>1</kind>
             <string>//Gravitate toward player
-if distance_to_object(obj_player) &lt;= 10 &amp;&amp; canPickUp == true then motion_add(point_direction(x,y,obj_player.x,obj_player.y),5);
+if distance_to_object(obj_player) &lt;= 20 &amp;&amp; canPickUp == true 
+{
+    var dir = point_direction(x,y,obj_player.x,obj_player.y);
+    motion_add(dir,1);
+    if image_angle != dir
+    { image_angle += lerp(image_angle,dir,0.1); image_angle = clamp(image_angle,0,dir);}
+}
 
 
 //Fall or not fall
@@ -166,25 +178,44 @@ switch state
     case 1:
     {
         //Fall to the ground
-        if vsp &lt; maxGrav then vsp += grav;
-        
-        if place_meeting(x,y+vsp,OBSTA)
+        if !place_meeting(x,y+1,OBSTA)
         {
-            while !place_meeting(x,y+1,OBSTA)
-            { y+=1; }
+            if vsp &lt; maxGrav then vsp += grav;
             
-            vsp = 0;
-            exit;
-        } else if place_meeting(x,y+vsp,obj_platform)
-        {
-            while !place_meeting(x,y+1,obj_platform)
-            { y+=1; }
+            if place_meeting(x,y+vsp,OBSTA)
+            {
+                while !place_meeting(x,y+1,OBSTA)
+                { y+=1; }
+                
+                vsp = 0;
+                exit;
+            } else if place_meeting(x,y+vsp,obj_platform)
+            {
+                while !place_meeting(x,y+1,obj_platform)
+                { y+=1; }
+                
+                vsp = 0;
+                exit;
+            }
             
-            vsp = 0;
-            exit;
+            y += vsp;
         }
-        
-        y += vsp;
+        else
+        {
+            //Bobbing animation
+            bobAmt += bobRate*bobLinearDir;
+            
+            if bobDir == 1
+            { 
+                if bobAmt &gt; 1 { bobDir = -1; }
+            }
+            else
+            if bobDir == -1
+            { if bobAmt &lt; -1 { bobDir = 1; } }
+            
+            //bobLienarDirection
+            if bobLinearDir != bobDir  { bobLinearDir = lerp(bobLinearDir,bobDir,0.1); }
+        }
     }
     break;
 }
@@ -211,6 +242,29 @@ switch state
           <argument>
             <kind>1</kind>
             <string>if scr_invenAddItem(image_index,amt,type,tags) != -1 then instance_destroy() else {alarm[0] = room_speed*2; canPickUp = false;}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt)*bobAltitude,1,1,image_angle,c_white,image_alpha);
 </string>
           </argument>
         </arguments>

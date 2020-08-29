@@ -60,6 +60,7 @@
     <sprite>sprites\spr_workbenchCraftableItems</sprite>
     <sprite>sprites\spr_pieCraftableItems</sprite>
     <sprite>sprites\spr_workbench</sprite>
+    <sprite>sprites\spr_modBench</sprite>
     <sprite>sprites\spr_pie</sprite>
     <sprite>sprites\spr_ui_9slice</sprite>
     <sprite>sprites\spr_ui_arrow_down</sprite>
@@ -195,6 +196,7 @@
       <object>objects\obj_packedDirt</object>
       <object>objects\obj_packedStone</object>
       <object>objects\obj_workbench</object>
+      <object>objects\obj_modBench</object>
       <object>objects\obj_ladder</object>
       <object>objects\NOCOL</object>
       <object>objects\obj_nullLight</object>

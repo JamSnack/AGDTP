@@ -111,7 +111,9 @@ enum ITEMID
     tile_platform,
     cons_bomb,
     tile_packedStone,
-    weapon_subLimeMachineGun
+    weapon_subLimeMachineGun,
+    item_modTag,
+    tile_modBench
 }
 
 //Item Types

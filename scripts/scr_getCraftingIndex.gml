@@ -20,6 +20,7 @@ switch argument0
                 case 5: {returnID = "PLATFORM" } break;
                 case 6: {returnID = "BOMB" } break;
                 case 7: {returnID = "PACKED_STONE" } break;
+                case 8: {returnID = ITEMID.tile_modBench} break;
             }
     }
     break;
