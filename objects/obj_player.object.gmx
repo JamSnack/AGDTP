@@ -839,9 +839,11 @@ if armOffset == 0
           <argument>
             <kind>1</kind>
             <string>///Interact with objects that aren't crafting
-if distance_to_object(INTERACT) &lt; 32 &amp;&amp; instance_nearest(x,y,INTERACT).bench == false
+var interact = instance_nearest(x,y,INTERACT);
+
+if distance_to_point(interact.x,interact.y) &lt; 32 &amp;&amp; interact.bench == false
 {
-    with instance_nearest(x,y,INTERACT) event_user(0);
+    with interact event_user(0);
 }
 </string>
           </argument>

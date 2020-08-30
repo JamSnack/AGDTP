@@ -54,7 +54,7 @@ if room != rm_lobby then canHit = true else canHit = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(7,1,3,x,y,noone);
+            <string>scr_dropItem(ITEMID.tile_modBench,1,3,x,y,noone);
 </string>
           </argument>
         </arguments>

@@ -22,7 +22,7 @@ if item != 0
         if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
-            scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
+            scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);
             
             //Tutorial Quest
             if room == rm_zero

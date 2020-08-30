@@ -93,6 +93,7 @@ showTaskList = true; //Show the player's tasks.
 lastPlaceX = noone;
 lastPlaceY = noone;
 
+
 </string>
           </argument>
         </arguments>
@@ -239,11 +240,47 @@ if !point_in_rectangle(dx,dy,0,50-45,invenX,200)
           <argument>
             <kind>1</kind>
             <string>///Inventory Interaction
-
-
 var dx = device_mouse_x_to_gui(0);
-var dy = device_mouse_y_to_gui(0)
-   
+var dy = device_mouse_y_to_gui(0);
+
+
+//---------- SET AN ITEM INTO THE MOD BENCH --------------------
+
+if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
+{
+    //The dimensions of the menu's slots, as defined in the draw event.
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    var size = 16;
+    var xOff = 70;
+    var yOff = 100;
+    var x1 = (_posX)-size+xOff;
+    var y1 = (_posY)-size+yOff;
+    var x2 = (_posX)+size+xOff;
+    var y2 = (_posY)+size+yOff;
+    
+    //-- Tag Slot
+    if (cursorItem == ITEMID.item_modTag) &amp;&amp; point_in_rectangle(dx,dy,x1,y1,x2,y2)
+    {
+        selectedTag = cursorTags;
+    }
+    
+    //-- Equipment Slot
+    if (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) &amp;&amp; point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
+    {
+        selectedEquipment = cursorItem;
+        equipmentIcon = cursorItem;
+        print("Yes");
+    }
+    
+    //-- Activate confirmation
+    if selectedEquipment != noone &amp;&amp; selectedTag != noone
+    {
+        modCanConfirm = true;
+    }
+}
+
+
 for (i=0;i&lt;maxInvenSlots;i++)
 {
     //inventory slots
@@ -267,7 +304,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
         
         //---------- SET AN ITEM IN A SLOT -----------------------------
         
-        if cursorHoldItem == true &amp;&amp; (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
+        if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
         {
         
         //-----------------------------Copy current item and place in old slot if need be.----------------------------
@@ -340,7 +377,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 
                 exit;
             }
-        } else if i == cursorSlot &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
+        } else if i == cursorSlot &amp;&amp; (showCraftingMenu == false &amp;&amp; craftingMenu == "menu_mod") &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
     }
     
     
@@ -578,7 +615,7 @@ if obj_player.dead == false
                 } 
             }
             
-        } else { craftIndex = -1; craftSelect = -1; showCraftingMenu = false; }
+        } else if craftingMenu != "menu_mod" { craftIndex = -1; craftSelect = -1; showCraftingMenu = false; }
     } else { craftIndex = -1; craftSelect = -1; }
 }
 </string>
@@ -641,7 +678,6 @@ if invOpen == true
                     cursorType = inventorySlotType[i];
                     cursorSlot = i;
                     cursorTags = inventorySlotTags[i];
-                    
                     break;
                 }
             }
@@ -735,6 +771,35 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
         }
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Initialize Mod Bench
+
+selectedEquipment = noone;
+equipmentIcon = 0;
+selectedTag = noone;
+modCanConfirm = false;
+
 </string>
           </argument>
         </arguments>
@@ -912,12 +977,29 @@ if room == rm_zero
         {
             //-------Mod menu-----
             var size = 16;
-            var x1 = (_posX)-size;
-            var y1 = (_posY)-size;
-            var x2 = (_posX)+size;
-            var y2 = (_posY)+size;
+            var xOff = 70;
+            var yOff = 100;
+            var x1 = (_posX)-size+xOff;
+            var y1 = (_posY)-size+yOff;
+            var x2 = (_posX)+size+xOff;
+            var y2 = (_posY)+size+yOff;
+            
+            draw_set_font(global.fnt_Ui);
             
             draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
+            draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
+            
+            //Draw icons
+            if selectedTag != noone 
+            { 
+                draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
+                if ds_exists(selectedTag,ds_type_list)
+                { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
+            }
+            if selectedEquipment != noone 
+            { 
+                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
+            } //MN: 50+50 = 100; 50 is MN for equip slot placement.
         }
     }
 }
@@ -1135,6 +1217,9 @@ showCraftingMenu = !showCraftingMenu;
 if instance_exists(gameControl)
 { if currentTask == 1 then currentTask = 2; }
 
+    
+//init mod bench
+event_user(0);
 </string>
           </argument>
         </arguments>

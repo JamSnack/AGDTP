@@ -38,7 +38,7 @@ time = 0;
 tags = noone;
 alarm[0] = room_speed*1; //canPickUp
 
-bobRate = 0.05;
+bobRate = 0.025;
 bobAmt = 0;
 bobDir = 1; //-1 or 1, dictates whether or not the rate adds or subtracts from the bobAmt.
 bobLinearDir = 1; //The true direction of the line. This will be linearlly interpolated to 1 or -1.
