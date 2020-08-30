@@ -71,7 +71,9 @@ craftBuffer = 0; //Last Item crafted
 //Mod Menu
 selectedTag = noone;
 selectedEquipment = noone;
+selectedType = noone;
 equipmentIcon = noone;
+equipmentTags = noone;
 modCanConfirm = false;
 
 //Inventory Slots
@@ -215,8 +217,8 @@ pickupTimerRate = 2;
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-//Hotbar coordinates
-if !point_in_rectangle(dx,dy,0,50-45,invenX,200)
+//Hotbar+inventory coordinates
+if !point_in_rectangle(dx,dy,0,50-45,invenX,200) &amp;&amp; showCraftingMenu == false
 {
     if cursorHoldItem == true
     { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); }
@@ -252,7 +254,9 @@ else
         {
             //-Equipment Slot
             selectedEquipment = noone;
-            equipmentIcon = noone;
+            selectedType = noone;
+            equipmentTags = noone;
+            equipmentIcon = 0;
         }
     }
 }
@@ -283,7 +287,7 @@ var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
 
-//---------- SET AN ITEM INTO THE MOD BENCH --------------------
+//---------- MOD BENCH FUNCTIONALITY ---------------
 
 if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
 {
@@ -308,14 +312,51 @@ if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
     if (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) &amp;&amp; point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
     {
         selectedEquipment = cursorItem;
+        selectedType = cursorType;
         equipmentIcon = cursorItem;
-        print("Yes");
+        equipmentTags = cursorTags;
     }
     
     //-- Activate confirmation
     if selectedEquipment != noone &amp;&amp; selectedTag != noone
     {
         modCanConfirm = true;
+    }
+}
+else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
+{
+    //-- Create new item
+    //The dimensions of the menu's slots, as defined in the draw event.
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    var size = 16;
+    var xOff = 70;
+    var yOff = 100;
+    var x1 = (_posX)-size+xOff;
+    var y1 = (_posY)-size+yOff;
+    var x2 = (_posX)+size+xOff;
+    var y2 = (_posY)+size+yOff;
+    
+    if modCanConfirm == true &amp;&amp; point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
+    {
+        print("Check")
+        
+        if !ds_exists(equipmentTags,ds_type_list)
+        { equipmentTags = ds_list_create(); }
+        
+        ds_list_add(equipmentTags,selectedTag[| 0]); 
+        
+        //Remove
+        scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
+        scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
+        
+        
+        //Reset if successful
+        if scr_invenAddItem(selectedEquipment,0,selectedType,equipmentTags) != -1
+        {
+            scr_hudMessage("Modification success!",global.fnt_Ui,5,equipmentIcon,c_aqua,0);
+            event_user(0);
+        } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
     }
 }
 
@@ -838,7 +879,9 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
             <string>///Initialize Mod Bench
 
 selectedEquipment = noone;
+selectedType = noone;
 equipmentIcon = 0;
+equipmentTags = noone;
 selectedTag = noone;
 modCanConfirm = false;
 
