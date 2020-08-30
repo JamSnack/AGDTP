@@ -1,3 +1,4 @@
+// 2020-08-30 12:39:22
 ///scr_invenAddItem(item,amt,type,tags);
 
 var item = argument0;
@@ -19,7 +20,7 @@ if item != 0
         var hudItem = hudControl.inventorySlotIcon[i];
         
         //Check for existing item
-        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && invTags == hudControl.inventorySlotTags[i]
+        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && invTags == inventorySlotTags[i]
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);

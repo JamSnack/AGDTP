@@ -113,7 +113,8 @@ enum ITEMID
     tile_packedStone,
     weapon_subLimeMachineGun,
     item_modTag,
-    tile_modBench
+    tile_modBench,
+    tile_woodenStilt
 }
 
 //Item Types

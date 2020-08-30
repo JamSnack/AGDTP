@@ -834,7 +834,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     //Single place
                     if !position_meeting(xx,yy,TILE_ALL) 
                     &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*3 //3 tiles worth of distance.
-                    &amp;&amp; collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false) //|| collision_point(xx,yy+16,obj_platform,false,false) )
+                    &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
                     {
@@ -1251,7 +1251,7 @@ if room == rm_zero
             if !position_meeting(xx,yy,TILE_ALL) &amp;&amp; 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) &amp;&amp; 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &amp;&amp;
-            collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
+            (isConnected(xx,yy) || isGrounded(xx,yy))//collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
             draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);

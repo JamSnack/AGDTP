@@ -34,6 +34,8 @@ type = noone;
 
 knockType = noone;
 itemDrop = true;
+
+if !isConnected(x,y) then instance_destroy();
 </string>
           </argument>
         </arguments>

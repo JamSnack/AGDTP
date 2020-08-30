@@ -85,10 +85,7 @@ audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
 
-var tag = ds_list_create();
-ds_list_add(tag,"Bouncy");
-scr_dropItem(ITEMID.item_modTag,1,ITEMTYPE.def,x,y,tag);
-scr_dropItem(ITEMID.tile_modBench,1,ITEMTYPE.playertile,x,y,noone);
+scr_dropItem(ITEMID.tile_woodenStilt,999,ITEMTYPE.playertile,x,y,noone);
 </string>
           </argument>
         </arguments>

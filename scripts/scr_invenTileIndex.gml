@@ -11,4 +11,5 @@ switch argument0
     case 16: { return obj_platform; } break;
     case 18: { return obj_packedStone; } break;
     case ITEMID.tile_modBench: { return obj_modBench; } break;
+    case ITEMID.tile_woodenStilt: { return obj_woodenStilt; } break;
 }

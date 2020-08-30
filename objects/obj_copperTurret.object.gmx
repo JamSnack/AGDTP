@@ -38,8 +38,6 @@ targetRange = 7*16; //5 Tiles
 fireRate = 1; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
-
-if !isConnected() then instance_destroy();
 </string>
           </argument>
         </arguments>

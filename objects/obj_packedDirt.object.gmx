@@ -32,7 +32,7 @@ hp = maxHp;
 tileID = 6;
 type = 3;
 
-if !isConnected() then instance_destroy();
+if !isConnected(x,y) then instance_destroy();
 </string>
           </argument>
         </arguments>
