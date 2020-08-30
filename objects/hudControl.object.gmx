@@ -68,6 +68,12 @@ craftIndex = -1; //The CRAFTING ID of the item to craft
 craftSelect = -1;
 craftBuffer = 0; //Last Item crafted
 
+//Mod Menu
+selectedTag = noone;
+selectedEquipment = noone;
+equipmentIcon = noone;
+modCanConfirm = false;
+
 //Inventory Slots
 //- initialize array length to avoid memory error.
 inventorySlotIcon[maxInvenSlots-1] = 0;
@@ -203,19 +209,52 @@ if showCraftingMenu == true &amp;&amp; craftingMenu != 0
           <argument>
             <kind>1</kind>
             <string>pickupTimerMax = 30;
-pickupTimer = 30;
+pickupTimer = 28;
 pickupTimerRate = 2;
 
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
+//Hotbar coordinates
 if !point_in_rectangle(dx,dy,0,50-45,invenX,200)
 {
+    if cursorHoldItem == true
+    { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); }
+    
     cursorHoldItem = false;
     cursorItem = noone;
     cursorAmt = noone;
     cursorSlot = noone;
     cursorType = noone;
+    cursorTags = noone;
+}
+else 
+{ 
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    var size = 16;
+    var xOff = 70;
+    var yOff = 100;
+    var x1 = (_posX)-size+xOff;
+    var y1 = (_posY)-size+yOff;
+    var x2 = (_posX)+size+xOff;
+    var y2 = (_posY)+size+yOff;
+    
+    if (showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod")
+    {
+        //Clear mod slots
+        //- Tag Slot
+        if point_in_rectangle(dx,dy,x1,y1,x2,y2)
+        {
+            selectedTag = noone;
+        }
+        else if point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
+        {
+            //-Equipment Slot
+            selectedEquipment = noone;
+            equipmentIcon = noone;
+        }
+    }
 }
 </string>
           </argument>
@@ -280,7 +319,7 @@ if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
     }
 }
 
-
+//--------- INVENTORY INTERACTIONS -------------
 for (i=0;i&lt;maxInvenSlots;i++)
 {
     //inventory slots
@@ -377,7 +416,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 
                 exit;
             }
-        } else if i == cursorSlot &amp;&amp; (showCraftingMenu == false &amp;&amp; craftingMenu == "menu_mod") &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
+        } else if i == cursorSlot &amp;&amp; (showCraftingMenu == false &amp;&amp; craftingMenu != "menu_mod") &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
     }
     
     
@@ -518,10 +557,13 @@ if invOpen == true
                     cursorAmt = 1;
                     cursorType = inventorySlotType[i];
                     cursorSlot = i;
+                    cursorTags = inventorySlotTags[i];
+                    
                     break;
                 }
             }
-        } else
+        } 
+        else
         {
             pickupTimer += 1;
             if pickupTimer &gt;= pickupTimerMax
@@ -986,6 +1028,7 @@ if room == rm_zero
             
             draw_set_font(global.fnt_Ui);
             
+            //Tag and Equipment Slots respectively
             draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
             draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
             
@@ -996,10 +1039,19 @@ if room == rm_zero
                 if ds_exists(selectedTag,ds_type_list)
                 { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
             }
+            
             if selectedEquipment != noone 
             { 
                 draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
             } //MN: 50+50 = 100; 50 is MN for equip slot placement.
+            
+            //Draw mod complete
+            draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
+            
+            if modCanConfirm == true
+            {
+                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
+            }
         }
     }
 }
