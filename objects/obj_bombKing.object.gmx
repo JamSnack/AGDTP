@@ -58,13 +58,11 @@ maxAccel = 1;
 accelRate = 0.05;
 
 //Animation
-altitude = 2; //+ or - the origin point.
-animY = y; //origin Y;
-animRate = 0.1;
-animTrueRate = 0.01;
-animRateMax = 1;
-animDirection = 1; //The starting direction of the animation.
-
+bobAmt = 0;
+bobDir = 1;
+bobLinearDir = 1;
+bobRate = 0.2;
+bobAltitude = 4;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
@@ -126,7 +124,7 @@ event_inherited();
           <argument>
             <kind>1</kind>
             <string>///Bomb Ring Attack
-var bombRing = collision_circle(x,y,atkBox*2,PLRTILE,false,true);
+var bombRing = collision_circle(x,y,atkBox/2,PLRTILE,false,true);
 
 if bombRing == noone
 {
@@ -229,6 +227,33 @@ objective = obj_pie;
 if instance_exists(objective) 
 { ai_bombKing(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 
 else target = obj_pie;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>switch state
+{
+    case WANDER: { draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha); } break;
+    default: { draw_self(); }
+}
 </string>
           </argument>
         </arguments>

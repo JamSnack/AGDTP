@@ -9,7 +9,7 @@ var jump_speed = argument6;
 var atkBox = (argument7)/2;
 
 //Boss stuff.
-var bombRing = collision_circle(x,y,atkBox*1.25,PLRTILE,false,true);
+var bombRing = collision_circle(x,y,atkBox/2,PLRTILE,false,true);
 
 var x_previous = round(xprevious);
 var _x = round(x);
@@ -78,26 +78,26 @@ switch current_state
     
     case WANDER:
     {
-        //Animate
-        var dir = animDirection;
+        //Bobbing animation
+        var dir = sign(objective.x-x);
+        image_xscale = dir;
         
+        bobAmt += bobRate*bobLinearDir;
         
-        if animRate > animRateMax*dir then animRate += animTrueRate
-        else if animRate < animRateMax*dir then animRate -= animTrueRate;
-        
-        
-        //Up
-        if dir = 1
-        {
-            if y+animRate < animY-altitude then animDirection = -1;
-        } 
-        //Down
-        else if dir = -1
-        {
-            if y+animRate > animY+altitude then animDirection = 1;
+        if bobDir == 1
+        { 
+            if bobAmt > 1 { bobDir = -1; }
+            image_index = 1;
+        }
+        else
+        if bobDir == -1
+        { 
+            if bobAmt < -1 { bobDir = 1; } 
+            image_index = 0;
         }
         
-        y += animRate;
+        //bobLienarDirection
+        if bobLinearDir != bobDir  { bobLinearDir = lerp(bobLinearDir,bobDir,0.1); }
     }
     break;
 }

@@ -6,7 +6,7 @@ var knockAmt = argument3; // How much knockback to be applied.
 var dir = argument4; // Direction
 
  //knockback conditions
-if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1
+if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1 || object_get_parent(object_index) == PLR_NOCOL
     { knock = false; damage = round(damage/10)+1 }
 
 canHurt = false;

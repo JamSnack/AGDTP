@@ -133,7 +133,8 @@ with hudControl
                 
                 for (k=0;k&lt;ds_list_size(tagList);k++)
                 {
-                    str = str+tagList[| k]+"$";
+                    if is_string(str)
+                    { str = str+tagList[| k]+"$"; }
                 }
                 ds_map_add(_map,"tags",str);
             }
@@ -189,16 +190,16 @@ draw_set_font(global.fnt_Ui);
 
 if dev == true
 {
-    draw_text(10,10,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
+    draw_text(10,20,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
     if instance_exists(ENEMY)
-    { draw_text(10,20,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
+    { draw_text(10,25,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
 } else
 {
     if interm == false 
-    { draw_text(10,10,"Wave "+string(wave)); }
+    { draw_text(10,20,"Wave "+string(wave)); }
     else
     {
-        draw_text(10,10,"Next Wave: "+string(wave+1)); 
+        draw_text(10,20,"Next Wave: "+string(wave+1)); 
     }
 }
 </string>

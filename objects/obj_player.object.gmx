@@ -645,7 +645,7 @@ if dead == false
     var _cmY = view_hview[0]/2-105;
     if 
         //- Inventory stipulations
-        !point_in_rectangle(dx,dy,0,35,125,45) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,200) 
+        !point_in_rectangle(dx,dy,0,5,125,15) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,70) 
         &amp;&amp; hudControl.cursorHoldItem == false &amp;&amp;
         
         //- Crafting Menu stipulations

@@ -8,6 +8,9 @@ var objective = argument5;
 var jump_speed = argument6;
 var atkBox = (argument7)/2;
 
+var xObjective = objective.x;
+var yObjective = objective.y;
+
 var x_previous = round(xprevious);
 var _x = round(x);
 
@@ -17,13 +20,33 @@ if instance_exists(objective)
 //Attack Check --------------------------------------------
 if objective.canHurt == true
 {
-    if point_in_rectangle(objective.x,objective.y,x-atkBox,y-atkBox,x+atkBox,y+atkBox)
+    var nearestNoCol = instance_nearest(x,y,PLR_NOCOL);
+    var _xx = x;
+    var _yy = y;
+    
+    if point_in_rectangle(xObjective,yObjective,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,other.x,other.y-2);
+            var dir = point_direction(x,y,_xx,_yy);
             scr_hurt(other.damage,HURT_LONG,true,6,dir);
         }
+        
+        state = WANDER;
+        stateLock = true;
+        alarm[stateLockAlarm] = 30;
+    } 
+    else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    {
+        with nearestNoCol  //Hurt the objective.
+        {
+            var dir = point_direction(x,y,_xx,_yy-2);
+            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+        }
+    
+        state = WANDER;
+        stateLock = true;
+        alarm[stateLockAlarm] = 30;
     }
 }
 
