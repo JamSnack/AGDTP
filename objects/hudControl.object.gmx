@@ -149,7 +149,9 @@ craftingSpriteSet = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if invOpen == true
+            <string>if room == rm_menu then exit;
+
+if invOpen == true
     { if invenX &lt; invenXMax then invenX += (invenXMax-invenX)*0.2; } 
     else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
     
@@ -648,6 +650,8 @@ if invOpen == true
           <argument>
             <kind>1</kind>
             <string>///Crafting interaction
+if room == rm_menu then exit;
+
 if obj_player.dead == false
 {
     if craftingMenu != 0 &amp;&amp; showCraftingMenu == true
@@ -907,7 +911,9 @@ modCanConfirm = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Draw Ui
+            <string>if room == rm_menu then exit;
+
+///Draw Ui
 var dispWidth = viewWidth;
 var dispHeight = viewHeight;
 
@@ -1148,12 +1154,22 @@ if instance_exists(obj_pie)
 //- Boss health bar
 if worldControl.raidBoss == true
 {
+    //Boss ID
     var boss = worldControl.raidBossID;
+    var bossName = "Null";
+    
+    //Return the boss's name.
+    switch object_get_name(boss.object_index)
+    {
+        //All possible boss objects.
+        case "obj_bombKing": { bossName = "The Bomb King" } break;
+    }
+    
     if boss != noone
     {
         var bossHp = boss.hp;
         var bossMaxHp = boss.maxHp
-        draw_text(18,dispHeight-30,object_get_name(boss.object_index));
+        draw_text(18,dispHeight-30,bossName);
         draw_nineSliceBox(spr_ui_bossHealthBar,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
         draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
     }

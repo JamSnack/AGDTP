@@ -1,0 +1,74 @@
+// 2020-09-02 15:42:38
+#event create
+imageRate = 0.001;
+image_angle = 0;
+
+imageAccelerationMax = 0.025;
+imageAcceleration = imageAccelerationMax;
+imageThreshold = 3;
+
+text = "Closed-Alpha 0.2";
+
+playButton_active = false;
+
+#event step
+imageAcceleration += imageRate;
+
+if image_angle+imageAcceleration > imageThreshold
+{
+    imageRate = -1;
+} else if image_angle+imageAcceleration  < -imageThreshold then imageRate = 1;
+
+imageAcceleration = clamp(imageAcceleration,-imageAccelerationMax,imageAccelerationMax);
+
+image_angle += imageAcceleration;
+
+//Button recognition
+var dx = mouse_x;
+var dy = mouse_y;
+
+if playButton_active == false 
+{
+    if point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
+    {
+      playButton_active = true;  
+    } 
+    
+} else if !point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120) then playButton_active = false;
+
+
+
+#event mouse_global_left_release
+
+//Button recognition
+var dx = mouse_x;
+var dy = mouse_y;
+
+if playButton_active == true && point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
+{
+    scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_lobby);
+}
+
+#event draw
+draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,c_white,image_alpha);
+draw_set_font(global.fnt_menu);
+draw_set_color(c_yellow);
+draw_text(x-120,y+40,text);
+
+//----Play Button-----
+var pc,pscale,pangle;
+
+if playButton_active == true 
+{
+    pc = c_white
+    pscale = 4.50;
+    pangle = image_angle;
+}
+else
+{
+    pc = c_yellow;
+    pscale = 4;
+    pangle = 0;
+}
+draw_set_color(pc);
+draw_text_transformed(x-12*pscale,y+80,"Play",pscale,pscale,pangle);

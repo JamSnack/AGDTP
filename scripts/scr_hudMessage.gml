@@ -16,7 +16,7 @@ for (i=0;i<instance_number(efct_hudMessage);i++)
     {
         if m.amt == "" then break;
         
-        m.time = time;
+        m.alarm[0] = time*room_speed;
         m.amt += amt;
         exit;
     }

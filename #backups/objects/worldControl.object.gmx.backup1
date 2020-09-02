@@ -1,4 +1,4 @@
-// 2020-08-04 11:43:14
+// 2020-09-01 19:32:20
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid;
 grav = 0.350;
@@ -32,6 +32,13 @@ spawnChance = 0; //The chance that the thing will spawn out of 100.
 raidBoss = false; //No raid boss.
 raidBossID = noone; //The instance ID of the boss.
 specialRaid = false; //Bool telling whether or not a special raid is in progress.
+special_raidID = noone; //The ID of the raid
+world_TimeMax = room_speed*(3*60);
+dayTransition = false; //Whether or not to transition into day;
+dayAlpha = 0;
+
+global.light_surface = surface_create(display_get_width(),display_get_height());
+
 
 #event alarm0|Deactivation/Chunking and World Time
 world_Time += 1;
@@ -40,6 +47,7 @@ heal_Time += 1;
 var playerX = obj_player.x;
 var playerY = obj_player.y;
 var view_zoom = camera.view_zoom;
+var playerLight = obj_player.playerLight;
 
 //----Deactivation---------
 if view_zoom != view_zoom_buffer
@@ -55,6 +63,10 @@ if view_zoom != view_zoom_buffer
         var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
         var enemyBoundary = 5*16; //-tiles enemdies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
+        
+        //Keep saplings active.
+        if instance_exists(obj_sapling)
+        {   instance_activate_object(obj_sapling); }
         
         //-Deactivate offscreen objects.
         with TILE event_user(0);
@@ -82,7 +94,7 @@ if view_zoom != view_zoom_buffer
 
 //-----------Light up underground tiles----------------
 //Updates every tile.
-if (abs(playerX-plr_xBuffer) > 16 || abs(playerY-plr_yBuffer) > 16)
+if (abs(playerX-plr_xBuffer) > 15 || abs(playerY-plr_yBuffer) > 15)
 {
     
     if playerY > stoneLayer-48
@@ -94,7 +106,7 @@ if (abs(playerX-plr_xBuffer) > 16 || abs(playerY-plr_yBuffer) > 16)
                 var dist = point_distance(x,y,playerX,playerY);
                 var light_dist = floor(255-dist*2.5);
                 
-                if dist < 16*2
+                if dist < playerLight*2
                 { light_level = 255;}
                 else if light_dist <= 255 && light_dist > 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -108,7 +120,7 @@ if (abs(playerX-plr_xBuffer) > 16 || abs(playerY-plr_yBuffer) > 16)
                 var dist = point_distance(x,y,playerX,playerY);
                 var light_dist = floor(255-dist*2.5);
                 
-                if dist < 16*2
+                if dist < playerLight*2
                 { instance_destroy(); }
                 else if light_dist <= 255 && light_dist > 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -129,10 +141,9 @@ if heal_Time >= room_speed && interm == true
 }
 
 //------------ World Time -------------------
-//(30*60) is (room_speed divided by alarm speed, multiplied by 60 seconds in a minute.)
 // multiplied by 3 into 3 minutes.
 // TESTED > IS STUPID ACCURATE
-if world_Time >= ((30*60)*3) //3 minutes
+if world_Time >= world_TimeMax //3 minutes
 {
     world_Time = 0;
     scr_raidControl("RAID",0,0,0,0); //Preset raid
@@ -169,24 +180,30 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
     yy = floor(yy/16)*16;
     
     //Spawn mobs outside flat lands + (or during raids)
+    var spawn_at_portal = false;
+    
     if (xx >= RAIDBOUND_Lower && xx <= RAIDBOUND_Upper) || interm == false
-    { xx = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); yy = (room_height/2)-(16*4); }
+    {
+        xx = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); 
+        yy = (room_height/2)-(16*4);
+        spawn_at_portal = !interm; //if interm == false then spawn_at_portal = true;
+    }
     
     //Gremlins spawn on top of stuff
     while position_meeting(xx,yy,OBSTA) yy-=16;
     
-    //Check whether or not the enemy will spawn inside the view.
+    //Spawn gremlin
+    var flyChance = 0.3;
+    var gremNumber = random(1);
+    
+    //-Check whether or not the enemy will spawn inside the view.
     if !point_in_rectangle(xx,yy,_viewX,_viewY,_viewW,_viewH)
     {
-        //SpawnGremlins directly ontop of a tile from the sky
+        //--SpawnGremlins directly ontop of a tile from the sky
         while (!position_meeting(xx,yy+16,TILE_ALL) && !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy > room_height then break; }
-    
-        //Spawn gremlin
-        var flyChance = 0.3;
-        var gremNumber = random(1);
         
         new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
-    }
+    } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID); }
     
     //Clear active mob roster
     if array_length_1d(enemyActiveList) > 3 { enemyActiveList = 0; }
@@ -215,6 +232,21 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
 
 alarm[1] = room_speed/spawnRate;
 
+#event step|D/N Cycle Alpha
+var aMax = 0.6;
+
+if interm == true
+{
+    //Alpha = equation to get the darkness of the day until til night
+    if dayTransition == true
+    {
+        if dayAlpha > 0 { dayAlpha -= 0.01; } else dayTransition = false;
+    }
+    else dayAlpha = ((world_Time/world_TimeMax));
+    
+    dayAlpha = clamp(dayAlpha,0,aMax);
+} else if interm == false then dayAlpha = aMax;
+
 #event other_user0|Event: RAID_PROGRESSED
 print('Raid Progressed');
 
@@ -234,7 +266,27 @@ if raidProgress >= maxRaidProgress
 {
     print('Raid Complete');
     scr_raidControl("INTERM",0,0,0,0);
+    
+    //Grow trees
+    if instance_exists(obj_sapling)
+    { 
+        with obj_sapling
+        {
+            var r = irandom(10);
+            if r <= 7
+            {
+                scr_treeCreate(x,y);
+                instance_destroy();
+            }
+        }
+    }
 }
+
+#event draw_gui|Day and night cycle
+draw_set_color(make_colour_hsv(240,100,17));
+draw_set_alpha(dayAlpha);
+draw_rectangle(0,0,display_get_width(),display_get_height(),false);
+draw_set_alpha(1);
 
 #event keyrelease:B
 if dev == true then scr_raidControl("RAID",0,0,0,0);

@@ -1,4 +1,4 @@
-// 2020-08-30 12:23:38
+// 2020-09-02 15:27:22
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -83,6 +83,8 @@ currentCraftingSlots = 0;
 craftingSpriteSet = 0;
 
 #event step
+if room == rm_menu then exit;
+
 if invOpen == true
     { if invenX < invenXMax then invenX += (invenXMax-invenX)*0.2; } 
     else { if invenX >= -10 then invenX += (0-invenX)*0.2; }
@@ -124,6 +126,8 @@ if showCraftingMenu == true && craftingMenu != 0
 }
 
 #event mouse_global_left_button|Crafting interaction
+if room == rm_menu then exit;
+
 if obj_player.dead == false
 {
     if craftingMenu != 0 && showCraftingMenu == true
@@ -270,7 +274,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) && selectedSlot != noone
                     //Single place
                     if !position_meeting(xx,yy,TILE_ALL) 
                     && point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) <= 16*3 //3 tiles worth of distance.
-                    && collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false) //|| collision_point(xx,yy+16,obj_platform,false,false) )
+                    && (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
                     {
@@ -674,7 +678,7 @@ if room == rm_zero
             if !position_meeting(xx,yy,TILE_ALL) && 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) && 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &&
-            collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
+            (isConnected(xx,yy) || isGrounded(xx,yy))//collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
             draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);
@@ -684,7 +688,10 @@ if room == rm_zero
     draw_set_alpha(1);
 }
 
-#event draw_gui|Draw Ui
+#event draw_gui
+if room == rm_menu then exit;
+
+///Draw Ui
 var dispWidth = viewWidth;
 var dispHeight = viewHeight;
 
@@ -925,12 +932,22 @@ if instance_exists(obj_pie)
 //- Boss health bar
 if worldControl.raidBoss == true
 {
+    //Boss ID
     var boss = worldControl.raidBossID;
+    var bossName = "Null";
+    
+    //Return the boss's name.
+    switch object_get_name(boss.object_index)
+    {
+        //All possible boss objects.
+        case "obj_bombKing": { bossName = "The Bomb King" } break;
+    }
+    
     if boss != noone
     {
         var bossHp = boss.hp;
         var bossMaxHp = boss.maxHp
-        draw_text(18,dispHeight-30,object_get_name(boss.object_index));
+        draw_text(18,dispHeight-30,bossName);
         draw_nineSliceBox(spr_ui_bossHealthBar,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
         draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
     }

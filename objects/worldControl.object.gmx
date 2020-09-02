@@ -193,6 +193,7 @@ heal_Time += 1;
 var playerX = obj_player.x;
 var playerY = obj_player.y;
 var view_zoom = camera.view_zoom;
+var playerLight = obj_player.playerLight;
 
 //----Deactivation---------
 if view_zoom != view_zoom_buffer
@@ -208,6 +209,10 @@ if view_zoom != view_zoom_buffer
         var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
         var enemyBoundary = 5*16; //-tiles enemdies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
+        
+        //Keep saplings active.
+        if instance_exists(obj_sapling)
+        {   instance_activate_object(obj_sapling); }
         
         //-Deactivate offscreen objects.
         with TILE event_user(0);
@@ -235,7 +240,7 @@ if view_zoom != view_zoom_buffer
 
 //-----------Light up underground tiles----------------
 //Updates every tile.
-if (abs(playerX-plr_xBuffer) &gt; 16 || abs(playerY-plr_yBuffer) &gt; 16)
+if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
 {
     
     if playerY &gt; stoneLayer-48
@@ -247,7 +252,7 @@ if (abs(playerX-plr_xBuffer) &gt; 16 || abs(playerY-plr_yBuffer) &gt; 16)
                 var dist = point_distance(x,y,playerX,playerY);
                 var light_dist = floor(255-dist*2.5);
                 
-                if dist &lt; 16*2
+                if dist &lt; playerLight*2
                 { light_level = 255;}
                 else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -261,7 +266,7 @@ if (abs(playerX-plr_xBuffer) &gt; 16 || abs(playerY-plr_yBuffer) &gt; 16)
                 var dist = point_distance(x,y,playerX,playerY);
                 var light_dist = floor(255-dist*2.5);
                 
-                if dist &lt; 16*2
+                if dist &lt; playerLight*2
                 { instance_destroy(); }
                 else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -371,6 +376,20 @@ if raidProgress &gt;= maxRaidProgress
 {
     print('Raid Complete');
     scr_raidControl("INTERM",0,0,0,0);
+    
+    //Grow trees
+    if instance_exists(obj_sapling)
+    { 
+        with obj_sapling
+        {
+            var r = irandom(10);
+            if r &lt;= 7
+            {
+                scr_treeCreate(x,y);
+                instance_destroy();
+            }
+        }
+    }
 }
 </string>
           </argument>

@@ -95,6 +95,7 @@ with type //TILE or PLRTILE
         switch t
         {
             case PLRTILE: if canHurt == true { scr_hurt(d,DEF_HURT,false,0,0); } break;
+            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,0,0); } break;
             case TILE:
             {
                 //Damage the tile

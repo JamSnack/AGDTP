@@ -76,6 +76,12 @@ g_over = false;
 canUseTool = true;
 hitSyncX = 0; //Hitbox Synchronizers
 hitSyncY = 0;
+playerLight = 16; //How bright light is underground.
+
+//Tag Resets
+globalvar bright_reset;
+bright_reset = false; //Boolean to reset the light stat to 16. PROLLY NEEDS TO CHANGE IN THE FUTURE LOL
+
 if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
@@ -85,7 +91,9 @@ audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
 
-scr_dropItem(ITEMID.tile_woodenStilt,999,ITEMTYPE.playertile,x,y,noone);
+var t = ds_list_create();
+ds_list_add(t,"Grenade");
+scr_dropItem(ITEMID.item_modTag,1,ITEMTYPE.def,x,y,t);
 </string>
           </argument>
         </arguments>

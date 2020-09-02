@@ -1,3 +1,4 @@
+// 2020-09-02 14:51:58
 ///scr_hurt(damage,time,knockback,knockAmt,direction);
 var damage = argument0; //Damage dealt
 var time = argument1; //Time until it can be hurt again.
@@ -25,9 +26,12 @@ if (hp-damage <= 0) && object_get_name(other.object_index) == "obj_projectile" &
             //Grenade
             if tag == "Grenade" 
             { 
-                //Tie chance to this in the future.
-               var _gre = instance_create(x,y,obj_grenade);
-               _gre.damage = damage/2;
+                if _ran >= 0
+                {
+                   var _gre = instance_create(x,y,obj_grenade);
+                   _gre.damage = damage/2;
+                }
+                
             }
         }
     }

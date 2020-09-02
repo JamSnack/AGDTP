@@ -1,0 +1,51 @@
+// 2020-09-02 14:24:03
+#event create|Init vars
+type = "PLAYER";
+damage = 10;
+radius = 3;
+
+alarm[0] = 2; //Delay event_user(0);
+
+image_speed = 30/60;
+
+#event alarm0
+image_xscale = radius/16;
+image_yscale = radius/16;
+event_user(0);
+
+#event other_animation_end
+instance_destroy();
+
+#event other_user0|Destroy each tile within the radius.
+var xx = x;
+var yy = y;
+var rad = radius/2;
+var d = damage;
+
+var t = type;
+
+with type //TILE or PLRTILE
+{
+    if point_distance(x,y,xx,yy) <= rad
+    {
+        switch t
+        {
+            case PLRTILE: if canHurt == true { scr_hurt(d,DEF_HURT,false,0,0); } break;
+            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,0,0); } break;
+            case TILE:
+            {
+                //Damage the tile
+                hp -= d;
+                
+                //Check for tile death otherwise heal.
+                if hp <= 0 
+                {
+                    scr_tileUpdate(x,y);
+                    instance_destroy();
+                    
+                } else alarm[0] = room_speed*5;
+            }
+        }
+        
+    }
+}

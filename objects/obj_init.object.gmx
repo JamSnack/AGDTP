@@ -114,7 +114,8 @@ enum ITEMID
     weapon_subLimeMachineGun,
     item_modTag,
     tile_modBench,
-    tile_woodenStilt
+    tile_woodenStilt,
+    item_acorn
 }
 
 //Item Types

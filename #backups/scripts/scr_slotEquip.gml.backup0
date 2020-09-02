@@ -1,7 +1,8 @@
+// 2020-09-01 19:48:09
 /// scr_slotEquip(slot)
 ///scr_slotEquip(slot);
 //This script equips an item based on the type of item in the slot. For use in hudControl.
-var slot = argument0;
+#args slot
 var _tool = 0;
 var _type = inventorySlotType[slot];
 

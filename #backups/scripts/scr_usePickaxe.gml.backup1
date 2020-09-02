@@ -1,3 +1,4 @@
+// 2020-09-01 19:24:32
 ///scr_usePickaxe(pickDamage,pickLevel);
 var pd = argument0;
 var pl = argument1;
@@ -8,6 +9,21 @@ var yy = round(mouse_y/16)*16;
 var col = collision_point(mouse_x,mouse_y,TILE,false,false);
 var plr_col = collision_point(mouse_x,mouse_y,PLRTILE,false,false);
 var no_col = collision_point(mouse_x,mouse_y,NOCOL,false,false);
+
+//-APPLY TAG EFFECTS
+var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+
+if ds_exists(tagsUnloaded,ds_type_list)
+{
+    for (i=0;i<ds_list_size(tagsUnloaded);i++)
+    {
+        switch tagsUnloaded[| i]
+        {
+            //Pickaxe tags
+            case "Bright": { obj_player.playerLight = 24; } break;
+        }
+    }
+}
 
 if instance_exists(col)
 {

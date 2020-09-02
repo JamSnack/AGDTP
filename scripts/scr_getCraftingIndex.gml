@@ -32,6 +32,7 @@ switch argument0
             {
                 case 0: {returnID = "WORKBENCH"} break;
                 case 1: {returnID = "LADDER"} break;
+                case 2: {returnID = ITEMID.tile_woodenStilt} break;
             }
     }
     break;

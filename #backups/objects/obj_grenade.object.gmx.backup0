@@ -1,0 +1,23 @@
+// 2020-09-02 14:26:12
+#event create
+alarm[0] = 1;
+image_speed = 0;
+fuse = 4; //half seconds until explosion
+damage = 2; //Updated by the tag that calls it.
+
+image_xscale = 1/4;
+image_yscale = 1/4;
+
+#event destroy
+var _exp = instance_create(x,y,obj_explosion);
+_exp.type = ENEMY;
+_exp.radius = 24;
+_exp.damage = damage;
+
+#event alarm0
+alarm[0] = 30;
+fuse -= 1;
+
+image_index = fuse;
+
+if fuse <= 0 then instance_destroy();

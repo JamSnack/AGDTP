@@ -32,6 +32,7 @@
     <sprite>sprites\spr_flatland</sprite>
     <sprite>sprites\spr_packedDirt</sprite>
     <sprite>sprites\spr_woodenStilt</sprite>
+    <sprite>sprites\spr_sapling</sprite>
     <sprite>sprites\spr_stoneTile</sprite>
     <sprite>sprites\spr_packedStone</sprite>
     <sprite>sprites\spr_turretBase</sprite>
@@ -91,6 +92,7 @@
     <sprite>sprites\spr_ui_bossHealth</sprite>
     <sprite>sprites\roomTransition_1</sprite>
     <sprite>sprites\spr_subLimeMachineGun</sprite>
+    <sprite>sprites\spr_menuLogo</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -167,6 +169,7 @@
     <script>scripts\scr_deconstructBase.gml</script>
     <script>scripts\scr_musicTransition.gml</script>
     <script>scripts\scr_playSound.gml</script>
+    <script>scripts\scr_treeCreate.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
@@ -198,6 +201,7 @@
       <object>objects\obj_packedDirt</object>
       <object>objects\obj_packedStone</object>
       <object>objects\obj_workbench</object>
+      <object>objects\obj_sapling</object>
       <object>objects\obj_modBench</object>
       <object>objects\obj_ladder</object>
       <object>objects\obj_woodenStilt</object>
@@ -234,9 +238,13 @@
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
     <object>objects\Boundary</object>
+    <object>objects\obj_grenade</object>
+    <object>objects\obj_menuLogo</object>
   </objects>
+  <timelines name="timelines"/>
   <rooms name="rooms">
     <room>rooms\init_display</room>
+    <room>rooms\rm_menu</room>
     <room>rooms\rm_lobby</room>
     <room>rooms\rm_zero</room>
   </rooms>

@@ -10,6 +10,7 @@ switch argument0
         {
             case 0: { text[0] = "Workbench"; text[1] = "Used for crafting#basic things."; text[2] = "Stick x 5"} break; //Workbench
             case 1: { text[0] = "Ladder"; text[1] = "Place this and climb!"; text[2] = "Stick x 10"} break; //Workbench
+            case 2: { text[0] = "Wooden Stilt"; text[1] = "Provides support for your structures."; text[2] = "Stick x 2"} break;
         }
     }
     break;
