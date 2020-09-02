@@ -533,9 +533,27 @@ if settingsMenu = true
     //- Exit button
     if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
+        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,45/60,rm_menu);
+        else if interm == true
+        {
+            //Warp out of the FLATLANDS
+            if instance_exists(ENEMY)
+            {
+                for(z=0;z&lt;instance_number(ENEMY)-1;z++)
+                {
+                    var _grem = instance_find(ENEMY,z);
+                    
+                    if _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
+                    {
+                        scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
+                        break;
+                    } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+                }
+            } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+        }
+        
         //Save the game
         with gameControl event_user(0);
-        scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
     }
 }
 </string>

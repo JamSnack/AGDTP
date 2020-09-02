@@ -119,7 +119,8 @@ if position-1 != 0 then position -= 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_font(hudFont);
+            <string>if room == rm_menu &amp;&amp; img != 0 then exit; //Do not display item notifications in the menu.
+draw_set_font(hudFont);
 draw_set_color(color);
 draw_sprite_ext(spr_itemDrops,img,5,162+(12*position),1,1,0,c_white,1);
 draw_text(10,160+(12*position),hudString+string(amt));

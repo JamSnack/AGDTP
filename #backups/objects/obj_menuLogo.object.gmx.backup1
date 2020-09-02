@@ -1,4 +1,4 @@
-// 2020-09-02 15:42:38
+// 2020-09-02 16:40:08
 #event create
 imageRate = 0.001;
 image_angle = 0;
@@ -10,6 +10,13 @@ imageThreshold = 3;
 text = "Closed-Alpha 0.2";
 
 playButton_active = false;
+deleteButton_active = false;
+dConfirm = false;
+dWait = false;
+
+#event alarm0
+dConfirm = true;
+dWait = false;
 
 #event step
 imageAcceleration += imageRate;
@@ -29,12 +36,26 @@ var dy = mouse_y;
 
 if playButton_active == false 
 {
-    if point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
+    if point_in_rectangle(dx,dy,x-60,y+60,x+60,y+115)
     {
       playButton_active = true;  
     } 
     
-} else if !point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120) then playButton_active = false;
+} else if !point_in_rectangle(dx,dy,x-60,y+60,x+60,y+115) then playButton_active = false;
+
+// - Delete button
+if deleteButton_active == false
+{
+    if point_in_rectangle(dx,dy,x-60,y+135,x+60,y+160)
+    {
+      deleteButton_active = true;
+    }
+    
+} else if !point_in_rectangle(dx,dy,x-60,y+135,x+60,y+160) 
+{
+    deleteButton_active = false;
+    dConfirm = false;
+}
 
 
 
@@ -48,6 +69,25 @@ if playButton_active == true && point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
 {
     scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_lobby);
 }
+
+//- Delete save file
+var _f = "agdtpSaveData.sav";
+
+if dConfirm == true && deleteButton_active == true && dWait == false
+{
+  //Delete the save file.
+  if file_exists(_f)
+  {
+      if file_delete(_f) { scr_hudMessage("File erased!",global.fnt_menu,5,0,c_green,0); dConfirm = false; }
+       else { scr_hudMessage("File not found.",global.fnt_menu,5,0,c_red,0); }
+  } else scr_hudMessage("File does not exist.",global.fnt_menu,5,0,c_red,0);
+}
+else if file_exists(_f) && deleteButton_active == true && dWait == false
+{
+  dWait = true;
+  alarm[0] = room_speed*3;
+  scr_hudMessage("Are you sure? This cannot be undone.",global.fnt_menu,10,0,c_red,0);
+} else if !file_exists(_f) && deleteButton_active == true then scr_hudMessage("File does not exist.",global.fnt_menu,5,0,c_red,0);
 
 #event draw
 draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,c_white,image_alpha);
@@ -72,3 +112,36 @@ else
 }
 draw_set_color(pc);
 draw_text_transformed(x-12*pscale,y+80,"Play",pscale,pscale,pangle);
+
+//----Destroy File Button-----
+var dc,dscale,dangle;
+
+if deleteButton_active == true && dWait == false && dConfirm == false
+{
+    dc = c_white
+    dscale = 4.50;
+    dangle = image_angle;
+}
+else if dWait == false && dConfirm == false
+{
+    dc = c_yellow;
+    dscale = 4;
+    dangle = 0;
+}
+else if dConfirm == false
+{
+    dc = c_gray;
+    dscale = 4.50;
+    dangle = image_angle;
+}
+else
+{
+    dc = c_red;
+    dscale = 4.50;
+    dangle = image_angle;
+}
+
+draw_set_color(dc);
+draw_text_transformed(x-29*dscale,y+140,"Delete Save",dscale,dscale,dangle);
+
+
