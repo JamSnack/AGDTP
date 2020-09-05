@@ -17,9 +17,20 @@ if item != 0
     for (i=0;i<maxInvenSlots;i++)
     {
         var hudItem = hudControl.inventorySlotIcon[i];
+        var hudTags = hudControl.inventorySlotTags[i];
         
-        //Check for existing item
-        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && ds_list_find_value(invTags,0) == ds_list_find_value(hudControl.inventorySlotTags[i],0)
+        //-Note: the only stackable items that will have tags are modTags themselves. modTags will only ever contain one tag.
+        var sameTags = false;
+    
+        if (ds_exists(invTags,ds_type_list) && ds_exists(hudTags,ds_type_list))
+        {
+            if invTags[| 0] == hudTags[| 0] then sameTags = true;
+        } else sameTags = true;
+
+        
+        
+        //-Check for the existing item
+        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && sameTags = true
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);

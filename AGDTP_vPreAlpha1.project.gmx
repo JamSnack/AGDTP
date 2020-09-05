@@ -15,6 +15,10 @@
     <sound>sound\snd_swish2</sound>
     <sound>sound\snd_swish3</sound>
     <sound>sound\snd_swish4</sound>
+    <sound>sound\snd_rareItem</sound>
+    <sound>sound\snd_inventoryClick</sound>
+    <sound>sound\snd_modificationSuccess</sound>
+    <sound>sound\snd_itemPickup</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
@@ -243,8 +247,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_lobby</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_lobby</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

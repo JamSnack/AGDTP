@@ -94,6 +94,7 @@ if r == 1
     var bTag = ds_list_create();
     ds_list_add(bTag,"Bouncy");
     scr_dropItem(ITEMID.item_modTag,1,ITEMTYPE.def,x,y,bTag);
+    scr_playSound(localEmitter,snd_rareItem,false,8,x,y);
 }
 </string>
           </argument>

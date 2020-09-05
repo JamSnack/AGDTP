@@ -1,4 +1,4 @@
-// 2020-08-30 11:36:01
+// 2020-08-30 11:36:42
 ///scr_invenRemoveItem(item,amt,type,drop,slot,tags);
 
 var item = argument0;
@@ -27,7 +27,7 @@ if item != 0
             if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
             break;
         }
-        else if (slot == -1 && hudControl.inventorySlotIcon[i] == item)
+        else if (slot == -1 && hudControl.inventorySlotTags[i] == tags && hudControl.inventorySlotIcon[i] == item)
         {
             if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else scr_clearSlot(i);
             if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);

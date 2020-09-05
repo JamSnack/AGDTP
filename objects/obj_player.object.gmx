@@ -90,6 +90,10 @@ friction = 0.3;
 audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
+
+var t = ds_list_create();
+ds_list_add(t,"Fast");
+scr_dropItem(ITEMID.item_modTag,1,0,x,y,t);
 </string>
           </argument>
         </arguments>
@@ -139,6 +143,7 @@ audio_emitter_gain(localEmitter,5);
 armIndex = spr_armIdle;
 toolReady = true; 
 armAngle = 0;
+armOffset = 0;
 </string>
           </argument>
         </arguments>
@@ -460,7 +465,8 @@ x = clamp(x,0,room_width);
 y = clamp(y,0,room_height);
 
 //Arm calculations will sometimes cause image_xscale to be zero.
-if image_xscale == 0 then image_xscale = 1;
+if image_xscale != 1 &amp;&amp; image_xscale &gt;= 0 then image_xscale = 1
+else if image_xscale != -1 &amp;&amp; image_xscale &lt; 0 then image_xscale = -1;
 </string>
           </argument>
         </arguments>

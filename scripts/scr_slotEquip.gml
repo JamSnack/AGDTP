@@ -4,19 +4,20 @@
 var slot = argument0;
 var _tool = 0;
 var _type = inventorySlotType[slot];
+var _item = inventorySlotIcon[slot];
 
-if obj_player.toolReady == true
+if _item != ITEMID.nil && obj_player.toolReady == true
 {
     switch _type
     {
         case 1:
             { //Weapon
-            scr_applyWeaponStats(inventorySlotIcon[slot]); _tool = 1;
+            scr_applyWeaponStats(_item); _tool = 1;
             } break;
             
         case 2:
             { //Pickaxe
-            scr_applyPickaxeStats(inventorySlotIcon[slot]); _tool = 2;
+            scr_applyPickaxeStats(_item); _tool = 2;
             } break;
             
         case 3:
@@ -30,12 +31,13 @@ if obj_player.toolReady == true
     }
     
     obj_player.tool = _tool;
+    scr_playSound(obj_player.localEmitter,snd_inventoryClick,false,8,obj_player.x,obj_player.y);
 }
 
 //TAG RESETS
 if bright_reset == true { obj_player.playerLight = 16; bright_reset = false; }
 
-//-APPLY STATISTICAL TAG EFFECTS
+//-STATISTICAL TAG EFFECTS
 var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
 
 if ds_exists(tagsUnloaded,ds_type_list)

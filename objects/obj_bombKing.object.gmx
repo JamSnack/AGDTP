@@ -99,11 +99,12 @@ knockType = "FLY";
 
 if r &lt;= 89 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone);
 if r &lt;= 25 then scr_dropItem(ITEMID.cons_bomb,choose(1,2,3),4,x,y-4,noone);
-if r &gt;= 90 
+if r &gt;= 85 
 {
     var t = ds_list_create();
     ds_list_add(t,"Grenade");
-    scr_dropItem(ITEMID.item_modTag,choose(1,2,3),4,x,y-4,t);   
+    scr_dropItem(ITEMID.item_modTag,1,0,x,y-4,t);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
 }
 
 event_inherited();
