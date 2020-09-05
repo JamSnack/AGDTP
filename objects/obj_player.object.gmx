@@ -90,10 +90,6 @@ friction = 0.3;
 audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
-
-var t = ds_list_create();
-ds_list_add(t,"Fast");
-scr_dropItem(ITEMID.item_modTag,1,0,x,y,t);
 </string>
           </argument>
         </arguments>

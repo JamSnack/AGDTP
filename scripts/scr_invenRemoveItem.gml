@@ -26,11 +26,32 @@ if item != 0
             if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
             break;
         }
-        else if (slot == -1 && hudControl.inventorySlotTags[i] == tags && hudControl.inventorySlotIcon[i] == item)
+        else if (slot == -1 && hudControl.inventorySlotIcon[i] == item)
         {
-            if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else scr_clearSlot(i);
-            if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
-            break;
+            var sameTags = false;
+            var hudTags = hudControl.inventorySlotTags[i];
+            
+            if ds_exists(tags,ds_type_list)
+            {
+                for(_t=0;_t<ds_list_size(tags);_t++)
+                {
+                    var current_tag = tags[| _t];
+                    for(_y=0;_y<ds_list_size(hudTags);_y++)
+                    {
+                        if current_tag == hudTags[| _y] then break
+                        else if _y=ds_list_size(hudTags)-1 then sameTags = false;
+                    }
+                    
+                    if _t=ds_list_size(tags)-1 then sameTags = true;
+                }
+            }
+            
+            if sameTags == true
+            {
+                if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else scr_clearSlot(i);
+                if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
+                break;
+            }
         }
     }
 } else if slot != -1

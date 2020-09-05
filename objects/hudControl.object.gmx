@@ -675,8 +675,8 @@ if obj_player.dead == false
 {
     if craftingMenu != 0 &amp;&amp; showCraftingMenu == true
     {
-        var _posX = view_wview[0]/2-120;
-        var _posY = view_hview[0]/2-105;
+        var _posX = viewWidth[0]/2-120;
+        var _posY = viewHeight[0]/2-105;
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
         

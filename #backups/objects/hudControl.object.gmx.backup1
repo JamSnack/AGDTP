@@ -1,4 +1,4 @@
-// 2020-09-04 20:04:23
+// 2020-09-04 20:07:04
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -475,7 +475,7 @@ for (i=0;i<maxInvenSlots;i++)
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item & can be stacked.
-                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
+                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && ds_list_find_value(inventorySlotTags[i],0) == ds_list_find_value(cursorTags,0) //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
                     
                     //-Update the slot previously picked up.

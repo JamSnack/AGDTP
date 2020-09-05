@@ -1,4 +1,4 @@
-// 2020-09-04 20:07:04
+// 2020-09-05 18:57:14
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -132,8 +132,8 @@ if obj_player.dead == false
 {
     if craftingMenu != 0 && showCraftingMenu == true
     {
-        var _posX = view_wview[0]/2-120;
-        var _posY = view_hview[0]/2-105;
+        var _posX = viewWidth[0]/2-120;
+        var _posY = viewHeight[0]/2-105;
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
         
@@ -437,6 +437,7 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
         {
             scr_hudMessage("Modification success!",global.fnt_Ui,5,equipmentIcon,c_aqua,0);
             event_user(0);
+            scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
         } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
     }
 }
@@ -475,7 +476,7 @@ for (i=0;i<maxInvenSlots;i++)
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item & can be stacked.
-                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && ds_list_find_value(inventorySlotTags[i],0) == ds_list_find_value(cursorTags,0) //0 AMT means an item cannot be stacked, otherwise it would be 1.
+                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
                     
                     //-Update the slot previously picked up.

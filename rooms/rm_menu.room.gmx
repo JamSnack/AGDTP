@@ -10,10 +10,7 @@
   <persistent>0</persistent>
   <colour>12237398</colour>
   <showcolour>-1</showcolour>
-  <code>//Load the player's inventory
-scr_loadGame();
-
-background_xscale[2] = 0.75;</code>
+  <code></code>
   <enableViews>-1</enableViews>
   <clearViewBackground>-1</clearViewBackground>
   <clearDisplayBuffer>-1</clearDisplayBuffer>
