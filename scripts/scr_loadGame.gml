@@ -66,12 +66,4 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
 {
     scr_invenAddItem(3,0,1,noone);
     scr_invenAddItem(4,0,2,noone);
-    
-    var t = ds_list_create();
-    ds_list_add(t,"Bouncy");
-    ds_list_add(t,"Fast");
-    
-    scr_invenAddItem(11,0,1,t);
-    
-    ds_list_destroy(t);
 }

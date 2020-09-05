@@ -19,7 +19,7 @@ if item != 0
         var hudItem = hudControl.inventorySlotIcon[i];
         
         //Check for existing item
-        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && ( invTags == noone || invTags == hudControl.inventorySlotTags[i] )
+        if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && ds_list_find_value(invTags,0) == ds_list_find_value(hudControl.inventorySlotTags[i],0)
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);

@@ -31,7 +31,7 @@ maxHp = 1;
 hp = 1;
 
 bench = false;
-if room != rm_lobby then canHit = true else canHit = false;
+canHit = true;
 
 if !(position_meeting(x,y+16,FLATLAND) || position_meeting(x,y+16,TILE))
 {

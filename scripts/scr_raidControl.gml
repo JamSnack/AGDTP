@@ -78,6 +78,7 @@ switch presetSettings
                     interm = false;
                     
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
+                    scr_overMessage("!!The Shadow Gremlins are swarming!!",global.fnt_menu,5,c_yellow,0,-35);
                     
                     scr_musicTransition(snd_wave_1,musicTransitionTime);
                 }
@@ -140,7 +141,7 @@ if interm == false
     }
     
     wave += 1;
-    scr_overMessage("Wave "+string(wave),0,6,c_white);
+    scr_overMessage("Wave "+string(wave),0,6,c_white,0,0);
 }
 //#endregion
 

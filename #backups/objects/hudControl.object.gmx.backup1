@@ -1,4 +1,4 @@
-// 2020-09-02 16:55:00
+// 2020-09-04 20:04:23
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -475,7 +475,7 @@ for (i=0;i<maxInvenSlots;i++)
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item & can be stacked.
-                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 //0 AMT means an item cannot be stacked, otherwise it would be 1.
+                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
                     
                     //-Update the slot previously picked up.
@@ -485,7 +485,7 @@ for (i=0;i<maxInvenSlots;i++)
                         inventorySlotIcon[cursorSlot] = 0;
                         inventorySlotType[cursorSlot] = 0;
                         inventorySlotAmt[cursorSlot] = 0;
-                        inventorySlotTags[cursorSlot] = 0;
+                        inventorySlotTags[cursorSlot] = noone;
                     } 
                     else //Case: the old slot will have left-over items.
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
@@ -517,7 +517,7 @@ for (i=0;i<maxInvenSlots;i++)
                         inventorySlotIcon[cursorSlot] = 0;
                         inventorySlotType[cursorSlot] = 0;
                         inventorySlotAmt[cursorSlot] = 0;
-                        inventorySlotTags[cursorSlot] = 0;
+                        inventorySlotTags[cursorSlot] = noone;
                     } 
                     else
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
@@ -816,90 +816,89 @@ if invenX <= 5
 
 //-----------------Crafting Menu---------------------------------------
 //#region
-if room == rm_zero
+
+if showCraftingMenu == true
 {
-    if showCraftingMenu == true
+    //- draw background --Change to NineSliceBox
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    
+    draw_set_alpha(0.75);
+    draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
+    draw_set_alpha(1);
+    
+    //draw crafting buttons
+    if ( craftingSpriteSet != noone && craftingMenu != "menu_mod" )
     {
-        //- draw background --Change to NineSliceBox
-        var _posX = viewWidth/2-120;
-        var _posY = viewHeight/2-105;
-        
-        draw_set_alpha(0.75);
-        draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
-        draw_set_alpha(1);
-        
-        //draw crafting buttons
-        if ( craftingSpriteSet != noone && craftingMenu != "menu_mod" )
+        for(i=0;i<currentCraftingSlots;i++)
         {
-            for(i=0;i<currentCraftingSlots;i++)
+            var size = 35; //The size of the distance between slots - the actual size of the slots.
+            var column = 7;
+            var c = floor(i/column);
+            
+            var x1 = _posX+10+(i*size)-(c*size*column);
+            var x2 = _posX+30+(i*size)-(c*size*column);
+            var y1 = _posY+5+(size*c);
+            var y2 = _posY+25+(size*c);
+            
+            //Draw Slots
+            draw_sprite(spr_ui_invenSlot,0,x1,y1);
+            
+            //Draw items
+            var _center = 10;
+            draw_sprite(craftingSpriteSet,i,x1+_center,y1+_center);
+            
+            //Draw crafting tooltip
+            if craftSelect != -1
             {
-                var size = 35; //The size of the distance between slots - the actual size of the slots.
-                var column = 7;
-                var c = floor(i/column);
-                
-                var x1 = _posX+10+(i*size)-(c*size*column);
-                var x2 = _posX+30+(i*size)-(c*size*column);
-                var y1 = _posY+5+(size*c);
-                var y2 = _posY+25+(size*c);
-                
-                //Draw Slots
-                draw_sprite(spr_ui_invenSlot,0,x1,y1);
-                
-                //Draw items
-                var _center = 10;
-                draw_sprite(craftingSpriteSet,i,x1+_center,y1+_center);
-                
-                //Draw crafting tooltip
-                if craftSelect != -1
-                {
-                    draw_set_color(c_white);
-                    scr_craftingToolTip(craftingMenu,craftSelect);
-                    draw_text_transformed(120,134,text[0],1.25,1.25,0);
-                    draw_text_transformed(121,155,text[1],1,1,0);
-                    draw_text_transformed(121,175,"Items Needed: "+text[2],1,1,0);
-                }
+                draw_set_color(c_white);
+                scr_craftingToolTip(craftingMenu,craftSelect);
+                draw_text_transformed(120,134,text[0],1.25,1.25,0);
+                draw_text_transformed(121,155,text[1],1,1,0);
+                draw_text_transformed(121,175,"Items Needed: "+text[2],1,1,0);
             }
-        } 
-        else if craftingMenu == "menu_mod"
+        }
+    } 
+    else if craftingMenu == "menu_mod"
+    {
+        //-------Mod menu-----
+        var size = 16;
+        var xOff = 70;
+        var yOff = 100;
+        var x1 = (_posX)-size+xOff;
+        var y1 = (_posY)-size+yOff;
+        var x2 = (_posX)+size+xOff;
+        var y2 = (_posY)+size+yOff;
+        
+        draw_set_font(global.fnt_Ui);
+        
+        //Tag and Equipment Slots respectively
+        draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
+        draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
+        
+        //Draw icons
+        if selectedTag != noone 
+        { 
+            draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
+            if ds_exists(selectedTag,ds_type_list)
+            { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
+        }
+        
+        if selectedEquipment != noone 
+        { 
+            draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
+        } //MN: 50+50 = 100; 50 is MN for equip slot placement.
+        
+        //Draw mod complete
+        draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
+        
+        if modCanConfirm == true
         {
-            //-------Mod menu-----
-            var size = 16;
-            var xOff = 70;
-            var yOff = 100;
-            var x1 = (_posX)-size+xOff;
-            var y1 = (_posY)-size+yOff;
-            var x2 = (_posX)+size+xOff;
-            var y2 = (_posY)+size+yOff;
-            
-            draw_set_font(global.fnt_Ui);
-            
-            //Tag and Equipment Slots respectively
-            draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
-            draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
-            
-            //Draw icons
-            if selectedTag != noone 
-            { 
-                draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
-                if ds_exists(selectedTag,ds_type_list)
-                { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
-            }
-            
-            if selectedEquipment != noone 
-            { 
-                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
-            } //MN: 50+50 = 100; 50 is MN for equip slot placement.
-            
-            //Draw mod complete
-            draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
-            
-            if modCanConfirm == true
-            {
-                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
-            }
+            draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
         }
     }
 }
+
 //#endregion
     
 //-----Draw cursor item

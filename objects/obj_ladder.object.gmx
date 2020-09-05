@@ -25,14 +25,15 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>level = 0;
+            <string>event_inherited();
+level = 0;
 maxHp = 1;
 hp = 1;
 
 bench = false;
 canHit = true;
 
-tileID = 13;
+tileID = ITEMID.tile_ladder;
 type = 3;
 </string>
           </argument>

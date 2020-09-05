@@ -1,0 +1,8 @@
+// 2020-09-02 20:00:34
+#event alarm0
+instance_destroy();
+
+#event draw_gui
+draw_set_font(font);
+draw_set_colour(color);
+draw_text_transformed(x+view_wview/2-string_length(str)*5,y+60,str,2,2,0);
