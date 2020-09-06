@@ -8,7 +8,7 @@ var yInterval = argument1;
 for (j=0;j<treeHeight;j++)
 {      
     //Place tree tiles using previously used xInterval variable.
-    if position_meeting(xInterval,yInterval,OBSTA) { j = treeHeight-1; }
+    if position_meeting(xInterval,yInterval,OBSTA) { break; }
     while position_meeting(xInterval,yInterval,obj_tree) { yInterval -= 16; }
     
     //(y+16) because the trees spawn one tile above the ground

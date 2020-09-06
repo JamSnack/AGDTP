@@ -64,7 +64,7 @@ if room == rm_zero { if currentTask == 2 then currentTask = 3; }
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="10">
+    <event eventtype="7" enumb="24">
       <action>
         <libid>1</libid>
         <id>603</id>

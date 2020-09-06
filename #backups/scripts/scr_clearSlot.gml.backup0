@@ -1,6 +1,7 @@
+// 2020-09-05 19:26:42
 /// scr_clearSlot(slot)
 ///scr_clearSlot(slot);
-var slot = argument0;
+#args slot
 
 with hudControl
 {

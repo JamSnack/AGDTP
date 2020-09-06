@@ -54,13 +54,13 @@ if room != rm_lobby then canHit = true else canHit = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(ITEMID.tile_modBench,1,3,x,y,noone);
+            <string>if room != rm_lobby then scr_dropItem(ITEMID.tile_modBench,1,3,x,y,noone);
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="10">
+    <event eventtype="7" enumb="24">
       <action>
         <libid>1</libid>
         <id>603</id>

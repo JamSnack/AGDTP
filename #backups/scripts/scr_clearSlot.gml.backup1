@@ -1,6 +1,6 @@
-/// scr_clearSlot(slot)
+// 2020-09-05 19:25:44
 ///scr_clearSlot(slot);
-var slot = argument0;
+#args slot
 
 with hudControl
 {
@@ -10,10 +10,10 @@ with hudControl
         {
             for(i=0;i<maxInvenSlots;i++)
             {
-                inventorySlotIcon[i] = 0;
-                inventorySlotAmt[i] = 0;
-                inventorySlotTags[i] = noone;
-                inventorySlotType[i] = 0;
+                inventorySlotIcon[slot] = 0;
+                inventorySlotAmt[slot] = 0;
+                inventorySlotTags[slot] = noone;
+                inventorySlotType[slot] = 0;
             }
         }
         break;

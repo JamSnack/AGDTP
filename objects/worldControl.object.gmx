@@ -280,6 +280,7 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
 if heal_Time &gt;= room_speed &amp;&amp; interm == true
 {
     with PLRTILE event_user(15);
+    with PLR_NOCOL event_user(15);
     with obj_pie event_user(1);
     if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
     

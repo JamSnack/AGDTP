@@ -1,4 +1,4 @@
-// 2020-09-02 16:50:03
+// 2020-09-05 19:22:01
 #event create
 imageRate = 0.001;
 image_angle = 0;
@@ -7,7 +7,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "Closed-Alpha 0.2";
+text = "Closed-Alpha v0.2";
 
 playButton_active = false;
 deleteButton_active = false;
@@ -68,6 +68,7 @@ var dy = mouse_y;
 if playButton_active == true && point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
 {
     scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_lobby);
+    scr_loadGame();
 }
 
 //- Delete save file
@@ -78,7 +79,7 @@ if dConfirm == true && deleteButton_active == true && dWait == false
   //Delete the save file.
   if file_exists(_f)
   {
-      if file_delete(_f) { scr_hudMessage("File erased!",global.fnt_menu,5,0,c_green,0); dConfirm = false; }
+      if file_delete(_f) { scr_hudMessage("File erased!",global.fnt_menu,5,0,c_green,0); dConfirm = false; scr_clearSlot([0..maxInvenSlots]) }
        else { scr_hudMessage("File not found.",global.fnt_menu,5,0,c_red,0); }
   } else scr_hudMessage("File does not exist.",global.fnt_menu,5,0,c_red,0);
 }

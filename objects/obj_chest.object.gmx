@@ -101,7 +101,11 @@ if opened == false
         var tag = ITEMID.item_modTag;
         var _t = noone;
         
-        var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bow,bomb,bomb,tag);
+        var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bomb,);
+        
+        var ran = irandom(299);
+        if ran == 299 then itemSelector = tag;
+        
         var amt=0;
         var type=0;
         if itemSelector = bow then type = 1;

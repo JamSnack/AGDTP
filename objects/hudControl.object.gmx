@@ -166,8 +166,8 @@ if obj_player.toolReady == true &amp;&amp; equipQueue != noone
 //Crafting tooltip
 if showCraftingMenu == true &amp;&amp; craftingMenu != 0
 {
-    var _posX = view_wview[0]/2-120;
-    var _posY = view_hview[0]/2-105;
+    var _posX = viewWidth[0]/2-120;
+    var _posY = viewHeight[0]/2-105;
     var dx = device_mouse_x_to_gui(0);
     var dy = device_mouse_y_to_gui(0);
     
@@ -544,7 +544,7 @@ if settingsMenu = true
                 {
                     var _grem = instance_find(ENEMY,z);
                     
-                    if _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
+                    if _grem.y &lt; stoneLayer-48 &amp;&amp; _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
                     {
                         scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
                         break;
@@ -675,8 +675,8 @@ if obj_player.dead == false
 {
     if craftingMenu != 0 &amp;&amp; showCraftingMenu == true
     {
-        var _posX = viewWidth[0]/2-120;
-        var _posY = viewHeight[0]/2-105;
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
         
