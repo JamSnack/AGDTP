@@ -10,8 +10,7 @@
   <persistent>0</persistent>
   <colour>12237398</colour>
   <showcolour>0</showcolour>
-  <code>audio_play_sound(sndscp_Grasslands,10,true);
-audio_sound_gain(sndscp_Grasslands,1,1);</code>
+  <code></code>
   <enableViews>-1</enableViews>
   <clearViewBackground>-1</clearViewBackground>
   <clearDisplayBuffer>-1</clearDisplayBuffer>
@@ -55,7 +54,6 @@ audio_sound_gain(sndscp_Grasslands,1,1);</code>
     <instance objName="camera" x="64" y="0" name="inst_CA470D69" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="gameControl" x="0" y="0" name="inst_46B3AAC2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="worldControl" x="32" y="0" name="inst_65F370E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="OBSTA" x="1280" y="872" name="inst_1A1472CE" locked="0" code="" scaleX="160" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

@@ -28,7 +28,7 @@
             <string>event_inherited();
 level = 0;
 maxHp = 1;
-hp = 1;
+hp = 7;
 
 bench = false;
 canHit = true;

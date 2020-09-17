@@ -33,7 +33,7 @@ if objective.canHurt == true
         stateLock = true;
         alarm[stateLockAlarm] = 30;
     } 
-    else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    else if instance_exists(PLR_NOCOL) && nearestNoCol.canHurt == true && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with nearestNoCol  //Hurt the objective.
         {

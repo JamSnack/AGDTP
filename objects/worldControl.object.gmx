@@ -215,10 +215,10 @@ if view_zoom != view_zoom_buffer
         {   instance_activate_object(obj_sapling); }
         
         //-Deactivate offscreen objects.
+        with obj_itemDrop scr_deactivateOffscreen(id);
         with TILE event_user(0);
         with INTERACT scr_deactivateOffscreen(id);
         with NOCOL scr_deactivateOffscreen(id);
-        with obj_itemDrop scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);

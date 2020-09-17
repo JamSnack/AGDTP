@@ -166,8 +166,8 @@ if obj_player.toolReady == true &amp;&amp; equipQueue != noone
 //Crafting tooltip
 if showCraftingMenu == true &amp;&amp; craftingMenu != 0
 {
-    var _posX = viewWidth[0]/2-120;
-    var _posY = viewHeight[0]/2-105;
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
     var dx = device_mouse_x_to_gui(0);
     var dy = device_mouse_y_to_gui(0);
     
