@@ -52,6 +52,8 @@ switch presetSettings
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
         
         scr_musicTransition(snd_overworld_1,musicTransitionTime);
+        
+        nextRaid = "RAID";
     }
     break;
     case "RAID":
@@ -107,9 +109,23 @@ switch presetSettings
     }
     break;
     
-    case "SPECIAL":
+    case "SPHERE":
     {
-
+        //---------- Sphere King Raid ---------
+        specialRaid = true;
+        spawnRate = 1+(0.1*wave);
+        spawnChance = 70+(wave*5);
+        maxGrem = 10+(wave*2);
+        maxRaidProgress = 15+(wave*3);
+        
+        interm = false;
+        
+        raidBoss = true;
+        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_sphereKing);;
+        
+        scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
+        
+        scr_musicTransition(snd_wave_1,musicTransitionTime);
     }
     break;
 }

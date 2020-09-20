@@ -285,6 +285,8 @@ else
           <argument>
             <kind>1</kind>
             <string>///Inventory Interaction
+if room == rm_menu then exit;
+
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
@@ -341,7 +343,7 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
     
     if modCanConfirm == true &amp;&amp; point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
     {
-        print("Check")
+        //print("Check")
         
         if !ds_exists(equipmentTags,ds_type_list)
         { equipmentTags = ds_list_create(); }
@@ -860,6 +862,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
+                    &amp;&amp; !position_meeting(xx,yy+2,obj_pie)
                     {
                         if inventorySlotAmt[selectedSlot] &gt; 0
                         {
@@ -1181,6 +1184,7 @@ if worldControl.raidBoss == true
     {
         //All possible boss objects.
         case "obj_bombKing": { bossName = "The Bomb King" } break;
+        case "obj_sphereKing": {bossName = "The Sphere King"} break;
     }
     
     if boss != noone
@@ -1285,7 +1289,8 @@ if room == rm_zero
             if !position_meeting(xx,yy,TILE_ALL) &amp;&amp; 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) &amp;&amp; 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &amp;&amp;
-            (isConnected(xx,yy) || isGrounded(xx,yy))//collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
+            !position_meeting(xx,yy+1,obj_pie) &amp;&amp;
+            (isConnected(xx,yy) || isGrounded(xx,yy))
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
             draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);

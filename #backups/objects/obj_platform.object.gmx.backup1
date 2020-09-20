@@ -1,0 +1,34 @@
+// 2020-09-19 13:55:15
+#event create
+event_inherited();
+level = 0;
+maxHp = 7;
+hp = 7;
+
+bench = false;
+canHit = true;
+
+#event destroy
+scr_dropItem(16,1,3,x,y+4,noone);
+scr_updateConnections(x,y);
+
+#event other_user1|Update sprite
+
+var ifRight = position_meeting(x+16,y,TILE_ALL);
+var ifLeft = position_meeting(x-16,y,TILE_ALL);
+var ifUp = position_meeting(x,y-16,TILE_ALL);
+var ifDown = position_meeting(x,y+16,TILE_ALL);
+
+if ifRight && ifLeft
+{
+    image_index = 1; //center
+} else if !ifRight && !ifLeft
+{ 
+    image_index = 3; //single
+} else if !ifLeft
+{
+    image_index = 0; //left
+} else if !ifRight
+{
+    image_index = 2; //right
+}

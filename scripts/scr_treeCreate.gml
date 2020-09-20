@@ -14,7 +14,25 @@ for (j=0;j<treeHeight;j++)
     //(y+16) because the trees spawn one tile above the ground
     var t = instance_create(xInterval,yInterval,obj_tree);
     
-    if j == treeHeight-1 then t.canopy = true;
+    if j == treeHeight-1 
+    {
+        t.canopy = true;
+        scr_tileUpdate(xInterval,yInterval);
+    }
     
-    scr_tileUpdate(xInterval,yInterval);
+    //--- Update the tree tiles locally b/c using ev_user 1 will kill out of bounds trees.
+    if place_meeting(x,y-16,obj_tree) && !place_meeting(x,y+16,obj_tree)
+    {
+        //Bottom piece
+        image_index = 3;
+    } else if place_meeting(x,y+16,obj_tree) && place_meeting(x,y-16,obj_tree)
+    {
+        //Center
+        image_index = 1;
+        if canopy = true then canopy = false;
+    }
+    
 }
+
+//Ensure that the tree is preserved outside of bounds.
+with obj_tree scr_deactivateOffscreen(id);

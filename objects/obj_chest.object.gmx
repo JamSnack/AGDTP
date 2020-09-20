@@ -29,6 +29,7 @@
 hp = 1;
 maxHp = 1;
 canHit = true;
+canHurt = false;
 
 bench = false;
 opened = false;

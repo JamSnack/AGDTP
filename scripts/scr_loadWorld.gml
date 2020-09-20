@@ -191,7 +191,7 @@ with NOCOL event_user(1);
 with FLATLAND event_user(1);
 
 //Cleanup
-with obj_itemDrop instance_destroy();
+if instance_exists(obj_itemDrop) then with obj_itemDrop instance_destroy();
 
 //Spawn the player object.
 instance_create(obj_pie.x,obj_pie.y-32,obj_player);

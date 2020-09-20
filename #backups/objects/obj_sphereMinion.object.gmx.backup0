@@ -1,0 +1,112 @@
+// 2020-09-20 17:35:47
+#event create|Initialize the Pylon
+scale = 0.25;
+image_xscale = scale;
+image_yscale = scale;
+
+canActiveRegion = false;
+canHurt = true;
+hp = 5+(5*floor(wave/3));
+image_speed = 0;
+state = MOVE;
+stunned = false;
+
+vsp = 0;
+atkBox = (32); //divided by 2 on calculation.
+damage = 5; //Attack damage.
+
+hurtAlarm = 1;
+
+target = obj_player; //Target priority.
+
+objective = target;
+stateLockAlarm = 2;
+aggroRange = 128;
+
+stateLock = false;
+
+//Flying speed
+hAccel = 0;
+vAccel = 0;
+maxAccel = 5;
+accelRate = 0.1;
+
+knockType = "FLY";
+
+event_inherited();
+
+//Other Locals
+sk_diameter = 64;
+sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance on that line from A to B (0, 128);
+sm_rate = 0.5;
+sm_dir = 1;
+
+#event alarm1|Reset hurt
+canHurt = true;
+target = obj_player;
+
+#event alarm2|Reset state lock
+stateLock = false;
+
+objective = target;
+state = WANDER;
+image_index = sign(objective.x-x);
+
+#event step|sphere minion states
+objective = obj_pie;
+
+if distance_to_object(obj_player) <= aggroRange && obj_player.dead == false
+{
+    ai_shadowGremlin(MOVE,0,0,0,0,obj_player,0,atkBox);
+}
+else if instance_exists(parentKing)
+{
+    //Travel along the centerline.
+    sm_centerDistance = approach(sm_centerDistance,sk_diameter*sm_dir,sm_rate);
+    if sm_centerDistance = sk_diameter*sm_dir then sm_dir=-sm_dir;
+    
+    //Move toward the centerPoint.
+    var centerPointX = parentKing.x+sm_centerDistance;
+    var centerPointY = parentKing.y;
+    
+    var dir = sign(centerPointX-x);
+    var vdir = sign(centerPointY-(y+16));
+    
+    //-Horizontal Acceleration
+    if dir == -1
+    { if hAccel > -maxAccel then hAccel -= accelRate; }
+    else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
+    
+    //-Vertical Acceleration
+    if vdir == -1 //Objective is up
+    { if vAccel > -maxAccel then vAccel -= accelRate; }
+    else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
+    
+    var targetPlrTile = noone;
+    var _stall = 1;
+    
+    if !place_meeting(x+hAccel,y,OBSTA)
+    { x += hAccel; }
+    else
+    {
+        targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
+        
+        stateLock = true;
+        alarm[stateLockAlarm] = _stall;
+        hAccel = -hAccel;
+    }
+    if !place_meeting(x,y+vAccel,OBSTA)
+    { y += vAccel; }
+    else
+    {
+        targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
+        
+        stateLock = true;
+        alarm[stateLockAlarm] = _stall;
+        vAccel = -vAccel;
+    }
+}
+else
+{
+    ai_shadowGremlin(MOVE,0,0,0,0,obj_pie,0,atkBox);
+}

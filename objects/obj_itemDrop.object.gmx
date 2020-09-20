@@ -43,6 +43,9 @@ bobAmt = 0;
 bobDir = 1; //-1 or 1, dictates whether or not the rate adds or subtracts from the bobAmt.
 bobLinearDir = 1; //The true direction of the line. This will be linearlly interpolated to 1 or -1.
 bobAltitude = 2;
+
+//deactivate if the game is loaded.
+if instance_exists(obj_player) then scr_deactivateOffscreen(id);
 </string>
           </argument>
         </arguments>

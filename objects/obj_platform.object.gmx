@@ -27,8 +27,8 @@
             <kind>1</kind>
             <string>event_inherited();
 level = 0;
-maxHp = 1;
-hp = 7;
+maxHp = 7;
+hp = maxHp;
 
 bench = false;
 canHit = true;

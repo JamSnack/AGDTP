@@ -1,4 +1,4 @@
-// 2020-08-04 11:55:16
+// 2020-09-20 17:09:38
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -9,6 +9,9 @@ var objective = argument5;
 var jump_speed = argument6;
 var atkBox = (argument7)/2;
 
+var xObjective = objective.x;
+var yObjective = objective.y;
+
 var x_previous = round(xprevious);
 var _x = round(x);
 
@@ -18,13 +21,33 @@ if instance_exists(objective)
 //Attack Check --------------------------------------------
 if objective.canHurt == true
 {
-    if point_in_rectangle(objective.x,objective.y,x-atkBox,y-atkBox,x+atkBox,y+atkBox)
+    var nearestNoCol = instance_nearest(x,y,PLR_NOCOL);
+    var _xx = x;
+    var _yy = y;
+    
+    if point_in_rectangle(xObjective,yObjective,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,other.x,other.y-2);
+            var dir = point_direction(x,y,_xx,_yy);
             scr_hurt(other.damage,HURT_LONG,true,6,dir);
         }
+        
+        state = WANDER;
+        stateLock = true;
+        alarm[stateLockAlarm] = 30;
+    } 
+    else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    {
+        with nearestNoCol  //Hurt the objective.
+        {
+            var dir = point_direction(x,y,_xx,_yy-2);
+            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+        }
+    
+        state = WANDER;
+        stateLock = true;
+        alarm[stateLockAlarm] = 30;
     }
 }
 
@@ -68,6 +91,7 @@ switch current_state
     case WANDER:
     {
         if stateLock == false then state = MOVE;
+        image_xscale = sign(hAccel)*scale;
     }
     break;
 }
@@ -77,24 +101,33 @@ switch current_state
 //Collision and movement
 //#region
 var targetPlrTile = noone;
+var _stall = 1;
 
 if !place_meeting(x+hAccel,y,OBSTA)
 { x += hAccel; }
 else
 {
     targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
+    
+    stateLock = true;
+    alarm[stateLockAlarm] = _stall;
+    hAccel = -hAccel;
 }
-
 if !place_meeting(x,y+vAccel,OBSTA)
 { y += vAccel; }
 else
 {
     targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
+    
+    stateLock = true;
+    alarm[stateLockAlarm] = _stall;
+    vAccel = -vAccel;
 }
+
 //#endregion
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone && (hspeed == 0 && vspeed == 0)
+if state != WANDER && targetPlrTile != noone && (stateLock == false && state != MOVE)
 { 
     var _damage = damage;
     with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);

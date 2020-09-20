@@ -1,4 +1,4 @@
-// 2020-09-04 20:07:04
+// 2020-09-19 13:58:53
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -100,8 +100,8 @@ if obj_player.toolReady == true && equipQueue != noone
 //Crafting tooltip
 if showCraftingMenu == true && craftingMenu != 0
 {
-    var _posX = view_wview[0]/2-120;
-    var _posY = view_hview[0]/2-105;
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
     var dx = device_mouse_x_to_gui(0);
     var dy = device_mouse_y_to_gui(0);
     
@@ -132,8 +132,8 @@ if obj_player.dead == false
 {
     if craftingMenu != 0 && showCraftingMenu == true
     {
-        var _posX = view_wview[0]/2-120;
-        var _posY = view_hview[0]/2-105;
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
         
@@ -277,6 +277,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) && selectedSlot != noone
                     && (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
+                    && !position_meeting(xx,yy+2,obj_pie)
                     {
                         if inventorySlotAmt[selectedSlot] > 0
                         {
@@ -420,7 +421,7 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
     
     if modCanConfirm == true && point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
     {
-        print("Check")
+        //print("Check")
         
         if !ds_exists(equipmentTags,ds_type_list)
         { equipmentTags = ds_list_create(); }
@@ -437,6 +438,7 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
         {
             scr_hudMessage("Modification success!",global.fnt_Ui,5,equipmentIcon,c_aqua,0);
             event_user(0);
+            scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
         } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
     }
 }
@@ -475,7 +477,7 @@ for (i=0;i<maxInvenSlots;i++)
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item & can be stacked.
-                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && ds_list_find_value(inventorySlotTags[i],0) == ds_list_find_value(cursorTags,0) //0 AMT means an item cannot be stacked, otherwise it would be 1.
+                if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
                     
                     //-Update the slot previously picked up.
@@ -602,7 +604,7 @@ if settingsMenu = true
                 {
                     var _grem = instance_find(ENEMY,z);
                     
-                    if _grem.x > RAIDBOUND_Lower && _grem.x < RAIDBOUND_Upper
+                    if _grem.y < stoneLayer-48 && _grem.x > RAIDBOUND_Lower && _grem.x < RAIDBOUND_Upper
                     {
                         scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
                         break;
@@ -696,7 +698,8 @@ if room == rm_zero
             if !position_meeting(xx,yy,TILE_ALL) && 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) && 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &&
-            (isConnected(xx,yy) || isGrounded(xx,yy))//collision_rectangle(xx-15,yy-15,xx+15,yy+15,TILE_ALL,false,false)
+            !position_meeting(xx,yy+1,obj_pie) &&
+            (isConnected(xx,yy) || isGrounded(xx,yy))
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
             draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);

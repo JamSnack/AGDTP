@@ -70,8 +70,6 @@ switch current_state
         y += vAccel;
         
         image_xscale = dir;
-        animRate = 0;
-        animY = y;
         
     }
     break;

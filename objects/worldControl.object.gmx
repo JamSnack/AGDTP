@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -57,6 +57,7 @@ spawnRate = 1; //How many times a second to check for and spawn a thing.
 spawnChance = 0; //The chance that the thing will spawn out of 100.
 raidBoss = false; //No raid boss.
 raidBossID = noone; //The instance ID of the boss.
+nextRaid = "RAID"; //The next raid's type.
 specialRaid = false; //Bool telling whether or not a special raid is in progress.
 special_raidID = noone; //The ID of the raid
 world_TimeMax = room_speed*(3*60);
@@ -136,6 +137,16 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
         while (!position_meeting(xx,yy+16,TILE_ALL) &amp;&amp; !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy &gt; room_height then break; }
         
         new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
+        
+        //Special mob spawns.
+            //-Sphere Pylon
+        if interm == true
+        {
+            if irandom(500) &gt;= 0
+            {
+                instance_create(xx,yy,obj_spherePylon);
+            }
+        }
     } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID); }
     
     //Clear active mob roster
@@ -293,7 +304,7 @@ if heal_Time &gt;= room_speed &amp;&amp; interm == true
 if world_Time &gt;= world_TimeMax //3 minutes
 {
     world_Time = 0;
-    scr_raidControl("RAID",0,0,0,0); //Preset raid
+    scr_raidControl(nextRaid,0,0,0,0); //Preset raid
 }
 
 
@@ -441,7 +452,7 @@ draw_set_alpha(1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev == true then scr_raidControl("RAID",0,0,0,0);
+            <string>if dev == true then scr_raidControl("SPHERE",0,0,0,0);
 </string>
           </argument>
         </arguments>

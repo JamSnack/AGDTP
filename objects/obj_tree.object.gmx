@@ -102,7 +102,7 @@ if !place_meeting(x,y-16,TILE) &amp;&amp; !place_meeting(x,y-16,obj_tree)
 if !place_meeting(x,y+16,OBSTA) &amp;&amp; !place_meeting(x,y+16,obj_tree)
 { 
     instance_destroy();
-    scr_noCollisionTileUpdate(x,y);
+    scr_tileUpdate(x,y);
 }
 </string>
           </argument>

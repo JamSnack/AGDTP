@@ -1,6 +1,6 @@
-// 2020-09-01 19:32:20
+// 2020-09-20 16:19:38
 #event create|Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -31,6 +31,7 @@ spawnRate = 1; //How many times a second to check for and spawn a thing.
 spawnChance = 0; //The chance that the thing will spawn out of 100.
 raidBoss = false; //No raid boss.
 raidBossID = noone; //The instance ID of the boss.
+nextRaid = "RAID"; //The next raid's type.
 specialRaid = false; //Bool telling whether or not a special raid is in progress.
 special_raidID = noone; //The ID of the raid
 world_TimeMax = room_speed*(3*60);
@@ -69,10 +70,10 @@ if view_zoom != view_zoom_buffer
         {   instance_activate_object(obj_sapling); }
         
         //-Deactivate offscreen objects.
+        with obj_itemDrop scr_deactivateOffscreen(id);
         with TILE event_user(0);
         with INTERACT scr_deactivateOffscreen(id);
         with NOCOL scr_deactivateOffscreen(id);
-        with obj_itemDrop scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);
@@ -134,6 +135,7 @@ if (abs(playerX-plr_xBuffer) > 15 || abs(playerY-plr_yBuffer) > 15)
 if heal_Time >= room_speed && interm == true
 {
     with PLRTILE event_user(15);
+    with PLR_NOCOL event_user(15);
     with obj_pie event_user(1);
     if obj_player.hp != obj_player.maxHp && obj_player.dead == false with obj_player { hp += 1; if hp >= maxHp then hp = maxHp; }
     
@@ -146,7 +148,7 @@ if heal_Time >= room_speed && interm == true
 if world_Time >= world_TimeMax //3 minutes
 {
     world_Time = 0;
-    scr_raidControl("RAID",0,0,0,0); //Preset raid
+    scr_raidControl(nextRaid,0,0,0,0); //Preset raid
 }
 
 
@@ -203,6 +205,16 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
         while (!position_meeting(xx,yy+16,TILE_ALL) && !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy > room_height then break; }
         
         new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
+        
+        //Special mob spawns.
+            //-Sphere Pylon
+        if interm == true
+        {
+            if irandom(500) >= 480
+            {
+                instance_create(xx,yy,obj_spherePylon);
+            }
+        }
     } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID); }
     
     //Clear active mob roster

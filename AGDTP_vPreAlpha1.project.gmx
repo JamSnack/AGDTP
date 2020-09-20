@@ -96,6 +96,10 @@
     <sprite>sprites\roomTransition_1</sprite>
     <sprite>sprites\spr_subLimeMachineGun</sprite>
     <sprite>sprites\spr_menuLogo</sprite>
+    <sprite>sprites\spr_twitterLink</sprite>
+    <sprite>sprites\spr_youTubeLink</sprite>
+    <sprite>sprites\spr_sphere</sprite>
+    <sprite>sprites\spr_spherePylon</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -135,6 +139,7 @@
     </scripts>
     <scripts name="Ai">
       <script>scripts\ai_gremlin.gml</script>
+      <script>scripts\ai_pylon.gml</script>
       <script>scripts\ai_shadowGremlin.gml</script>
       <script>scripts\ai_bombKing.gml</script>
       <script>scripts\ai_drillin.gml</script>
@@ -173,6 +178,7 @@
     <script>scripts\scr_musicTransition.gml</script>
     <script>scripts\scr_playSound.gml</script>
     <script>scripts\scr_treeCreate.gml</script>
+    <script>scripts\approach.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
@@ -234,6 +240,9 @@
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
+      <object>objects\obj_spherePylon</object>
+      <object>objects\obj_sphereKing</object>
+      <object>objects\obj_sphereMinion</object>
       <object>objects\obj_shadowGremlin</object>
       <object>objects\obj_bombKing</object>
       <object>objects\obj_drillin</object>
@@ -243,11 +252,13 @@
     <object>objects\Boundary</object>
     <object>objects\obj_grenade</object>
     <object>objects\obj_menuLogo</object>
+    <object>objects\obj_twitterLink</object>
+    <object>objects\obj_youtubeLink</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_menu</room>
     <room>rooms\rm_lobby</room>
+    <room>rooms\rm_menu</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

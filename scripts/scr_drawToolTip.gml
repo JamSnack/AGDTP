@@ -25,4 +25,5 @@ switch argument0
     case 18: { text[0] = "Packed Stone"; text[1] = "A realiable,#easy-to-gather defense!"; } break;
     case 19: { text[0] = "Sub-Lime Machine#Gun"; text[1] = "Damage: 2#Firerate: 12#A reliable,#high-firerate fruit!"; } break;
     case ITEMID.item_modTag: { text[0] = "Mod Tag"; text[1] = "Modify your equipment#with this tag.##Used at a Mod Bench."; } break;
+    case ITEMID.item_acorn: { text[0] = "Acorn"; text[1] = "Place this on dirt to grow a tree!"; } break;
 }

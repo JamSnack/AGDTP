@@ -1,4 +1,4 @@
-// 2020-09-02 14:24:03
+// 2020-09-02 14:24:17
 #event create|Init vars
 type = "PLAYER";
 damage = 10;
@@ -31,7 +31,7 @@ with type //TILE or PLRTILE
         switch t
         {
             case PLRTILE: if canHurt == true { scr_hurt(d,DEF_HURT,false,0,0); } break;
-            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,0,0); } break;
+            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,3,0); } break;
             case TILE:
             {
                 //Damage the tile

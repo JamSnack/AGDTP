@@ -82,7 +82,7 @@ switch current_state
         { if vAccel > -maxAccel then vAccel -= accelRate; }
         else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
         
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
     }
     break;
@@ -90,6 +90,7 @@ switch current_state
     case WANDER:
     {
         if stateLock == false then state = MOVE;
+        image_xscale = sign(hAccel)*scale;
     }
     break;
 }
@@ -99,24 +100,33 @@ switch current_state
 //Collision and movement
 //#region
 var targetPlrTile = noone;
+var _stall = 1;
 
 if !place_meeting(x+hAccel,y,OBSTA)
 { x += hAccel; }
 else
 {
     targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
+    
+    stateLock = true;
+    alarm[stateLockAlarm] = _stall;
+    hAccel = -hAccel;
 }
-
 if !place_meeting(x,y+vAccel,OBSTA)
 { y += vAccel; }
 else
 {
     targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
+    
+    stateLock = true;
+    alarm[stateLockAlarm] = _stall;
+    vAccel = -vAccel;
 }
+
 //#endregion
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone && stateLock == false
+if state != WANDER && targetPlrTile != noone && (stateLock == false && state != MOVE)
 { 
     var _damage = damage;
     with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);

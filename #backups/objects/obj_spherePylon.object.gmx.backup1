@@ -1,0 +1,66 @@
+// 2020-09-20 17:15:00
+#event create|Initialize the Pylon
+
+canActiveRegion = false;
+canHurt = true;
+maxHp = 30;
+hp = maxHp;
+image_speed = 0;
+state = WANDER;
+stunned = false;
+
+vsp = 0;
+atkBox = 0; //divided by 2 on calculation.
+damage = 0; //Attack damage.
+
+hurtAlarm = 1;
+
+target = noone; //Target priority.
+
+objective = target;
+stateLockAlarm = 2;
+aggroRange = 0;
+
+stateLock = false;
+
+//Flying speed
+hAccel = 0;
+vAccel = 0;
+maxAccel = 0;
+accelRate = 0;
+
+//Animation
+bobAmt = 0;
+bobDir = 1;
+bobLinearDir = 1;
+bobRate = 0.05;
+bobAltitude = 2;
+
+knockType = noone;
+
+event_inherited();
+
+#event destroy|Special & Inherits nothing.
+nextRaid = "SPHERE";
+scr_hudMessage("It's going to be a strange night..",global.fnt_Menu,20,0,c_purple,0);
+
+#event alarm1|Reset hurt
+canHurt = true;
+target = obj_player;
+
+#event alarm2|Reset state lock
+stateLock = false;
+
+objective = target;
+state = WANDER;
+image_index = sign(objective.x-x);
+
+#event step
+//Pylon states
+ai_pylon(WANDER,spr_gremlinIdle,spr_gremlinWalk,1,noone,atkBox);
+
+//prevent knockback
+if speed != 0 then speed = 0;
+
+#event draw
+draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha);

@@ -32,7 +32,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "Closed-Alpha v0.2";
+text = "Closed-Alpha v0.2.2";
 
 playButton_active = false;
 deleteButton_active = false;

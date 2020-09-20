@@ -1,0 +1,18 @@
+// 2020-09-19 14:22:40
+#event create
+event_inherited();
+level = 0;
+maxHp = 8;
+hp = maxHp;
+
+bench = false;
+canHit = true;
+
+if !(position_meeting(x,y+16,FLATLAND) || position_meeting(x,y+16,TILE) || position_meeting(x,y+16,obj_packedDirt))
+{
+    scr_dropItem(ITEMID.item_acorn,1,3,x,y-2,noone);
+    instance_destroy();
+    scr_tileUpdate(x,y,);
+}
+
+#event destroy|Inherit nothing.

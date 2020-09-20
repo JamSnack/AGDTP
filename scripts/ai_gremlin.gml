@@ -104,13 +104,20 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
             var dir = sign(xObjective-x);
             
             //Move
-            if !place_meeting(x+(spd*dir),y,OBSTA)
+            if !place_meeting(x+(spd*dir),y,OBSTA) && !place_meeting(x+(spd*dir),y,GR_ENEMY)
             {
                 x += spd*dir;
                 if dir != 0 then image_xscale = dir;
-            } else if _x==x_previous && vsp == 0 {
+            } else if vsp == 0 && !position_meeting(x+(spd*dir),y+jump_speed,OBSTA) {
                 //Jump if there is a tile in front of the gremlin
                 vsp = jump_speed;
+            } else if place_meeting(x,y,GR_ENEMY)
+            {
+                //Use arbitrary values to decide which Gremlin moves.
+                if instance_place(x,y,GR_ENEMY).id > id
+                {
+                    sprite_index = idle_sprite;
+                } else state = WANDER;
             }
             
         }
@@ -139,7 +146,19 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 //- Wander forward
                 if !place_meeting(x+(spd*image_xscale),y,OBSTA)
                 {
-                    x += spd*image_xscale;
+                    if !place_meeting(x+(spd*image_xscale),y,GR_ENEMY)
+                    {
+                        x += spd*image_xscale;
+                    } 
+                    else if place_meeting(x,y,GR_ENEMY)
+                    {
+                        //Use arbitrary values to decide which Gremlin moves.
+                        if instance_place(x,y,GR_ENEMY).id > id
+                        {
+                            sprite_index = idle_sprite;
+                        } 
+                        else x += spd*image_xscale;
+                    } else image_xscale = -image_xscale;
                 }
                 
                 
