@@ -1,4 +1,4 @@
-// 2020-09-20 17:15:00
+// 2020-09-20 20:50:09
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
@@ -41,8 +41,11 @@ knockType = noone;
 event_inherited();
 
 #event destroy|Special & Inherits nothing.
-nextRaid = "SPHERE";
-scr_hudMessage("It's going to be a strange night..",global.fnt_Menu,20,0,c_purple,0);
+if interm == true && distance_to_object(obj_player) <= 128
+{
+    nextRaid = "SPHERE";
+    scr_hudMessage("It's going to be a strange night..",global.fnt_menu,20,0,c_purple,0);
+}
 
 #event alarm1|Reset hurt
 canHurt = true;

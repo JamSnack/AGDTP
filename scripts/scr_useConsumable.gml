@@ -26,7 +26,7 @@ switch item
     
         if interm == false then exit;
         
-        scr_raidControl("RAID",0,0,0,0); // Preset Raid
+        scr_raidControl(nextRaid,0,0,0,0); // Preset Raid
     }
     break;
     

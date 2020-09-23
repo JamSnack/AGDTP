@@ -1,4 +1,4 @@
-// 2020-09-20 17:38:29
+// 2020-09-20 20:53:34
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
@@ -47,6 +47,9 @@ alarm[3] = 1;
 
 
 
+#event destroy
+event_inherited();
+scr_dropItem(ITEMID.item_gremEssence,5+floor(wave/3),ITEMTYPE.def,x,y,noone);
 #event alarm1|Reset hurt
 canHurt = true;
 target = obj_player;

@@ -29,7 +29,8 @@
 
 canActiveRegion = false;
 canHurt = true;
-hp = 30;
+maxHp = 30;
+hp = maxHp;
 image_speed = 0;
 state = WANDER;
 stunned = false;
@@ -87,10 +88,10 @@ event_inherited();
           <argument>
             <kind>1</kind>
             <string>///Special &amp; Inherits nothing.
-if interm == true
+if interm == true &amp;&amp; distance_to_object(obj_player) &lt;= 128
 {
     nextRaid = "SPHERE";
-    scr_hudMessage("It's going to be a strange night..",global.fnt_Ui,20,0,c_purple,0);
+    scr_hudMessage("Tonight is going to be strange..",global.fnt_menu,20,0,c_purple,0);
 }
 </string>
           </argument>

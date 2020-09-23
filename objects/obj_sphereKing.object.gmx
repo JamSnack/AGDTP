@@ -26,9 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the Pylon
-var scale = 2;
-image_xscale = scale;
-image_yscale = scale;
 
 canActiveRegion = false;
 canHurt = true;
@@ -39,7 +36,7 @@ state = MOVE;
 stunned = false;
 
 vsp = 0;
-atkBox = 2*(16*8); //divided by 2 on calculation.
+atkBox = (16*4); //divided by 2 on calculation.
 damage = 5; //Attack damage.
 
 hurtAlarm = 1;
@@ -55,24 +52,26 @@ stateLock = false;
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 0.5;
-accelRate = 0.1;
+maxAccel = 1;
+accelRate = 0.01;
 
 //Animation
 bobAmt = 0;
 bobDir = 1;
 bobLinearDir = 1;
-bobRate = 0.005;
-bobAltitude = 2;
+bobRate = 0.001;
+bobAltitude = 3;
 
-knockType = noone;
+knockType = "FLY";
 
 event_inherited();
 
 //Other Locals
-spwnRate = 5-(0.1*floor(wave/3));
+spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
+
+
 </string>
           </argument>
         </arguments>
@@ -99,7 +98,7 @@ alarm[3] = 1;
 var a = instance_create(x,y,obj_sphereMinion);
 a.pointA = x-64;
 a.pointB= x+64;
-parentKing = self;
+a.parentKing = self;
 alarm[3] = room_speed*spwnRate;
 </string>
           </argument>
@@ -179,7 +178,8 @@ target = obj_player;
             <string>//Pylon states
 //TODO: If close to a playertile or something, enter WANDER. Like Bomb King.
 
-ai_pylon(MOVE,spr_gremlinIdle,spr_gremlinWalk,1,noone,atkBox);
+ai_pylon(MOVE,spr_gremlinIdle,spr_gremlinWalk,1,obj_player,atkBox);
+if speed != 0 then speed = approach(speed,0,1);
 </string>
           </argument>
         </arguments>

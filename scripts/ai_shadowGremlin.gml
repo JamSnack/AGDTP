@@ -36,7 +36,7 @@ if objective.canHurt == true
         stateLock = true;
         alarm[stateLockAlarm] = 30;
     } 
-    else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    else if instance_exists(PLR_NOCOL) && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with nearestNoCol  //Hurt the objective.
         {
@@ -126,10 +126,10 @@ else
 //#endregion
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone && (stateLock == false && state != MOVE)
+if state != WANDER && targetPlrTile != noone 
 { 
     var _damage = damage;
-    with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
+    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
     
     state = WANDER;
     stateLock = true;

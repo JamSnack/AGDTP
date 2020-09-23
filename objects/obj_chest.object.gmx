@@ -34,6 +34,8 @@ canHurt = false;
 bench = false;
 opened = false;
 image_speed = 0;
+
+event_inherited();
 </string>
           </argument>
         </arguments>
@@ -104,8 +106,8 @@ if opened == false
         
         var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bomb,);
         
-        var ran = irandom(299);
-        if ran == 299 then itemSelector = tag;
+        var ran = irandom(100);
+        if ran == 100 then itemSelector = tag;
         
         var amt=0;
         var type=0;

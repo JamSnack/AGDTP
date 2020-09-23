@@ -257,8 +257,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_lobby</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_lobby</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

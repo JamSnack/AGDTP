@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the Pylon
-var scale = 0.25;
+scale = 0.25;
 image_xscale = scale;
 image_yscale = scale;
 
@@ -47,23 +47,22 @@ target = obj_player; //Target priority.
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 80;
+aggroRange = 128;
 
 stateLock = false;
 
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 1.5;
-accelRate = 0.5;
+maxAccel = 5;
+accelRate = 0.1;
 
-knockType = noone;
+knockType = "FLY";
 
 event_inherited();
 
 //Other Locals
-sk_diameter = 128;
-//Points A and B are created in the SK's alarm.
+sk_diameter = 64;
 sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance on that line from A to B (0, 128);
 sm_rate = 0.5;
 sm_dir = 1;
@@ -143,25 +142,24 @@ target = obj_player;
           <argument>
             <kind>1</kind>
             <string>///sphere minion states
-objective = obj_player;
+objective = obj_pie;
 
-if distance_to_object(objective) &lt;= aggroRange || !instance_exists(parentKing)
+if distance_to_object(obj_player) &lt;= aggroRange &amp;&amp; obj_player.dead == false
 {
-    ai_shadowGremlin(MOVE,0,0,0,0,objective,0,atkBox);
+    ai_shadowGremlin(MOVE,0,0,0,0,obj_player,0,atkBox);
 }
 else if instance_exists(parentKing)
 {
     //Travel along the centerline.
-    approach(sm_centerDistance,sk_diameter*sm_dir,sm_rate);
-    if sm_centerDistance = sk_diamter*sm_dir then sm_dir=-sm_dir;
-    
-    
+    sm_centerDistance = approach(sm_centerDistance,sk_diameter*sm_dir,sm_rate);
+    if sm_centerDistance = sk_diameter*sm_dir then sm_dir=-sm_dir;
     
     //Move toward the centerPoint.
-    var centerPoint = parentKing.x+sm_centerDistance;
+    var centerPointX = parentKing.x+sm_centerDistance;
+    var centerPointY = parentKing.y;
     
-    var dir = sign(objective.x-x);
-    var vdir = sign(objective.y-(y+16));
+    var dir = sign(centerPointX-x);
+    var vdir = sign(centerPointY-(y+16));
     
     //-Horizontal Acceleration
     if dir == -1
@@ -172,30 +170,35 @@ else if instance_exists(parentKing)
     if vdir == -1 //Objective is up
     { if vAccel &gt; -maxAccel then vAccel -= accelRate; }
     else if vdir == 1 { if vAccel &lt; maxAccel then vAccel += accelRate; }
+    
+    var targetPlrTile = noone;
+    var _stall = 1;
+    
+    if !place_meeting(x+hAccel,y,OBSTA)
+    { x += hAccel; }
+    else
+    {
+        targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
+        
+        stateLock = true;
+        alarm[stateLockAlarm] = _stall;
+        hAccel = -hAccel;
+    }
+    if !place_meeting(x,y+vAccel,OBSTA)
+    { y += vAccel; }
+    else
+    {
+        targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
+        
+        stateLock = true;
+        alarm[stateLockAlarm] = _stall;
+        vAccel = -vAccel;
+    }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha);
+else
+{
+    ai_shadowGremlin(MOVE,0,0,0,0,obj_pie,0,atkBox);
+}
 </string>
           </argument>
         </arguments>

@@ -36,6 +36,7 @@ if room != rm_lobby then canHit = true else canHit = false;
 
 //Tutorial Quest
 if room == rm_zero { if currentTask == 2 then currentTask = 3; }
+knockType = noone;
 </string>
           </argument>
         </arguments>

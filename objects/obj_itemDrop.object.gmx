@@ -46,6 +46,8 @@ bobAltitude = 2;
 
 //deactivate if the game is loaded.
 if instance_exists(obj_player) then scr_deactivateOffscreen(id);
+
+while place_meeting(x,y,FLATLAND) y-=16;
 </string>
           </argument>
         </arguments>

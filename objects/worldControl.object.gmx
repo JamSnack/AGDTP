@@ -142,7 +142,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(500) &gt;= 0
+            if irandom(500) &gt;= 480 //1.04% chance
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -452,7 +452,7 @@ draw_set_alpha(1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev == true then scr_raidControl("SPHERE",0,0,0,0);
+            <string>if dev == true then scr_raidControl(nextRaid,0,0,0,0);
 </string>
           </argument>
         </arguments>

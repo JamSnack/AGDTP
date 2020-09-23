@@ -131,9 +131,6 @@ if !ifUp
     else if !ifLeft &amp;&amp; ifRight { image_index = 6; }
     else { image_index = 9; }
 }
-
-
-if !instance_exists(obj_player) &amp;&amp; y &gt;= stoneLayer then instance_create(x,y,obj_nullLight);
 </string>
           </argument>
         </arguments>

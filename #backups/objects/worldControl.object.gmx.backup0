@@ -1,4 +1,4 @@
-// 2020-09-20 16:56:37
+// 2020-09-20 20:56:40
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
@@ -210,7 +210,7 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(500) >= 0
+            if irandom(500) >= 480 //1.04% chance
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
