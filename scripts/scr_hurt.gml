@@ -10,7 +10,7 @@ if object_get_parent(object_index) == TILE || object_get_parent(object_index) ==
     { knock = false; damage = round(damage/10)+1 }
 
 //Enemy death event.
-if (hp-damage <= 0) && object_get_name(other.object_index) == "obj_projectile" && object_get_parent(object_index) == GR_ENEMY
+if (hp-damage <= 0) && object_get_name(other.object_index) == "obj_projectile" && object_get_parent(object_index) == ENEMY
 {
     //ENEMY DEATH TAGS
     var _ran = irandom(100);

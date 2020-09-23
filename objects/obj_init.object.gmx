@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Display Properties
 globalvar dev;
-dev = false; //Dev tool boolean.
+dev = true; //Dev tool boolean.
 
 ideal_width=0;
 ideal_height=247;
@@ -115,7 +115,8 @@ enum ITEMID
     item_modTag,
     tile_modBench,
     tile_woodenStilt,
-    item_acorn
+    item_acorn,
+    weapon_sphereLauncher
 }
 
 //Item Types

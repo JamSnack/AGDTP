@@ -53,6 +53,16 @@ with proj
         alarm[2] = armOffsetRate*armOffsetGoal; 
         visible = dev;
     } else if _type == 1 { localGrav = 0.1; friction = 0;}
+    else if _type == "SPHERE"
+    {
+        image_xscale = 0.125;
+        image_yscale = 0.125;
+        hAccel = hspeed;
+        vAccel = vspeed;
+        maxAccel = 8;
+        accelRate = 0.2;
+        speed = 0;
+    }
     
     
     
@@ -66,8 +76,6 @@ with proj
             {
                 //Increases projectile speed
                 case "Fast": { speed += 3; } break;
-                case "Burning": {sprite_index = spr_projectile2} break;
-                case "OMG HAXX!!!": {sprite_index = spr_gremBlock; speed += 5; knkAmt += 20; dmg += 100; } break;
                 case "Bouncy": { bBouncy = true; canBounce = true; } break;
             }
         }

@@ -142,7 +142,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(500) &gt;= 480 //1.04% chance
+            if irandom(500) &gt;= 490
             {
                 instance_create(xx,yy,obj_spherePylon);
             }

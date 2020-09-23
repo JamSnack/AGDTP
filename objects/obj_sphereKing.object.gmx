@@ -29,7 +29,7 @@
 
 canActiveRegion = false;
 canHurt = true;
-maxHp = 30+(25*floor(wave/5));
+maxHp = 40+(25*floor(wave/5));
 hp = maxHp;
 image_speed = 0;
 state = MOVE;
@@ -71,7 +71,44 @@ spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
 
+repeat(clamp(floor(wave/4),0,5))
+{
+    var a = instance_create(x,y,obj_sphereMinion);
+    a.parentKing = id;
+}
 
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>event_inherited();
+var r = irandom(50);
+if r == 1
+{
+    scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+}
+
+scr_dropItem(ITEMID.item_gremEssence,5+floor(wave/3),ITEMTYPE.def,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -96,9 +133,7 @@ alarm[3] = 1;
             <kind>1</kind>
             <string>///Create a Sphere Minion
 var a = instance_create(x,y,obj_sphereMinion);
-a.pointA = x-64;
-a.pointB= x+64;
-a.parentKing = self;
+a.parentKing = id;
 alarm[3] = room_speed*spwnRate;
 </string>
           </argument>

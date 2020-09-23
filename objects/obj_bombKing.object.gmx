@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 50+(25*floor(wave/5));
+hp = 60+(25*floor(wave/5));
 maxHp = hp;
 image_speed = 0;
 state = MOVE;

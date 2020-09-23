@@ -39,6 +39,8 @@ armStabComplete = false;
 armOffset = 0; //Used for thrusting the arm forward or backward!
 armOffsetGoal = 0;
 armOffsetRate = 0;
+
+type = 0;
 </string>
           </argument>
         </arguments>
@@ -126,24 +128,13 @@ if canBounce == false then canBounce = true;
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>obj_projectile</whoName>
+        <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Behaviors
-//## NOTE: ENDSTEP B/C GameMaker Gravity affects Y position after the Step event.
-//Collisions are more accurate here.
-
-//Type
-
-/*switch type
-{
-}
-*/
-
-//--------Behavior Constants---------------
+            <string>//--------Behavior Constants---------------
 image_angle = direction;
 
 //--------------Behavior Characteristics---------------------------
@@ -211,6 +202,40 @@ if bBouncy == true
     }
 }
 
+
+//Sphere behaviors
+if type == "SPHERE"
+{
+    var _enemy = instance_nearest(x,y,ENEMY);
+
+    if _enemy != noone //if an enemy exists
+    { 
+        if distance_to_object(_enemy) &lt;= 16*8
+        {
+            if speed != 0 then speed = approach(speed,0,1);
+        
+            //Direction
+            var dir = sign(_enemy.x-x);
+            var vdir = sign(_enemy.y-(y));
+            
+            //Horizontal Acceleration
+            hAccel = approach(hAccel,maxAccel*dir,accelRate);
+            
+            //Vertical Acceleration
+            vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        }
+    }
+    
+    if place_meeting(x+hAccel,y,OBSTA)
+    { hAccel=-hAccel; }
+            
+    if place_meeting(x,y+vAccel,OBSTA)
+    { vAccel=-vAccel; }
+    
+    x += hAccel;
+    y += vAccel;
+}
+
 //Gravity
 if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
 { vspeed += (localGrav); }
@@ -253,6 +278,8 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
     
     //Destroy the projectile
     if type == 1 || type == 2 then instance_destroy();
+    else if type == "SPHERE"
+    { if alarm[2] == -1 then alarm[2] = room_speed*3; }
 }
 </string>
           </argument>
@@ -281,7 +308,11 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
 if object_get_name(other.object_index) != "obj_nullLight"
 {
     //Kill these types of projectiles:
-    if (type == 1 || type == 2) then instance_destroy();
+    if (type == 1 || type == 2) then instance_destroy()
+    else if type == "SPHERE"
+    {
+        speed = 0;
+    }
 }
 </string>
           </argument>
