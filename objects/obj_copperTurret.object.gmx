@@ -34,7 +34,7 @@ type = 3;
 
 //Turret stuff
 target = 0;
-targetRange = 7*16; //5 Tiles
+targetRange = 7*16; //7 Tiles
 fireRate = 1; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;

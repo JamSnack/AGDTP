@@ -1377,6 +1377,7 @@ event_user(0);
           <argument>
             <kind>1</kind>
             <string>///Select slot 7
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 6;
@@ -1405,6 +1406,7 @@ scr_slotEquip(6);
           <argument>
             <kind>1</kind>
             <string>///Select slot 6
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 5;
@@ -1433,6 +1435,7 @@ scr_slotEquip(5);
           <argument>
             <kind>1</kind>
             <string>///Select slot 5
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 4;
@@ -1461,6 +1464,7 @@ scr_slotEquip(4);
           <argument>
             <kind>1</kind>
             <string>///Select slot 4
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 3;
@@ -1489,6 +1493,7 @@ scr_slotEquip(3);
           <argument>
             <kind>1</kind>
             <string>///Select slot 3
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 2;
@@ -1517,6 +1522,7 @@ scr_slotEquip(2);
           <argument>
             <kind>1</kind>
             <string>///Select slot 2
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 1;
@@ -1545,6 +1551,7 @@ scr_slotEquip(1);
           <argument>
             <kind>1</kind>
             <string>///Select slot 1
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
     selectedSlot = 0;

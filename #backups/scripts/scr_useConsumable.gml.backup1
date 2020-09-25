@@ -1,7 +1,8 @@
+// 2020-09-23 17:30:46
 /// scr_useConsumable(item)
 ///scr_useConsumable(item);
 //Return the object associated with the itemID of the tile to place.
-var item = argument0;
+#args item
 
 toolReady = false;
 armIndex = spr_armSwing;
@@ -23,7 +24,7 @@ switch item
         armAngleRate = 0;
         toolSprite = spr_gremBlock;
         alarm[2] = room_speed;
-
+        print("yes")
         if interm == false then exit;
         
         scr_raidControl(nextRaid,0,0,0,0); // Preset Raid

@@ -158,13 +158,13 @@ print("transitioning...");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_stretched(roomTransition_1,image_index,0,0,view_wview,view_hview);
+            <string>draw_sprite_stretched(roomTransition_1,image_index,0,0,view_wview[0],view_hview[0]);
 
 if drawText == true &amp;&amp; str != ""
 {
     draw_set_font(font);
     draw_set_colour(color);
-    draw_text_transformed_colour((view_wview/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,image_index/10);
+    draw_text_transformed_colour((view_wview[0]/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,image_index/10);
 }
 </string>
           </argument>

@@ -142,7 +142,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(500) &gt;= 490
+            if irandom(50) &gt;= 48
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -198,8 +198,11 @@ alarm[1] = room_speed/spawnRate;
           <argument>
             <kind>1</kind>
             <string>///Deactivation/Chunking and World Time
-world_Time += 1;
-heal_Time += 1;
+if interm == true 
+{
+    world_Time += 1;
+    heal_Time += 1;
+}
 
 var playerX = obj_player.x;
 var playerY = obj_player.y;
@@ -229,7 +232,7 @@ if view_zoom != view_zoom_buffer
         with obj_itemDrop scr_deactivateOffscreen(id);
         with TILE event_user(0);
         with INTERACT scr_deactivateOffscreen(id);
-        with NOCOL scr_deactivateOffscreen(id);
+        with NOCOL if object_get_parent(id) != PLR_NOCOL then scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);
@@ -288,7 +291,7 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
 
 
 //------------- Proliferate every tick ---------------------------
-if heal_Time &gt;= room_speed &amp;&amp; interm == true
+if heal_Time &gt;= room_speed
 {
     with PLRTILE event_user(15);
     with PLR_NOCOL event_user(15);
@@ -300,7 +303,7 @@ if heal_Time &gt;= room_speed &amp;&amp; interm == true
 
 //------------ World Time -------------------
 // multiplied by 3 into 3 minutes.
-// TESTED &gt; IS STUPID ACCURATE
+
 if world_Time &gt;= world_TimeMax //3 minutes
 {
     world_Time = 0;

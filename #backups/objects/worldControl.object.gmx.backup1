@@ -1,4 +1,4 @@
-// 2020-09-20 16:19:38
+// 2020-09-23 17:40:03
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
@@ -42,8 +42,11 @@ global.light_surface = surface_create(display_get_width(),display_get_height());
 
 
 #event alarm0|Deactivation/Chunking and World Time
-world_Time += 1;
-heal_Time += 1;
+if interm == true 
+{
+    world_Time += 1;
+    heal_Time += 1;
+}
 
 var playerX = obj_player.x;
 var playerY = obj_player.y;
@@ -132,7 +135,7 @@ if (abs(playerX-plr_xBuffer) > 15 || abs(playerY-plr_yBuffer) > 15)
 
 
 //------------- Proliferate every tick ---------------------------
-if heal_Time >= room_speed && interm == true
+if heal_Time >= room_speed
 {
     with PLRTILE event_user(15);
     with PLR_NOCOL event_user(15);
@@ -144,7 +147,7 @@ if heal_Time >= room_speed && interm == true
 
 //------------ World Time -------------------
 // multiplied by 3 into 3 minutes.
-// TESTED > IS STUPID ACCURATE
+
 if world_Time >= world_TimeMax //3 minutes
 {
     world_Time = 0;
@@ -210,7 +213,7 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(500) >= 480
+            if irandom(50) >= 48
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -301,4 +304,4 @@ draw_rectangle(0,0,display_get_width(),display_get_height(),false);
 draw_set_alpha(1);
 
 #event keyrelease:B
-if dev == true then scr_raidControl("RAID",0,0,0,0);
+if dev == true then scr_raidControl(nextRaid,0,0,0,0);

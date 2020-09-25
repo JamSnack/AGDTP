@@ -29,7 +29,7 @@
 
 canActiveRegion = false;
 canHurt = true;
-maxHp = 40+(25*floor(wave/5));
+maxHp = 70+(25*floor(wave/5));
 hp = maxHp;
 image_speed = 0;
 state = MOVE;
@@ -71,7 +71,7 @@ spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
 
-repeat(clamp(floor(wave/4),0,5))
+repeat(clamp(floor(wave/4),1,6))
 {
     var a = instance_create(x,y,obj_sphereMinion);
     a.parentKing = id;
@@ -101,7 +101,7 @@ repeat(clamp(floor(wave/4),0,5))
           <argument>
             <kind>1</kind>
             <string>event_inherited();
-var r = irandom(50);
+var r = irandom(4);
 if r == 1
 {
     scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);

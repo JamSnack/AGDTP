@@ -180,6 +180,7 @@
     <script>scripts\scr_playSound.gml</script>
     <script>scripts\scr_treeCreate.gml</script>
     <script>scripts\approach.gml</script>
+    <script>scripts\waveScale.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>

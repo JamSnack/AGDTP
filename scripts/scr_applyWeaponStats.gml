@@ -16,8 +16,26 @@ switch argument0
     case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 2; proj_type = 1;} break;
     
     case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; tool_firerate = 10; proj_spd = 8; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; wep_Dam = 3; wep_Knock = 1.2; proj_type = 2;} break;
-    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 50; proj_spd = 3; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 4; wep_Knock = 1; proj_type = "SPHERE";} break;
+    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 45; proj_spd = 3; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 4; wep_Knock = 1; proj_type = "SPHERE";} break;
 }
+
+//Apply tags
+var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+if ds_exists(tagsUnloaded,ds_type_list)
+{
+    for (i=0;i<ds_list_size(tagsUnloaded);i++)
+    {
+        var tag = tagsUnloaded[| i]
+        
+        //Grenade
+        if tag == "Tool Speed+" 
+        { 
+            tool_firerate = clamp(tool_firerate-tool_firerate*0.20,1,100);
+            print("SPEEDY");
+        }
+    }
+}
+
 
 obj_player.toolFireRate = tool_firerate;
 obj_player.projSpeed = proj_spd;

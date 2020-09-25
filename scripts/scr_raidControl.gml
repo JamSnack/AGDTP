@@ -21,7 +21,7 @@ switch presetSettings
     {
         //---------- Intermission settings ---------
         spawnRate = 0.5;
-        spawnChance = 20;
+        spawnChance = 20+clamp(floor(wave/2),0,40);
         maxGrem = 7;
         maxRaidProgress = 0;
         interm = true;

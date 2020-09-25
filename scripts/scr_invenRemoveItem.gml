@@ -33,16 +33,25 @@ if item != 0
             
             if ds_exists(tags,ds_type_list)
             {
-                for(_t=0;_t<ds_list_size(tags);_t++)
+                var tagsSize = ds_list_size(tags);
+                var hudSize = ds_list_size(hudTags);
+                
+                if tagsSize == hudSize
                 {
-                    var current_tag = tags[| _t];
-                    for(_y=0;_y<ds_list_size(hudTags);_y++)
+                    //If they have the same size, then for each tag in tags, compare it to each tag in hudTags.
+                    //If hudTags is passed without a match, then the tags are dissimilar.
+                    for(_t=0;_t<tagsSize;_t++)
                     {
-                        if current_tag == hudTags[| _y] then break
-                        else if _y=ds_list_size(hudTags)-1 then sameTags = false;
+                        var current_tag = tags[| _t];
+                        for(_y=0;_y<hudSize;_y++)
+                        {
+                            if current_tag == hudTags[| _y] 
+                            {
+                                if _t=ds_list_size(tags)-1 then sameTags = true;
+                                break;
+                            }
+                        }
                     }
-                    
-                    if _t=ds_list_size(tags)-1 then sameTags = true;
                 }
             }
             

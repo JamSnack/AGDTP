@@ -8,6 +8,8 @@ var bossGremlins;
 //Add boss gremlins to the list as the wave number increases.
 bossGremlins[0] = obj_bombKing;
 
+if wave >= 15 && gremNumber >= 90 then bossGremlins[1] = obj_sphereKing;
+
 var mobType = "NORMAL"; //Normal or Special boss.
 
 //Select gremlin

@@ -1,0 +1,42 @@
+// 2020-09-23 17:44:42
+#event create
+image_speed = 0;
+drawText = true;
+
+audio_sound_gain(music,0,room_speed*10);
+
+#event destroy|RESET INVENTORY
+hudControl.selectedSlot = noone;
+
+#event alarm0
+room_goto(rm_goto);
+print("transitioning...");
+
+#event step
+if rm_goto == room
+{
+    image_speed = -speed_current;
+    image_index = floor(image_index);
+    if image_index <= 0 then instance_destroy();
+    
+    if rm_goto == rm_lobby then scr_musicTransition(snd_theStarsForever,room_speed*20);
+}
+
+#event other_animation_end
+if room_current == room && sprite_index != noone
+{
+    image_speed = 0;
+    image_index = sprite_get_number(roomTransition_1)-1;
+    alarm[0] = 30;
+}
+
+
+#event draw_gui
+draw_sprite_stretched(roomTransition_1,image_index,0,0,viewWidth,viewHeight);
+
+if drawText == true && str != ""
+{
+    draw_set_font(font);
+    draw_set_colour(color);
+    draw_text_transformed_colour((viewWidth/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,image_index/10);
+}

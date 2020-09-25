@@ -90,6 +90,11 @@ friction = 0.3;
 audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
+
+
+var tag = ds_list_create();
+ds_list_add(tag,"Tool Speed+");
+scr_invenAddItem(ITEMID.item_modTag,99,ITEMTYPE.def,tag);
 </string>
           </argument>
         </arguments>
