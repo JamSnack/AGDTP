@@ -7,8 +7,8 @@
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>1</bbox_left>
-  <bbox_right>3</bbox_right>
+  <bbox_left>0</bbox_left>
+  <bbox_right>4</bbox_right>
   <bbox_top>1</bbox_top>
   <bbox_bottom>6</bbox_bottom>
   <HTile>0</HTile>
@@ -110,5 +110,6 @@
     <frame index="87">images\fnt_ui_87.png</frame>
     <frame index="88">images\fnt_ui_88.png</frame>
     <frame index="89">images\fnt_ui_89.png</frame>
+    <frame index="90">images\fnt_ui_90.png</frame>
   </frames>
 </sprite>

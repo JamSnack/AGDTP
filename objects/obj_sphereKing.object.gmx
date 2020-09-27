@@ -106,6 +106,10 @@ if r == 1
 {
     scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
     scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+} else if r &gt; 2
+{
+    scr_dropTag("Tool Speed+",1);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
 }
 
 scr_dropItem(ITEMID.item_gremEssence,5+floor(wave/3),ITEMTYPE.def,x,y,noone);

@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Display Properties
 globalvar dev;
-dev = true; //Dev tool boolean.
+dev = false; //Dev tool boolean.
 
 ideal_width=0;
 ideal_height=247;
@@ -79,8 +79,8 @@ alarm[0]=1;
 room_goto(room_next(room));
 
 //Font
-global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
-global.fnt_Ui = font_add_sprite_ext(fnt_ui,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?",0,0);
+global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
+global.fnt_Ui = font_add_sprite_ext(fnt_ui,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
 
 
 
