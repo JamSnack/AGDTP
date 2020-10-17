@@ -53,12 +53,10 @@ switch current_state
         //Vertical Acceleration
         if vdir == -1 //Objective is up
         {
-            image_index = 0;
             if vAccel > -maxAccel then vAccel -= accelRate; 
         }
         else if vdir == 1 
         { 
-            image_index = 1;
             if vAccel < maxAccel then vAccel += accelRate; 
         }
         

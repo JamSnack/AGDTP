@@ -256,7 +256,7 @@ if dead = false &amp;&amp; g_over == false
         hForce = 0;
     }
     x = x +hsp+hForce;
-    hForce = approach(hForce,0,knockback_resistance);
+    hForce = approach(hForce,0,knock_resistance);
     
     //Vertical Movement
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
@@ -302,7 +302,7 @@ if dead = false &amp;&amp; g_over == false
     }
 
     y = y + vsp+vForce;
-    vForce = approach(vForce,0,knockback_resistance);
+    vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
     if vsp != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
@@ -819,7 +819,7 @@ if armOffset == 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_sphereKing);
+            <string>instance_create(mouse_x,mouse_y,obj_spherePylon);
 </string>
           </argument>
         </arguments>

@@ -33,7 +33,7 @@ image_yscale = scale;
 canActiveRegion = false;
 canHurt = true;
 hp = 5+(5*floor(wave/3));
-image_speed = 0;
+image_speed = 10/60;
 state = MOVE;
 stunned = false;
 
