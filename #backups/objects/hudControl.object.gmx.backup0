@@ -1,4 +1,4 @@
-// 2020-09-20 17:12:24
+// 2020-10-15 16:34:23
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -424,22 +424,34 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
     if modCanConfirm == true && point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
     {
         //print("Check")
-        
         if !ds_exists(equipmentTags,ds_type_list)
         { equipmentTags = ds_list_create(); }
         
-        ds_list_add(equipmentTags,selectedTag[| 0]); 
+        //If tags are less than max tags, add one!
+        var tags_maxxed = false;
         
-        //Remove
-        scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
-        scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
+        if ds_list_size(equipmentTags) < 2
+        { 
+            ds_list_add(equipmentTags,selectedTag[| 0]); 
+            
+            //Remove the ingredient items.
+            scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
+            scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
+        }
+        else 
+        {
+            scr_hudMessage("Only 2 tags allowed per item.",global.fnt_Ui,5,0,c_red,0);
+            tags_maxxed = true;
+        }
         
         
         //Reset if successful
-        if scr_invenAddItem(selectedEquipment,0,selectedType,equipmentTags) != -1
+        if tags_maxxed == false && scr_invenAddItem(selectedEquipment,0,selectedType,equipmentTags) != -1
         {
             scr_hudMessage("Modification success!",global.fnt_Ui,5,equipmentIcon,c_aqua,0);
-            event_user(0);
+            
+            event_user(0); //Reset the mod bench.
+            
             scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
         } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
     }
@@ -721,6 +733,8 @@ var dispHeight = viewHeight;
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
 
+if dev == true then draw_text(10,20,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
+
 //Draw Inventory -----------------------------------------
 //#region
 if invenX > 5
@@ -959,11 +973,11 @@ if worldControl.raidBoss == true
     var bossName = "Null";
     
     //Return the boss's name.
-    switch object_get_name(boss.object_index)
+    switch boss.object_index
     {
         //All possible boss objects.
-        case "obj_bombKing": { bossName = "The Bomb King" } break;
-        case "obj_sphereKing": {bossName = "The Sphere King"} break;
+        case obj_bombKing: { bossName = "The Bomb King" } break;
+        case obj_sphereKing: {bossName = "The Sphere King"} break;
     }
     
     if boss != noone
@@ -1040,6 +1054,7 @@ if invOpen == true then invOpen = false;
 if showCraftingMenu == true then showCraftingMenu = false;
 
 #event keyrelease:1|Select slot 1
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
     selectedSlot = 0;
@@ -1047,6 +1062,7 @@ if obj_player.toolReady == true
 } else equipQueue = 0;
 
 #event keyrelease:2|Select slot 2
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 1;
@@ -1054,6 +1070,7 @@ scr_slotEquip(1);
 } else equipQueue = 1;
 
 #event keyrelease:3|Select slot 3
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 2;
@@ -1061,6 +1078,7 @@ scr_slotEquip(2);
 } else equipQueue = 3;
 
 #event keyrelease:4|Select slot 4
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 3;
@@ -1068,6 +1086,7 @@ scr_slotEquip(3);
 } else equipQueue = 3;
 
 #event keyrelease:5|Select slot 5
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 4;
@@ -1075,6 +1094,7 @@ scr_slotEquip(4);
 } else equipQueue = 4;
 
 #event keyrelease:6|Select slot 6
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 5;
@@ -1082,6 +1102,7 @@ scr_slotEquip(5);
 } else equipQueue = 5;
 
 #event keyrelease:7|Select slot 7
+if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
 selectedSlot = 6;

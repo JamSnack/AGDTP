@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Display Properties
 globalvar dev;
-dev = false; //Dev tool boolean.
+dev = true; //Dev tool boolean.
 
 ideal_width=0;
 ideal_height=247;

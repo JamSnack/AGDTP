@@ -221,7 +221,7 @@ if view_zoom != view_zoom_buffer
             
         //-Activate everything inside the camera view.
         var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
-        var enemyBoundary = 5*16; //-tiles enemdies are allowed to have active.
+        var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
         
         //Keep saplings active.
@@ -230,7 +230,7 @@ if view_zoom != view_zoom_buffer
         
         //-Deactivate offscreen objects.
         with obj_itemDrop scr_deactivateOffscreen(id);
-        with TILE event_user(0);
+        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
         with INTERACT scr_deactivateOffscreen(id);
         with NOCOL if object_get_parent(id) != PLR_NOCOL then scr_deactivateOffscreen(id);
         

@@ -1,12 +1,20 @@
-// 2020-09-19 11:28:42
+// 2020-10-15 16:37:14
+/// scr_deactivateOffscreen(inst)
 ///scr_deactivateOffscreen(inst);
 #args inst
-var outerBoundary = 15*16; //Slightly larger than the boundary used in activation. (15 tiles).
+var outerBoundary = 10*16; //(10 tiles).
+var viewBuffer = 18*2; //2 tiles b/c the player needs to move that much to call this script
 
 if instance_exists(inst)
 {
-    if !point_in_rectangle(inst.x,inst.y,view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_xview[0]+viewWidth+outerBoundary,view_yview[0]+viewHeight+outerBoundary)
+    //Deactivate offscreen
+    if !point_in_rectangle(inst.x,inst.y,view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_xview[0]+view_wview+outerBoundary,view_yview[0]+view_hview+outerBoundary)
     {
         instance_deactivate_object(inst);
     }
+    else if !point_in_rectangle(x,y,view_xview-viewBuffer,view_yview-viewBuffer,view_xview+view_wview+viewBuffer,view_yview+view_hview+viewBuffer)
+    //Invisible offview
+    {
+        visible = false;
+    } else visible = true;
 }

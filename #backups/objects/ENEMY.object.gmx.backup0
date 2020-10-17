@@ -1,0 +1,38 @@
+// 2020-10-15 19:11:03
+#event create
+stateLock = false; //Lock the enemy in its current state.
+knockType = "LAND";
+hForce = 0;
+vForce = 0;
+
+//Prevent spawning inside tiles.
+while place_meeting(x,y,OBSTA) y -= 16;
+
+//Audio
+localEmitter = audio_emitter_create();
+audio_emitter_position(localEmitter,x,y,0);
+audio_emitter_gain(localEmitter,4); //volume
+
+#event destroy|Destroy Audio Emitter
+audio_emitter_free(localEmitter);
+
+#event alarm0
+var outerBoundary = 5*16; //Slightly larger than the boundary used in activation. (4 tiles).
+
+if !point_in_rectangle(x,y,view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_wview[0]+outerBoundary+view_xview[0],view_hview[0]+outerBoundary+view_yview[0])
+{
+    print('despawn');
+    instance_destroy();
+}
+
+#event other_outside
+instance_destroy();
+
+#event other_user0|Hit Event
+scr_playSound(localEmitter,snd_hit,false,4,x,y);
+
+//Death check
+if hp <= 0 then instance_destroy();
+
+#event other_boundary_view0|Optimize gremlin
+if visible = false then visible = true;

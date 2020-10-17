@@ -29,7 +29,7 @@ if objective.canHurt == true
         with objective  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
         }
         
         state = WANDER;
@@ -41,7 +41,7 @@ if objective.canHurt == true
         with nearestNoCol  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
         }
     
         state = WANDER;

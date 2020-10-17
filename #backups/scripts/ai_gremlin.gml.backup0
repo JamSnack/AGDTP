@@ -1,4 +1,4 @@
-// 2020-09-20 14:01:32
+// 2020-10-16 20:11:05
 ///ai_gremlin(state,idle_sprite,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -41,7 +41,7 @@ if objective.canHurt == true
         with objective  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.1,dir);
         }
         
         state = WANDER;
@@ -53,7 +53,7 @@ if objective.canHurt == true
         with nearestNoCol  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.1,dir);
         }
     
         state = WANDER;
@@ -84,7 +84,13 @@ if (!position_meeting(x,y+16,OBSTA) || (!place_meeting(x,y+1,obj_platform) && pl
 
 
 //----------AI STATES--------------------------
-if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being calculated to prevent stepping into a wall.
+//Direction
+var dir = sign(xObjective-x);
+var true_speed = (spd+hForce)*dir;
+
+if vForce == 0 && hForce == 0 
+//disable Ai states as long as knockback is being calculated to prevent stepping into a wall.
+//Gremlins will also use their knockback momentum to move faster.
 {
     switch current_state
     {
@@ -100,16 +106,13 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
         case MOVE:
         {
             if sprite_index != move_sprite then sprite_index = move_sprite;
-        
-            //Direction
-            var dir = sign(xObjective-x);
+            
             
             //Move
-            if !place_meeting(x+(spd*dir),y,OBSTA) && !place_meeting(x+(spd*dir),y,GR_ENEMY)
+            if !place_meeting(x+true_speed,y,OBSTA) && !place_meeting(x+true_speed,y,GR_ENEMY)
             {
-                x += spd*dir;
                 if dir != 0 then image_xscale = dir;
-            } else if vsp == 0 && !position_meeting(x+(spd*dir),y+jump_speed,OBSTA) {
+            } else if vsp+vForce == 0 && !position_meeting(x+true_speed,y+jump_speed,OBSTA) {
                 //Jump if there is a tile in front of the gremlin
                 vsp = jump_speed;
             } else if place_meeting(x,y,GR_ENEMY)
@@ -121,13 +124,15 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 } else state = WANDER;
             }
             
+            x += (spd+hForce)*dir;
+            
         }
         break;
         
         case WANDER:
         {
             if sprite_index != move_sprite then sprite_index = move_sprite;
-            vspeed = 0;
+            vForce = 0;
             
             if !canSeeObjective || stateLock == true
             {
@@ -145,11 +150,13 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 
                 
                 //- Wander forward
-                if !place_meeting(x+(spd*image_xscale),y,OBSTA)
+                var hspd = (spd+hForce)*image_xscale;
+                
+                if !place_meeting(x+(hspd),y,OBSTA)
                 {
-                    if !place_meeting(x+(spd*image_xscale),y,GR_ENEMY)
+                    if !place_meeting(x+(hspd),y,GR_ENEMY)
                     {
-                        x += spd*image_xscale;
+                        x += hspd;
                     } 
                     else if place_meeting(x,y,GR_ENEMY)
                     {
@@ -158,21 +165,21 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                         {
                             sprite_index = idle_sprite;
                         } 
-                        else x += spd*image_xscale;
+                        else x += hspd;
                     } else image_xscale = -image_xscale;
                 }
                 
                 
                 //- Jump Conditions -
                 //- If tile in front or gap in front
-                if vsp == 0 && 
+                if vsp+vForce == 0 && 
                 (
-                    place_meeting(x+(spd*image_xscale),y,OBSTA) || 
-                    !place_meeting(x+(spd*image_xscale),y+8,OBSTA) 
+                    place_meeting(x+hspd,y,OBSTA) || 
+                    !place_meeting(x+hspd,y+8,OBSTA) 
                 )
                 {
                     //Jump if it is possible else turn around.
-                    if !place_meeting(x+(spd*image_xscale),y-16,OBSTA)
+                    if !place_meeting(x+hspd,y-16,OBSTA)
                     { vsp = jump_speed; } 
                     else image_xscale = -image_xscale;
                 }
@@ -199,7 +206,7 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
     //Jump Check ------------------------------------------
     if (position_meeting(x,y+6,OBSTA) || position_meeting(x,y+6,obj_platform)) && current_state != FALL
     {
-        if vsp == 0 && (!position_meeting(x+2*(spd*image_xscale),y+1,OBSTA) || _x == x_previous)
+        if vsp+vForce == 0 && ((!position_meeting(x+2*(spd+hForce)*image_xscale,y+1,OBSTA) || _x == x_previous))
         {
             vsp = jump_speed;
             platformCollide = false;
@@ -207,43 +214,41 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
     }
     
     //Handle vertical movement states------------------------------------------
-    if vsp != 0 || state = FALL
+    if vsp+vForce != 0 || state = FALL
     {
         //Vertical Movement
         if vsp < maxGrav then vsp = vsp + grav;
         
-        var hdir = sign(vsp); //up = -1, down = 1.
+        var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
         //--Platform Logic
         
         if platformCollide = true
         {
-            if vsp > 0
+            var true_vsp = vsp+vForce;
+            var colRect = collision_rectangle(x-4,y+true_vsp,x+4,y+15+true_vsp,obj_platform,true,true);
+        
+            if true_vsp > 0
             {     
-                if collision_rectangle(x-4,y+vsp,x+4,y+9+vsp,obj_platform,true,true)
+                if colRect
                 {
-                    while (!collision_rectangle(x-4,y+hdir,x+4,y+10+hdir,obj_platform,true,true))
-                    { 
-                        if hdir != 1 || hdir != -1 then break;
-                        y = y + hdir;
-                    }
-                    
-                    //Snap gremlin to platform
+                    //Snap gremlin
                     // - value adjusted for platform center.
-                    var platY = (instance_nearest(x,y+10,obj_platform).y)-8
-                    if y < platY && point_distance(x,y+10,x,platY) < 2 then y = (platY)-9;
+                    var platY = (colRect.y)-8
+                    if y < platY && point_distance(x,y+16,x,platY) < 2 then y = (platY)-16;
                     
                     vsp = 0;
-                    state = WANDER;
-                    exit;
+                    vForce = 0;
                 }
             }
+            
+            if place_meeting(x,y+1,obj_platform) { vsp = 0; vForce = 0; }
         }
         
         //-------Gremlin Blocks
         if instance_exists(GREM_BLOCK) && gremBlockCol == true
         {
-            if (place_meeting(x,y+vsp,GREM_BLOCK))
+            if (place_meeting(x,y+vsp+vForce,GREM_BLOCK))
             {
                 //move as close as we can
                 while (!place_meeting(x,y+hdir,GREM_BLOCK))
@@ -251,13 +256,14 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                     y = y + hdir;
                 }
                 vsp = 0;
+                vForce = 0;
                 state = WANDER;
                 exit;
             }
         }
         
         //-----Normal Obstacles
-        if (place_meeting(x,y+vsp,OBSTA))
+        if (place_meeting(x,y+vsp+vForce,OBSTA))
         {
             //move as close as we can
             while (!place_meeting(x,y+hdir,OBSTA))
@@ -265,11 +271,13 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 y = y + hdir;
             }
             vsp = 0;
+            vForce = 0;
             state = WANDER;
             exit;
         }
         
-        y = y + vsp;
+        y = y + vsp+vForce;
+        vForce = approach(vForce,0,2);
         
         var dir = image_xscale;
         
@@ -284,45 +292,38 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
 }
 
 //Knockback Collision ---------------------------------------------
-if ( hspeed != 0 || vspeed != 0 )
+
+if ( hForce != 0 || vForce != 0 )
 {
     sprite_index = spr_gremlinJump;
     image_index = 1;
 
     //Separate gravity
-    if vspeed < maxGrav then vspeed += grav;
+    if vForce < maxGrav then vForce += grav;
+    
+    var hdir = sign(hForce);
+    var vdir = sign(vForce);
 
-    if place_meeting(x+hspeed,y,OBSTA)
+    if place_meeting(x+hForce,y,OBSTA)
     {
-        var dir = sign(hspeed);
-        
-        while !place_meeting(x+hspeed,y,OBSTA)
-        { x+=dir; }
-        hspeed = 0;
+        while !place_meeting(x+hForce,y,OBSTA)
+        { x+=hdir; }
+        hForce = 0;
     }
     
-    if place_meeting(x,y+vspeed,OBSTA)
+    if place_meeting(x,y+vForce,OBSTA)
     {
-        var dir = sign(vspeed);
-        
-        while !place_meeting(x,y+vspeed,OBSTA)
-        { y+=dir; }
+        while !place_meeting(x,y+vForce,OBSTA)
+        { y+=vdir; }
     
-        vspeed = 0;
+        vForce = 0;
     }
     
     if place_meeting(x,y+4,OBSTA)
     {
-        var positivity = sign(hspeed);
-    
-        if positivity == 1
-        {
-            hspeed -= DEF_FRIC;
-        } else if positivity == -1
-        {
-            hspeed += DEF_FRIC;
-        }
-        
-        if abs(hspeed) < 1 then hspeed = 0;
+       hForce = approach(hForce,0,0.2);
     }
+    
+    x+=hForce;
+    y+=vForce;
 }

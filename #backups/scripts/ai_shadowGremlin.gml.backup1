@@ -1,4 +1,4 @@
-// 2020-09-20 17:09:38
+// 2020-09-20 17:10:49
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -83,7 +83,7 @@ switch current_state
         { if vAccel > -maxAccel then vAccel -= accelRate; }
         else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
         
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
     }
     break;

@@ -1,0 +1,171 @@
+// 2020-10-15 16:34:50
+#event create|Initialize projectile
+localGrav = 0;
+deadProjectile = false;
+
+//Latent behaviors
+bBouncy = false;
+canBounce = true;
+
+//- stab - init in script
+bStab = false;
+armStabComplete = false;
+armOffset = 0; //Used for thrusting the arm forward or backward!
+armOffsetGoal = 0;
+armOffsetRate = 0;
+
+type = 0;
+
+#event alarm0
+deadProjectile = false;
+
+#event alarm1|BEHAVIOR STUFF
+if canBounce == false then canBounce = true;
+
+#event alarm2|DESPAWN ALARM
+instance_destroy();
+
+#event step
+//--------Behavior Constants---------------
+image_angle = direction;
+
+//--------------Behavior Characteristics---------------------------
+var lx = lengthdir_x(speed,direction);
+var ly = lengthdir_y(speed,direction);
+
+// - Stab
+if bStab == true
+{
+    //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+    var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
+    
+    //- prepare _dir for further processing...
+    if image_xscale == -1 then _dir = (_dir-180)*-1;
+    
+    direction = _dir;
+
+    x = obj_player.hitSyncX;
+    y = obj_player.hitSyncY;
+}
+
+
+// - Bouncy
+if bBouncy == true
+{
+    if canBounce == true
+    {    
+        //Bounce the projectile
+        
+        if instance_exists(OBSTA)
+        {
+            //X collisions
+            if collision_circle(x+hspeed,y,1,OBSTA,false,true)
+            { 
+                repeat(20)
+                { 
+                    if !place_meeting(x+sign(hspeed),y,OBSTA)
+                    { x+=sign(hspeed); }
+                    else break;
+                }
+                
+                hspeed = -hspeed; 
+            }
+            
+            
+            //Y collisions
+            if collision_circle(x,y+vspeed,1,OBSTA,false,true)
+            { 
+                repeat(20)
+                { 
+                    if !place_meeting(x,y+sign(vspeed),OBSTA)
+                    { y+=sign(vspeed); }
+                    else break;
+                }
+                
+                vspeed = -vspeed;
+            }
+            
+            canBounce = false;
+            alarm[1] = 1;
+            
+            //Despawn soon!
+            if alarm[2] == -1 { alarm[2] = room_speed*4; }
+        }
+    }
+}
+
+
+//Sphere behaviors
+if type == "SPHERE"
+{
+    var _enemy = instance_nearest(x,y,ENEMY);
+
+    if _enemy != noone //if an enemy exists
+    { 
+        if distance_to_object(_enemy) <= 16*8
+        {
+            if speed != 0 then speed = approach(speed,0,1);
+        
+            //Direction
+            var dir = sign(_enemy.x-x);
+            var vdir = sign(_enemy.y-(y));
+            
+            //Horizontal Acceleration
+            hAccel = approach(hAccel,maxAccel*dir,accelRate);
+            
+            //Vertical Acceleration
+            vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        }
+    }
+    
+    if place_meeting(x+hAccel,y,OBSTA)
+    { hAccel=-hAccel; }
+            
+    if place_meeting(x,y+vAccel,OBSTA)
+    { vAccel=-vAccel; }
+    
+    x += hAccel;
+    y += vAccel;
+}
+
+//Gravity
+if localGrav != 0 && !place_meeting(x,y+1,OBSTA)
+{ vspeed += (localGrav); }
+
+#event collision:OBSTA
+if bBouncy == true then exit;
+
+if other.object_index != obj_nullLight
+{
+    //Kill these types of projectiles:
+    if (type == 1 || type == 2) then instance_destroy()
+    else if type == "SPHERE"
+    {
+        speed = 0;
+    }
+}
+
+#event collision:ENEMY
+if other.canHurt == true
+{ 
+    var k = knkAmt;
+    var d = dmg;
+
+    //friction += 0.05;
+    
+    with other 
+    {
+        var dir = point_direction(x,y,other.x,other.y);
+        scr_hurt(d,DEF_HURT,true,k,dir); 
+        event_user(0); //register hit event for gremlin
+    }
+    
+    
+    //Destroy the projectile
+    if type == 1 || type == 2 then instance_destroy();
+    else if type == "SPHERE"
+    { if alarm[2] == -1 then alarm[2] = room_speed*3; }
+}
+
+#event other_outside
+instance_destroy();

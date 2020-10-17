@@ -954,6 +954,8 @@ var dispHeight = viewHeight;
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
 
+if dev == true then draw_text(10,20,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
+
 //Draw Inventory -----------------------------------------
 //#region
 if invenX &gt; 5
@@ -1192,11 +1194,11 @@ if worldControl.raidBoss == true
     var bossName = "Null";
     
     //Return the boss's name.
-    switch object_get_name(boss.object_index)
+    switch boss.object_index
     {
         //All possible boss objects.
-        case "obj_bombKing": { bossName = "The Bomb King" } break;
-        case "obj_sphereKing": {bossName = "The Sphere King"} break;
+        case obj_bombKing: { bossName = "The Bomb King" } break;
+        case obj_sphereKing: {bossName = "The Sphere King"} break;
     }
     
     if boss != noone

@@ -1,4 +1,4 @@
-// 2020-09-19 13:58:53
+// 2020-09-20 17:12:24
 #event create
 globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
 weaponIcon = spr_swordGreen;
@@ -365,6 +365,8 @@ if invOpen == true
 }
 
 #event mouse_global_left_release|Inventory Interaction
+if room == rm_menu then exit;
+
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
@@ -961,6 +963,7 @@ if worldControl.raidBoss == true
     {
         //All possible boss objects.
         case "obj_bombKing": { bossName = "The Bomb King" } break;
+        case "obj_sphereKing": {bossName = "The Sphere King"} break;
     }
     
     if boss != noone

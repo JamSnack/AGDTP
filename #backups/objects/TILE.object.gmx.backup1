@@ -1,4 +1,4 @@
-// 2020-08-30 16:12:36
+// 2020-10-15 16:02:33
 #event create
 image_speed = 0;
 if y >= stoneLayer then light_level = 0 else light_level = 255;
@@ -10,7 +10,7 @@ knockType = noone;
 hp = maxHp;
 
 #event other_user0|Deactivate offscreen
-scr_deactivateOffscreen(self);
+scr_deactivateOffscreen(id);
 
 #event other_user1|Update sprite
 
@@ -68,14 +68,10 @@ if !ifUp
     else { image_index = 9; }
 }
 
-
-if !instance_exists(obj_player) && y >= stoneLayer then instance_create(x,y,obj_nullLight);
-
 #event draw
-if drawEffects == true
-{
-    var light_color = make_colour_hsv(160,light_saturation,light_level); //Increase saturation for cool 'nightime' effect.
-    
-    draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
-    if hp != maxHp then draw_sprite(spr_break,round((hp/maxHp)*10),x,y);
-}
+if drawEffects == true then exit;
+
+var light_color = make_colour_hsv(160,light_saturation,light_level); //Increase saturation for cool 'nightime' effect.
+
+draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
+if hp != maxHp then draw_sprite(spr_break,round((hp/maxHp)*10),x,y);

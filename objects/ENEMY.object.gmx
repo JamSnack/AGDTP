@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>stateLock = false; //Lock the enemy in its current state.
 knockType = "LAND";
+hForce = 0;
+vForce = 0;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;

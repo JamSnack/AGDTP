@@ -1,4 +1,4 @@
-// 2020-09-20 17:10:49
+// 2020-10-15 19:28:35
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -30,19 +30,19 @@ if objective.canHurt == true
         with objective  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
         }
         
         state = WANDER;
         stateLock = true;
         alarm[stateLockAlarm] = 30;
     } 
-    else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    else if instance_exists(PLR_NOCOL) && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with nearestNoCol  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,6,dir);
+            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
         }
     
         state = WANDER;
@@ -127,10 +127,10 @@ else
 //#endregion
 
 //Attack a tile.
-if state != WANDER && targetPlrTile != noone && (stateLock == false && state != MOVE)
+if state != WANDER && targetPlrTile != noone 
 { 
     var _damage = damage;
-    with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
+    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
     
     state = WANDER;
     stateLock = true;

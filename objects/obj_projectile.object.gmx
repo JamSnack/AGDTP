@@ -305,7 +305,7 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
             <kind>1</kind>
             <string>if bBouncy == true then exit;
 
-if object_get_name(other.object_index) != "obj_nullLight"
+if other.object_index != obj_nullLight
 {
     //Kill these types of projectiles:
     if (type == 1 || type == 2) then instance_destroy()

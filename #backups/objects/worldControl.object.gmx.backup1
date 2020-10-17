@@ -1,4 +1,4 @@
-// 2020-09-23 17:40:03
+// 2020-10-15 16:32:56
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
@@ -65,7 +65,7 @@ if view_zoom != view_zoom_buffer
             
         //-Activate everything inside the camera view.
         var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
-        var enemyBoundary = 5*16; //-tiles enemdies are allowed to have active.
+        var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
         
         //Keep saplings active.
@@ -74,9 +74,9 @@ if view_zoom != view_zoom_buffer
         
         //-Deactivate offscreen objects.
         with obj_itemDrop scr_deactivateOffscreen(id);
-        with TILE event_user(0);
+        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); print('yea'); }
         with INTERACT scr_deactivateOffscreen(id);
-        with NOCOL scr_deactivateOffscreen(id);
+        with NOCOL if object_get_parent(id) != PLR_NOCOL then scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);

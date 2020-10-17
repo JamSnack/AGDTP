@@ -10,7 +10,7 @@ if object_get_parent(object_index) == TILE || object_get_parent(object_index) ==
     { knock = false; damage = round(damage/10)+1 }
 
 //Enemy death event.
-if (hp-damage <= 0) && object_get_name(other.object_index) == "obj_projectile" && (object_get_parent(object_index) == GR_ENEMY || object_get_parent(object_index) == ENEMY)
+if (hp-damage <= 0) && other.object_index == obj_projectile && (object_get_parent(object_index) == GR_ENEMY || object_get_parent(object_index) == ENEMY)
 {
     //ENEMY DEATH TAGS
     var _ran = irandom(100);
@@ -38,22 +38,26 @@ canHurt = false;
 alarm[hurtAlarm] = time;
 hp -= damage;
 
-if knock == true && knockType != noone
+if knock == true
 {
+    var otherX = other.x;
+    var otherY = other.y;
+
+    //add Force equal to the knockAmt* 1 or -1, depending on whether or not the source instance is to the left or the right of the hurt instance.
+    hForce += knockAmt*(sign(x-otherX));
+    vForce += knockAmt*(sign(y-otherY));
     knockBack = true;
-    speed = -knockAmt;
-    direction = dir;
     
     if knockType == "LAND"
     {
-        if place_meeting(x+hspeed,y,OBSTA)
+        if place_meeting(x+hForce,y,OBSTA)
         {
-            hspeed = 0;
+            hForce = 0;
         }
         
-        if place_meeting(x,y+vspeed,OBSTA)
+        if place_meeting(x,y+vForce,OBSTA)
         {
-            vspeed = 0;
+            vForce = 0;
         }
     }
 }

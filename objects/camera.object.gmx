@@ -67,13 +67,18 @@ if instance_exists(followThis)
     var fx = followThis.x;
     var fy = followThis.y;
     
-    if distance_to_point(fx,fy) &gt; 2
+    if distance_to_point(fx,fy) &gt; 4
     {
         x += ((fx - x)*follow_speed)*0.5;
         y += ((fy - y)*follow_speed)*0.5;
         
         round(x);
         round(y);
+    } else
+    {
+        //Otherwise snap to the point!
+        x = fx;
+        y = fy;
     }
     
 }

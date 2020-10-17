@@ -1,8 +1,9 @@
+// 2020-10-15 16:29:43
 /// scr_deactivateOffscreen(inst)
 ///scr_deactivateOffscreen(inst);
-var inst = argument0;
+#args inst
 var outerBoundary = 10*16; //(10 tiles).
-var viewBuffer = 18*2; //2 tiles b/c the player needs to move that much to call this script
+var viewBuffer = 16*2; //2 tiles b/c the player needs to move that much to call this script
 
 if instance_exists(inst)
 {

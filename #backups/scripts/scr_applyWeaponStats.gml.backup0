@@ -1,3 +1,4 @@
+// 2020-10-16 21:02:19
 ///scr_applyWeaponStats(weapon);
 //Update the player variables to accomodate the equipped weapon.
 var tool_firerate,proj_spd,proj_dec,tool_spr,proj_spr,wep_Dam,wep_Knock,toolAnimation, proj_type;

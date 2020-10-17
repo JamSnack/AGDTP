@@ -190,7 +190,6 @@ draw_set_font(global.fnt_Ui);
 
 if dev == true
 {
-    draw_text(10,20,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
     if instance_exists(ENEMY)
     { draw_text(10,25,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
 } else
