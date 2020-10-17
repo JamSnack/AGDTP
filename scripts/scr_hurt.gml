@@ -1,9 +1,8 @@
-///scr_hurt(damage,time,knockback,knockAmt,direction);
+///scr_hurt(damage,time,knockback,knockAmt);
 var damage = argument0; //Damage dealt
 var time = argument1; //Time until it can be hurt again.
 var knock = argument2; //Whether or not to apply knockback.
 var knockAmt = argument3; // How much knockback to be applied.
-var dir = argument4; // Direction
 
  //knockback conditions
 if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1 || object_get_parent(object_index) == PLR_NOCOL

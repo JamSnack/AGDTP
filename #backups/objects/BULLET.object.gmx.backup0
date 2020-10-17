@@ -1,0 +1,14 @@
+// 2020-10-17 17:17:14
+#event collision:TILE
+instance_destroy();
+
+#event collision:ENEMY
+with other 
+{   
+    scr_hurt(damage,DEF_HURT,true,4);
+    event_user(0);
+}
+instance_destroy();
+
+#event other_outside
+instance_destroy();

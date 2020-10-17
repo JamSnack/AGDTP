@@ -65,6 +65,8 @@ sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance 
 sm_rate = 0.5;
 sm_dir = 1;
 knockType = "FLY";
+deathSound = snd_enemydie_ghost;
+knock_resistance = 0.12;
 </string>
           </argument>
         </arguments>

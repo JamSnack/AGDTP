@@ -1,4 +1,4 @@
-// 2020-10-16 21:13:02
+// 2020-10-17 17:16:12
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -29,8 +29,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
         
         state = WANDER;
@@ -41,8 +40,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
     
         state = WANDER;
@@ -130,7 +128,7 @@ else
 if state != WANDER && targetPlrTile != noone 
 { 
     var _damage = damage;
-    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
+    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0);
     
     state = WANDER;
     stateLock = true;

@@ -1,10 +1,13 @@
-// 2020-10-16 21:08:13
+// 2020-10-17 17:54:37
 #event create
 stateLock = false; //Lock the enemy in its current state.
 knockType = "LAND";
 hForce = 0;
 vForce = 0;
+hspd = 0;
+vspd = 0;
 knock_resistance = 0.2;
+agility = 0.1;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;
@@ -14,7 +17,10 @@ localEmitter = audio_emitter_create();
 audio_emitter_position(localEmitter,x,y,0);
 audio_emitter_gain(localEmitter,4); //volume
 
+deathSound = snd_enemydie_monster;
+
 #event destroy|Destroy Audio Emitter
+if deathSound != noone && insideView() == true then scr_playSound(obj_player.localEmitter,deathSound,false,8,x,y);
 audio_emitter_free(localEmitter);
 
 #event alarm0

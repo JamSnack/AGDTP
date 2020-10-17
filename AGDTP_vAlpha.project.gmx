@@ -7,9 +7,13 @@
   <sounds name="sound">
     <sound>sound\snd_overworld_1</sound>
     <sound>sound\snd_wave_1</sound>
+    <sound>sound\snd_enemydie_boss</sound>
+    <sound>sound\snd_enemydie_ghost</sound>
+    <sound>sound\snd_enemydie_monster</sound>
     <sound>sound\snd_hit</sound>
     <sound>sound\snd_theStarsForever</sound>
     <sound>sound\snd_shoot</sound>
+    <sound>sound\snd_machineGunSoft</sound>
     <sound>sound\snd_swish1</sound>
     <sound>sound\snd_swish2</sound>
     <sound>sound\snd_swish3</sound>
@@ -18,6 +22,7 @@
     <sound>sound\snd_inventoryClick</sound>
     <sound>sound\snd_modificationSuccess</sound>
     <sound>sound\snd_itemPickup</sound>
+    <sound>sound\snd_sphereLaunch</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
@@ -182,6 +187,7 @@
     <script>scripts\approach.gml</script>
     <script>scripts\waveScale.gml</script>
     <script>scripts\scr_dropTag.gml</script>
+    <script>scripts\insideView.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
@@ -260,8 +266,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_menu</room>
     <room>rooms\rm_lobby</room>
+    <room>rooms\rm_menu</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

@@ -1,0 +1,89 @@
+// 2020-10-17 18:31:31
+#event create|Initialize the Gremlin
+
+canActiveRegion = true;
+canHurt = true;
+hp = 20;
+image_speed = 15/60;
+state = WANDER;
+stunned = false;
+
+vsp = 0;
+atkBox = 32; //divided by 2 on calculation.
+damage = 10; //Attack damage.
+
+hurtAlarm = 1;
+
+target = obj_pie; //Target priority.
+if interm == false then target = obj_pie;
+
+objective = target;
+stateLockAlarm = 2;
+aggroRange = 16*2;
+
+stateLock = true;
+alarm[stateLockAlarm] = 20;
+
+gremBlockCol = true;
+
+image_xscale = sign(target.x-x);
+
+event_inherited();
+
+#event alarm1|Reset hurt
+canHurt = true;
+target = obj_player;
+
+#event alarm2|Reset state lock
+stateLock = false;
+
+objective = target;
+state = MOVE;
+image_index = sign(objective.x-x);
+
+#event step
+if canHurt == false then state = IDLE;
+var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
+var plrTileAggroRange = 16*4;
+
+//Gremlin Ai
+if stateLock == false
+{
+    if canSeeTarget 
+    { state = MOVE; objective = target; }
+    else
+    {
+        //Player Tile Aggro logic
+        //Magic number '9': sprite width - center = 8, then add 1.
+        var plrTile = instance_nearest(x+(9*image_xscale),y,PLRTILE);
+        
+        if instance_exists(PLRTILE)
+        { if plrTile.canHurt == false then plrTile = instance_nearest(plrTile.x,plrTile.y,PLRTILE); }
+        
+        if distance_to_object(plrTile) <= plrTileAggroRange
+        {
+            objective = plrTile;
+            state = MOVE; 
+        } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
+        {
+            objective = instance_position(x,y+plrTileAggroRange,PLRTILE);
+            state = MOVE;
+        }
+        else objective = obj_pie;
+    }
+    
+    //Player Aggro Logic
+    if target == obj_pie
+    {
+        if distance_to_object(obj_player) <= aggroRange && obj_player.dead == false
+        && !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true)
+        { objective = obj_player; } 
+         else 
+        { state = MOVE; stateLock = true; alarm[stateLockAlarm] = 20; }
+    }
+}
+if instance_exists(objective) 
+{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); }
+
+#event draw
+draw_self();

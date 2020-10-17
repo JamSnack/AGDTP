@@ -73,6 +73,8 @@ point_direction(x,y,target.x,target.y);
 event_inherited();
 alarm[3] = -1;
 knockType = "FLY";
+
+deathSound = snd_enemydie_boss;
 </string>
           </argument>
         </arguments>

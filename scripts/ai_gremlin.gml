@@ -39,8 +39,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
         
         state = WANDER;
@@ -51,8 +50,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
     
         state = WANDER;
@@ -85,7 +83,6 @@ if (!position_meeting(x,y+16,OBSTA) || (!place_meeting(x,y+1,obj_platform) && pl
 //----------AI STATES--------------------------
 //Direction
 var dir = sign(xObjective-x);
-var true_speed = (spd+hForce)*dir;
 
 if vForce == 0 && hForce == 0 
 //disable Ai states as long as knockback is being calculated to prevent stepping into a wall.
@@ -108,10 +105,12 @@ if vForce == 0 && hForce == 0
             
             
             //Move
-            if !place_meeting(x+true_speed,y,OBSTA) && !place_meeting(x+true_speed,y,GR_ENEMY)
+            var approach_speed = (spd+hForce)*dir;
+            
+            if !place_meeting(x+approach_speed,y,OBSTA) && !place_meeting(x+approach_speed,y,GR_ENEMY)
             {
                 if dir != 0 then image_xscale = dir;
-            } else if vsp+vForce == 0 && !position_meeting(x+true_speed,y+jump_speed,OBSTA) {
+            } else if vsp+vForce == 0 && !position_meeting(x+approach_speed,y+jump_speed,OBSTA) {
                 //Jump if there is a tile in front of the gremlin
                 vsp = jump_speed;
             } else if place_meeting(x,y,GR_ENEMY)
@@ -123,8 +122,8 @@ if vForce == 0 && hForce == 0
                 } else state = WANDER;
             }
             
-            x += (spd+hForce)*dir;
-            
+            x += hspd;
+            hspd = approach(hspd,approach_speed,agility);
         }
         break;
         
@@ -133,7 +132,7 @@ if vForce == 0 && hForce == 0
             if sprite_index != move_sprite then sprite_index = move_sprite;
             vForce = 0;
             
-            if !canSeeObjective || stateLock == true
+            if (!canSeeObjective || stateLock == true)
             {
                 //Turn around at RAIDBOUNDS
                 if interm == false
@@ -141,19 +140,23 @@ if vForce == 0 && hForce == 0
                     if x < RAIDBOUND_Lower && gremBlockCol == false
                     {
                         image_xscale = 1;
+                        hspd = 0;
                     } else if x > RAIDBOUND_Upper && gremBlockCol == false
                     {
                         image_xscale = -1;
+                        hspd = 0;
                     }
                 }
                 
                 
                 //- Wander forward
-                var hspd = (spd+hForce)*image_xscale;
+                //NOTE: the var, dir, is objective based. Wandering has no objective.
+                //a "maximum speed to approach toward" is required for collision checks.
+                var approach_speed = (spd+hForce)*image_xscale;
                 
-                if !place_meeting(x+(hspd),y,OBSTA)
+                if !place_meeting(x+approach_speed,y,OBSTA)
                 {
-                    if !place_meeting(x+(hspd),y,GR_ENEMY)
+                    if !place_meeting(x+approach_speed,y,GR_ENEMY)
                     {
                         x += hspd;
                     } 
@@ -162,25 +165,26 @@ if vForce == 0 && hForce == 0
                         //Use arbitrary values to decide which Gremlin moves.
                         if instance_place(x,y,GR_ENEMY).id > id
                         {
-                            sprite_index = idle_sprite;
+                            sprite_index = spr_gremlinIdle;
                         } 
                         else x += hspd;
-                    } else image_xscale = -image_xscale;
+                    } 
+                    else { image_xscale = -image_xscale; hspd = 0; }
                 }
                 
+                hspd = approach(hspd,approach_speed,agility);
                 
                 //- Jump Conditions -
                 //- If tile in front or gap in front
-                if vsp+vForce == 0 && 
-                (
-                    place_meeting(x+hspd,y,OBSTA) || 
-                    !place_meeting(x+hspd,y+8,OBSTA) 
-                )
+                if vsp == 0 && (
+                    place_meeting(x+approach_speed,y,OBSTA) || 
+                    !place_meeting(x+approach_speed,y+8,OBSTA) 
+                    )
                 {
                     //Jump if it is possible else turn around.
-                    if !place_meeting(x+hspd,y-16,OBSTA)
+                    if !place_meeting(x+approach_speed,y-16,OBSTA)
                     { vsp = jump_speed; } 
-                    else image_xscale = -image_xscale;
+                    else { image_xscale = -image_xscale; hspd = 0; }
                 }
             } else state = MOVE;
         }
@@ -279,9 +283,11 @@ if vForce == 0 && hForce == 0
         vForce = approach(vForce,0,2);
         
         var dir = image_xscale;
+        var approach_speed = ((spd+hForce)*dir);
+        hspd = approach(hspd,approach_speed,agility/2);
         
         //Move while in a vertical movement state.
-        if !place_meeting(x+(spd*dir),y,OBSTA) then x += spd*dir;
+        if !place_meeting(x+approach_speed,y,OBSTA) then x += hspd;
         
         //Vertical sprites
         if sprite_index != jump_sprite then sprite_index = jump_sprite;
@@ -308,6 +314,7 @@ if ( hForce != 0 || vForce != 0 )
         while !place_meeting(x+hForce,y,OBSTA)
         { x+=hdir; }
         hForce = 0;
+        hspd = 0;
     }
     
     if place_meeting(x,y+vForce,OBSTA)

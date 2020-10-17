@@ -270,8 +270,7 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
     
     with other 
     {
-        var dir = point_direction(x,y,other.x,other.y);
-        scr_hurt(d,DEF_HURT,true,k,dir); 
+        scr_hurt(d,DEF_HURT,true,k); 
         event_user(0); //register hit event for gremlin
     }
     

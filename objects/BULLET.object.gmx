@@ -27,8 +27,7 @@
             <kind>1</kind>
             <string>with other 
 {   
-    var dir = point_direction(other.x,other.y,other.ox,other.oy);
-    scr_hurt(damage,DEF_HURT,true,4,dir);
+    scr_hurt(damage,DEF_HURT,true,4);
     event_user(0);
 }
 instance_destroy();

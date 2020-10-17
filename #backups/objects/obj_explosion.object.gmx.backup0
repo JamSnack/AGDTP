@@ -1,4 +1,4 @@
-// 2020-09-19 14:00:31
+// 2020-10-17 17:18:06
 #event create|Init vars
 type = "PLAYER";
 damage = 10;
@@ -12,9 +12,6 @@ image_speed = 30/60;
 image_xscale = radius/16;
 image_yscale = radius/16;
 event_user(0);
-
-#event other_animation_end
-instance_destroy();
 
 #event step|Destroy each tile within the radius.
 var xx = x;
@@ -30,8 +27,8 @@ with type //TILE or PLRTILE
     {
         switch t
         {
-            case PLRTILE: if canHurt == true { scr_hurt(d,DEF_HURT,false,0,0); } break;
-            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,0,0); } break;
+            case PLRTILE: if canHurt == true { scr_hurt(d,DEF_HURT,false,0); } break;
+            case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,4); } break;
             case TILE:
             {
                 //Damage the tile
@@ -42,10 +39,12 @@ with type //TILE or PLRTILE
                 {
                     scr_tileUpdate(x,y);
                     instance_destroy();
-                    
                 } else alarm[0] = room_speed*5;
             }
         }
         
     }
 }
+
+#event other_animation_end
+instance_destroy();

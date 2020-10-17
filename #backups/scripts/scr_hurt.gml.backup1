@@ -1,4 +1,4 @@
-// 2020-10-16 20:32:06
+// 2020-10-16 20:32:50
 ///scr_hurt(damage,time,knockback,knockAmt,direction);
 var damage = argument0; //Damage dealt
 var time = argument1; //Time until it can be hurt again.
@@ -44,7 +44,7 @@ if knock == true
     var otherX = other.x;
     var otherY = other.y;
 
-    //add Force equal to the knockAmt* the distance between the point found 1 pixel in the direction of the hurt instance and the source instance.
+    //add Force equal to the knockAmt* 1 or -1, depending on whether or not the source instance is to the left or the right of the hurt instance.
     hForce += knockAmt*(sign(x-otherX));
     vForce += knockAmt*(sign(y-otherY));
     knockBack = true;

@@ -1,7 +1,11 @@
 ///scr_applyPickaxeStats(pickaxe);
 //Update the player variables to accomodate the equipped weapon.
-var tool_firerate,tool_spr,pick_Dam,pick_range,pick_level,toolAnimation;
+var tool_firerate,tool_spr,pick_Dam,pick_range,pick_level,toolAnimation,tool_snd;
+var swish = choose(snd_swish1,snd_swish4);
+
 toolAnimation = "SWING";
+tool_snd = swish;
+
 switch argument0
 {
     //Dull Pickaxe
@@ -16,5 +20,6 @@ obj_player.pickDamage = pick_Dam;
 obj_player.pickRange = pick_range;
 obj_player.pickLevel = pick_level;
 obj_player.toolAnimation = toolAnimation;
+obj_player.tool_snd = tool_snd;
 
 pickaxeIcon = tool_spr;

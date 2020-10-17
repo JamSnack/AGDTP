@@ -1,9 +1,10 @@
-// 2020-10-15 19:11:03
+// 2020-10-16 21:08:13
 #event create
 stateLock = false; //Lock the enemy in its current state.
 knockType = "LAND";
 hForce = 0;
 vForce = 0;
+knock_resistance = 0.2;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;

@@ -28,8 +28,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
         
         state = WANDER;
@@ -40,8 +39,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,3,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3);
         }
     
         state = WANDER;
@@ -129,7 +127,7 @@ else
 if state != WANDER && targetPlrTile != noone 
 { 
     var _damage = damage;
-    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0,0);
+    if targetPlrTile.canHurt == true then with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0);
     
     state = WANDER;
     stateLock = true;

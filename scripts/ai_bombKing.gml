@@ -28,8 +28,7 @@ if objective.canHurt == true && bombRing == noone
         
         with objective  //Hurt the objective.
         {
-            var dir = point_direction(x,y,_x,_y);
-            scr_hurt(d,HURT_LONG,true,8,dir);
+            scr_hurt(d,HURT_LONG,true,8);
         }
     }
 } else if bombRing != noone

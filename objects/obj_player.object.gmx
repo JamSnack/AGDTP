@@ -80,6 +80,7 @@ canUseTool = true;
 hitSyncX = 0; //Hitbox Synchronizers
 hitSyncY = 0;
 playerLight = 16; //How bright light is underground.
+tool_snd = noone;
 
 //Tag Resets
 globalvar bright_reset;
@@ -245,7 +246,7 @@ if dead = false &amp;&amp; g_over == false
     }
     
     //Horizontal Movement
-    var hdir = sign(hsp) //Horizontal Direction
+    var hdir = sign(hsp+hForce) //Horizontal Direction
     if hdir != 0 then image_xscale = hdir;
     if (place_meeting(x+hsp+hForce,y,OBSTA))
     {
@@ -624,6 +625,7 @@ if dead == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
+    
     //Defines the crafting menu's dimensions.
     var _cmX = view_wview[0]/2-120;
     var _cmY = view_hview[0]/2-105;
@@ -637,7 +639,13 @@ if dead == false
     {
         var slot = hudControl.selectedSlot;
         if slot == noone then exit;
-    
+        
+        //Play the tool's audio.
+        if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; tool != 3
+        {
+            scr_playSound(localEmitter,tool_snd,false,5,x+4*image_xscale,y);
+        }
+        
         switch tool
         {
             case 1:
@@ -675,11 +683,7 @@ if dead == false
                         break;
                         
                         case "STAB":
-                        {
-                            //Audio
-                            var swish = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4);
-                            scr_playSound(localEmitter,swish,false,5,x+4*image_xscale,y);
-                            
+                        {   
                             //Initialize Animation
                             var _dir = point_direction(x,y,mouse_x,mouse_y);
                             
