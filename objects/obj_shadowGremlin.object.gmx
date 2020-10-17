@@ -60,6 +60,7 @@ point_direction(x,y,target.x,target.y);
 
 event_inherited();
 knockType = "FLY";
+knock_resistance = 0.1;
 </string>
           </argument>
         </arguments>

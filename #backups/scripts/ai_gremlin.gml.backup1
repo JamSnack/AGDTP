@@ -1,4 +1,4 @@
-// 2020-10-16 20:09:47
+// 2020-10-16 21:08:23
 ///ai_gremlin(state,idle_sprite,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -321,7 +321,7 @@ if ( hForce != 0 || vForce != 0 )
     
     if place_meeting(x,y+4,OBSTA)
     {
-       hForce = approach(hForce,0,0.5);
+       hForce = approach(hForce,0,knock_resistance);
     }
     
     x+=hForce;

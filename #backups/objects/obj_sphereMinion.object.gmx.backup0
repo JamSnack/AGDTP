@@ -1,4 +1,4 @@
-// 2020-09-20 17:35:47
+// 2020-10-16 21:11:45
 #event create|Initialize the Pylon
 scale = 0.25;
 image_xscale = scale;
@@ -31,8 +31,6 @@ vAccel = 0;
 maxAccel = 5;
 accelRate = 0.1;
 
-knockType = "FLY";
-
 event_inherited();
 
 //Other Locals
@@ -40,6 +38,7 @@ sk_diameter = 64;
 sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance on that line from A to B (0, 128);
 sm_rate = 0.5;
 sm_dir = 1;
+knockType = "FLY";
 
 #event alarm1|Reset hurt
 canHurt = true;

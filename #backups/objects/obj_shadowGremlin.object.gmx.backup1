@@ -1,6 +1,7 @@
-// 2020-09-19 13:55:06
+// 2020-10-16 21:08:57
 #event create|Initialize the Gremlin
 canActiveRegion = true;
+scale = 1;
 
 canHurt = true;
 hp = 12;
@@ -33,6 +34,7 @@ point_direction(x,y,target.x,target.y);
 
 event_inherited();
 knockType = "FLY";
+knock_resistance = 0.1;
 
 #event destroy
 var c = irandom(100);

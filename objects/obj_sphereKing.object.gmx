@@ -62,14 +62,13 @@ bobLinearDir = 1;
 bobRate = 0.001;
 bobAltitude = 3;
 
-knockType = "FLY";
-
 event_inherited();
 
 //Other Locals
 spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
+knockType = "FLY";
 
 repeat(clamp(floor(wave/4),1,6))
 {

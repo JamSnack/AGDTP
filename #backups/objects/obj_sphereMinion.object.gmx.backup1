@@ -1,4 +1,4 @@
-// 2020-09-20 17:35:32
+// 2020-09-20 17:35:47
 #event create|Initialize the Pylon
 scale = 0.25;
 image_xscale = scale;
@@ -55,7 +55,7 @@ image_index = sign(objective.x-x);
 #event step|sphere minion states
 objective = obj_pie;
 
-if distance_to_object(obj_player) <= aggroRange
+if distance_to_object(obj_player) <= aggroRange && obj_player.dead == false
 {
     ai_shadowGremlin(MOVE,0,0,0,0,obj_player,0,atkBox);
 }

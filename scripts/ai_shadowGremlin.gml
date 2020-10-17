@@ -29,7 +29,7 @@ if objective.canHurt == true
         with objective  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3,dir);
         }
         
         state = WANDER;
@@ -41,7 +41,7 @@ if objective.canHurt == true
         with nearestNoCol  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,0.2,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3,dir);
         }
     
         state = WANDER;
@@ -137,39 +137,29 @@ if state != WANDER && targetPlrTile != noone
 }
 
 //Knockback Collision ---------------------------------------------
-if ( hspeed != 0 || vspeed != 0 )
+if ( hForce != 0 || vForce != 0 )
 {
-    if place_meeting(x+hspeed,y,OBSTA)
+    var hdir = sign(hForce);
+    var vdir = sign(vForce);
+
+    if place_meeting(x+hForce,y,OBSTA)
     {
-        var dir = sign(hspeed);
-        
-        while !place_meeting(x+hspeed,y,OBSTA)
-        { x+=dir; }
-        hspeed = 0;
+        while !place_meeting(x+hForce,y,OBSTA)
+        { x+=hdir; }
+        hForce = 0;
     }
     
-    if place_meeting(x,y+vspeed,OBSTA)
+    if place_meeting(x,y+vForce,OBSTA)
     {
-        var dir = sign(vspeed);
-        
-        while !place_meeting(x,y+vspeed,OBSTA)
-        { y+=dir; }
+        while !place_meeting(x,y+vForce,OBSTA)
+        { y+=vdir; }
     
-        vspeed = 0;
+        vForce = 0;
     }
     
-    if place_meeting(x,y+4,OBSTA)
-    {
-        var positivity = sign(hspeed);
+    x+=hForce;
+    y+=vForce;
     
-        if positivity == 1
-        {
-            hspeed -= DEF_FRIC;
-        } else if positivity == -1
-        {
-            hspeed += DEF_FRIC;
-        }
-        
-        if abs(hspeed) < 1 then hspeed = 0;
-    }
+    vForce = approach(vForce,0,knock_resistance);
+    hForce = approach(hForce,0,knock_resistance);
 }

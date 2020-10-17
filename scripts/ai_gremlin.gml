@@ -40,7 +40,7 @@ if objective.canHurt == true
         with objective  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy);
-            scr_hurt(other.damage,HURT_LONG,true,0.1,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3,dir);
         }
         
         state = WANDER;
@@ -52,7 +52,7 @@ if objective.canHurt == true
         with nearestNoCol  //Hurt the objective.
         {
             var dir = point_direction(x,y,_xx,_yy-2);
-            scr_hurt(other.damage,HURT_LONG,true,0.1,dir);
+            scr_hurt(other.damage,HURT_LONG,true,3,dir);
         }
     
         state = WANDER;
@@ -320,7 +320,7 @@ if ( hForce != 0 || vForce != 0 )
     
     if place_meeting(x,y+4,OBSTA)
     {
-       hForce = approach(hForce,0,0.2);
+       hForce = approach(hForce,0,knock_resistance);
     }
     
     x+=hForce;

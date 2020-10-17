@@ -57,8 +57,6 @@ vAccel = 0;
 maxAccel = 5;
 accelRate = 0.1;
 
-knockType = "FLY";
-
 event_inherited();
 
 //Other Locals
@@ -66,6 +64,7 @@ sk_diameter = 64;
 sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance on that line from A to B (0, 128);
 sm_rate = 0.5;
 sm_dir = 1;
+knockType = "FLY";
 </string>
           </argument>
         </arguments>

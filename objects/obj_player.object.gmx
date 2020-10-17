@@ -49,6 +49,8 @@ armOffsetRate = 0;
 armStabComplete = false;
 toolAnimation = "SWING";
 knockType = "LAND";
+hForce = 0;
+vForce = 0;
 
 //Initialize Player Stats
 maxHp = 100; //Maximum health
@@ -59,6 +61,7 @@ hsp_walk = 2; //Max walk speed
 vsp_jump = -5; //Max jump speed
 break_range = 2; //Tiles around the player that can be broken.
 dead = false; //Whether or not the player is dead.
+knock_resistance = 0.24;
 
 //Tool variables
 toolReady = true;
@@ -77,8 +80,6 @@ canUseTool = true;
 hitSyncX = 0; //Hitbox Synchronizers
 hitSyncY = 0;
 playerLight = 16; //How bright light is underground.
-hForce = 0;
-vForce = 0;
 
 //Tag Resets
 globalvar bright_reset;
@@ -255,7 +256,7 @@ if dead = false &amp;&amp; g_over == false
         hForce = 0;
     }
     x = x +hsp+hForce;
-    hForce = approach(hForce,0,2);
+    hForce = approach(hForce,0,knockback_resistance);
     
     //Vertical Movement
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
@@ -301,7 +302,7 @@ if dead = false &amp;&amp; g_over == false
     }
 
     y = y + vsp+vForce;
-    vForce = approach(vForce,0,2);
+    vForce = approach(vForce,0,knockback_resistance);
     
     //Jump sprites
     if vsp != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)

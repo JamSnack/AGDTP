@@ -29,6 +29,7 @@
 knockType = "LAND";
 hForce = 0;
 vForce = 0;
+knock_resistance = 0.2;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;

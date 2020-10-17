@@ -1,4 +1,4 @@
-// 2020-10-16 20:51:54
+// 2020-10-16 21:02:19
 ///scr_applyWeaponStats(weapon);
 //Update the player variables to accomodate the equipped weapon.
 var tool_firerate,proj_spd,proj_dec,tool_spr,proj_spr,wep_Dam,wep_Knock,toolAnimation, proj_type;
@@ -8,10 +8,10 @@ var tool_firerate,proj_spd,proj_dec,tool_spr,proj_spr,wep_Dam,wep_Knock,toolAnim
 switch argument0
 {    
     //Green Sword
-    case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; tool_firerate = 30; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; wep_Dam = 6; wep_Knock = 3; proj_type = 0;} break;
+    case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; tool_firerate = 30; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; wep_Dam = 6; wep_Knock = 2.75; proj_type = 0;} break;
     
     //Dull Sword
-    case ITEMID.weapon_starter: { toolAnimation = "STAB"; tool_firerate = 34; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; wep_Dam = 4; wep_Knock = 3; proj_type = 0;} break;
+    case ITEMID.weapon_starter: { toolAnimation = "STAB"; tool_firerate = 34; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; wep_Dam = 4; wep_Knock = 2.5; proj_type = 0;} break;
     
     //Weak Bow
     case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 0.3; proj_type = 1;} break;
