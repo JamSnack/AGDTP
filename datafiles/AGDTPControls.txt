@@ -1,0 +1,7 @@
+- Controls -
+WASD - Movement
+I - Inventory
+C - Crafting
+E - interact (with chests)
+Scroll Wheel - Zoom
+Esc - Options Menu

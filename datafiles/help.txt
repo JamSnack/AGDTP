@@ -1,0 +1,33 @@
+---------Enemies------
+Gremlin - Wave 1+
+Shadow Gremlin - Wave 2+
+Drillin - Wave 4+
+Sphere Pylon - Rarely spawns during intermission. Summons the Sphere King.
+Sphere Minion - Spawned by the Sphere King.
+
+> Bosses have a wave/10 chance to spawn after wave 2.
+(100% chance after wave 10).
+
+Bomb King - Wave boss
+Sphere King - Event boss
+
+
+---------Tags---------
+> Tags can be used to modify AGDTP's tools. They are placed in the first slot of the Mod Bench when
+modifying a tool.
+
+Tags:
+ - Grenade:
+	- 1/100 drop chance from The Bomb King.
+	- When an enemy is killed, a Grenade is spawned. The Grenade takes 2 seconds to explode in a radius
+	 of 1 1/2 tiles, dealing half of your weapon's damage dealt to any enemies caught in its wake.
+ - Bouncy:
+	- 1/1000 drop chance from any enemy.
+	- The Bouncy tag causes certain projectiles to richochet 3 times before despawning.
+ - Bright:
+	- 1/50 drop chance from chests underground.
+	- Increase the player's "light" while underground by 2 tiles.
+
+- Tool Speed+
+	- 50% drop chance from Sphere King.
+	- Decreases a tool's use time by 20%.
