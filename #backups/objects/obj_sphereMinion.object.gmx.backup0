@@ -1,4 +1,4 @@
-// 2020-10-16 21:11:45
+// 2020-10-18 12:19:28
 #event create|Initialize the Pylon
 scale = 0.25;
 image_xscale = scale;
@@ -7,7 +7,7 @@ image_yscale = scale;
 canActiveRegion = false;
 canHurt = true;
 hp = 5+(5*floor(wave/3));
-image_speed = 0;
+image_speed = 10/60;
 state = MOVE;
 stunned = false;
 
@@ -39,6 +39,8 @@ sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance 
 sm_rate = 0.5;
 sm_dir = 1;
 knockType = "FLY";
+deathSound = snd_enemydie_ghost;
+knock_resistance = 0.12;
 
 #event alarm1|Reset hurt
 canHurt = true;
@@ -109,3 +111,5 @@ else
 {
     ai_shadowGremlin(MOVE,0,0,0,0,obj_pie,0,atkBox);
 }
+
+image_xscale = scale;

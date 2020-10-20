@@ -1,4 +1,4 @@
-// 2020-09-20 17:07:20
+// 2020-10-18 11:19:43
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -22,7 +22,7 @@ switch presetSettings
     {
         //---------- Intermission settings ---------
         spawnRate = 0.5;
-        spawnChance = 20;
+        spawnChance = 20+clamp(floor(wave/2),0,40);
         maxGrem = 7;
         maxRaidProgress = 0;
         interm = true;
@@ -126,7 +126,7 @@ switch presetSettings
         
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
         
-        scr_musicTransition(snd_wave_1,musicTransitionTime);
+        scr_musicTransition(snd_Triple_King,musicTransitionTime);
     }
     break;
 }

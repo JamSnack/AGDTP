@@ -1,11 +1,11 @@
-// 2020-10-16 21:11:35
+// 2020-10-18 12:20:46
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
 canHurt = true;
 maxHp = 70+(25*floor(wave/5));
 hp = maxHp;
-image_speed = 0;
+image_speed = 8/60;
 state = MOVE;
 stunned = false;
 
@@ -91,4 +91,4 @@ ai_pylon(MOVE,spr_gremlinIdle,spr_gremlinWalk,1,obj_player,atkBox);
 if speed != 0 then speed = approach(speed,0,1);
 
 #event draw
-draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha);
+draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),1,image_yscale,image_angle,c_white,image_alpha);

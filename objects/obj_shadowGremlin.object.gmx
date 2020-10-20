@@ -84,7 +84,11 @@ deathSound = snd_enemydie_ghost;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var c = irandom(100);
+            <string>event_inherited();
+
+if dropItem != true then exit;
+
+var c = irandom(100);
 
 if c &lt;= 10 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone); //~10% chance
 if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 
@@ -92,8 +96,6 @@ if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99
     scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
     scr_playSound(obj_player.localEmitter,snd_rareItem,false,8,x,y);
 }
-
-event_inherited();
 </string>
           </argument>
         </arguments>

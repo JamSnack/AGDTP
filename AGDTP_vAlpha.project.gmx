@@ -3,6 +3,7 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="1" name="datafiles"/>
   <NewExtensions/>
   <sounds name="sound">
     <sound>sound\snd_overworld_1</sound>
@@ -23,6 +24,7 @@
     <sound>sound\snd_modificationSuccess</sound>
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_sphereLaunch</sound>
+    <sound>sound\snd_Triple_King</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="player">
@@ -56,6 +58,7 @@
     <sprite>sprites\spr_gremlinIdle</sprite>
     <sprite>sprites\spr_shadowGremlin</sprite>
     <sprite>sprites\spr_gremlinJump</sprite>
+    <sprite>sprites\spr_menuGremlin</sprite>
     <sprite>sprites\spr_projectile1</sprite>
     <sprite>sprites\spr_projectile2</sprite>
     <sprite>sprites\spr_sword</sprite>
@@ -263,11 +266,12 @@
     <object>objects\obj_menuLogo</object>
     <object>objects\obj_twitterLink</object>
     <object>objects\obj_youtubeLink</object>
+    <object>objects\obj_menuGremlin</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_lobby</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_lobby</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

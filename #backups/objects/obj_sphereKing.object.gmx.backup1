@@ -1,11 +1,11 @@
-// 2020-09-20 20:53:34
+// 2020-10-18 12:19:02
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
 canHurt = true;
-maxHp = 30+(25*floor(wave/5));
+maxHp = 70+(25*floor(wave/5));
 hp = maxHp;
-image_speed = 0;
+image_speed = 8/60;
 state = MOVE;
 stunned = false;
 
@@ -36,20 +36,37 @@ bobLinearDir = 1;
 bobRate = 0.001;
 bobAltitude = 3;
 
-knockType = "FLY";
-
 event_inherited();
 
 //Other Locals
-spwnRate = 3-(0.1*floor(wave/3));
+spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
+knockType = "FLY";
+
+repeat(clamp(floor(wave/4),1,6))
+{
+    var a = instance_create(x,y,obj_sphereMinion);
+    a.parentKing = id;
+}
 
 
 
 #event destroy
 event_inherited();
+var r = irandom(4);
+if r == 1
+{
+    scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+} else if r > 2
+{
+    scr_dropTag("Tool Speed+",1);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+}
+
 scr_dropItem(ITEMID.item_gremEssence,5+floor(wave/3),ITEMTYPE.def,x,y,noone);
+
 #event alarm1|Reset hurt
 canHurt = true;
 target = obj_player;
@@ -63,9 +80,7 @@ image_index = sign(objective.x-x);
 
 #event alarm3|Create a Sphere Minion
 var a = instance_create(x,y,obj_sphereMinion);
-a.pointA = x-64;
-a.pointB= x+64;
-a.parentKing = self;
+a.parentKing = id;
 alarm[3] = room_speed*spwnRate;
 
 #event step
@@ -76,4 +91,4 @@ ai_pylon(MOVE,spr_gremlinIdle,spr_gremlinWalk,1,obj_player,atkBox);
 if speed != 0 then speed = approach(speed,0,1);
 
 #event draw
-draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha);
+draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),scale,image_yscale,image_angle,c_white,image_alpha);

@@ -84,9 +84,11 @@ knockType = "FLY";
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if irandom(10) = 1 then scr_dropItem(15,1,0,x,y-4,noone);
+            <string>event_inherited();
 
-event_inherited();
+if dropItem != true then exit;
+
+if irandom(10) = 1 then scr_dropItem(15,1,0,x,y-4,noone);
 </string>
           </argument>
         </arguments>

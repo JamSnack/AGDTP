@@ -106,7 +106,7 @@ if opened == false
         
         var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bomb,);
         
-        var ran = irandom(100);
+        var ran = irandom(50);
         if ran == 1 then itemSelector = tag;
         
         var amt=0;

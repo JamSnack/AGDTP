@@ -1,4 +1,4 @@
-// 2020-10-17 17:54:37
+// 2020-10-19 17:37:49
 #event create
 stateLock = false; //Lock the enemy in its current state.
 knockType = "LAND";
@@ -8,6 +8,7 @@ hspd = 0;
 vspd = 0;
 knock_resistance = 0.2;
 agility = 0.1;
+dropItem = true;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;
@@ -26,9 +27,9 @@ audio_emitter_free(localEmitter);
 #event alarm0
 var outerBoundary = 5*16; //Slightly larger than the boundary used in activation. (4 tiles).
 
-if !point_in_rectangle(x,y,view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_wview[0]+outerBoundary+view_xview[0],view_hview[0]+outerBoundary+view_yview[0])
+if !insideView()
 {
-    print('despawn');
+    dropItem = false;
     instance_destroy();
 }
 

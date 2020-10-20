@@ -4,7 +4,7 @@ var tool_firerate,tool_spr,pick_Dam,pick_range,pick_level,toolAnimation,tool_snd
 var swish = choose(snd_swish1,snd_swish4);
 
 toolAnimation = "SWING";
-tool_snd = swish;
+tool_snd = noone; //swish;
 
 switch argument0
 {

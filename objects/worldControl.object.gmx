@@ -161,13 +161,16 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
         var grem = instance_find(ENEMY,i);
         var gx = grem.x;
         
+        //Don't despawn the boss
+        if grem == raidBossID then break;
+        
         //Don't despawn things inside the Flatlands
         if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper)
         {
             //Check whether or not the gremlin is visible.
             if !point_in_rectangle(grem.x,grem.y,_viewX,_viewY,_viewW,_viewH)
             {
-                with grem instance_destroy();
+                with grem { dropItem = false; instance_destroy(); }
                 break;
             }
         }

@@ -823,7 +823,7 @@ if armOffset == 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_spherePylon);
+            <string>instance_create(mouse_x,mouse_y,obj_gremlin);
 </string>
           </argument>
         </arguments>

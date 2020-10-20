@@ -125,7 +125,7 @@ switch presetSettings
         
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
         
-        scr_musicTransition(snd_wave_1,musicTransitionTime);
+        scr_musicTransition(snd_Triple_King,musicTransitionTime);
     }
     break;
 }

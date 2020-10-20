@@ -1,4 +1,4 @@
-// 2020-10-15 16:32:56
+// 2020-10-18 13:09:34
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
 grav = 0.350;
@@ -74,7 +74,7 @@ if view_zoom != view_zoom_buffer
         
         //-Deactivate offscreen objects.
         with obj_itemDrop scr_deactivateOffscreen(id);
-        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); print('yea'); }
+        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
         with INTERACT scr_deactivateOffscreen(id);
         with NOCOL if object_get_parent(id) != PLR_NOCOL then scr_deactivateOffscreen(id);
         
@@ -232,13 +232,16 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
         var grem = instance_find(ENEMY,i);
         var gx = grem.x;
         
+        //Don't despawn the boss
+        if grem == raidBossID then break;
+        
         //Don't despawn things inside the Flatlands
         if !(gx >= RAIDBOUND_Lower && gx <= RAIDBOUND_Upper)
         {
             //Check whether or not the gremlin is visible.
             if !point_in_rectangle(grem.x,grem.y,_viewX,_viewY,_viewW,_viewH)
             {
-                with grem instance_destroy();
+                with grem { despawn = true; instance_destroy(); }
                 break;
             }
         }

@@ -4,6 +4,12 @@ var time = argument1; //Time until it can be hurt again.
 var knock = argument2; //Whether or not to apply knockback.
 var knockAmt = argument3; // How much knockback to be applied.
 
+
+//Protect chests from abuse
+var other_parent = object_get_parent(other.object_index);
+
+if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
+
  //knockback conditions
 if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1 || object_get_parent(object_index) == PLR_NOCOL
     { knock = false; damage = round(damage/10)+1 }
@@ -37,7 +43,7 @@ canHurt = false;
 alarm[hurtAlarm] = time;
 hp -= damage;
 
-if knock == true
+if knock == true && knockType != noone
 {
     var otherX = other.x;
     var otherY = other.y;
@@ -45,7 +51,6 @@ if knock == true
     //add Force equal to the knockAmt* 1 or -1, depending on whether or not the source instance is to the left or the right of the hurt instance.
     hForce += knockAmt*(sign(x-otherX));
     vForce += knockAmt*(sign(y-otherY));
-    knockBack = true;
     
     if knockType == "LAND"
     {

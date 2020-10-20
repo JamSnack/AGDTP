@@ -1,4 +1,4 @@
-// 2020-10-17 18:28:02
+// 2020-10-19 20:02:34
 #event create|Initialize the Gremlin
 
 canActiveRegion = true;
@@ -32,7 +32,7 @@ event_inherited();
 
 #event alarm1|Reset hurt
 canHurt = true;
-target = obj_player;
+//target = obj_player;
 
 #event alarm2|Reset state lock
 stateLock = false;
@@ -42,7 +42,7 @@ state = MOVE;
 image_index = sign(objective.x-x);
 
 #event step
-if canHurt == false then state = IDLE;
+if canHurt == false then state = MOVE;
 var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
 var plrTileAggroRange = 16*4;
 
@@ -87,5 +87,4 @@ if instance_exists(objective)
 
 #event draw
 draw_self();
-draw_text(x,y,string((sign(objective.x-x)+hForce)*image_xscale));
-draw_text(x,y+10,string(hspd));
+draw_text(x,y,string(state));
