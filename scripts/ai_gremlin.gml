@@ -144,16 +144,18 @@ if vForce == 0 && hForce == 0
             if (!canSeeObjective || stateLock == true)
             {
                 //Turn around at RAIDBOUNDS
-                if interm == false
+                if interm == false && stateLock == false
                 {
-                    if x < RAIDBOUND_Lower && gremBlockCol == false
+                    if x+hspd < RAIDBOUND_Lower && gremBlockCol == false
                     {
                         image_xscale = 1;
-                        hspd = 0;
-                    } else if x > RAIDBOUND_Upper && gremBlockCol == false
+                        stateLock = true;
+                        alarm[stateLockAlarm] = 30;
+                    } else if x+hspd > RAIDBOUND_Upper && gremBlockCol == false
                     {
                         image_xscale = -1;
-                        hspd = 0;
+                        stateLock = true;
+                        alarm[stateLockAlarm] = 30;
                     }
                 }
                 
