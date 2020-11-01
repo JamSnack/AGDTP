@@ -227,6 +227,9 @@
     <script>scripts\scr_dropTag.gml</script>
     <script>scripts\insideView.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\sh_saturation.shader</shader>
+  </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
   </fonts>

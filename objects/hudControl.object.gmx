@@ -25,9 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
-weaponIcon = spr_swordGreen;
-pickaxeIcon = spr_pickaxe;
+            <string>globalvar maxInvenSlots,hudVisible;
+hudVisible = true;
 
 image_speed = 30/60;
 
@@ -945,7 +944,7 @@ modCanConfirm = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room == rm_menu then exit;
+            <string>if room == rm_menu || hudVisible == false then exit;
 
 ///Draw Ui
 var dispWidth = viewWidth;
@@ -1285,9 +1284,9 @@ draw_set_alpha(1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Building indicator
-if room == rm_zero
-{
+            <string>if room == rm_zero
+{    
+    //Building indicator
     var xx = round(mouse_x/16)*16;
     var yy = round(mouse_y/16)*16;
     
@@ -1313,6 +1312,29 @@ if room == rm_zero
     
     draw_set_alpha(1);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="98">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>hudVisible = !hudVisible;
 </string>
           </argument>
         </arguments>

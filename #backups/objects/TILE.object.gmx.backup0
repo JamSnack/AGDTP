@@ -1,4 +1,4 @@
-// 2020-10-15 16:18:23
+// 2020-11-01 14:39:23
 #event create
 image_speed = 0;
 if y >= stoneLayer then light_level = 0 else light_level = 255;
@@ -71,7 +71,8 @@ if !ifUp
 #event draw
 if drawEffects == false then exit;
 
-var light_color = make_colour_hsv(160,light_saturation,light_level); //Increase saturation for cool 'nightime' effect.
+var max_saturation = 80;
+var light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
 
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
 if hp != maxHp then draw_sprite(spr_break,round((hp/maxHp)*10),x,y);

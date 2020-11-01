@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -203,7 +203,7 @@ alarm[1] = room_speed/spawnRate;
             <string>///Deactivation/Chunking and World Time
 if interm == true 
 {
-    world_Time += 1;
+    world_Time += 10;
     heal_Time += 1;
 }
 
@@ -434,7 +434,7 @@ if raidProgress &gt;= maxRaidProgress
             <string>///Day and night cycle
 draw_set_color(make_colour_hsv(240,100,17));
 draw_set_alpha(dayAlpha);
-draw_rectangle(0,0,display_get_width(),display_get_height(),false);
+//draw_rectangle(0,0,display_get_width(),display_get_height(),false);
 draw_set_alpha(1);
 </string>
           </argument>

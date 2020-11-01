@@ -30,7 +30,7 @@ switch presetSettings
         
         //- return to daylight.
         worldControl.dayTransition = true;
-        worldControl.world_Time = 0;
+        world_Time = 0;
         
         //Give wave rewards and Save the game.
         if wave > 0

@@ -71,9 +71,6 @@ if instance_exists(followThis)
     {
         x += ((fx - x)*follow_speed)*0.5;
         y += ((fy - y)*follow_speed)*0.5;
-        
-        round(x);
-        round(y);
     } else
     {
         //Otherwise snap to the point!
@@ -81,6 +78,8 @@ if instance_exists(followThis)
         y = fy;
     }
     
+    x = round(x);
+    y = round(y);
 }
 
 //Update view
@@ -167,7 +166,7 @@ if room == rm_zero
           <argument>
             <kind>1</kind>
             <string>view_zoom -= 0.01;
-view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
+if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
         </arguments>
@@ -191,7 +190,7 @@ view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
           <argument>
             <kind>1</kind>
             <string>view_zoom+= 0.01;
-view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
+if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
         </arguments>
