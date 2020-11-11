@@ -1,8 +1,7 @@
-// 2020-10-15 16:34:23
+// 2020-11-10 20:48:11
 #event create
-globalvar weaponIcon,pickaxeIcon,maxInvenSlots;
-weaponIcon = spr_swordGreen;
-pickaxeIcon = spr_pickaxe;
+globalvar maxInvenSlots,hudVisible;
+hudVisible = true;
 
 image_speed = 30/60;
 
@@ -453,7 +452,12 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
             event_user(0); //Reset the mod bench.
             
             scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
-        } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
+        } 
+        else 
+        {
+            scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
+            event_user(0); //Reset the mod bench.
+        }
     }
 }
 
@@ -694,9 +698,10 @@ selectedTag = noone;
 modCanConfirm = false;
 
 
-#event draw|Building indicator
+#event draw
 if room == rm_zero
-{
+{    
+    //Building indicator
     var xx = round(mouse_x/16)*16;
     var yy = round(mouse_y/16)*16;
     
@@ -724,7 +729,7 @@ if room == rm_zero
 }
 
 #event draw_gui
-if room == rm_menu then exit;
+if room == rm_menu || hudVisible == false then exit;
 
 ///Draw Ui
 var dispWidth = viewWidth;
@@ -1121,3 +1126,6 @@ event_user(0);
 
 #event keyrelease:I|Toggle Inventory Visibility.
 invOpen = !invOpen;
+
+#event keyrelease:vk_numpad2
+hudVisible = !hudVisible;

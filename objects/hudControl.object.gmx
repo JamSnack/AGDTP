@@ -250,6 +250,7 @@ else
         if point_in_rectangle(dx,dy,x1,y1,x2,y2)
         {
             selectedTag = noone;
+            modCanConfirm = false;
         }
         else if point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
         {
@@ -258,6 +259,7 @@ else
             selectedType = noone;
             equipmentTags = noone;
             equipmentIcon = 0;
+            modCanConfirm = false;
         }
     }
 }
@@ -372,7 +374,12 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
             event_user(0); //Reset the mod bench.
             
             scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
-        } else scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
+        } 
+        else 
+        {
+            scr_hudMessage("Modification failed.",global.fnt_Ui,5,0,c_red,0);
+            event_user(0); //Reset the mod bench.
+        }
     }
 }
 

@@ -1,6 +1,6 @@
-// 2020-10-18 13:09:34
+// 2020-11-10 16:08:24
 #event create|Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -44,7 +44,7 @@ global.light_surface = surface_create(display_get_width(),display_get_height());
 #event alarm0|Deactivation/Chunking and World Time
 if interm == true 
 {
-    world_Time += 1;
+    world_Time += 10;
     heal_Time += 1;
 }
 
@@ -241,7 +241,7 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
             //Check whether or not the gremlin is visible.
             if !point_in_rectangle(grem.x,grem.y,_viewX,_viewY,_viewW,_viewH)
             {
-                with grem { despawn = true; instance_destroy(); }
+                with grem { dropItem = false; instance_destroy(); }
                 break;
             }
         }
@@ -251,6 +251,7 @@ if instance_number(ENEMY) < maxGrem && irandom(100) <= spawnChance
 alarm[1] = room_speed/spawnRate;
 
 #event step|D/N Cycle Alpha
+
 var aMax = 0.6;
 
 if interm == true
@@ -263,7 +264,11 @@ if interm == true
     else dayAlpha = ((world_Time/world_TimeMax));
     
     dayAlpha = clamp(dayAlpha,0,aMax);
-} else if interm == false then dayAlpha = aMax;
+} 
+else if interm == false 
+{
+    dayAlpha = aMax;
+}
 
 #event other_user0|Event: RAID_PROGRESSED
 print('Raid Progressed');
@@ -300,11 +305,24 @@ if raidProgress >= maxRaidProgress
     }
 }
 
-#event draw_gui|Day and night cycle
-draw_set_color(make_colour_hsv(240,100,17));
-draw_set_alpha(dayAlpha);
-draw_rectangle(0,0,display_get_width(),display_get_height(),false);
-draw_set_alpha(1);
+#event draw_gui_begin|Draw sun and moon
+var _height = display_get_height()/2;
+var _width = display_get_width();
+
+if interm == true
+{
+    //Sun
+    if world_Time < world_TimeMax/2
+    {
+        //Sun ascends
+        draw_sprite(spr_sun,0,(_width*((world_Time/(world_TimeMax))))/2,_height-_height*2*(world_Time/(world_TimeMax)));
+    }
+    else
+    {
+        //Sun descends
+        draw_sprite(spr_sun,0,(_width/2)*((world_Time/world_TimeMax)/2),_height*2*(world_Time/(world_TimeMax)));
+    }
+}
 
 #event keyrelease:B
 if dev == true then scr_raidControl(nextRaid,0,0,0,0);

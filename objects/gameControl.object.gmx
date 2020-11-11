@@ -77,7 +77,9 @@ if _playerY &gt; stoneLayer-(16)
     } else backgroundAlpha = 1;
     
     background_alpha[5] = backgroundAlpha;
-} else { backgroundAlpha = 0; background_alpha[5] = backgroundAlpha;}
+    background_visible[5] = true;
+    
+} else { backgroundAlpha = 0; background_alpha[5] = backgroundAlpha; background_visible[5] = false;}
 
 </string>
           </argument>

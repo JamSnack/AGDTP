@@ -203,7 +203,7 @@ alarm[1] = room_speed/spawnRate;
             <string>///Deactivation/Chunking and World Time
 if interm == true 
 {
-    world_Time += 10;
+    world_Time += 1;
     heal_Time += 1;
 }
 
@@ -340,6 +340,7 @@ alarm[0] = 2;
           <argument>
             <kind>1</kind>
             <string>///D/N Cycle Alpha
+
 var aMax = 0.6;
 
 if interm == true
@@ -352,7 +353,11 @@ if interm == true
     else dayAlpha = ((world_Time/world_TimeMax));
     
     dayAlpha = clamp(dayAlpha,0,aMax);
-} else if interm == false then dayAlpha = aMax;
+} 
+else if interm == false 
+{
+    dayAlpha = aMax;
+}
 </string>
           </argument>
         </arguments>
@@ -409,33 +414,6 @@ if raidProgress &gt;= maxRaidProgress
         }
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="8" enumb="64">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Day and night cycle
-draw_set_color(make_colour_hsv(240,100,17));
-draw_set_alpha(dayAlpha);
-//draw_rectangle(0,0,display_get_width(),display_get_height(),false);
-draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

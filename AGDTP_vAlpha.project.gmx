@@ -144,6 +144,10 @@
     <sprite>sprites\spr_youTubeLink</sprite>
     <sprite>sprites\spr_sphere</sprite>
     <sprite>sprites\spr_spherePylon</sprite>
+    <sprite>sprites\spr_sun</sprite>
+    <sprite>sprites\spr_gib</sprite>
+    <sprite>sprites\spr_tile_frag_dirt</sprite>
+    <sprite>sprites\spr_tile_frag_stone</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

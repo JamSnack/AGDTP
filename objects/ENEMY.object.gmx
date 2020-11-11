@@ -34,6 +34,7 @@ vspd = 0;
 knock_resistance = 0.2;
 agility = 0.1;
 dropItem = true;
+death_gib = part_gib;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;
@@ -67,7 +68,12 @@ deathSound = snd_enemydie_monster;
           <argument>
             <kind>1</kind>
             <string>///Destroy Audio Emitter
-if deathSound != noone &amp;&amp; insideView() == true then scr_playSound(obj_player.localEmitter,deathSound,false,8,x,y);
+if deathSound != noone &amp;&amp; insideView() == true 
+{
+    scr_playSound(obj_player.localEmitter,deathSound,false,8,x,y);
+    
+    part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
+}
 audio_emitter_free(localEmitter);
 </string>
           </argument>
