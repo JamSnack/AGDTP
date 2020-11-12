@@ -99,3 +99,31 @@ switch current_state
     break;
 }
 
+//Knockback Collision ---------------------------------------------
+if ( hForce != 0 || vForce != 0 )
+{
+    var hdir = sign(hForce);
+    var vdir = sign(vForce);
+
+    if place_meeting(x+hForce,y,OBSTA)
+    {
+        while !place_meeting(x+hForce,y,OBSTA)
+        { x+=hdir; }
+        hForce = 0;
+    }
+    
+    if place_meeting(x,y+vForce,OBSTA)
+    {
+        while !place_meeting(x,y+vForce,OBSTA)
+        { y+=vdir; }
+    
+        vForce = 0;
+    }
+    
+    x+=hForce;
+    y+=vForce;
+    
+    vForce = approach(vForce,0,knock_resistance);
+    hForce = approach(hForce,0,knock_resistance);
+}
+

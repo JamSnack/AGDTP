@@ -1,0 +1,93 @@
+// 2020-11-11 21:53:12
+#event create|Initialize the Gremlin
+canActiveRegion = true;
+
+canHurt = true;
+hp = 175+waveScale(50,10,0,-1);
+maxHp = hp;
+image_speed = 0;
+state = "TRANSITION";
+
+vsp = 0;
+atkBox = 32; //divided by 2 on calculation.
+b_atkBox = 16*7; //Range for bomb attack.
+damage = 4; //natural damage.
+s_damage = 15; //swoop damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
+attackCooldown = 3; //How long until the boss rolls for another attack.
+
+hurtAlarm = 1;
+image_speed = 30/60;
+
+target = obj_pie; //objective priority.
+
+objective = target;
+stateLockAlarm = 2;
+aggroRange = 0; //0 tiles
+
+//Flying speed
+hAccel = 0;
+vAccel = 0;
+maxAccel = 2;
+accelRate = 0.8;
+
+//Animation
+
+//Ai
+wander_pointX = choose(RAIDBOUND_Lower,RAIDBOUND_Upper);
+wander_pointY = room_height/2-(12*16);
+transition_to = "WANDER";
+tile_punch_max = 8;
+tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
+
+
+//Other locals
+stateLock = true;
+alarm[stateLockAlarm] = 20;
+
+image_xscale = sign(target.x-x);
+
+event_inherited();
+scale = 2;
+image_xscale = scale;
+image_yscale = scale;
+alarm[3] = -1;
+knockType = "FLY";
+knock_resistance = 2;
+
+deathSound = snd_enemydie_boss;
+
+#event destroy
+event_inherited();
+
+if dropItem != true then exit;
+
+var r = irandom(99); //0 to 99
+
+if r <= 89 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone);
+if r <= 25 then scr_dropItem(ITEMID.cons_bomb,choose(1,2,3),4,x,y-4,noone);
+if r >= 85 
+{
+    var t = ds_list_create();
+    ds_list_add(t,"Grenade");
+    scr_dropItem(ITEMID.item_modTag,1,0,x,y-4,t);
+    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+}
+
+#event alarm1|Reset hurt
+canHurt = true;
+
+maxAccel = clamp(maxAccel+ 2*((maxHp-hp)/maxHp),2,4);
+#event alarm2|Reset state lock
+stateLock = false;
+
+
+#event step
+var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
+
+//Gremlin Ai
+target = obj_pie;
+objective = obj_pie;
+ai_nilmergAi(state,1,objective,-4,atkBox);
+
+#event other_animation_end
+if state == "TRANSITION" then state = transition_to;

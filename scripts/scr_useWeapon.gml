@@ -60,7 +60,7 @@ with proj
         hAccel = hspeed;
         vAccel = vspeed;
         maxAccel = 8;
-        accelRate = 0.2;
+        accelRate = 0.4;
         speed = 0;
     }
     

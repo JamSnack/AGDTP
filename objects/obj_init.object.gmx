@@ -130,7 +130,7 @@ enum ITEMTYPE
 }
 
 //Particles
-globalvar particle_system,part_gib,part_dirt_frag,part_stone_frag;
+globalvar particle_system,part_gib,part_dirt_frag,part_stone_frag,part_nullGib;
 particle_system = part_system_create();
 
 
@@ -149,6 +149,20 @@ part_type_gravity(part_gib, 0.20, 270);
 part_type_orientation(part_gib, 0, 0, choose(4,-4), 0, 1);
 part_type_blend(part_gib, false);
 part_type_life(part_gib, room_speed, room_speed*3);
+
+//- nullGib particles
+part_nullGib = part_type_create();
+part_type_sprite(part_nullGib, spr_nullGib,false,false,true);
+part_type_size(part_nullGib, 0.3, 1, 0, 0);
+part_type_scale(part_nullGib, 1, 1);
+part_type_colour1(part_nullGib, c_white);
+part_type_alpha1(part_nullGib, 1);
+part_type_speed(part_nullGib, 2, 3, 0, 0);
+part_type_direction(part_nullGib, 0, 180, 0, 0);
+part_type_gravity(part_nullGib, 0.20, 270);
+part_type_orientation(part_nullGib, 0, 0, choose(4,-4), 0, 1);
+part_type_blend(part_nullGib, false);
+part_type_life(part_nullGib, room_speed, room_speed*3);
 
 //- dirt particles
 part_dirt_frag = part_type_create();

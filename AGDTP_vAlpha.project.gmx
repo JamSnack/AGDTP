@@ -146,8 +146,14 @@
     <sprite>sprites\spr_spherePylon</sprite>
     <sprite>sprites\spr_sun</sprite>
     <sprite>sprites\spr_gib</sprite>
+    <sprite>sprites\spr_nullGib</sprite>
     <sprite>sprites\spr_tile_frag_dirt</sprite>
     <sprite>sprites\spr_tile_frag_stone</sprite>
+    <sprite>sprites\spr_nilmerg_hover</sprite>
+    <sprite>sprites\spr_nilmerg_move</sprite>
+    <sprite>sprites\spr_beeMinion</sprite>
+    <sprite>sprites\spr_stinger</sprite>
+    <sprite>sprites\spr_nilmerg_transition</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -190,6 +196,7 @@
       <script>scripts\ai_pylon.gml</script>
       <script>scripts\ai_shadowGremlin.gml</script>
       <script>scripts\ai_bombKing.gml</script>
+      <script>scripts\ai_nilmergAi.gml</script>
       <script>scripts\ai_drillin.gml</script>
       <script>scripts\scr_hurt.gml</script>
     </scripts>
@@ -252,6 +259,7 @@
     <object>objects\obj_lobbyPlatform</object>
     <object>objects\obj_projectile</object>
     <object>objects\obj_turretBullet</object>
+    <object>objects\obj_stinger</object>
     <objects name="Tiles">
       <object>objects\TILE</object>
       <object>objects\PLRTILE</object>
@@ -298,7 +306,9 @@
       <object>objects\obj_sphereKing</object>
       <object>objects\obj_sphereMinion</object>
       <object>objects\obj_shadowGremlin</object>
+      <object>objects\obj_beeMinion</object>
       <object>objects\obj_bombKing</object>
+      <object>objects\obj_nilmerg</object>
       <object>objects\obj_drillin</object>
     </objects>
     <object>objects\obj_bomb</object>
@@ -312,8 +322,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_menu</room>
     <room>rooms\rm_lobby</room>
+    <room>rooms\rm_menu</room>
     <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">

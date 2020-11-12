@@ -353,7 +353,7 @@ if dead = false &amp;&amp; g_over == false
     
     //Animate Arm movement
     //- Swing
-    if armAngle != 0 &amp;&amp; toolAnimation == "SWING"
+    if armAngle != 0 &amp;&amp; toolAnimation == "SWING" &amp;&amp; tool != 4
     {
         //Move the arm back to 0.
         if armAngle &gt; armAngleGoal
@@ -369,7 +369,8 @@ if dead = false &amp;&amp; g_over == false
     
        //---Stab--- 
        
-    } else if toolAnimation == "STAB" 
+    } 
+    else if toolAnimation == "STAB" &amp;&amp; tool != 4
     {
         if armStabComplete == false
         {
@@ -641,7 +642,7 @@ if dead == false
         if slot == noone then exit;
         
         //Play the tool's audio.
-        if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; tool != 3
+        if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; tool != 3 &amp;&amp; tool != 4 &amp;&amp; !audio_is_playing(tool_snd)
         {
             scr_playSound(localEmitter,tool_snd,false,5,x+4*image_xscale,y);
         }
@@ -850,7 +851,7 @@ scr_dropItem(ITEMID.item_dirtClump,90,0,x,y,noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_spherePylon);
+            <string>instance_create(mouse_x,mouse_y,obj_nilmerg);
 </string>
           </argument>
         </arguments>

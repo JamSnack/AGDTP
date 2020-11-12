@@ -29,7 +29,7 @@
 canActiveRegion = false;
 
 canHurt = true;
-hp = 4;
+hp = 3;
 image_speed = 15/60;
 state = WANDER;
 stunned = false;
@@ -56,8 +56,6 @@ yBuffer = y;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
-
-point_direction(x,y,target.x,target.y);
 
 event_inherited();
 knockType = "FLY";

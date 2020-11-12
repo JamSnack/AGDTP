@@ -22,9 +22,10 @@ switch argument0
     case 15: { text[0] = "Synthetic Essence"; text[1] = "It feels rubbery,# but is also a#liquid!"; } break;
     case 16: { text[0] = "Platform"; text[1] = "Useful for building!"; } break;
     case 17: { text[0] = "Bomb"; text[1] = "Use this to#quickly gather#resources!"; } break;
-    case 18: { text[0] = "Packed Stone"; text[1] = "A realiable,#easy-to-gather defense!"; } break;
+    case 18: { text[0] = "Packed Stone"; text[1] = "A reliable,#easy-to-gather defense!"; } break;
     case 19: { text[0] = "Sub-Lime Machine#Gun"; text[1] = "Damage: 3#Firerate: 0.16#A reliable,#high-firerate fruit!"; } break;
     case ITEMID.item_modTag: { text[0] = "Mod Tag"; text[1] = "Modify your equipment#with this tag.##Used at a Mod Bench."; } break;
     case ITEMID.item_acorn: { text[0] = "Acorn"; text[1] = "Place this on dirt to grow a tree!"; } break;
     case ITEMID.weapon_sphereLauncher: { text[0] = "Sphere Launcher"; text[1] = "Damage: 4#Firerate: 0.75#He who controls his spheres,#controls his destiny."; } break;
+    case ITEMID.tile_modBench: { text[0] = "Mod Bench"; text[1] = "Use this workbench to modify#your tools!"; } break;
 }
