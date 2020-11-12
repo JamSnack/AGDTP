@@ -309,6 +309,9 @@ if heal_Time &gt;= room_speed
 
 if world_Time &gt;= world_TimeMax //3 minutes
 {
+    //Check for GRASSLANDS king defeat in the future.
+    if wave+1 == 10 then nextRaid = "KING";
+
     world_Time = 0;
     scr_raidControl(nextRaid,0,0,0,0); //Preset raid
 }

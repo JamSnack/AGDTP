@@ -128,6 +128,29 @@ switch presetSettings
         scr_musicTransition(snd_Triple_King,musicTransitionTime);
     }
     break;
+    
+    case "KING":
+    {
+        //ONLY THE GRASSLANDS REGION EXISTS RIGHT NOW.
+        //Get the region > spawn appropriate region king...
+        
+        //---------- Region King Raid ---------
+        specialRaid = true;
+        spawnRate = 1+(0.1*wave);
+        spawnChance = 70+(wave*5);
+        maxGrem = 10+(wave*2);
+        maxRaidProgress = 15+(wave*3);
+        
+        interm = false;
+        
+        raidBoss = true;
+        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_nilmerg);;
+        
+        scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
+        
+        scr_musicTransition(snd_FlightoftheRegionKing,musicTransitionTime);
+    }
+    break;
 }
 
 //GREMBLOCK CONTROL

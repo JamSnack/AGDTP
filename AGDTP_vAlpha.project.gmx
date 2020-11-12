@@ -57,6 +57,7 @@
     <sound>sound\snd_rareItem</sound>
     <sound>sound\snd_inventoryClick</sound>
     <sound>sound\snd_modificationSuccess</sound>
+    <sound>sound\snd_FlightoftheRegionKing</sound>
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_sphereLaunch</sound>
     <sound>sound\snd_Triple_King</sound>
