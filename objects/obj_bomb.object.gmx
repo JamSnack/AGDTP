@@ -3,7 +3,7 @@
   <spriteName>spr_bomb</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -88,7 +88,7 @@ if fuse &lt;= 0 then instance_destroy();
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="TILE_ALL">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -105,7 +105,34 @@ if fuse &lt;= 0 then instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy();
+            <string>//Collision
+
+if place_meeting(x+hspeed,y,OBSTA)
+{
+    while !place_meeting(x+sign(hspeed),y,OBSTA)
+    {
+        x+=sign(hspeed)
+    }
+    
+    hspeed = -hspeed/2;
+}
+
+if place_meeting(x,y+vspeed,OBSTA)
+{
+    while !place_meeting(x,y+sign(vspeed),OBSTA)
+    {
+        y+=sign(vspeed)
+    }
+    
+    vspeed = -vspeed/2;
+}
+
+if !place_meeting(x,y+1,OBSTA)
+{
+    vspeed += 0.2;
+} else friction = 0.1;
+
+image_angle-=(vspeed+hspeed)*2;
 </string>
           </argument>
         </arguments>

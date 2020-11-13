@@ -254,13 +254,12 @@ if vForce == 0 && hForce == 0
             if (place_meeting(x,y+vsp,GREM_BLOCK))
             {
                 //move as close as we can
-                while (!place_meeting(x,y+vdir,GREM_BLOCK))
+                while (!place_meeting(x,y+vdir,GREM_BLOCK))  && vsp != 0
                 {
                     y = y + vdir;
                 }
                 vsp = 0;
                 state = WANDER;
-                exit;
             }
         }
         
@@ -268,13 +267,12 @@ if vForce == 0 && hForce == 0
         if (place_meeting(x,y+vsp,OBSTA))
         {
             //move as close as we can
-            while (!place_meeting(x,y+vdir,OBSTA))
+            while (!place_meeting(x,y+vdir,OBSTA))  && vsp != 0
             {
                 y = y + vdir;
             }
             vsp = 0;
             state = WANDER;
-            exit;
         }
         
         y = y + vsp;
@@ -286,7 +284,7 @@ if vForce == 0 && hForce == 0
         //Move while in a vertical movement state.
        if place_meeting(x+hspd,y,OBSTA)
        {
-           while !place_meeting(x+sign(hspd),y,OBSTA)
+           while !place_meeting(x+sign(hspd),y,OBSTA) && hspd != 0
            {
                x+=sign(hspd);
            }
@@ -328,14 +326,14 @@ else if ( hForce != 0 || vForce != 0 )
 
     if place_meeting(x+hForce,y,OBSTA)
     {
-        while !place_meeting(x+hdir,y,OBSTA)
+        while !place_meeting(x+hdir,y,OBSTA)  && hdir != 0
         { x+=hdir; }
         hForce = 0;
     }
     
     if place_meeting(x,y+vForce,OBSTA)
     {
-        while !place_meeting(x,y+vdir,OBSTA)
+        while !place_meeting(x,y+vdir,OBSTA)  && vdir != 0
         { y+=vdir; }
     
         vForce = 0;

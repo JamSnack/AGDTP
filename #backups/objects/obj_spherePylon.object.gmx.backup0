@@ -1,4 +1,4 @@
-// 2020-09-20 20:55:59
+// 2020-11-12 18:06:38
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
@@ -37,11 +37,14 @@ bobRate = 0.05;
 bobAltitude = 2;
 
 knockType = noone;
+deathSound = noone;
 
 event_inherited();
 
+knock_resistance = 25;
+
 #event destroy|Special & Inherits nothing.
-if interm == true && distance_to_object(obj_player) <= 128
+if interm == true && insideView() == true
 {
     nextRaid = "SPHERE";
     scr_hudMessage("Tonight is going to be strange..",global.fnt_menu,20,0,c_purple,0);

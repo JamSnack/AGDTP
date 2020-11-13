@@ -1,4 +1,4 @@
-// 2020-10-19 20:52:34
+// 2020-11-12 17:29:28
 ///ai_gremlin(state,idle_sprite,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -150,9 +150,13 @@ if vForce == 0 && hForce == 0
                     if x+hspd < RAIDBOUND_Lower && gremBlockCol == false
                     {
                         image_xscale = 1;
+                        stateLock = true;
+                        alarm[stateLockAlarm] = 30;
                     } else if x+hspd > RAIDBOUND_Upper && gremBlockCol == false
                     {
                         image_xscale = -1;
+                        stateLock = true;
+                        alarm[stateLockAlarm] = 30;
                     }
                 }
                 
@@ -257,7 +261,6 @@ if vForce == 0 && hForce == 0
                 }
                 vsp = 0;
                 state = WANDER;
-                exit;
             }
         }
         
@@ -271,7 +274,6 @@ if vForce == 0 && hForce == 0
             }
             vsp = 0;
             state = WANDER;
-            exit;
         }
         
         y = y + vsp;

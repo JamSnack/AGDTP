@@ -37,7 +37,6 @@ switch item
         
         bomb.speed = 6;
         bomb.direction = point_direction(x,y,mouse_x,mouse_y);
-        bomb.gravity = grav;
     
         armIndex = spr_armSwing;
         armAngleGoal = 51;

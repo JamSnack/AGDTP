@@ -142,7 +142,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(50) &gt;= 48
+            if irandom(50) &gt;= 49
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -309,9 +309,6 @@ if heal_Time &gt;= room_speed
 
 if world_Time &gt;= world_TimeMax //3 minutes
 {
-    //Check for GRASSLANDS king defeat in the future.
-    if wave+1 == 10 then nextRaid = "KING";
-
     world_Time = 0;
     scr_raidControl(nextRaid,0,0,0,0); //Preset raid
 }

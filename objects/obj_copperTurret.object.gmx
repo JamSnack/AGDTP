@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>event_inherited();
-maxHp = 5;
+maxHp = 15;
 hp = maxHp;
 
 tileID = 12;
@@ -35,7 +35,7 @@ type = 3;
 //Turret stuff
 target = 0;
 targetRange = 7*16; //7 Tiles
-fireRate = 1; //How many seconds are in-between shots.
+fireRate = 0.5; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
 </string>

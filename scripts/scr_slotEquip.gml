@@ -49,7 +49,7 @@ if ds_exists(tagsUnloaded,ds_type_list)
         //BRIGHT
         if tag == "Bright"
         {
-            obj_player.playerLight += 5;
+            obj_player.playerLight += 12;
             bright_reset = true;
         }
     }

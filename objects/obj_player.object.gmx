@@ -95,7 +95,9 @@ audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
 
-scr_dropItem(ITEMID.cons_gremTalisman,20,4,x,y,noone);
+scr_dropItem(ITEMID.tile_packedStone,99,3,x,y,noone);
+scr_dropItem(ITEMID.tile_copperTurret,99,4,x,y,noone);
+scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -644,7 +646,7 @@ if dead == false
         if slot == noone then exit;
         
         //Play the tool's audio.
-        if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; tool != 3 &amp;&amp; tool != 4 &amp;&amp; !audio_is_playing(tool_snd)
+        if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; (tool == 2 || tool == 1)
         {
             scr_playSound(localEmitter,tool_snd,false,5,x+4*image_xscale,y);
         }

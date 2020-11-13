@@ -14,6 +14,13 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 //Spawn Rate is: alarm[0] = room_speed/spawn_rate;
 //Spawn Chance is: if irandom(100) < spawnChance;
 
+
+//------FORCED WAVES----------------
+if interm == true
+{
+    if wave+1 == 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
+}
+
 //----------------PRESET SETTINGS-------------------
 switch presetSettings
 {
@@ -56,6 +63,7 @@ switch presetSettings
         nextRaid = "RAID";
     }
     break;
+    
     case "RAID":
     {
         //---------- Normal Raid settings ---------

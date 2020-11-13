@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>alarm[0] = 1;
 image_speed = 0;
-fuse = 4; //half seconds until explosion
+fuse = 1; //half seconds until explosion
 damage = 2; //Updated by the tag that calls it.
 
 image_xscale = 1/4;
@@ -56,7 +56,7 @@ image_yscale = 1/4;
             <kind>1</kind>
             <string>var _exp = instance_create(x,y,obj_explosion);
 _exp.type = ENEMY;
-_exp.radius = 32;
+_exp.radius = 16*3.5; //3 1/2 tile radius
 _exp.damage = damage;
 </string>
           </argument>

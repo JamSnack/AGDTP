@@ -16,9 +16,11 @@ for (i=0;i<maxInvenSlots;i++)
 if (file_exists("agdtpSaveData.sav")) && empty == true
 {
     var _wrapper = scr_loadJson("agdtpSaveData.sav");
+    
+    //------------Handle the inventory-----------
     var _list = _wrapper[? "INV"];
     
-    //The game file exists but contains nothing.
+    //-The game file exists but contains nothing.
     if ds_list_size(_list) == 0
     {
         scr_invenAddItem(3,0,1,noone);
@@ -60,6 +62,20 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         scr_invenAddItem(real(_map[? "icon"]),real(_map[? "amt"]),real(_map[? "type"]),tags);
         ds_list_destroy(tags);
     }
+    
+    //-----------Handle other data------------------
+    var _list = _wrapper[? "KING"];
+    
+    if _list != undefined
+    {
+        for (var k=0;k<ds_list_size(_list);k++)
+        {
+            kingDied_1 = _list[| 0];
+        }
+    }
+    
+    
+    
     ds_map_destroy(_wrapper);
     print("Game Loaded");
 } else if empty == true
