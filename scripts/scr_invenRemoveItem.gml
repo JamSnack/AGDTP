@@ -31,23 +31,39 @@ if item != 0
             var sameTags = false;
             var hudTags = hudControl.inventorySlotTags[i];
             
+            //Initialize the tag size.
+            var tagsSize = 0;
+            
             if ds_exists(tags,ds_type_list)
+            { tagsSize = ds_list_size(tags); }
+            
+            //Initialize the hud tags size.
+            var hudSize = 0;
+            
+            if ds_exists(hudTags,ds_type_list)
+            { hudSize = ds_list_size(hudTags); }
+            
+            // 0 = 0 means we are removing an ingredient item with no previous tags.
+            if tagsSize == hudSize
             {
-                var tagsSize = ds_list_size(tags);
-                var hudSize = ds_list_size(hudTags);
-                
-                if tagsSize == hudSize
+                if tagsSize+hudSize == 0
+                {
+                    sameTags = true;
+                }
+                else
                 {
                     //If they have the same size, then for each tag in tags, compare it to each tag in hudTags.
                     //If hudTags is passed without a match, then the tags are dissimilar.
                     for(_t=0;_t<tagsSize;_t++)
                     {
                         var current_tag = tags[| _t];
+                        
                         for(_y=0;_y<hudSize;_y++)
                         {
+                        
                             if current_tag == hudTags[| _y] 
                             {
-                                if _t=ds_list_size(tags)-1 then sameTags = true;
+                                if _t == tagsSize-1 then sameTags = true;
                                 break;
                             }
                         }
@@ -57,7 +73,7 @@ if item != 0
             
             if sameTags == true
             {
-                if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else scr_clearSlot(i);
+                if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else { scr_clearSlot(i); }
                 if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
                 break;
             }
@@ -70,5 +86,4 @@ if item != 0
     
     if (hudAmt - invAmt) > 0 then hudControl.inventorySlotAmt[slot] -= invAmt else scr_clearSlot(slot); 
     if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x,obj_player.y,tags);
-    
 }

@@ -43,6 +43,7 @@ armIndex = spr_armIdle;
 armFrame = 0;
 armAngle = 0;
 armAngleGoal = 0;
+armAngleRate = 0;
 armOffset = 0; //Used for thrusting the arm forward or backward!
 armOffsetGoal = 0;
 armOffsetRate = 0;
@@ -95,9 +96,7 @@ audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
 
-scr_dropItem(ITEMID.tile_packedStone,99,3,x,y,noone);
-scr_dropItem(ITEMID.tile_copperTurret,99,4,x,y,noone);
-scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon,x,y,noone);
+scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -148,6 +147,7 @@ armIndex = spr_armIdle;
 toolReady = true; 
 armAngle = 0;
 armOffset = 0;
+armOffsetRate = 0;
 </string>
           </argument>
         </arguments>
@@ -222,7 +222,7 @@ canHurt = true;
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>obj_player</whoName>
+        <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -361,17 +361,22 @@ if dead = false &amp;&amp; g_over == false
     {
         //Move the arm back to 0.
         if armAngle &gt; armAngleGoal
-        { armAngle -= armAngleRate;
-          if armAngle &lt;= armAngleGoal 
-          { 
-            armIndex = spr_armIdle;
-            toolReady = true; 
-            armAngle = 0; 
-          }
+        { 
+            armAngle = approach(armAngle,armAngleGoal,armAngleRate);
+            
+            //Do not let armAngle = 0, this will stop the animation.
+            if armAngle == 0 then armAngle = 0.1;
+            
+            if armAngle &lt;= armAngleGoal 
+            { 
+                armIndex = spr_armIdle;
+                toolReady = true; 
+                armAngle = 0; 
+            }
         }
         
     
-       //---Stab--- 
+    //---Stab--- 
        
     } 
     else if toolAnimation == "STAB" &amp;&amp; tool != 4
@@ -391,7 +396,7 @@ if dead = false &amp;&amp; g_over == false
             {
                 //Reset to default values
                 //- arm index doesn't need to reset.
-                toolReady = true; 
+                toolReady = true;
                 armStabComplete = false;
                 armOffset = 0;
                 armOffsetRate = 0;
@@ -408,6 +413,14 @@ if dead = false &amp;&amp; g_over == false
         
         hitSyncY = y+lengthdir_y((armOffset),_dir);
         hitSyncX = x+lengthdir_x((armOffset)*image_xscale,_dir);
+    }
+    else if toolAnimation == "SHOOT" &amp;&amp; ( tool == 2 || tool == 1) &amp;&amp; toolReady == false
+    {
+        //Aim towards the mouse!
+        var _dir = point_direction(x,y,mouse_x,mouse_y);
+        image_xscale = sign(mouse_x-x);
+        armIndex = spr_armSwing; //Still a straight arm.
+        if image_xscale == 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
     }
     
     //Face mouse when using item
@@ -716,10 +729,27 @@ if dead == false
                 if toolReady == true
                 {
                     scr_usePickaxe(pickDamage,pickLevel);
-                    armIndex = spr_armSwing;
-                    armAngleGoal = -60; //Down somewhat
-                    armAngle = 90; //Straight up
-                    armAngleRate = (180/toolFireRate)+1;
+                    
+                    switch toolAnimation
+                    {
+                        case "SWING":
+                        {
+                            armIndex = spr_armSwing;
+                            armAngleGoal = -60; //Down somewhat
+                            armAngle = 90; //Straight up
+                            armAngleRate = (180/toolFireRate)+1; //180 is a number larger than the goal. This calculation will always result in an angle rate that is fast enough to finish the animation.
+                        }
+                        break;
+                        
+                        case "SHOOT":
+                        {
+                            //Aiming done in the step event.
+                            armIndex = spr_armSwing; //Still a straight arm.
+                            alarm[2] = toolFireRate;
+                        }
+                        break;
+                    }
+                    
                     toolReady = false;
                 }
             }

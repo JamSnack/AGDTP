@@ -116,7 +116,7 @@ if r == 1
     scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
 }
 
-scr_dropItem(ITEMID.item_gremEssence,5+floor(wave/3),ITEMTYPE.def,x,y,noone);
+scr_spawnEssence(1,60,5+floor(wave/3));
 </string>
           </argument>
         </arguments>

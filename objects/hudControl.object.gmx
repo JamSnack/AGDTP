@@ -314,7 +314,7 @@ if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
     }
     
     //-- Equipment Slot
-    if (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) &amp;&amp; point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
+    if cursorType != ITEMTYPE.def &amp;&amp; (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) &amp;&amp; point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
     {
         selectedEquipment = cursorItem;
         selectedType = cursorType;
@@ -344,7 +344,7 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
     
     if modCanConfirm == true &amp;&amp; point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
     {
-        //print("Check")
+        //Create a ds_list to store the new tag inside.
         if !ds_exists(equipmentTags,ds_type_list)
         { equipmentTags = ds_list_create(); }
         
@@ -352,9 +352,10 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
         var tags_maxxed = false;
         
         if ds_list_size(equipmentTags) &lt; 2
-        { 
+        {   
+            //Append the tag
             ds_list_add(equipmentTags,selectedTag[| 0]); 
-            
+        
             //Remove the ingredient items.
             scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
             scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
@@ -776,7 +777,7 @@ if invOpen == true
 {
     if point_in_rectangle(dx,dy,0,50+hotbarOffset,invenX,200)
     {
-        if cursorHoldItem = false
+        if cursorHoldItem = false &amp;&amp; mouse_check_button_pressed(mb_left) &amp;&amp; obj_player.toolReady == true
         {
             for (i=0;i&lt;maxInvenSlots;i++)
             {

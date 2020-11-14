@@ -1,5 +1,5 @@
 /// scr_clearSlot(slot)
-///scr_clearSlot(slot);
+
 var slot = argument0;
 
 with hudControl

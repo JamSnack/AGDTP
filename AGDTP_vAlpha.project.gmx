@@ -103,6 +103,7 @@
     <sprite>sprites\spr_pickaxe</sprite>
     <sprite>sprites\spr_pickaxeGreen</sprite>
     <sprite>sprites\spr_swordGreen</sprite>
+    <sprite>sprites\spr_stingerDrill</sprite>
     <sprite>sprites\spr_toolIcon</sprite>
     <sprite>sprites\spr_break</sprite>
     <sprite>sprites\spr_itemDrops</sprite>
@@ -155,6 +156,7 @@
     <sprite>sprites\spr_beeMinion</sprite>
     <sprite>sprites\spr_stinger</sprite>
     <sprite>sprites\spr_nilmerg_transition</sprite>
+    <sprite>sprites\spr_gremlinEssence</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -238,6 +240,7 @@
     <script>scripts\waveScale.gml</script>
     <script>scripts\scr_dropTag.gml</script>
     <script>scripts\insideView.gml</script>
+    <script>scripts\scr_spawnEssence.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
@@ -255,6 +258,7 @@
     </objects>
     <object>objects\obj_player</object>
     <object>objects\obj_itemDrop</object>
+    <object>objects\obj_essenceDrop</object>
     <object>objects\obj_pie</object>
     <object>objects\obj_pieBetwixt</object>
     <object>objects\obj_lobbyPlatform</object>

@@ -5,7 +5,7 @@ var tool_firerate,proj_spd,proj_dec,tool_spr,proj_spr,wep_Dam,wep_Knock,toolAnim
 tool_snd = noone;
 var swish = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4);
 
-//projectile types: '0' Slash. '1' Arrow
+//projectile types: '0' Slash. '1' Arrow. '2' Bullet
 
 switch argument0
 {    

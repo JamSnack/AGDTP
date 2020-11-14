@@ -260,6 +260,8 @@ if vForce == 0 && hForce == 0
                 }
                 vsp = 0;
                 state = WANDER;
+                
+                exit;
             }
         }
         
@@ -273,6 +275,8 @@ if vForce == 0 && hForce == 0
             }
             vsp = 0;
             state = WANDER;
+            
+            exit;
         }
         
         y = y + vsp;

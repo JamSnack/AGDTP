@@ -75,8 +75,8 @@ with proj
             switch tagsUnloaded[| i]
             {
                 //Increases projectile speed
-                case "Fast": { speed += 3; } break;
                 case "Bouncy": { bBouncy = true; canBounce = true; } break;
+                case "Hive": {bHive = true;} break;
             }
         }
     }

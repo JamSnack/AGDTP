@@ -31,6 +31,7 @@ deadProjectile = false;
 
 //Latent behaviors
 bBouncy = false;
+bHive = false;
 canBounce = true;
 
 //- stab - init in script
@@ -274,6 +275,22 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
         event_user(0); //register hit event for gremlin
     }
     
+    //TAGS
+    if bHive == true
+    {
+        var _p = instance_create(x,y,obj_projectile);
+        //-Apply projectile statistics
+        _p.speed = 1;
+        _p.friction = 0;
+        _p.type = 2; //Bullet
+        _p.sprite_index = spr_stinger;
+        _p.dmg = dmg;
+        _p.direction = irandom(359);
+        _p.image_angle = direction;
+        _p.knkAmt = 2;
+        _p.ox = x;
+        _p.oy = y;
+    }
     
     //Destroy the projectile
     if type == 1 || type == 2 then instance_destroy();

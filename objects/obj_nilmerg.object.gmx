@@ -109,7 +109,12 @@ if dropItem != true then exit;
 
 var r = irandom(99); //0 to 99
 
-if r &lt;= 89 then scr_dropItem(ITEMID.item_gremEssence,min(15,r+1),0,x,y-4,noone);
+if r &lt;= 89 then scr_spawnEssence(5,45,15);
+if r &lt;= 49 then scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x,y,noone);
+
+var _t = ds_list_create();
+ds_list_add(_t,"Hive");
+if r &lt;= 20 then scr_dropItem(ITEMID.item_modTag,1,0,x,y,_t);
 
 if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false then kingDied_1 = true;
 </string>

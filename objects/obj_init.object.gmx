@@ -116,7 +116,8 @@ enum ITEMID
     tile_modBench,
     tile_woodenStilt,
     item_acorn,
-    weapon_sphereLauncher
+    weapon_sphereLauncher,
+    pickaxe_stingerDrill,
 }
 
 //Item Types
