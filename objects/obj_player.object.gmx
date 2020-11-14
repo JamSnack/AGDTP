@@ -96,7 +96,7 @@ audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
 
-scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
+scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -885,7 +885,7 @@ scr_dropItem(ITEMID.item_dirtClump,90,0,x,y,noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_nilmerg);
+            <string>instance_create(mouse_x,mouse_y,obj_sphereKing);
 </string>
           </argument>
         </arguments>

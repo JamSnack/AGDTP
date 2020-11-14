@@ -194,7 +194,7 @@ switch state
         if state != "TRANSITION" && stateLock == false
         {
             stateLock = true;
-            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),room_speed,attackCooldown*room_speed);
+            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),45,attackCooldown*room_speed);
         }
     }
     break;

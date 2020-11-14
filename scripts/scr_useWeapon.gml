@@ -41,6 +41,7 @@ with proj
     knkAmt = knockAmt;
     ox = x;
     oy = y;
+    oSpeed = spd;
     
     
     

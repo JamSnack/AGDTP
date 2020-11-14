@@ -103,6 +103,7 @@
     <sprite>sprites\spr_pickaxe</sprite>
     <sprite>sprites\spr_pickaxeGreen</sprite>
     <sprite>sprites\spr_swordGreen</sprite>
+    <sprite>sprites\spr_beemerang</sprite>
     <sprite>sprites\spr_stingerDrill</sprite>
     <sprite>sprites\spr_toolIcon</sprite>
     <sprite>sprites\spr_break</sprite>
@@ -157,6 +158,7 @@
     <sprite>sprites\spr_stinger</sprite>
     <sprite>sprites\spr_nilmerg_transition</sprite>
     <sprite>sprites\spr_gremlinEssence</sprite>
+    <sprite>sprites\spr_nothing</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

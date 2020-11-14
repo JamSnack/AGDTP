@@ -118,6 +118,7 @@ enum ITEMID
     item_acorn,
     weapon_sphereLauncher,
     pickaxe_stingerDrill,
+    weapon_beemerang,
 }
 
 //Item Types

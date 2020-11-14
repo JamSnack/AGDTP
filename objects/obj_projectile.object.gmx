@@ -33,6 +33,7 @@ deadProjectile = false;
 bBouncy = false;
 bHive = false;
 canBounce = true;
+canReverse = true;
 
 //- stab - init in script
 bStab = false;
@@ -42,6 +43,8 @@ armOffsetGoal = 0;
 armOffsetRate = 0;
 
 type = 0;
+
+//INITIALIZATION IS SHARED WITH scr_useWeapon.
 </string>
           </argument>
         </arguments>
@@ -89,7 +92,11 @@ instance_destroy();
           <argument>
             <kind>1</kind>
             <string>///BEHAVIOR STUFF
-if canBounce == false then canBounce = true;
+if type == "BOOMERANG" &amp;&amp; canReverse == true
+{
+    alarm[2] = room_speed*3;
+    canReverse = false;
+}
 </string>
           </argument>
         </arguments>
@@ -136,7 +143,7 @@ if canBounce == false then canBounce = true;
           <argument>
             <kind>1</kind>
             <string>//--------Behavior Constants---------------
-image_angle = direction;
+if type != "BOOMERANG" then image_angle = direction;
 
 //--------------Behavior Characteristics---------------------------
 var lx = lengthdir_x(speed,direction);
@@ -203,38 +210,58 @@ if bBouncy == true
     }
 }
 
-
-//Sphere behaviors
-if type == "SPHERE"
+//TYPE BEHAVIORS:
+switch type
 {
-    var _enemy = instance_nearest(x,y,ENEMY);
-
-    if _enemy != noone //if an enemy exists
-    { 
-        if distance_to_object(_enemy) &lt;= 16*8
-        {
-            if speed != 0 then speed = approach(speed,0,1);
+    case "SPHERE":
+    {
+        //Sphere behaviors
+        var _enemy = instance_nearest(x,y,ENEMY);
+    
+        if _enemy != noone //if an enemy exists
+        { 
+            if distance_to_object(_enemy) &lt;= 16*8
+            {
+                if speed != 0 then speed = approach(speed,0,1);
+            
+                //Direction
+                var dir = sign(_enemy.x-x);
+                var vdir = sign(_enemy.y-(y));
+                
+                //Horizontal Acceleration
+                hAccel = approach(hAccel,maxAccel*dir,accelRate);
+                
+                //Vertical Acceleration
+                vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+            }
+        }
         
-            //Direction
-            var dir = sign(_enemy.x-x);
-            var vdir = sign(_enemy.y-(y));
-            
-            //Horizontal Acceleration
-            hAccel = approach(hAccel,maxAccel*dir,accelRate);
-            
-            //Vertical Acceleration
-            vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        if place_meeting(x+hAccel,y,OBSTA)
+        { hAccel=-hAccel; }
+                
+        if place_meeting(x,y+vAccel,OBSTA)
+        { vAccel=-vAccel; }
+        
+        x += hAccel;
+        y += vAccel;
+    }
+    break;
+    
+    case "BOOMERANG":
+    {
+        if alarm[1] == -1 &amp;&amp; canReverse == true
+        {
+            alarm[1] = room_speed*2;
+        }
+    
+        image_angle += 5*speed;
+        
+        if canReverse == false
+        {
+            speed = approach(speed,-oSpeed,0.5);
         }
     }
-    
-    if place_meeting(x+hAccel,y,OBSTA)
-    { hAccel=-hAccel; }
-            
-    if place_meeting(x,y+vAccel,OBSTA)
-    { vAccel=-vAccel; }
-    
-    x += hAccel;
-    y += vAccel;
+    break;
 }
 
 //Gravity
@@ -296,6 +323,11 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
     if type == 1 || type == 2 then instance_destroy();
     else if type == "SPHERE"
     { if alarm[2] == -1 then alarm[2] = room_speed*8; }
+    else if type == "BOOMERANG" &amp;&amp; canReverse == true
+    {
+        if alarm[2] == -1 then alarm[2] = room_speed*3;
+        canReverse = false;
+    }
 }
 </string>
           </argument>
@@ -328,6 +360,11 @@ if other.object_index != obj_nullLight
     else if type == "SPHERE"
     {
         speed = 0;
+    }
+    else if type == "BOOMERANG" &amp;&amp; canReverse == true
+    {
+        if alarm[2] == -1 then alarm[2] = room_speed*3;
+        canReverse = false;
     }
 }
 </string>

@@ -1,4 +1,4 @@
-// 2020-11-11 21:53:12
+// 2020-11-14 10:09:36
 #event create|Initialize the Gremlin
 canActiveRegion = true;
 
@@ -63,20 +63,20 @@ if dropItem != true then exit;
 
 var r = irandom(99); //0 to 99
 
-if r <= 89 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone);
-if r <= 25 then scr_dropItem(ITEMID.cons_bomb,choose(1,2,3),4,x,y-4,noone);
-if r >= 85 
-{
-    var t = ds_list_create();
-    ds_list_add(t,"Grenade");
-    scr_dropItem(ITEMID.item_modTag,1,0,x,y-4,t);
-    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
-}
+if r <= 89 then scr_spawnEssence(5,45,15);
+if r <= 49 then scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x,y,noone);
+
+var _t = ds_list_create();
+ds_list_add(_t,"Hive");
+if r <= 20 then scr_dropItem(ITEMID.item_modTag,1,0,x,y,_t);
+
+if region == "GRASSLANDS" && kingDied_1 == false && worldControl.raidBossID == id then kingDied_1 = true;
 
 #event alarm1|Reset hurt
 canHurt = true;
 
 maxAccel = clamp(maxAccel+ 2*((maxHp-hp)/maxHp),2,4);
+
 #event alarm2|Reset state lock
 stateLock = false;
 

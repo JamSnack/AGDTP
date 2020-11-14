@@ -81,6 +81,13 @@ knockType = "FLY";
 knock_resistance = 2;
 
 deathSound = snd_enemydie_boss;
+
+//Change some stats for the region king fight.
+if worldControl.raidBossID == id
+{
+    scale = 2.5; //from 2;
+    maxAccel = 3; //from 2;
+}
 </string>
           </argument>
         </arguments>
@@ -114,9 +121,10 @@ if r &lt;= 49 then scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x
 
 var _t = ds_list_create();
 ds_list_add(_t,"Hive");
-if r &lt;= 20 then scr_dropItem(ITEMID.item_modTag,1,0,x,y,_t);
+if r &lt;= 20 then scr_dropItem(ITEMID.item_modTag,1,0,x,y,_t)
+else if r &gt;= 20 &amp;&amp; r &lt;= 35 then scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 
-if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false then kingDied_1 = true;
+if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;
 </string>
           </argument>
         </arguments>

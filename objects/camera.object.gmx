@@ -165,7 +165,7 @@ if room == rm_zero
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_zoom -= 0.01;
+            <string>view_zoom -= 0.05;
 if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
@@ -189,7 +189,7 @@ if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_zoom+= 0.01;
+            <string>view_zoom+= 0.05;
 if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
