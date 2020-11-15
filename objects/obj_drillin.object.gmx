@@ -86,7 +86,7 @@ knockType = "FLY";
 
 if dropItem != true then exit;
 
-if irandom(10) = 1 then scr_dropItem(15,1,0,x,y-4,noone);
+if irandom(10) = 1 then scr_spawnEssence(1,10,1);
 </string>
           </argument>
         </arguments>

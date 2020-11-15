@@ -82,11 +82,10 @@ knock_resistance = 2;
 
 deathSound = snd_enemydie_boss;
 
-//Change some stats for the region king fight.
-if worldControl.raidBossID == id
+if raid_boss == true
 {
-    scale = 2.5; //from 2;
-    maxAccel = 3; //from 2;
+    scale = 2.5; 
+    maxAccel = 3;
 }
 </string>
           </argument>

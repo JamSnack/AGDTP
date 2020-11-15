@@ -75,6 +75,12 @@ knockType = "FLY";
 knock_resistance = waveScale(0.25,5,0.2,0.5);
 
 deathSound = snd_enemydie_boss;
+
+if raid_boss == true
+{
+    scale += 0.5; 
+    maxAccel += 0.2;
+}
 </string>
           </argument>
         </arguments>

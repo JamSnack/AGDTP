@@ -18,7 +18,7 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 //------FORCED WAVES----------------
 if interm == true
 {
-    if wave+1 == 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
+    if wave+1 >= 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
 }
 
 //----------------PRESET SETTINGS-------------------
@@ -69,7 +69,7 @@ switch presetSettings
         //---------- Normal Raid settings ---------
         // - 5% Chance to turn into a special raid.
         //#region Special Raids
-        if irandom(100) <= 20
+        if irandom(100) <= 10 && wave > 2
         {
             //Special raids
             special_raidID = choose("SR_Shadow");
@@ -87,10 +87,14 @@ switch presetSettings
                     
                     interm = false;
                     
+                    if wave >= 15
+                    {
+                        raidBoss = true;
+                        bossID = new_raidBoss();
+                    }
+                    
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
                     scr_overMessage("!!The Shadow Gremlins are swarming!!",global.fnt_menu,5,c_yellow,0,-35);
-                    
-                    scr_musicTransition(snd_wave_1,musicTransitionTime);
                 }
                 break;
             }
@@ -112,8 +116,6 @@ switch presetSettings
         }
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
-        
-        scr_musicTransition(snd_wave_1,musicTransitionTime);
     }
     break;
     
@@ -132,8 +134,6 @@ switch presetSettings
         bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_sphereKing);;
         
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
-        
-        scr_musicTransition(snd_Triple_King,musicTransitionTime);
     }
     break;
     
@@ -154,12 +154,29 @@ switch presetSettings
         raidBoss = true;
         bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_nilmerg);;
         
-        scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
-        
-        scr_musicTransition(snd_FlightoftheRegionKing,musicTransitionTime);
+        if kingDied_1 == false then scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
     }
     break;
 }
+
+//MUSIC CONTROL
+var _music = snd_overworld_1;
+
+if interm == false then _music = snd_wave_1;
+
+if instance_exists(bossID)
+{
+    var _boss = bossID.object_index;
+    
+    switch _boss
+    {
+        case obj_sphereKing: { _music = snd_Triple_King; } break;
+        case obj_nilmerg: { _music = snd_FlightoftheRegionKing; } break;
+    }
+}
+
+scr_musicTransition(_music,musicTransitionTime);
+
 
 //GREMBLOCK CONTROL
 //#region

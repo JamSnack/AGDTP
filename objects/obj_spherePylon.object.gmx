@@ -68,6 +68,7 @@ deathSound = noone;
 event_inherited();
 
 knock_resistance = 25;
+damage = 0;
 </string>
           </argument>
         </arguments>

@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>spd = 0;
+            <string>sprite_index = choose(spr_itemDrops,spr_menuGremlin);
+spd = 0;
 maxSpd = 5;
 dir=1;
 image_speed = 0;
@@ -77,9 +78,11 @@ image_angle+=spd*dir;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_index = irandom(sprite_get_number(sprite_index));
+            <string>if y &lt; room_height then exit;
+sprite_index = choose(spr_itemDrops,spr_menuGremlin);
+image_index = irandom(sprite_get_number(sprite_index));
 x = irandom(view_xview+view_wview);
-y = -6;
+y = -4-sprite_height;
 maxSpd = choose(4,5,6,7,8);
 dir=choose(1,-1);
 scale = random_range(0.5,1);

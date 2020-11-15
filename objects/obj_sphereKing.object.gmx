@@ -78,7 +78,12 @@ repeat(clamp(floor(wave/4),1,6))
     a.parentKing = id;
 }
 
-
+if raid_boss == true
+{
+    scale += 0.5; 
+    maxAccel += 0.2;
+    spwnRate-=0.25;
+}
 </string>
           </argument>
         </arguments>

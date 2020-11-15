@@ -92,6 +92,8 @@ instance_destroy();
           <argument>
             <kind>1</kind>
             <string>///BEHAVIOR STUFF
+if bBouncy == true then canBounce = true;
+
 if type == "BOOMERANG" &amp;&amp; canReverse == true
 {
     alarm[2] = room_speed*3;

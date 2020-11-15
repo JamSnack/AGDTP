@@ -45,6 +45,13 @@ audio_emitter_position(localEmitter,x,y,0);
 audio_emitter_gain(localEmitter,4); //volume
 
 deathSound = snd_enemydie_monster;
+
+//Change some stats for a true boss fight;
+if worldControl.raidBossID == id
+{
+    raid_boss = true;
+    maxHp += (maxHp/2); //extra 50% hp
+} else raid_boss = false;
 </string>
           </argument>
         </arguments>
