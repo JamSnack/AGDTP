@@ -68,11 +68,12 @@ switch current_state
         //var variation; //How much the gremlin will vary horizontally (use sine waves);
         var dir = sign(objective.x-x);
         var vdir = sign(objective.y-y);
+        var hAccelRate = accelRate/2;
         
         //Horizontal Acceleration
         if dir == -1 //Objective is to the right
-        { if hAccel > -maxAccel then hAccel -= accelRate; }
-        else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
+        { if hAccel > -maxAccel then hAccel -= hAccelRate; }
+        else if dir == 1 { if hAccel < maxAccel then hAccel += hAccelRate; }
         
         //Vertical Acceleration
         if vdir == -1 //Objective is up

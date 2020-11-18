@@ -325,10 +325,9 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
     if type == 1 || type == 2 then instance_destroy();
     else if type == "SPHERE"
     { if alarm[2] == -1 then alarm[2] = room_speed*8; }
-    else if type == "BOOMERANG" &amp;&amp; canReverse == true
+    else if type == "BOOMERANG"
     {
         if alarm[2] == -1 then alarm[2] = room_speed*3;
-        canReverse = false;
     }
 }
 </string>
