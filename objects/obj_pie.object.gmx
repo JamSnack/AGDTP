@@ -33,6 +33,8 @@ hurtAlarm = 0;
 light_level = 255;
 
 pieUi = noone;
+
+if room == rm_tutorial then visible = false;
 </string>
           </argument>
         </arguments>

@@ -74,6 +74,14 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         }
     }
     
+    // - questline data
+    var _list = _wrapper[? "QUEST"];
+    
+    if _list != undefined
+    {
+        mainQuest = _list[| 0];
+    }
+    
     
     
     ds_map_destroy(_wrapper);

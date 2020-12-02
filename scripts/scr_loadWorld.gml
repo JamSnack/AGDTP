@@ -1,5 +1,10 @@
-///scr_loadWorld();
+///scr_loadWorld(preset);
 randomize();
+var preset = argument0;
+
+/*-------- Presets:
+-- "TUTORIAL"
+*/
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
 var sizeY = 30;
 
@@ -8,6 +13,13 @@ var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
 
 var heightSeed = get_height_seed(15,"FLAT");
 var heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
+
+//Apply presets
+if preset == "TUTORIAL"
+{
+    heightSeed = "554334567776554";
+    heightNegativeSeed = "111111111000000111100";
+}
 
 
 //FlatLands and RAIDBOUND definition

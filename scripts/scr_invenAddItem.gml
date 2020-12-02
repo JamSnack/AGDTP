@@ -36,7 +36,7 @@ if item != 0
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);
             
             //Tutorial Quest
-            if room == rm_zero
+            if room == rm_tutorial
             {
                 if tutorialComplete == false
                 {

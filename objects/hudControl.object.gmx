@@ -100,6 +100,9 @@ showTaskList = true; //Show the player's tasks.
 lastPlaceX = noone;
 lastPlaceY = noone;
 
+//Upgrade menu
+upgradeMenu_visible = false;
+
 
 </string>
           </argument>
@@ -1020,8 +1023,8 @@ if invenX &gt; 5
     if selectedSlot != noone
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot]);
-        draw_text_transformed(6,119,text[0],1.25,1.25,0);
-        draw_text_transformed(6,140,text[1],1,1,0);
+        draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
+        draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
     }
 }
 
@@ -1267,6 +1270,37 @@ if interm == false
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
 }
 
+//-----------------Upgrade Menu-----------------------------
+if room = rm_lobby
+{
+    if upgradeMenu_visible == true
+    {
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
+    
+        draw_set_alpha(0.75);
+        draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
+        draw_set_alpha(1);
+        
+        //- INIT BUTTONS
+        var h_size = 12;
+        var v_size = 6;
+        
+        //- Regeneration Upgrade button
+        var xx = 15;
+        var yy = 12;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Regeneration");
+        
+        //- Tile base HP Upgrade button
+        var xx = 50;
+        var yy = 12;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Tile Strength");
+    }
+}
 
 draw_set_alpha(1);
 
@@ -1293,7 +1327,7 @@ draw_set_alpha(1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room == rm_zero
+            <string>if room == rm_zero || room == rm_tutorial
 {    
     //Building indicator
     var xx = round(mouse_x/16)*16;

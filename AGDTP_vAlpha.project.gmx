@@ -63,6 +63,10 @@
     <sound>sound\snd_Triple_King</sound>
   </sounds>
   <sprites name="sprites">
+    <sprites name="NPC">
+      <sprite>sprites\spr_timeGuy</sprite>
+      <sprite>sprites\spr_tadGremlin</sprite>
+    </sprites>
     <sprites name="player">
       <sprite>sprites\spr_playerIdle</sprite>
       <sprite>sprites\spr_playerWalk</sprite>
@@ -257,6 +261,7 @@
       <object>objects\obj_init</object>
       <object>objects\worldControl</object>
       <object>objects\camera</object>
+      <object>objects\init_tutorial</object>
     </objects>
     <object>objects\obj_player</object>
     <object>objects\obj_itemDrop</object>
@@ -326,12 +331,14 @@
     <object>objects\obj_twitterLink</object>
     <object>objects\obj_youtubeLink</object>
     <object>objects\obj_menuGremlin</object>
+    <object>objects\obj_timeGuy</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
     <room>rooms\rm_menu</room>
-    <room>rooms\rm_zero</room>
+    <room>rooms\rm_tutorial</room>
     <room>rooms\rm_lobby</room>
+    <room>rooms\rm_zero</room>
   </rooms>
   <constants number="10">
     <constant name="ATTACK">5</constant>

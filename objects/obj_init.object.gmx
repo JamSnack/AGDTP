@@ -195,8 +195,9 @@ part_type_blend(part_stone_frag, false);
 part_type_life(part_stone_frag, 45, room_speed);
 
 //Gameplay globals
-globalvar kingDied_1;
+globalvar kingDied_1,mainQuest;
 kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
+mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
 
 </string>
           </argument>
@@ -268,7 +269,8 @@ window_center();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>zoom = 3;
+            <string>if window_get_fullscreen() == true then exit;
+zoom = 3;
 
 window_set_size(ideal_width*zoom,ideal_height*zoom);
 surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
@@ -295,7 +297,9 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>zoom = 1;
+            <string>if window_get_fullscreen() == true then exit;
+
+zoom = 1;
 window_set_size(ideal_width*zoom,ideal_height*zoom);
 surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
 alarm[0]=1;

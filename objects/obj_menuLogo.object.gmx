@@ -152,8 +152,12 @@ var dy = mouse_y;
 
 if playButton_active == true &amp;&amp; point_in_rectangle(dx,dy,x-60,y+60,x+60,y+120)
 {
-    scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_lobby);
     scr_loadGame();
+    
+    if mainQuest == 0
+    { scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_tutorial); }
+    else
+    { scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,45/60,rm_lobby); }
 }
 
 //- Delete save file

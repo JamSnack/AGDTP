@@ -39,8 +39,17 @@ stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 
 if room == rm_zero 
 {
-    scr_loadWorld();
+    scr_loadWorld(noone);
     scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
+    alarm[0] = 1;
+    alarm[1] = 120;
+    plr_xBuffer = 0;
+    plr_yBuffer = 0;
+}
+else if room == rm_tutorial
+{
+    scr_loadWorld("TUTORIAL");
+    scr_raidControl(0,0,0,0,0); //Tutorial stuff
     alarm[0] = 1;
     alarm[1] = 120;
     plr_xBuffer = 0;

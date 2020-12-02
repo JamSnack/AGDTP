@@ -61,7 +61,8 @@ if instance_exists(no_col)
     if distance_to_object(no_col) <= pickRange*16 && collision_line(x,y,no_col.x,no_col.y,no_col,false,false)
     {
         //Damage the tile
-        if no_col.level <= pl then no_col.hp -= (pd-(pl/2));
+        if collision_point(mouse_x,mouse_y,PLR_NOCOL,false,false) then no_col.hp -= no_col.maxHp
+        else if no_col.level <= pl then no_col.hp -= (pd-(pl/2));
         
         //Check for tile death otherwise heal.
         if no_col.hp <= 0 

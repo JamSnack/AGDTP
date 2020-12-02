@@ -109,7 +109,7 @@ if instance_exists(gameControl)
 //--Smaller the number the slower the background moves
 
 //Need to change this to account for other regions in the future ;p
-if room == rm_zero
+if room == rm_zero || room == rm_tutorial
 {
     cloudBkg_xOffset += 0.05;
     if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;

@@ -2,7 +2,7 @@
 <sprite>
   <type>0</type>
   <xorig>6</xorig>
-  <yorigin>16</yorigin>
+  <yorigin>17</yorigin>
   <colkind>1</colkind>
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
@@ -18,7 +18,7 @@
   </TextureGroups>
   <For3D>0</For3D>
   <width>15</width>
-  <height>33</height>
+  <height>34</height>
   <frames>
     <frame index="0">images\spr_playerWalk_0.png</frame>
     <frame index="1">images\spr_playerWalk_1.png</frame>

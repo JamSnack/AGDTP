@@ -111,6 +111,7 @@ if _playerY &gt; stoneLayer-(16)
             <string>///SAVE GAME
 var save_list = ds_list_create(); //Inventory data
 var king_list = ds_list_create(); //Region kings defeated
+var quest_list = ds_list_create(); //List containing quest progress
 
 
 //Save the inventory;
@@ -159,12 +160,14 @@ with hudControl
 
 //Save other variables
 ds_list_add(king_list,kingDied_1);
+ds_list_add(quest_list,mainQuest);
 
 //Game maker prefers to start with a ds_map.
 //Wrap the root List up in a map!
 var _wrapper = ds_map_create();
 ds_map_add_list(_wrapper,"INV",save_list);
 ds_map_add_list(_wrapper,"KING",king_list);
+ds_map_add_list(_wrapper,"QUEST",quest_list);
 
 //Save to a string
 var str = json_encode(_wrapper);
@@ -288,29 +291,6 @@ draw_text(80,0,"king1 dead: "+string(kingDied_1));
           <argument>
             <kind>1</kind>
             <string>if dev == true then game_restart();
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="80">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>kingDied_1 = false;
 </string>
           </argument>
         </arguments>

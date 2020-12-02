@@ -480,19 +480,27 @@ hp = clamp(hp,0,maxHp);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Crafting Menu    
-if distance_to_object(INTERACT) &lt;= 32 &amp;&amp; instance_nearest(x,y,INTERACT).bench == true //Two tiles away
-{
+            <string>///Crafting Menu
 
-    with instance_nearest(x,y,INTERACT) event_user(14);
-    
+var _int = instance_nearest(x,y,INTERACT);
+
+if distance_to_object(INTERACT) &lt;= 32 //Two tiles away
+{
+    //Grab the new crafting recipes
+    if _int.bench == true
+    { with _int event_user(14); }
 }
 else
 {
     hudControl.alarm[1] = 20; //Remove recipes when player leaves range.
     hudControl.craftingMenu = 2; //Pie Recipes
     hudControl.craftingSpriteSet = spr_pieCraftableItems;
-    hudControl.currentCraftingSlots = sprite_get_number(spr_pieCraftableItems); //How many slots to include.   
+    hudControl.currentCraftingSlots = sprite_get_number(spr_pieCraftableItems); //How many slots to include.
+    
+    if room == rm_lobby
+    {
+        hudControl.upgradeMenu_visible = false;
+    }
 }
 </string>
           </argument>

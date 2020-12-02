@@ -9,7 +9,7 @@ var str;
 switch currentTask
 {
     case 0: //First task in the game.
-    { str = "Explore the world!#Break trees and#collect 30 sticks!# " } break;
+    { str = "Help Barry repair his house!#Find and break a tree.#Collect 30 Sticks." } break;
     case 1: //Task 2
     { str = "Press 'C' to open# the crafting menu!" } break;
     case 2:

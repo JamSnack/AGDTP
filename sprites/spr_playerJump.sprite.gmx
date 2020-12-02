@@ -2,15 +2,15 @@
 <sprite>
   <type>0</type>
   <xorig>10</xorig>
-  <yorigin>14</yorigin>
+  <yorigin>16</yorigin>
   <colkind>1</colkind>
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>5</bbox_left>
+  <bbox_left>4</bbox_left>
   <bbox_right>20</bbox_right>
   <bbox_top>0</bbox_top>
-  <bbox_bottom>28</bbox_bottom>
+  <bbox_bottom>30</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
@@ -18,7 +18,7 @@
   </TextureGroups>
   <For3D>0</For3D>
   <width>21</width>
-  <height>29</height>
+  <height>31</height>
   <frames>
     <frame index="0">images\spr_playerJump_0.png</frame>
     <frame index="1">images\spr_playerJump_1.png</frame>

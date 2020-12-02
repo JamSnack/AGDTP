@@ -2,7 +2,7 @@
 //Destroy the flatlands!!!!!! :::::::::::::####:#$ Gremlin script... ? no.. unless?
 
 //Only useable in a region room during intermission.
-if room == rm_zero
+if room == rm_zero || room == rm_tutorial
 {
     if interm == true
     {
