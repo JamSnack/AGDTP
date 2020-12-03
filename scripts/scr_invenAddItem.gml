@@ -35,20 +35,6 @@ if item != 0
             hudControl.inventorySlotAmt[i] += invAmt;
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);
             
-            //Tutorial Quest
-            if room == rm_tutorial
-            {
-                if tutorialComplete == false
-                {
-                    if currentTask == 0 //30 sticks
-                    { if hudControl.inventorySlotIcon[i] == 9 && hudControl.inventorySlotAmt[i] >= 5 { currentTask = 1; }}
-                    if currentTask == 3 //8 packed dirt
-                    { if hudControl.inventorySlotIcon[i] == 6 && hudControl.inventorySlotAmt[i] >= 8 { currentTask = 4; }}
-                    if currentTask == 4 //2 coppor ore
-                    { if hudControl.inventorySlotIcon[i] == 10 && hudControl.inventorySlotAmt[i] >= 2 { currentTask = 5; }}
-                }
-            }
-            
             return 2; 
         } 
         else if i == maxInvenSlots-1 && newSlot = false { i = 0; newSlot = true;}

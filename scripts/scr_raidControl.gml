@@ -51,16 +51,14 @@ switch presetSettings
             //scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
         }
         
-        //Tutorial quest
-        if currentTask == 5 { if wave >= 5 then currentTask = 6}
         
         if instance_exists(GREM_BLOCK) then with GREM_BLOCK instance_destroy();
-        
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
-        
         scr_musicTransition(snd_overworld_1,musicTransitionTime);
-        
         nextRaid = "RAID";
+        
+        //Tutorial Quest
+        if currentTask == 4 { currentTask = 5; obj_tutorialControl.alarm[1] = room_speed*5; }
     }
     break;
     

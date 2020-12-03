@@ -216,8 +216,6 @@ if dev == true
         draw_text(10,20,"Next Wave: "+string(wave+1)); 
     }
 }
-
-draw_text(80,0,"king1 dead: "+string(kingDied_1));
 </string>
           </argument>
         </arguments>

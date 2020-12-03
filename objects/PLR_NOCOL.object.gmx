@@ -291,7 +291,7 @@ scr_deactivateOffscreen(self);
           <argument>
             <kind>1</kind>
             <string>draw_self();
-if hp != maxHp then draw_sprite(spr_break,clamp((hp/maxHp)*50,0,hp),x,y);
+if hp != maxHp then draw_sprite(spr_break,(hp/maxHp)*10,x,y);
 </string>
           </argument>
         </arguments>

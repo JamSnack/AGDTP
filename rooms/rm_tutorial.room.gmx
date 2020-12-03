@@ -97,7 +97,6 @@
     <instance objName="obj_woodenStilt" x="1296" y="288" name="inst_3F6004D1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="288" name="inst_1A7E73DD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1328" y="288" name="inst_25F305BB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_woodenStilt" x="1328" y="304" name="inst_EDC7B101" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1296" y="304" name="inst_924FC002" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="304" name="inst_E5C6BDC0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1328" y="320" name="inst_27C556FE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -107,6 +106,13 @@
     <instance objName="obj_woodenStilt" x="1280" y="336" name="inst_F884A4E9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1296" y="320" name="inst_6E24971F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="320" name="inst_C5911740" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialControl" x="1280" y="336" name="inst_17F6AB51" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_woodenStilt" x="1328" y="304" name="inst_EC563528" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialDirt" x="1184" y="368" name="inst_6715C7D7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialDirt" x="1184" y="352" name="inst_29904D9A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialDirt" x="1168" y="352" name="inst_8CE1FACB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialDirt" x="1168" y="368" name="inst_86D58F34" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialWorkbench" x="1312" y="336" name="inst_2253768D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

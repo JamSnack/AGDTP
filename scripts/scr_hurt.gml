@@ -6,7 +6,6 @@ var time = argument1; //Time until it can be hurt again.
 var knock = argument2; //Whether or not to apply knockback.
 var knockAmt = argument3; // How much knockback to be applied.
 
-
 //Protect chests from abuse
 var other_parent = object_get_parent(other.object_index);
 
@@ -16,29 +15,41 @@ if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == E
 if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1 || object_get_parent(object_index) == PLR_NOCOL
     { knock = false; damage = round(damage/10)+1 }
 
-//Enemy death event.
-if (hp-damage <= 0) && other.object_index == obj_projectile && (object_get_parent(object_index) == GR_ENEMY || object_get_parent(object_index) == ENEMY)
+//DEATH
+if (hp-damage <= 0)
 {
-    //ENEMY DEATH TAGS
-    var _ran = irandom(100);
-    var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
-    
-    if ds_exists(tagsUnloaded,ds_type_list)
+    //Death to enemies
+    if other.object_index == obj_projectile && (object_get_parent(object_index) == GR_ENEMY || object_get_parent(object_index) == ENEMY)
     {
-        for (i=0;i<ds_list_size(tagsUnloaded);i++)
+        //ENEMY DEATH TAGS
+        var _ran = irandom(100);
+        var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+        
+        if ds_exists(tagsUnloaded,ds_type_list)
         {
-            var tag = tagsUnloaded[| i]
-            
-            //Grenade
-            if tag == "Grenade" 
-            { 
-                //Tie chance to this in the future.
-               var _gre = instance_create(x,y,obj_grenade);
-               _gre.damage = damage/2;
+            for (i=0;i<ds_list_size(tagsUnloaded);i++)
+            {
+                var tag = tagsUnloaded[| i]
+                
+                //Grenade
+                if tag == "Grenade" 
+                { 
+                    //Tie chance to this in the future.
+                   var _gre = instance_create(x,y,obj_grenade);
+                   _gre.damage = damage/2;
+                }
             }
         }
     }
-} 
+    
+    
+    //Destroy tiles immediately
+    if (object_index == PLRTILE || object_index == TILE)
+    {
+        itemDrop = false;
+        instance_destroy();
+    }
+}
 
 if canHurt == false then exit; //Don't hurt unhurtable objects :)
 canHurt = false;

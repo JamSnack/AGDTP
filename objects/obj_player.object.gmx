@@ -95,8 +95,6 @@ friction = 0.3;
 audio_listener_orientation(0,0,1000,0,-1,0);
 localEmitter = audio_emitter_create();
 audio_emitter_gain(localEmitter,5);
-
-scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
