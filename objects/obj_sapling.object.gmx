@@ -39,6 +39,8 @@ if !(position_meeting(x,y+16,FLATLAND) || position_meeting(x,y+16,TILE) || posit
     instance_destroy();
     scr_tileUpdate(x,y,);
 }
+
+origin_wave = wave; //The wave that the tree was placed on.
 </string>
           </argument>
         </arguments>

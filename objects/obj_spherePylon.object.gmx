@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the Pylon
+if nextRaid == "SPHERE" then instance_destroy();
 
 canActiveRegion = false;
 canHurt = true;

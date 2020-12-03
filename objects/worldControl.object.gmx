@@ -100,7 +100,7 @@ global.light_surface = surface_create(display_get_width(),display_get_height());
             <string>///Spawn gremlins
 
 var _viewX = view_xview[0];
-var _viewW = view_wview[0]+_viewX;
+var _viewW = view_wview[0]+_viewX; //wview is a constant denoting the size of the view.
 var _viewY = view_yview[0];
 var _viewH = view_hview[0]+_viewY;
 
@@ -151,7 +151,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(50) &gt;= 49
+            if irandom(50) &gt;= 49 &amp;&amp; nextRaid != "SPHERE"
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -162,22 +162,24 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
     if array_length_1d(enemyActiveList) &gt; 3 { enemyActiveList = 0; }
     
     
-} else if instance_number(ENEMY) &gt;= maxGrem
+} 
+else if instance_number(ENEMY) &gt;= maxGrem
 {
     //Despawn an offview gremlin.
     for (i=0;i&lt;instance_number(ENEMY);i++)
     {
         var grem = instance_find(ENEMY,i);
         var gx = grem.x;
+        var gy = grem.y;
         
         //Don't despawn the boss
         if grem == raidBossID then break;
         
         //Don't despawn things inside the Flatlands
-        if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper)
+        if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper) || (gy &lt;= stoneLayer)
         {
             //Check whether or not the gremlin is visible.
-            if !point_in_rectangle(grem.x,grem.y,_viewX,_viewY,_viewW,_viewH)
+            if !point_in_rectangle(gx,gy,_viewX,_viewY,_viewW,_viewH)
             {
                 with grem { dropItem = false; instance_destroy(); }
                 break;
@@ -244,7 +246,7 @@ if view_zoom != view_zoom_buffer
         with obj_itemDrop scr_deactivateOffscreen(id);
         with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
         with INTERACT scr_deactivateOffscreen(id);
-        with NOCOL if object_get_parent(id) != PLR_NOCOL then scr_deactivateOffscreen(id);
+        with NOCOL if object_get_parent(object_index) != PLR_NOCOL then scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);

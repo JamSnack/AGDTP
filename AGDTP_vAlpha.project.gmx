@@ -148,6 +148,7 @@
       <sprite>sprites\fnt_ui</sprite>
       <sprite>sprites\spr_ui_invenSlot</sprite>
       <sprite>sprites\spr_ui_button</sprite>
+      <sprite>sprites\spr_ui_9slice_small</sprite>
       <sprite>sprites\spr_ui_arrow_down</sprite>
       <sprite>sprites\spr_ui_modConfirm</sprite>
       <sprite>sprites\spr_ui_9slice</sprite>
@@ -274,6 +275,7 @@
   </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
+    <font>fonts\fnt_karma</font>
   </fonts>
   <objects name="objects">
     <objects name="Control">

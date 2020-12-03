@@ -81,6 +81,7 @@ room_goto(room_next(room));
 //Font
 global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
 global.fnt_Ui = font_add_sprite_ext(fnt_ui_new,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
+global.fnt_boxy = font_add_sprite_ext(fnt_ui_new,"!*+,-./0123'456789:;&lt;=#&gt;?@abcdefg$hijklmnopq%rstuvwxyz[&amp;\]^_'`(){|}~",0,0);
 
 
 

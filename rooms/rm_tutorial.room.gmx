@@ -75,25 +75,26 @@
     <instance objName="obj_packedStone" x="1360" y="272" name="inst_73D921C3" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1280" y="256" name="inst_2860A67C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1296" y="256" name="inst_BF919439" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_packedStone" x="1264" y="368" name="inst_2D5A24E2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_packedDirt" x="1280" y="352" name="inst_74C9C025" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1312" y="256" name="inst_BCF0AC35" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1328" y="256" name="inst_B2D5BCA7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedDirt" x="1264" y="352" name="inst_86A72D64" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_packedDirt" x="1280" y="352" name="inst_74C9C025" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedDirt" x="1296" y="352" name="inst_F2E0D1DB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedDirt" x="1312" y="352" name="inst_3FA51A92" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedDirt" x="1328" y="352" name="inst_338A2E4B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_woodenStilt" x="1280" y="320" name="inst_1B0864BD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_woodenStilt" x="1280" y="304" name="inst_E61510D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_woodenStilt" x="1280" y="288" name="inst_06A14ECC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedDirt" x="1344" y="352" name="inst_EB7E6E0A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1248" y="368" name="inst_DAB49B7D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_packedStone" x="1264" y="368" name="inst_2D5A24E2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1280" y="368" name="inst_66B98B39" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1296" y="368" name="inst_D97C85F7" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1312" y="368" name="inst_C574C6DE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1328" y="368" name="inst_1E45D3E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1344" y="368" name="inst_B9B04661" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_packedStone" x="1360" y="368" name="inst_6325EA2E" locked="0" code="with PLRTILE scr_tileUpdate(x,y);&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_woodenStilt" x="1280" y="320" name="inst_1B0864BD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_woodenStilt" x="1280" y="304" name="inst_E61510D6" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_woodenStilt" x="1280" y="288" name="inst_06A14ECC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_woodenStilt" x="1280" y="336" name="inst_F884A4E9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1296" y="288" name="inst_3F6004D1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="288" name="inst_1A7E73DD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1328" y="288" name="inst_25F305BB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
@@ -103,7 +104,6 @@
     <instance objName="obj_woodenStilt" x="1328" y="336" name="inst_AE41D8B4" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="336" name="inst_DD141D56" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1296" y="336" name="inst_E92B619D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_woodenStilt" x="1280" y="336" name="inst_F884A4E9" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1296" y="320" name="inst_6E24971F" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_woodenStilt" x="1312" y="320" name="inst_C5911740" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_tutorialControl" x="1280" y="336" name="inst_17F6AB51" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>

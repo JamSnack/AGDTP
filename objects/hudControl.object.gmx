@@ -80,7 +80,7 @@ modCanConfirm = false;
 inventorySlotIcon[maxInvenSlots-1] = 0;
 inventorySlotAmt[maxInvenSlots-1] = 0;
 inventorySlotType[maxInvenSlots-1] = 0;
-inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '3' tag slots.
+inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
 
 
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -95,6 +95,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
 settingsMenu = false; //Whether settings menu is visible or not.
 showPopMessage = true; //Whether or not to use popMessages.
 showTaskList = true; //Show the player's tasks.
+showBackground = true;
 
 //Place Tiles
 lastPlaceX = noone;
@@ -553,6 +554,16 @@ if settingsMenu = true
     //- Debug mode
     if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
     { dev = !dev; show_debug_overlay(dev); }
+    
+    //- toggle background
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    { 
+        showBackground = !showBackground;
+        background_visible[2] = showBackground;
+        background_visible[3] = showBackground;
+        background_visible[4] = showBackground;
+        background_visible[5] = showBackground;
+    }
     
     
     //- Exit button
@@ -1025,8 +1036,11 @@ if invenX &gt; 5
     if selectedSlot != noone
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot]);
-        draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
+        var _text = text[0]+"##"+text[1]+"##"+text[2];
+        draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),_text,0.8,0.8,0);
+        /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
         draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
+        draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
     }
 }
 
@@ -1071,7 +1085,7 @@ if invenX &lt;= 5
 
 if showCraftingMenu == true
 {
-    //- draw background --Change to NineSliceBox
+    //- draw background
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
     
@@ -1125,8 +1139,8 @@ if showCraftingMenu == true
         draw_set_font(global.fnt_Ui);
         
         //Tag and Equipment Slots respectively
-        draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
-        draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
+        draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
+        draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
         
         //Draw icons
         if selectedTag != noone 
@@ -1242,6 +1256,10 @@ if settingsMenu == true
     //Debug setting
     draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
     draw_text(xx-32,yy-33,"Debug Mode");
+    
+    //toggle background setting
+    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
+    draw_text(xx-32,yy-23,"Toggle Background");
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);

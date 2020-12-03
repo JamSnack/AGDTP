@@ -72,7 +72,6 @@ if instance_exists(no_col)
         
             with no_col { instance_destroy(); }
             scr_tileUpdate(cx,cy);
-            scr_noCollisionTileUpdate(cx,cy);
             
         } else no_col.alarm[0] = room_speed*5;
     }

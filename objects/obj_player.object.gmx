@@ -482,11 +482,10 @@ hp = clamp(hp,0,maxHp);
 
 var _int = instance_nearest(x,y,INTERACT);
 
-if distance_to_object(INTERACT) &lt;= 32 //Two tiles away
+if distance_to_object(INTERACT) &lt;= 32 &amp;&amp; _int.bench == true //Two tiles away
 {
     //Grab the new crafting recipes
-    if _int.bench == true
-    { with _int event_user(14); }
+    with _int event_user(14);
 }
 else
 {
@@ -645,7 +644,7 @@ platformCollide = false;
             <kind>1</kind>
             <string>///Use Tool
 //Check for inventory use
-if dead == false
+if dead == false &amp;&amp; hudControl.settingsMenu == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
@@ -653,6 +652,7 @@ if dead == false
     //Defines the crafting menu's dimensions.
     var _cmX = view_wview[0]/2-120;
     var _cmY = view_hview[0]/2-105;
+    
     if 
         //- Inventory stipulations
         !point_in_rectangle(dx,dy,0,5,125,15) &amp;&amp; !point_in_rectangle(dx,dy,0,50,hudControl.invenX,70) 

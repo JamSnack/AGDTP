@@ -63,8 +63,6 @@ if !isConnected(x,y) then instance_destroy();
 //ACTION MUST BE DELAYED A FRAME. ALARM USAGE IS NECESSARY.
 scr_updateConnections(x,y);
 scr_tileUpdate(x,y);
-scr_playerTileUpdate(x,y);
-scr_noCollisionTileUpdate(x,y);
 </string>
           </argument>
         </arguments>

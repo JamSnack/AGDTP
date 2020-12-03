@@ -69,7 +69,7 @@ canExit = false;
           <argument>
             <kind>1</kind>
             <string>///Background control
-if !instance_exists(obj_player) then exit;
+if !instance_exists(obj_player) || hudControl.showBackground == false then exit;
 
 var backgroundAlpha;
 var _playerY = obj_player.y;

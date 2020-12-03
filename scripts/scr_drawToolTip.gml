@@ -1,6 +1,7 @@
 ///scr_drawToolTip(itemID);
-text[0] = "" //Item Name
+text[0] = ""; //Item Name
 text[1] = ""; //Item Description
+text[2] = ""; //Tag descriptions
 
 /*##############text[1] CONVENTIONS##################
 
@@ -15,7 +16,9 @@ scr_applyWeaponStats();
 scr_applyPiackaxeStats();
 */
 
-switch hudControl.inventorySlotType[selectedSlot]
+//MEANT FOR USE INSIDE hudControl!!!
+
+switch inventorySlotType[selectedSlot]
 {
     case ITEMTYPE.weapon:
     {
@@ -58,4 +61,56 @@ switch argument0
     case ITEMID.tile_modBench: { text[0] = "Mod Bench"; text[1] = "Use this workbench to modify#your tools!"; } break;
     case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] += "#Nilmerg's stinger."; } break;
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] += "#A home-bound friend."; } break;
+}
+
+//TAG TEXT
+
+var tagsUnloaded = inventorySlotTags[selectedSlot];
+
+//-TAG DESCRIPTIONS;
+/*
+----------DESCRIPTION NOTATION------------
+On projectile hit: effect
+On enemy killed: effect
+Projectile effect: effect
+Stat Effect: effect
+*/
+
+
+if ds_exists(tagsUnloaded,ds_type_list)
+{
+    for (i=0;i<ds_list_size(tagsUnloaded);i++)
+    {
+        //Title of the tag.
+        var text_buffer = "";
+        var tag = tagsUnloaded[| i];
+        
+        //Check to see if we're adding a new description to text[2];
+        if (i > 0 && tagsUnloaded[| i] != tagsUnloaded[| i-1]) || (i == 0)
+        { 
+            text_buffer = tagsUnloaded[| i]+":#"; 
+            
+            switch tagsUnloaded[| i]
+            {
+            //Increases projectile speed
+                case "Bouncy": { text_buffer += "Projectile Effect: Projectiles will bounce off of hard surfaces."; } break;
+                case "Hive": {text_buffer += "On Projectile Hit: Spawns a stinger that deals#half the tool's damage."; } break;
+                case "Tool Speed+": {text_buffer = "Stat Effect: Decreases a tool's cooldown by 20%."} break;
+                case "Grenade": {text_buffer += "On Enemy Killed: Spawns an explosion, dealing half#of the tool's damage to gremlins within a#3 1/2 tile radius."} break;
+                case "Bright": { text_buffer += "Stat Effect: Increases the player's brightness when held."; } break;
+            }
+        }
+        else
+        //If we aren't adding a new description, add something else.
+        { 
+            //If the tags are the same, add a "x2"
+            if i > 0 && tag == tagsUnloaded[| i-1]
+            {
+                text_buffer = "#x2";
+            }
+        }
+        
+        //Apply description
+        text[2] += text_buffer+"#";
+    }
 }

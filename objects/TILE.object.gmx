@@ -62,7 +62,11 @@ event_inherited();
 {
     part_particles_create(particle_system,x,y,tile_frag,irandom_range(4,8));
     scr_dropItem(item,amt,type,x,y+4,noone);
+    
+    //Update nearby player tiles.
+    scr_updateConnections(x,y);
 }
+
 </string>
           </argument>
         </arguments>
