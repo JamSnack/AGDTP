@@ -126,7 +126,7 @@ if canPickUp == true &amp;&amp; insideView() == true
             <string>if scr_invenAddItem(ITEMID.item_gremEssence,amt,type,tags) != -1 
 {
     instance_destroy();
-    scr_playSound(obj_player.localEmitter,snd_itemPickup,false,10,obj_player.x,obj_player.y);
+    scr_playSound(snd_itemPickup,false,10,obj_player.x,obj_player.y,0.8);
 }
 else 
 {alarm[0] = room_speed*2; canPickUp = false;}

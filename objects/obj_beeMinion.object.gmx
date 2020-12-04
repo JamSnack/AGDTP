@@ -93,7 +93,7 @@ if c &lt;= 12 then scr_spawnEssence(1,10,2); //~10% chance
 if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 
 {
     scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
-    scr_playSound(obj_player.localEmitter,snd_rareItem,false,8,x,y);
+    scr_playSound(snd_rareItem,false,8,x,y,1);
 }
 </string>
           </argument>

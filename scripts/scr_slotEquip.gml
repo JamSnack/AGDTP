@@ -31,7 +31,7 @@ if _item != ITEMID.nil && obj_player.toolReady == true
     }
     
     obj_player.tool = _tool;
-    scr_playSound(obj_player.localEmitter,snd_inventoryClick,false,8,obj_player.x,obj_player.y);
+    scr_playSound(snd_inventoryClick,false,8,obj_player.x,obj_player.y,1);
 }
 
 //TAG RESETS

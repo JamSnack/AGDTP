@@ -1,0 +1,6 @@
+// 2020-12-04 12:15:27
+/// scr_playSound(soundID, ...)
+///scr_playSound(soundID,loop,priority,x,y,volume);
+#args soundID,loop,priority,x,y,volume
+audio_sound_gain(snd,argument5,0);
+audio_play_sound_at(snd,argument3,argument4,0,0,16*6,1,argument1,argument2); 

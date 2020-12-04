@@ -88,8 +88,7 @@ switch presetSettings
                     if wave >= 15
                     {
                         raidBoss = true;
-                        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_shadowGremlin);
-                        bossID.raid_boss = true;
+                        bossID = new_raidBoss(obj_shadowGremlin);
                     }
                     
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
@@ -111,7 +110,7 @@ switch presetSettings
         if random(1) < wave/10 && wave > 2
         {
             raidBoss = true;
-            bossID = new_raidBoss();
+            bossID = new_raidBoss(0);
         }
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
@@ -130,7 +129,7 @@ switch presetSettings
         interm = false;
         
         raidBoss = true;
-        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_sphereKing);;
+        bossID = new_raidBoss(obj_sphereKing);
         
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
     }
@@ -151,7 +150,7 @@ switch presetSettings
         interm = false;
         
         raidBoss = true;
-        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_nilmerg);;
+        bossID = new_raidBoss(obj_nilmerg);
         
         if kingDied_1 == false then scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
     }

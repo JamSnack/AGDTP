@@ -119,7 +119,7 @@ if opened == false
             amt = 1;
             _t = ds_list_create();
             ds_list_add(_t,"Bright");
-            scr_playSound(obj_player.localEmitter,snd_rareItem,false,8,x,y);
+            scr_playSound(snd_rareItem,false,8,x,y,1);
         }
         
         if itemSelector = copper then amt = cAmt else if itemSelector = stick then amt = sAmt;

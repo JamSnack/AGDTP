@@ -173,11 +173,11 @@ else if instance_number(ENEMY) &gt;= maxGrem
         var gx = grem.x;
         var gy = grem.y;
         
-        //Don't despawn the boss
-        if grem == raidBossID then break;
+        //Don't despawn the bosses
+        if grem == raidBossID || grem.canDespawn == false then break;
         
-        //Don't despawn things inside the Flatlands
-        if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper) || (gy &lt;= stoneLayer)
+        //Don't despawn things inside the Flatlands and above the stone layer
+        if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper) &amp;&amp; (gy &gt;= stoneLayer)
         {
             //Check whether or not the gremlin is visible.
             if !point_in_rectangle(gx,gy,_viewX,_viewY,_viewW,_viewH)

@@ -2,7 +2,7 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
@@ -35,14 +35,10 @@ knock_resistance = 0.2;
 agility = 0.1;
 dropItem = true;
 death_gib = part_gib;
+canDespawn = true;
 
 //Prevent spawning inside tiles.
 while place_meeting(x,y,OBSTA) y -= 16;
-
-//Audio
-localEmitter = audio_emitter_create();
-audio_emitter_position(localEmitter,x,y,0);
-audio_emitter_gain(localEmitter,4); //volume
 
 deathSound = snd_enemydie_monster;
 
@@ -78,11 +74,10 @@ if worldControl.raidBossID == id
             <string>///Destroy Audio Emitter
 if deathSound != noone &amp;&amp; insideView() == true 
 {
-    scr_playSound(obj_player.localEmitter,deathSound,false,8,x,y);
+    scr_playSound(deathSound,false,8,x,y,1);
     
     part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
 }
-audio_emitter_free(localEmitter);
 </string>
           </argument>
         </arguments>
@@ -159,7 +154,7 @@ if visible = false then visible = true;
           <argument>
             <kind>1</kind>
             <string>///Hit Event
-scr_playSound(localEmitter,snd_hit,false,4,x,y);
+scr_playSound(snd_hit,false,4,x,y,0.8);
 
 //Death check
 if hp &lt;= 0 then instance_destroy();

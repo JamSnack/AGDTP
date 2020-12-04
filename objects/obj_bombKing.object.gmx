@@ -116,7 +116,7 @@ if r &gt;= 85
     var t = ds_list_create();
     ds_list_add(t,"Grenade");
     scr_dropItem(ITEMID.item_modTag,1,0,x,y-4,t);
-    scr_playSound(obj_player.localEmitter,snd_rareItem,false,11,x,y);
+    scr_playSound(snd_rareItem,false,11,x,y,1);
 }
 </string>
           </argument>

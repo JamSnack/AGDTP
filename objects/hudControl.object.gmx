@@ -378,7 +378,7 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
             
             event_user(0); //Reset the mod bench.
             
-            scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
+            scr_playSound(snd_modificationSuccess,false,10,obj_player.x,obj_player.y,1);
         } 
         else 
         {

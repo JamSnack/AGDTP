@@ -1,4 +1,7 @@
-///new_raidBoss();
+///new_raidBoss(desired_boss);
+//desired_boss: leave as '0' if no boss is desired. This will overwrite the boss generation.
+var desired_boss = argument0;
+
 //instance_create a gremlin based on wave number.
 var _repeat = 0;
 var gremNumber = irandom(100); //The number used to generate the gremlin out of 100%
@@ -30,13 +33,23 @@ while true
         break;
     }
     
-    var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,i);
+    if desired_boss == 0
+    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,i); }
+    else
+    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,desired_boss); }
+    
+    //All boss mobs should not despawn.
+    g.canDespawn = false;
     
     //Spawning more than once boss.
     if _repeat == 0
     { 
-        //Inform the mob of its new title
+        //Inform the mob of its new title as leading boss
         g.raid_boss = true;
+        
+        //Reinitialize the gremlin, buffing it.
+        with g event_perform(ev_create,0);
+        
         return g;
         break;
     }
