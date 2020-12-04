@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>event_inherited();
-maxHp = 15;
+maxHp = 12;
 hp = maxHp;
 
 tileID = 12;
@@ -35,9 +35,11 @@ type = 3;
 //Turret stuff
 target = 0;
 targetRange = 7*16; //7 Tiles
-fireRate = 0.5; //How many seconds are in-between shots.
+fireRate = 0.75; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
+ammoMax = 5;
+ammo = 0;
 </string>
           </argument>
         </arguments>
@@ -61,16 +63,23 @@ turretDirection = 0;
           <argument>
             <kind>1</kind>
             <string>///Attack/Target Enemy
-if instance_exists(ENEMY)
+if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 {
     var nearestEnemy = instance_nearest(x,y,ENEMY);
     
     if distance_to_object(nearestEnemy) &lt;= targetRange
     {
         target = nearestEnemy;
-        scr_turretBulletCreate(x,y,nearestEnemy,5,8);
+        scr_turretBulletCreate(x,y,nearestEnemy,6,5);
         turretDirection = point_direction(x,y,target.x,target.y);
+        ammo -= 1;
     }
+}
+
+if ammo &lt; ammoMax &amp;&amp; energy &gt; 0
+{
+    energy -= 1;
+    ammo += 1;
 }
 
 alarm[11] = fireRate*room_speed;
@@ -100,6 +109,7 @@ alarm[11] = fireRate*room_speed;
 
 //Draw head
 draw_sprite_ext(spr_turretHead,0,x,y,1,1,turretDirection,c_white,1);
+draw_text(x,y+10,string(ammo));
 </string>
           </argument>
         </arguments>

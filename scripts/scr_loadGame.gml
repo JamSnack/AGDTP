@@ -82,12 +82,22 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         mainQuest = _list[| 0];
     }
     
+    //- Player stat data
+    var _list = _wrapper[? "STAT"];
+    
+    if _list != undefined
+    {
+        energyRegenRate = _list[| 0];
+        energyMax = _list[| 1];
+    }
     
     
     ds_map_destroy(_wrapper);
     print("Game Loaded");
-} else if empty == true
+} 
+else if empty == true
 {
+    //Gift a fresh inventory.
     scr_invenAddItem(3,0,1,noone);
     scr_invenAddItem(4,0,2,noone);
 }

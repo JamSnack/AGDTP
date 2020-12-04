@@ -112,6 +112,7 @@ if _playerY &gt; stoneLayer-(16)
 var save_list = ds_list_create(); //Inventory data
 var king_list = ds_list_create(); //Region kings defeated
 var quest_list = ds_list_create(); //List containing quest progress
+var stat_list = ds_list_create(); //List containing player stats to save.
 
 
 //Save the inventory;
@@ -162,12 +163,17 @@ with hudControl
 ds_list_add(king_list,kingDied_1);
 ds_list_add(quest_list,mainQuest);
 
+//Save player stats
+ds_list_add(stat_list,energyRegenRate);
+ds_list_add(stat_list,energyMax);
+
 //Game maker prefers to start with a ds_map.
 //Wrap the root List up in a map!
 var _wrapper = ds_map_create();
 ds_map_add_list(_wrapper,"INV",save_list);
 ds_map_add_list(_wrapper,"KING",king_list);
 ds_map_add_list(_wrapper,"QUEST",quest_list);
+ds_map_add_list(_wrapper,"STAT",stat_list);
 
 //Save to a string
 var str = json_encode(_wrapper);

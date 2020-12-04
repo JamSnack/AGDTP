@@ -177,7 +177,6 @@
     <sprite>sprites\spr_workbenchCraftableItems</sprite>
     <sprite>sprites\spr_pieCraftableItems</sprite>
     <sprite>sprites\spr_explosion</sprite>
-    <sprite>sprites\spr_explosi</sprite>
     <sprite>sprites\spr_bomb</sprite>
     <sprite>sprites\spr_menuLogo</sprite>
     <sprite>sprites\spr_twitterLink</sprite>

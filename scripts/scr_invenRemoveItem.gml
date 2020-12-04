@@ -40,8 +40,8 @@ if item != 0
             //Initialize the hud tags size.
             var hudSize = 0;
             
-            if ds_exists(hudTags,ds_type_list)
-            { hudSize = ds_list_size(hudTags); }
+            if ds_exists(hudTags,ds_type_list) && hudTags != noone
+            { hudSize = ds_list_size(hudTags); } else print("New item?");
             
             // 0 = 0 means we are removing an ingredient item with no previous tags.
             if tagsSize == hudSize

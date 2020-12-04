@@ -357,12 +357,12 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
         
         if ds_list_size(equipmentTags) &lt; 2
         {   
-            //Append the tag
+            //Remove the old weapon, then append the tag to the recycled ds list.
+            scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
             ds_list_add(equipmentTags,selectedTag[| 0]); 
         
-            //Remove the ingredient items.
+            //Remove the ingredient tag.
             scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
-            scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
         }
         else 
         {
@@ -1237,6 +1237,11 @@ if worldControl.raidBoss == true
         draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
     }
 }
+
+// - Energy
+if instance_exists(worldControl)
+{ draw_text(viewWidth-80,30,string(energy)); }
+
 //#endregion
 
 //-------------------Settings Menu-----------------------------
@@ -1251,7 +1256,7 @@ if settingsMenu == true
     
     //PopMessage Setting
     draw_sprite(spr_ui_selectedBool,showPopMessage,xx-40,yy-40);
-    draw_text(xx-32,yy-43,"Show Pop Messages");
+    draw_text(xx-32,yy-43,"Damage Numbers");
     
     //Debug setting
     draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);

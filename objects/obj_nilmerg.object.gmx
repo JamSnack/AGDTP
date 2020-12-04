@@ -84,8 +84,8 @@ deathSound = snd_enemydie_boss;
 
 if raid_boss == true
 {
-    scale = 2.5; 
-    maxAccel = 3;
+    scale = 2.75; 
+    maxAccel = 2.5;
 }
 </string>
           </argument>

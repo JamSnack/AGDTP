@@ -195,8 +195,10 @@ part_type_orientation(part_stone_frag, 0, 0, irandom_range(2,-2), 0, 1);
 part_type_blend(part_stone_frag, false);
 part_type_life(part_stone_frag, 45, room_speed);
 
-//Gameplay globals
-globalvar kingDied_1,mainQuest;
+//Gameplay globals and player stats
+globalvar kingDied_1,mainQuest,energyMax,energyRegenRate;
+energyMax = 5; //Maximum amount of energy in storage.
+energyRegenRate = 1; //Energy gained per second.
 kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
 mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
 

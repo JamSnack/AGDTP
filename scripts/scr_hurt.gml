@@ -65,6 +65,9 @@ if knock == true && knockType != noone
     hForce += knockAmt*(sign(x-otherX));
     vForce += knockAmt*(sign(y-otherY));
     
+    vForce = approach(vForce,0,knock_resistance);
+    hForce = approach(hForce,0,knock_resistance);
+    
     if knockType == "LAND"
     {
         if place_meeting(x+hForce,y,OBSTA)
