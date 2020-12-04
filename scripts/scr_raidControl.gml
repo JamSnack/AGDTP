@@ -88,7 +88,8 @@ switch presetSettings
                     if wave >= 15
                     {
                         raidBoss = true;
-                        bossID = new_raidBoss();
+                        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_shadowGremlin);
+                        bossID.raid_boss = true;
                     }
                     
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);

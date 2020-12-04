@@ -49,6 +49,7 @@ deathSound = snd_enemydie_monster;
 //Change some stats for a true boss fight;
 if worldControl.raidBossID == id
 {
+    print("raidBOSS");
     raid_boss = true;
     maxHp += (maxHp/2); //extra 50% hp
 } else raid_boss = false;

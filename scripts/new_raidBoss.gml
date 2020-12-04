@@ -35,12 +35,13 @@ while true
     //Spawning more than once boss.
     if _repeat == 0
     { 
+        //Inform the mob of its new title
+        g.raid_boss = true;
         return g;
         break;
     }
     else
     {
         _repeat -= 1;
-        print("double boss");
     }
 }

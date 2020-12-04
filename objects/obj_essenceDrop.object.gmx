@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>state = 0;
 angle = irandom_range(0,359);
-image_speed = 0;
+image_speed = 30/60;
 direction = angle;
 image_angle = angle;
 speed = 8;
