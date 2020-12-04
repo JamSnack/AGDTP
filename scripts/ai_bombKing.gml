@@ -68,7 +68,7 @@ switch current_state
         x += hAccel;
         y += vAccel;
         
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
     }
     break;
@@ -77,7 +77,7 @@ switch current_state
     {
         //Bobbing animation
         var dir = sign(objective.x-x);
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
         bobAmt += bobRate*bobLinearDir;
         

@@ -28,6 +28,7 @@
             <string>///Initialize the Gremlin
 canActiveRegion = true;
 
+scale = 1;
 canHurt = true;
 hp = 60+waveScale(25,5,0,-1);
 maxHp = hp;
@@ -78,8 +79,9 @@ deathSound = snd_enemydie_boss;
 
 if raid_boss == true
 {
-    scale += 0.5; 
+    scale += 0.1; 
     maxAccel += 0.2;
+    image_yscale = scale;
 }
 </string>
           </argument>

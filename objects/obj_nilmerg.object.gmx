@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 175+waveScale(50,10,0,-1);
+hp = 150+waveScale(50,15,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "TRANSITION";
@@ -84,8 +84,7 @@ deathSound = snd_enemydie_boss;
 
 if raid_boss == true
 {
-    scale = 2.75; 
-    maxAccel = 2.5;
+    maxAccel += 0.5;
 }
 </string>
           </argument>

@@ -63,7 +63,7 @@ switch current_state
         x += hAccel;
         y += vAccel;
         
-        image_xscale = dir;
+        image_xscale = dir*scale;
         animRate = 0;
         animY = y;
         

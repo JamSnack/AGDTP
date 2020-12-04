@@ -48,6 +48,10 @@ if worldControl.raidBossID == id
     print("raidBOSS");
     raid_boss = true;
     maxHp += (maxHp/2); //extra 50% hp
+    hp = maxHp;
+    scale += 0.1;
+    image_xscale = scale;
+    image_yscale = scale;
 } else raid_boss = false;
 </string>
           </argument>

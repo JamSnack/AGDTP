@@ -220,3 +220,6 @@ worldControl.raidBoss = raidBoss;
 worldControl.raidBossID = bossID;
 worldControl.specialRaid = specialRaid;
 worldControl.special_raidID = special_raidID;
+
+//Buff that lead boss boy
+with bossID event_perform(ev_create,0);

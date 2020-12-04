@@ -34,6 +34,7 @@ hp = maxHp;
 image_speed = 8/60;
 state = MOVE;
 stunned = false;
+scale = 1;
 
 vsp = 0;
 atkBox = (16*4); //divided by 2 on calculation.
@@ -80,7 +81,7 @@ repeat(clamp(floor(wave/4),1,6))
 
 if raid_boss == true
 {
-    scale += 0.5; 
+    scale += 0.25; 
     maxAccel += 0.2;
     spwnRate-=0.25;
 }

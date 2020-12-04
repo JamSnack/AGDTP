@@ -66,17 +66,19 @@ death_gib = part_nullGib;
 
 if raid_boss = true
 {
-    scale = 3; 
-    maxAccel = 2.5;
-    knock_resistance = 0.3;
+    scale = 3;
+    maxAccel -= 0.5;
+    knock_resistance += 0.25;
     deathSound = snd_enemydie_boss;
     maxHp = 50+waveScale(10,5,0,125);
     hp = maxHp
-    print("ITSA ME");
 }
 
 image_xscale = scale;
 image_yscale = scale;
+
+while place_meeting(x,y,OBSTA)
+{ y -= 1; }
 </string>
           </argument>
         </arguments>

@@ -48,9 +48,8 @@ while true
         g.raid_boss = true;
         
         //Reinitialize the gremlin, buffing it.
-        with g event_perform(ev_create,0);
+        return g; //return the ID before checking for the ID :P
         
-        return g;
         break;
     }
     else
