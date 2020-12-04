@@ -10,28 +10,19 @@ if _item != ITEMID.nil && obj_player.toolReady == true
 {
     switch _type
     {
-        case 1:
-            { //Weapon
-            scr_applyWeaponStats(_item); _tool = 1;
-            } break;
-            
-        case 2:
-            { //Pickaxe
-            scr_applyPickaxeStats(_item); _tool = 2;
-            } break;
-            
-        case 3:
-            { //Tile
-            _tool = 3;
-            } break;
-        case 4:
-            { //Consumable
-            _tool = 4;
-            } break;
+        case ITEMTYPE.weapon: { scr_applyWeaponStats(_item); } break;    
+        case ITEMTYPE.pickaxe: { scr_applyPickaxeStats(_item); } break;
     }
     
-    obj_player.tool = _tool;
+    hudControl.selectedSlot = slot;
+    obj_player.tool = _type;
     scr_playSound(snd_inventoryClick,false,8,obj_player.x,obj_player.y,1);
+} 
+else 
+{
+    //If selected an empty slot, unselect it and exit the script.
+    hudControl.selectedSlot = noone;
+    exit;
 }
 
 //TAG RESETS

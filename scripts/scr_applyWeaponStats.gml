@@ -51,5 +51,3 @@ obj_player.weaponKnockback = wep_Knock;
 obj_player.toolAnimation = toolAnimation;
 obj_player.proj_type = proj_type;
 obj_player.tool_snd = tool_snd;
-
-weaponIcon = tool_spr;

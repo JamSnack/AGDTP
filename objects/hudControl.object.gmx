@@ -161,7 +161,6 @@ if invOpen == true
 //Fire equipment queue
 if obj_player.toolReady == true &amp;&amp; equipQueue != noone
 {
-    selectedSlot = equipQueue;
     scr_slotEquip(equipQueue);
     equipQueue = noone;
 }
@@ -494,7 +493,6 @@ for (i=0;i&lt;maxInvenSlots;i++)
     if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
      &amp;&amp; obj_player.toolReady == true
     {
-        selectedSlot = i;
         scr_slotEquip(i);
         break;
     }
@@ -1037,10 +1035,22 @@ if invenX &gt; 5
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot]);
         var _text = text[0]+"##"+text[1]+"##"+text[2];
-        draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),_text,0.8,0.8,0);
+        draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
         /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
         draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
         draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
+    }
+    
+    //-Draw equipped accessories
+    var list_size = ds_list_size(accessories_equipped);
+    
+    if list_size &gt; 0
+    {
+        for(m=0;m&lt;list_size;m++)
+        {
+            var accessory = accessories_equipped[| m];
+            draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
+        }
     }
 }
 

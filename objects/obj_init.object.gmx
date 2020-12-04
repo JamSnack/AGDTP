@@ -120,6 +120,7 @@ enum ITEMID
     weapon_sphereLauncher,
     pickaxe_stingerDrill,
     weapon_beemerang,
+    acc_ultrablueStar,
 }
 
 //Item Types
@@ -129,7 +130,8 @@ enum ITEMTYPE
     weapon,
     pickaxe,
     playertile,
-    consumable
+    consumable,
+    accessory,
 }
 
 //Particles
@@ -196,11 +198,13 @@ part_type_blend(part_stone_frag, false);
 part_type_life(part_stone_frag, 45, room_speed);
 
 //Gameplay globals and player stats
-globalvar kingDied_1,mainQuest,energyMax,energyRegenRate;
+globalvar kingDied_1,mainQuest,energyMax,energyRegenRate,accessories_equipped;
 energyMax = 5; //Maximum amount of energy in storage.
 energyRegenRate = 1; //Energy gained per second.
 kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
 mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
+
+accessories_equipped = ds_list_create();
 
 </string>
           </argument>

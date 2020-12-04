@@ -93,6 +93,8 @@ friction = 0.3;
 
 //AUDIO
 audio_listener_orientation(0,0,-1000,0,1,0);
+
+scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -745,9 +747,31 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false
                 }
             }
             break;
+            
+            case ITEMTYPE.accessory:
+            {
+                if toolReady == true
+                {
+                    //Equip/Dequip the accessory
+                    scr_applyAccessory(hudControl.inventorySlotIcon[slot]);
+                    
+                    toolReady = false;
+                    toolAnimation = "SWING";
+                    armIndex = spr_armSwing;
+                    armAngleGoal = 71;
+                    armAngle = 70; //Straight up
+                    armAngleRate = 0;
+                    toolSprite = spr_nothing;
+                    alarm[2] = room_speed/2;
+                    print(ITEMTYPE.accessory);
+                }
+            }
+            break;
         }
     }
 }
+
+print(tool);
 
 </string>
           </argument>

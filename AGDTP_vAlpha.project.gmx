@@ -269,6 +269,7 @@
     <script>scripts\insideView.gml</script>
     <script>scripts\scr_spawnEssence.gml</script>
     <script>scripts\scr_getInvenItemAmt.gml</script>
+    <script>scripts\scr_applyAccessory.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
