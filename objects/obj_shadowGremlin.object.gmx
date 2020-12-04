@@ -113,6 +113,12 @@ if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 &amp;&amp; i
     scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
     scr_playSound(snd_rareItem,false,8,x,y,1);
 }
+
+if raid_boss == true
+{
+    if c &gt;= 80
+    { scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone); }
+}
 </string>
           </argument>
         </arguments>

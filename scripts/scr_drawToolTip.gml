@@ -11,9 +11,13 @@ Damage: 4#Cooldown: 1#Knockback: 1#Desc."
 PICKAXE:
 Tier: 0#Cooldown: 1#Power: 1#Desc.
 
+ACCESSORY:
+Slot Cost: 1
+
 LINKS:
 scr_applyWeaponStats();
 scr_applyPiackaxeStats();
+scr_applyAccessory();
 */
 
 //MEANT FOR USE INSIDE hudControl!!!
@@ -30,6 +34,13 @@ switch inventorySlotType[selectedSlot]
     {
         text[1] = ("Tier: "+string(obj_player.pickLevel)+"#Cooldown: "+string(obj_player.toolFireRate)+"#Power: "+string(obj_player.pickDamage));
     }
+    break;
+    
+    case ITEMTYPE.accessory:
+    {
+        text[1] = ("Slot Cost: "+string(scr_getSlotCost(argument0)))
+    }
+    break;
 }
 
 
@@ -61,6 +72,7 @@ switch argument0
     case ITEMID.tile_modBench: { text[0] = "Mod Bench"; text[1] = "Use this workbench to modify#your tools!"; } break;
     case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] += "#Nilmerg's stinger."; } break;
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] += "#A home-bound friend."; } break;
+    case ITEMID.acc_ultrablueStar: { text[0] = "Ultra-Blue Star"; text[1] += "#Increases knockback resistance by 0.6#Knockback resistance: "+string(obj_player.knock_resistance); } break;
 }
 
 //TAG TEXT

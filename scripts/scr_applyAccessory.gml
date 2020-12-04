@@ -1,6 +1,6 @@
 ///scr_applyAccessory(accessory);
 var equip = 0; //Whether to equip (1, add stats) or dequip (-1, decrease stats);
-var slot_cost = 1;
+var slot_cost = 0;
 var accessory = argument0;
 
 //Check to see if the accessory has been equipped
@@ -20,10 +20,7 @@ if list_size == 0 then equip = 1;
 //Get the slot cost
 if equip != 0
 {
-    switch accessory
-    {
-        case ITEMID.acc_ultrablueStar: { slot_cost = 3; } break;
-    }
+    slot_cost = scr_getSlotCost(accessory);
     
     //If can equip:
     //Check if slots are available
@@ -58,10 +55,7 @@ if equip != 0
     }
     
     //-------------------Equip or dequip--------------------
-    switch accessory
-    {    
-        case ITEMID.acc_ultrablueStar: { knock_resistance += 0.6*equip; } break;
-    }
+    scr_applyAccessoryStats(accessory,equip);
     
     //Add or remove the item from equipped_accessories;
     //NOTE: ds_lists automatically shrink or grow depending on whether or not you deleted an item or added one. No compression required!

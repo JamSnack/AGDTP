@@ -42,6 +42,7 @@ with proj
     ox = x;
     oy = y;
     oSpeed = spd;
+    tags = tagsUnloaded;
     
     
     

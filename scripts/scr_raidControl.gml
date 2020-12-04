@@ -85,7 +85,7 @@ switch presetSettings
                     
                     interm = false;
                     
-                    if wave >= 15
+                    if wave >= 6
                     {
                         raidBoss = true;
                         bossID = new_raidBoss(obj_shadowGremlin);

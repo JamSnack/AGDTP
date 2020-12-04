@@ -28,6 +28,7 @@
             <string>///Initialize projectile
 localGrav = 0;
 deadProjectile = false;
+tags = noone;
 
 //Latent behaviors
 bBouncy = false;

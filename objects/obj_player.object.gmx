@@ -91,6 +91,16 @@ if room = rm_zero then g_over = gameOver;
 
 friction = 0.3;
 
+//Apply equipped accessories
+var _size = ds_list_size(accessories_equipped);
+if _size &gt; 0
+{
+    for(i=0;i&lt;_size;i++)
+    {
+        scr_applyAccessoryStats(accessories_equipped[| i],1);
+    }
+}
+
 //AUDIO
 audio_listener_orientation(0,0,-1000,0,1,0);
 

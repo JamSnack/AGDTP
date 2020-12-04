@@ -199,6 +199,7 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
+    <script>scripts\scr_applyAccessory.gml</script>
     <script>scripts\print.gml</script>
     <script>scripts\scr_canPlace.gml</script>
     <script>scripts\scr_tileUpdate.gml</script>
@@ -220,6 +221,8 @@
       <script>scripts\scr_slotEquip.gml</script>
       <script>scripts\scr_invenTileIndex.gml</script>
       <script>scripts\scr_dropItem.gml</script>
+      <script>scripts\scr_dropTag.gml</script>
+      <script>scripts\scr_getInvenItemAmt.gml</script>
     </scripts>
     <scripts name="Ai">
       <script>scripts\ai_gremlin.gml</script>
@@ -265,11 +268,10 @@
     <script>scripts\scr_treeCreate.gml</script>
     <script>scripts\approach.gml</script>
     <script>scripts\waveScale.gml</script>
-    <script>scripts\scr_dropTag.gml</script>
     <script>scripts\insideView.gml</script>
     <script>scripts\scr_spawnEssence.gml</script>
-    <script>scripts\scr_getInvenItemAmt.gml</script>
-    <script>scripts\scr_applyAccessory.gml</script>
+    <script>scripts\scr_getSlotCost.gml</script>
+    <script>scripts\scr_applyAccessoryStats.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

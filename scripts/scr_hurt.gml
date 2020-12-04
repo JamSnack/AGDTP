@@ -23,7 +23,7 @@ if (hp-damage <= 0)
     {
         //ENEMY DEATH TAGS
         var _ran = irandom(100);
-        var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+        var tagsUnloaded = other.tags;
         
         if ds_exists(tagsUnloaded,ds_type_list)
         {
