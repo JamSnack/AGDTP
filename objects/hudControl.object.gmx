@@ -76,6 +76,8 @@ equipmentTags = noone;
 modCanConfirm = false;
 
 //Inventory Slots
+maxInvenSlots_original = 28;
+
 //- initialize array length to avoid memory error.
 inventorySlotIcon[maxInvenSlots-1] = 0;
 inventorySlotAmt[maxInvenSlots-1] = 0;
@@ -189,6 +191,54 @@ if showCraftingMenu == true &amp;&amp; craftingMenu != 0
             //Get Crafting ID of slot
             if point_in_rectangle(dx,dy,x1,y1,x2,y2)
             { craftSelect = i; }
+        }
+    }
+}
+
+//Update inventory size if needed
+var array_size = array_length_1d(inventorySlotIcon);
+
+if maxInvenSlots &gt; array_size
+{
+    //- reinitialize the array
+    inventorySlotIcon[maxInvenSlots-1] = 0;
+    inventorySlotAmt[maxInvenSlots-1] = 0;
+    inventorySlotType[maxInvenSlots-1] = 0;
+    inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+}
+else if maxInvenSlots &lt; array_size
+{
+    //If we lose slots, reallocate the affected items
+    for(z=array_size-(array_size-maxInvenSlots);z&lt;array_size;z++)
+    {
+        if hudControl.inventorySlotIcon[z] != ITEMID.nil
+        {
+            //Remove the item and re-add it to the inventory.
+            var _item = hudControl.inventorySlotIcon[z];
+            var _amt = hudControl.inventorySlotAmt[z]; 
+            var _type = hudControl.inventorySlotType[z]; 
+            var _tags = hudControl.inventorySlotTags[z];
+
+            //Unequip a removed accessory
+            if _type == ITEMTYPE.accessory
+            {
+                for(g=0;g&lt;ds_list_size(accessories_equipped);g++)
+                {
+                    if _item == accessories_equipped[| g]
+                    {
+                        scr_applyAccessory(_item);
+                    }
+                }
+            }
+            
+            //Clear the slot
+            scr_clearSlot(z);
+            
+            //Reallocate the item
+            if scr_invenAddItem(_item,_amt,_type,_tags) == -1
+            {
+                scr_dropItem(_item,_amt,_type,obj_player.x,obj_player.y,_tags);
+            }
         }
     }
 }
@@ -1042,14 +1092,17 @@ if invenX &gt; 5
     }
     
     //-Draw equipped accessories
-    var list_size = ds_list_size(accessories_equipped);
-    
-    if list_size &gt; 0
+    if ds_exists(accessories_equipped,ds_type_list)
     {
-        for(m=0;m&lt;list_size;m++)
+        var list_size = ds_list_size(accessories_equipped);
+        
+        if list_size &gt; 0
         {
-            var accessory = accessories_equipped[| m];
-            draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
+            for(m=0;m&lt;list_size;m++)
+            {
+                var accessory = accessories_equipped[| m];
+                draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
+            }
         }
     }
 }

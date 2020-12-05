@@ -143,8 +143,9 @@ with hudControl
                 
                 for (k=0;k&lt;ds_list_size(tagList);k++)
                 {
-                    if is_string(str)
+                    if is_string(str) &amp;&amp; is_string(tagList[| k])
                     { str = str+tagList[| k]+"$"; }
+                    else print("ERROR? TAG LIST: "+string(tagList[| k])+"STR: "+string(str));
                 }
                 ds_map_add(_map,"tags",str);
             }

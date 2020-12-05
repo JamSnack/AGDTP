@@ -38,7 +38,7 @@ switch inventorySlotType[selectedSlot]
     
     case ITEMTYPE.accessory:
     {
-        text[1] = ("Slot Cost: "+string(scr_getSlotCost(argument0)))
+        text[1] = ("Accessory#Slot Cost: "+string(scr_getSlotCost(argument0)))
     }
     break;
 }
@@ -73,6 +73,7 @@ switch argument0
     case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] += "#Nilmerg's stinger."; } break;
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] += "#A home-bound friend."; } break;
     case ITEMID.acc_ultrablueStar: { text[0] = "Ultra-Blue Star"; text[1] += "#Increases knockback resistance by 0.6#Knockback resistance: "+string(obj_player.knock_resistance); } break;
+    case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "#Increases inventory size by 4." } break;
 }
 
 //TAG TEXT
@@ -96,6 +97,8 @@ if ds_exists(tagsUnloaded,ds_type_list)
         //Title of the tag.
         var text_buffer = "";
         var tag = tagsUnloaded[| i];
+        
+        if !is_string(tag) then break;
         
         //Check to see if we're adding a new description to text[2];
         if (i > 0 && tagsUnloaded[| i] != tagsUnloaded[| i-1]) || (i == 0)

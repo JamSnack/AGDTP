@@ -122,6 +122,7 @@ enum ITEMID
     weapon_beemerang,
     acc_ultrablueStar,
     tile_battery,
+    acc_satchel,
 }
 
 //Item Types

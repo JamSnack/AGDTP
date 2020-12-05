@@ -22,12 +22,26 @@ if item != 0
         //Check for existing item
         if slot == i
         {
+            //Unequip a dropped accessory
+            if invType == ITEMTYPE.accessory
+            {
+                for(g=0;g<ds_list_size(accessories_equipped);g++)
+                {
+                    if item == accessories_equipped[| g]
+                    {
+                        scr_applyAccessory(item);
+                    }
+                }
+            }
+            
+            //Drop the item(s)
             if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[slot] -= invAmt } else scr_clearSlot(i);
             if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
             break;
         }
         else if (slot == -1 && hudControl.inventorySlotIcon[i] == item)
-        {
+        {   
+            //--TAG CONDITIONALS--
             var sameTags = false;
             var hudTags = hudControl.inventorySlotTags[i];
             
@@ -71,16 +85,44 @@ if item != 0
                 }
             }
             
+            //------Here we actually drop the item.
             if sameTags == true
             {
+                //Unequip a dropped accessory (again)
+                if invType == ITEMTYPE.accessory
+                {
+                    for(g=0;g<ds_list_size(accessories_equipped);g++)
+                    {
+                        if item == accessories_equipped[| g]
+                        {
+                            scr_applyAccessory(item);
+                        }
+                    }
+                }
+                
+                //-- drop the item (again)
                 if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[i] -= invAmt } else { scr_clearSlot(i); }
                 if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
                 break;
             }
         }
     }
-} else if slot != -1
+} 
+else if slot != -1
 {
+    //Unequip a dropped accessory (UNO MAS)
+    if invType == ITEMTYPE.accessory
+    {
+        for(g=0;g<ds_list_size(accessories_equipped);g++)
+        {
+            if item == accessories_equipped[| g]
+            {
+                scr_applyAccessory(item);
+            }
+        }
+    }
+    
+    //Y'know tha deal
     var hudAmt = hudControl.inventorySlotAmt[slot]
     if invAmt == -1 then invAmt = hudAmt;
     

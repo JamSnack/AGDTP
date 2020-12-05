@@ -3,7 +3,9 @@ var equip = 0; //Whether to equip (1, add stats) or dequip (-1, decrease stats);
 var slot_cost = 0;
 var accessory = argument0;
 
-//Check to see if the accessory has been equipped
+if !ds_exists(accessories_equipped,ds_type_list) then accessories_equipped = ds_list_create();
+
+//Check to see if the accessory has already been equipped
 var list_size = ds_list_size(accessories_equipped);
 
 for(i=0;i<list_size;i++)
@@ -12,6 +14,7 @@ for(i=0;i<list_size;i++)
     {
         //The accessory is equipped, de-equip it!
         equip = -1;
+        break;
     } else equip = 1;
 }
 
@@ -36,21 +39,43 @@ if equip != 0
             //If the slots are clear
             if hudControl.inventorySlotType[i] == 0  && hudControl.inventorySlotAmt[i] == 0 && hudControl.inventorySlotIcon[i] == 0  && hudControl.inventorySlotTags[i] == noone
             {
+                //Don't need to check anything!
+                if slot_cost == 0 then break;
+                
                 slots_available += 1;
                 
                 if slots_available == slot_cost
                 {
+                    //Slot_cost slots will be removed from the end of inventory.
+                    //Remove items in the slots and re-add them to the inventory.
+                    //This should always be possible because the amount of occupied slots does not change.
+                    for(z=maxInvenSlots-slot_cost;z<maxInvenSlots;z++)
+                    {
+                        if hudControl.inventorySlotIcon[z] != ITEMID.nil
+                        {
+                            //Remove the item and re-add it to the inventory.
+                            var _item = hudControl.inventorySlotIcon[z];
+                            var _amt = hudControl.inventorySlotAmt[z]; 
+                            var _type = hudControl.inventorySlotType[z]; 
+                            var _tags = hudControl.inventorySlotTags[z];
+            
+                            scr_clearSlot(z);
+                            scr_invenAddItem(_item,_amt,_type,_tags);
+                        }
+                    }
+                    
                     maxInvenSlots -= slot_cost;
                     break;
                 }
             }
             
             //There are not enough available slots!
-            if i == maxInvenSlots-1
+            if i == maxInvenSlots-1 && slot_cost != 0
             {
                 scr_hudMessage(string(slot_cost-slots_available)+ " more slot(s) required to equip accessory.",global.fnt_Ui,5,0,c_red,0);
-                exit; //Do not finish the script.
-            }
+                exit; 
+                //Do not finish the script. The next part of the script will always equip or unequip something.
+            } 
         }
     }
     

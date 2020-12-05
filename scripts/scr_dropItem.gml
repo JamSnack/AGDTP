@@ -6,6 +6,7 @@
     2 - Pickaxe
     3 - Placeable Tile
     4 - Consumable Item
+    5 - Accessory
 */
 
 if argument0 != 0
