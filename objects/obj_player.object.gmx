@@ -104,7 +104,7 @@ if _size &gt; 0
 //AUDIO
 audio_listener_orientation(0,0,-1000,0,1,0);
 
-scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
+scr_dropItem(ITEMID.tile_battery,99,ITEMTYPE.playertile,x,y,noone);
 </string>
           </argument>
         </arguments>

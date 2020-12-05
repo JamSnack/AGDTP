@@ -122,6 +122,7 @@
       </sprites>
       <sprite>sprites\spr_sapling</sprite>
       <sprite>sprites\spr_stoneTile</sprite>
+      <sprite>sprites\spr_battery</sprite>
       <sprite>sprites\spr_stoneWall</sprite>
       <sprite>sprites\spr_treeTile</sprite>
       <sprite>sprites\spr_gremBlock</sprite>
@@ -314,6 +315,7 @@
       <object>objects\obj_sapling</object>
       <object>objects\obj_modBench</object>
       <object>objects\obj_ladder</object>
+      <object>objects\obj_battery</object>
       <object>objects\obj_woodenStilt</object>
       <object>objects\NOCOL</object>
       <object>objects\obj_nullLight</object>
@@ -364,9 +366,9 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
+    <room>rooms\rm_zero</room>
     <room>rooms\rm_menu</room>
     <room>rooms\rm_tutorial</room>
-    <room>rooms\rm_zero</room>
     <room>rooms\rm_lobby</room>
   </rooms>
   <constants number="10">

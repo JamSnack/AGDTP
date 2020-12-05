@@ -121,6 +121,7 @@ enum ITEMID
     pickaxe_stingerDrill,
     weapon_beemerang,
     acc_ultrablueStar,
+    tile_battery,
 }
 
 //Item Types
