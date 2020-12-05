@@ -18,6 +18,15 @@ with hudControl
         }
         break;
         
+        case "trashSlot":
+        {
+            trashSlotIcon = 0;
+            trashSlotType = 0;
+            trashSlotAmt = 0;
+            trashSlotTags = noone;
+        }
+        break;
+        
         default:
         {
             inventorySlotIcon[slot] = 0;

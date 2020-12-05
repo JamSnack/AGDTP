@@ -84,6 +84,11 @@ inventorySlotAmt[maxInvenSlots-1] = 0;
 inventorySlotType[maxInvenSlots-1] = 0;
 inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
 
+trashSlotIcon = 0;
+trashSlotAmt = 0;
+trashSlotType = 0;
+trashSlotTags = noone; //Each slot has '2' tag slots.
+
 
 for (i=0;i&lt;maxInvenSlots;i++)
 {
@@ -158,7 +163,7 @@ craftingSpriteSet = 0;
 
 if invOpen == true
     { if invenX &lt; invenXMax then invenX += (invenXMax-invenX)*0.2; } 
-    else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
+else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
     
 //Fire equipment queue
 if obj_player.toolReady == true &amp;&amp; equipQueue != noone
@@ -205,6 +210,14 @@ if maxInvenSlots &gt; array_size
     inventorySlotAmt[maxInvenSlots-1] = 0;
     inventorySlotType[maxInvenSlots-1] = 0;
     inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+    
+    for (i=array_size;i&lt;maxInvenSlots;i++)
+    {
+        inventorySlotIcon[i] = 0; //Nothing
+        inventorySlotAmt[i] = 0; //No items
+        inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
+        inventorySlotTags[i] = noone; //No tags
+    }
 }
 else if maxInvenSlots &lt; array_size
 {
@@ -344,7 +357,6 @@ if room == rm_menu then exit;
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-
 //---------- MOD BENCH FUNCTIONALITY ---------------
 
 if cursorHoldItem == true &amp;&amp; craftingMenu == "menu_mod"
@@ -436,6 +448,32 @@ else if showCraftingMenu == true &amp;&amp; craftingMenu == "menu_mod"
         }
     }
 }
+//--------- TRASH SLOT --------------------------
+if cursorHoldItem == true
+{
+    var x1 = 106/(invenXMax/invenX);
+    var y1 = 4+(16*ceil(maxInvenSlots/7));
+
+    if point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+    {
+        trashSlotIcon = cursorItem;
+        trashSlotType = cursorType;
+        trashSlotAmt = cursorAmt;
+        trashSlotTags = cursorTags;
+        
+        //variable reset
+        scr_clearSlot(cursorSlot);
+        
+        cursorHoldItem = false;
+        cursorItem = noone;
+        cursorAmt = noone;
+        cursorSlot = noone;
+        cursorType = noone;
+        cursorTags = noone;
+    }
+}
+
+
 
 //--------- INVENTORY INTERACTIONS -------------
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -468,20 +506,34 @@ for (i=0;i&lt;maxInvenSlots;i++)
             if i != cursorSlot
             {
             
+                if cursorSlot == "trashSlot"
+                {
+                    //Place item in new slot
+                    cursorHoldItem = false;
+                    inventorySlotIcon[i] = cursorItem;
+                    inventorySlotType[i] = cursorType;
+                    inventorySlotAmt[i] = cursorAmt;
+                    inventorySlotTags[i] = cursorTags;
+                    
+                    selectedSlot = noone;
+                    pickupTimer = 0;
+                    pickupTimerMax = 60;
+                    pickupTimerRate = 4;
+                    
+                    scr_clearSlot("trashSlot");
+                    
+                    exit;
+                }
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item &amp; can be stacked.
                 if inventorySlotIcon[i] == cursorItem &amp;&amp; inventorySlotAmt[i] &gt; 0 &amp;&amp; inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
-                    
                     //-Update the slot previously picked up.
                         //-- Case: the old slot will have no AMT left.
                     if inventorySlotAmt[cursorSlot]-cursorAmt == 0
                     {
-                        inventorySlotIcon[cursorSlot] = 0;
-                        inventorySlotType[cursorSlot] = 0;
-                        inventorySlotAmt[cursorSlot] = 0;
-                        inventorySlotTags[cursorSlot] = noone;
+                        scr_clearSlot(cursorSlot);
                     } 
                     else //Case: the old slot will have left-over items.
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
@@ -841,6 +893,21 @@ if invOpen == true
     {
         if cursorHoldItem = false &amp;&amp; mouse_check_button_pressed(mb_left) &amp;&amp; obj_player.toolReady == true
         {
+            //---- TRASH SLOT-----
+            var x1 = 106/(invenXMax/invenX);
+            var y1 = 4+(16*ceil(maxInvenSlots/7));
+
+            if point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+            {
+                cursorHoldItem = true;
+                cursorItem = trashSlotIcon;
+                cursorType = trashSlotType;
+                cursorAmt = trashSlotAmt;
+                cursorTags = trashSlotTags;
+                cursorSlot = "trashSlot";
+            }
+            
+            //--- INVENTORY SLOTS ---
             for (i=0;i&lt;maxInvenSlots;i++)
             {
                 //inventory slots
@@ -1081,7 +1148,7 @@ if invenX &gt; 5
     }
     
     //Draw tooltip
-    if selectedSlot != noone
+    if selectedSlot != noone &amp;&amp; selectedSlot != "trashSlot"
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot]);
         var _text = text[0]+"##"+text[1]+"##"+text[2];
@@ -1105,6 +1172,18 @@ if invenX &gt; 5
             }
         }
     }
+    
+    //- Draw Trash Slot
+    var _center = 6; //Center the sprite onto the slot
+    var x1 = 106/(invenXMax/invenX);
+    var y1 = 4+(16*ceil(maxInvenSlots/7));
+    //- slot
+    draw_sprite_ext(spr_ui_trashSlot,0,x1,y1,0.6,0.6,0,c_white,1);
+    //- item
+    draw_sprite_ext(spr_itemDrops,trashSlotIcon,x1+_center,y1+_center,0.5,0.5,0,c_white,1);
+    //- amt
+    if trashSlotAmt &gt; 0 then draw_text_transformed(x1-8,y1+46.5,string(trashSlotAmt),0.75,0.75,0);
+    
 }
 
 //----------------Draw Hotbar-----------------------
