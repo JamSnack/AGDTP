@@ -150,6 +150,7 @@
       <sprite>sprites\spr_ui_invenSlot</sprite>
       <sprite>sprites\spr_ui_trashSlot</sprite>
       <sprite>sprites\spr_ui_button</sprite>
+      <sprite>sprites\spr_ui_exit_button</sprite>
       <sprite>sprites\spr_ui_9slice_small</sprite>
       <sprite>sprites\spr_ui_arrow_down</sprite>
       <sprite>sprites\spr_ui_modConfirm</sprite>
@@ -185,6 +186,8 @@
     <sprite>sprites\spr_youTubeLink</sprite>
     <sprite>sprites\spr_gremlinEssence</sprite>
     <sprite>sprites\spr_nothing</sprite>
+    <sprite>sprites\spr_ui_electricity</sprite>
+    <sprite>sprites\spr_ui_tips</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -274,6 +277,7 @@
     <script>scripts\scr_spawnEssence.gml</script>
     <script>scripts\scr_getSlotCost.gml</script>
     <script>scripts\scr_applyAccessoryStats.gml</script>
+    <script>scripts\scr_createTip.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
@@ -341,6 +345,7 @@
       <object>objects\efct_overMessage</object>
       <object>objects\efct_roomTransition</object>
       <object>objects\obj_popUi</object>
+      <object>objects\obj_tip</object>
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
@@ -367,8 +372,8 @@
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_zero</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_zero</room>
     <room>rooms\rm_tutorial</room>
     <room>rooms\rm_lobby</room>
   </rooms>

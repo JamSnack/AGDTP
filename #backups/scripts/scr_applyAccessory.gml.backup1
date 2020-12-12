@@ -1,17 +1,17 @@
-/// scr_applyAccessory(accessory)
+// 2020-12-10 16:41:23
 ///scr_applyAccessory(accessory);
 var equip = 0; //Whether to equip (1, add stats) or dequip (-1, decrease stats);
 var slot_cost = 0;
-var accessory = argument0;
+#args accessory
 
 if !ds_exists(accessories_equipped,ds_type_list) then accessories_equipped = ds_list_create();
 
 //Check to see if the accessory has already been equipped
 var list_size = ds_list_size(accessories_equipped);
 
-for(_q=0;_q<list_size;_q++)
+for(i=0;i<list_size;i++)
 {
-    if accessory == accessories_equipped[| _q]
+    if accessory == accessories_equipped[| i]
     {
         //The accessory is equipped, de-equip it!
         equip = -1;
@@ -38,7 +38,7 @@ if equip != 0
         for(i=0;i<maxInvenSlots;i++)
         {
             //If the slots are clear
-            if hudControl.inventorySlotType[_q] == 0  && hudControl.inventorySlotAmt[_q] == 0 && hudControl.inventorySlotIcon[_q] == 0  && hudControl.inventorySlotTags[_q] == noone
+            if hudControl.inventorySlotType[i] == 0  && hudControl.inventorySlotAmt[i] == 0 && hudControl.inventorySlotIcon[i] == 0  && hudControl.inventorySlotTags[i] == noone
             {
                 //Don't need to check anything!
                 if slot_cost == 0 then break;

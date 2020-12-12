@@ -74,6 +74,7 @@ switch argument0
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] += "#A home-bound friend."; } break;
     case ITEMID.acc_ultrablueStar: { text[0] = "Ultra-Blue Star"; text[1] += "#Increases knockback resistance by 0.6#Knockback resistance: "+string(obj_player.knock_resistance); } break;
     case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "#Increases inventory size by 4." } break;
+    case ITEMID.tile_battery: { text[0] = "Battery"; text[1] = "Energy Storage#Place within 8 tiles of the pie.#Charges over time.#Energy is distributed when needed."; } break;
 }
 
 //TAG TEXT

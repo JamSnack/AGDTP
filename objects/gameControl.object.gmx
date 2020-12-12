@@ -163,6 +163,7 @@ with hudControl
 //Save other variables
 ds_list_add(king_list,kingDied_1);
 ds_list_add(quest_list,mainQuest);
+ds_list_add(quest_list,tip_controls);
 
 //Save player stats
 ds_list_add(stat_list,energyRegenRate);

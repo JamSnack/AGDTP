@@ -12,7 +12,7 @@ var tags = argument5; //The item's tags
 invSlot = item;
 
 //Remove items from inventory
-if item != 0
+if item != ITEMID.nil
 {
     for (i=0;i<maxInvenSlots;i++)
     {
@@ -35,7 +35,7 @@ if item != 0
             }
             
             //Drop the item(s)
-            if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[slot] -= invAmt } else scr_clearSlot(i);
+            if (hudAmt - invAmt) > 0 { hudControl.inventorySlotAmt[slot] -= invAmt } else scr_clearSlot(slot);
             if drop == true then scr_dropItem(item,invAmt,invType,obj_player.x+(20*obj_player.image_xscale),obj_player.y,tags);
             break;
         }

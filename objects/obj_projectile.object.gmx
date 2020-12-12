@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -367,7 +367,7 @@ if other.object_index != obj_nullLight
     {
         if alarm[2] == -1 then alarm[2] = room_speed*3;
         canReverse = false;
-    }
+    } else if canReverse == false then instance_destroy();
 }
 </string>
           </argument>

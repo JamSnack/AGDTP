@@ -1,3 +1,4 @@
+// 2020-12-10 17:24:31
 ///scr_craftingToolTip(craftingTableSet,itemID);
 text[0] = "" //Item Name
 text[1] = ""; //Item Description

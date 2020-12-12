@@ -86,9 +86,11 @@ global.fnt_boxy = font_add_sprite_ext(fnt_ui_new,"!*+,-./0123'456789:;&lt;=#&gt;
 
 
 //Other globals
-globalvar tutorialComplete,music;
+globalvar tutorialComplete,music,tip_controls,tip_tools;
 music = audio_play_sound(snd_theStarsForever,10,true);
 tutorialComplete = false;
+tip_controls = false; //Whether or not the control tip has been displayed.
+tip_tools = false; //Whether or not the "tools tutorial" tips has been displayed.
 
 //Item IDs
 enum ITEMID

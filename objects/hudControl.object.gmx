@@ -109,7 +109,7 @@ lastPlaceX = noone;
 lastPlaceY = noone;
 
 //Upgrade menu
-upgradeMenu_visible = false;
+upgradeMenu_visible = true;
 
 
 </string>
@@ -464,6 +464,21 @@ if cursorHoldItem == true
         //variable reset
         scr_clearSlot(cursorSlot);
         
+        //check for accessory
+        if cursorType == ITEMTYPE.accessory
+        {
+            var _size = ds_list_size(accessories_equipped)
+            
+            for(n=0;n&lt;_size;n++)
+            {
+                //dequip the accessory
+                if cursorItem == accessories_equipped[| n]
+                {
+                    scr_applyAccessory(cursorItem);
+                }
+            }
+        }
+        
         cursorHoldItem = false;
         cursorItem = noone;
         cursorAmt = noone;
@@ -505,7 +520,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
         //-----------------------------Copy current item and place in old slot if need be.----------------------------
             if i != cursorSlot
             {
-            
+                //Trash slot interaction
                 if cursorSlot == "trashSlot"
                 {
                     //Place item in new slot
@@ -541,7 +556,8 @@ for (i=0;i&lt;maxInvenSlots;i++)
                     //Update amount in cursor 
                     cursorAmt += inventorySlotAmt[i];
                     
-                } else if inventorySlotIcon[i] != 0
+                } 
+                else if inventorySlotIcon[i] != 0
                 {
                     //Remove items to prevent deletion
                     if cursorAmt != inventorySlotAmt[cursorSlot]
@@ -599,8 +615,6 @@ for (i=0;i&lt;maxInvenSlots;i++)
         break;
     }
 }
-
-
 
 //Ensure variable reset
 cursorHoldItem = false;
@@ -1440,12 +1454,14 @@ if interm == false
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
 }
-
+//#endregion
 //-----------------Upgrade Menu-----------------------------
+//#region
 if room = rm_lobby
 {
     if upgradeMenu_visible == true
     {
+        print("HELPME!");
         var _posX = viewWidth/2-120;
         var _posY = viewHeight/2-105;
     

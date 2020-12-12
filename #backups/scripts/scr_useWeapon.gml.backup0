@@ -1,3 +1,4 @@
+// 2020-12-06 10:48:36
 ///scr_useWeapon(type,speed,friction,sprite,damage,knockAmt);
 var _type = argument0;
 var spd = argument1;

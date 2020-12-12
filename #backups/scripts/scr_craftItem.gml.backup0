@@ -1,3 +1,4 @@
+// 2020-12-10 17:25:54
 ///scr_craftItem(itemName)
 var mats; // What type of material to look for
 var matsAmt; // How much of the material to look for/consume.

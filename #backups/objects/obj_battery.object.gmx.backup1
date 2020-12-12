@@ -1,4 +1,4 @@
-// 2020-12-04 20:52:25
+// 2020-12-10 17:18:33
 #event create
 event_inherited();
 level = 0;
@@ -44,7 +44,7 @@ if in_range == true
     } 
     else if discharge == true
     {
-        if energy+1 < energyMax
+        if energy+1 < energyMax && local_power > 0
         {
             energy += 1;
             local_power -= 1;
@@ -58,4 +58,8 @@ if in_range == true
     image_index = floor((local_power/local_power_max)*5);
 }
 
+#event draw|Ui
+event_inherited();
+
+draw_sprite(spr_ui_electricity,2,x,y);
 #event other_user1|Inherit nothing

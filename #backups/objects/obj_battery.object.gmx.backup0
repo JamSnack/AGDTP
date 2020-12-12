@@ -1,4 +1,4 @@
-// 2020-12-04 21:09:04
+// 2020-12-10 17:19:09
 #event create
 event_inherited();
 level = 0;
@@ -58,4 +58,9 @@ if in_range == true
     image_index = floor((local_power/local_power_max)*5);
 }
 
+#event draw|Ui
+event_inherited();
+
+if in_range == false
+{ draw_sprite(spr_ui_electricity,2,x,y); }
 #event other_user1|Inherit nothing

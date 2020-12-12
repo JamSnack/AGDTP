@@ -80,6 +80,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     if _list != undefined
     {
         mainQuest = _list[| 0];
+        tip_controls = _list[| 1];
     }
     
     //- Player stat data

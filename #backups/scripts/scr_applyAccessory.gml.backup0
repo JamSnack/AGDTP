@@ -1,8 +1,9 @@
+// 2020-12-10 16:46:09
 /// scr_applyAccessory(accessory)
 ///scr_applyAccessory(accessory);
 var equip = 0; //Whether to equip (1, add stats) or dequip (-1, decrease stats);
 var slot_cost = 0;
-var accessory = argument0;
+#args accessory
 
 if !ds_exists(accessories_equipped,ds_type_list) then accessories_equipped = ds_list_create();
 

@@ -1,4 +1,4 @@
-// 2020-11-10 20:48:11
+// 2020-12-10 16:48:00
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -51,11 +51,18 @@ equipmentTags = noone;
 modCanConfirm = false;
 
 //Inventory Slots
+maxInvenSlots_original = 28;
+
 //- initialize array length to avoid memory error.
 inventorySlotIcon[maxInvenSlots-1] = 0;
 inventorySlotAmt[maxInvenSlots-1] = 0;
 inventorySlotType[maxInvenSlots-1] = 0;
-inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '3' tag slots.
+inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+
+trashSlotIcon = 0;
+trashSlotAmt = 0;
+trashSlotType = 0;
+trashSlotTags = noone; //Each slot has '2' tag slots.
 
 
 for (i=0;i<maxInvenSlots;i++)
@@ -70,10 +77,14 @@ for (i=0;i<maxInvenSlots;i++)
 settingsMenu = false; //Whether settings menu is visible or not.
 showPopMessage = true; //Whether or not to use popMessages.
 showTaskList = true; //Show the player's tasks.
+showBackground = true;
 
 //Place Tiles
 lastPlaceX = noone;
 lastPlaceY = noone;
+
+//Upgrade menu
+upgradeMenu_visible = true;
 
 
 
@@ -86,12 +97,11 @@ if room == rm_menu then exit;
 
 if invOpen == true
     { if invenX < invenXMax then invenX += (invenXMax-invenX)*0.2; } 
-    else { if invenX >= -10 then invenX += (0-invenX)*0.2; }
+else { if invenX >= -10 then invenX += (0-invenX)*0.2; }
     
 //Fire equipment queue
 if obj_player.toolReady == true && equipQueue != noone
 {
-    selectedSlot = equipQueue;
     scr_slotEquip(equipQueue);
     equipQueue = noone;
 }
@@ -120,6 +130,62 @@ if showCraftingMenu == true && craftingMenu != 0
             //Get Crafting ID of slot
             if point_in_rectangle(dx,dy,x1,y1,x2,y2)
             { craftSelect = i; }
+        }
+    }
+}
+
+//Update inventory size if needed
+var array_size = array_length_1d(inventorySlotIcon);
+
+if maxInvenSlots > array_size
+{
+    //- reinitialize the array
+    inventorySlotIcon[maxInvenSlots-1] = 0;
+    inventorySlotAmt[maxInvenSlots-1] = 0;
+    inventorySlotType[maxInvenSlots-1] = 0;
+    inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+    
+    for (i=array_size;i<maxInvenSlots;i++)
+    {
+        inventorySlotIcon[i] = 0; //Nothing
+        inventorySlotAmt[i] = 0; //No items
+        inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
+        inventorySlotTags[i] = noone; //No tags
+    }
+}
+else if maxInvenSlots < array_size
+{
+    //If we lose slots, reallocate the affected items
+    for(z=array_size-(array_size-maxInvenSlots);z<array_size;z++)
+    {
+        if hudControl.inventorySlotIcon[z] != ITEMID.nil
+        {
+            //Remove the item and re-add it to the inventory.
+            var _item = hudControl.inventorySlotIcon[z];
+            var _amt = hudControl.inventorySlotAmt[z]; 
+            var _type = hudControl.inventorySlotType[z]; 
+            var _tags = hudControl.inventorySlotTags[z];
+
+            //Unequip a removed accessory
+            if _type == ITEMTYPE.accessory
+            {
+                for(g=0;g<ds_list_size(accessories_equipped);g++)
+                {
+                    if _item == accessories_equipped[| g]
+                    {
+                        scr_applyAccessory(_item);
+                    }
+                }
+            }
+            
+            //Clear the slot
+            scr_clearSlot(z);
+            
+            //Reallocate the item
+            if scr_invenAddItem(_item,_amt,_type,_tags) == -1
+            {
+                scr_dropItem(_item,_amt,_type,obj_player.x,obj_player.y,_tags);
+            }
         }
     }
 }
@@ -192,8 +258,23 @@ if invOpen == true
 {
     if point_in_rectangle(dx,dy,0,50+hotbarOffset,invenX,200)
     {
-        if cursorHoldItem = false
+        if cursorHoldItem = false && mouse_check_button_pressed(mb_left) && obj_player.toolReady == true
         {
+            //---- TRASH SLOT-----
+            var x1 = 106/(invenXMax/invenX);
+            var y1 = 4+(16*ceil(maxInvenSlots/7));
+
+            if point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+            {
+                cursorHoldItem = true;
+                cursorItem = trashSlotIcon;
+                cursorType = trashSlotType;
+                cursorAmt = trashSlotAmt;
+                cursorTags = trashSlotTags;
+                cursorSlot = "trashSlot";
+            }
+            
+            //--- INVENTORY SLOTS ---
             for (i=0;i<maxInvenSlots;i++)
             {
                 //inventory slots
@@ -269,21 +350,23 @@ if (lastPlaceX != xx || lastPlaceY != yy) && selectedSlot != noone
             {
                 if inventorySlotType[selectedSlot] == 3 && obj_player.tool == 3
                 {
+                    var _tile = scr_invenTileIndex(inventorySlotIcon[selectedSlot]);
+                    var _amt = inventorySlotAmt[selectedSlot];
                     
                     //Single place
-                    if !position_meeting(xx,yy,TILE_ALL) 
+                    if !position_meeting(xx,yy,OBSTA) && !(object_get_parent(_tile) == PLR_NOCOL && position_meeting(xx,yy,NOCOL))
                     && point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) <= 16*3 //3 tiles worth of distance.
                     && (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     && !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
                     && !position_meeting(xx,yy+2,obj_pie)
                     {
-                        if inventorySlotAmt[selectedSlot] > 0
+                        if _amt > 0
                         {
-                            instance_create(xx,yy,scr_invenTileIndex(inventorySlotIcon[selectedSlot]));
+                            instance_create(xx,yy,_tile);
                             scr_tileUpdate(xx,yy);
                             scr_invenRemoveItem(0,1,3,false,selectedSlot,noone);
-                            if inventorySlotAmt[selectedSlot] == 0 then selectedSlot = noone;
+                            if _amt == 0 then selectedSlot = noone;
                             lastPlaceX = xx;
                             lastPlaceY = yy;
                             break;
@@ -369,7 +452,6 @@ if room == rm_menu then exit;
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
-
 //---------- MOD BENCH FUNCTIONALITY ---------------
 
 if cursorHoldItem == true && craftingMenu == "menu_mod"
@@ -392,7 +474,7 @@ if cursorHoldItem == true && craftingMenu == "menu_mod"
     }
     
     //-- Equipment Slot
-    if (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) && point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
+    if cursorType != ITEMTYPE.def && (cursorType == ITEMTYPE.weapon || cursorType == ITEMTYPE.pickaxe) && point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
     {
         selectedEquipment = cursorItem;
         selectedType = cursorType;
@@ -422,7 +504,7 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
     
     if modCanConfirm == true && point_in_rectangle(dx,dy,x1+110,y1,x2+110,y2)
     {
-        //print("Check")
+        //Create a ds_list to store the new tag inside.
         if !ds_exists(equipmentTags,ds_type_list)
         { equipmentTags = ds_list_create(); }
         
@@ -430,12 +512,13 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
         var tags_maxxed = false;
         
         if ds_list_size(equipmentTags) < 2
-        { 
-            ds_list_add(equipmentTags,selectedTag[| 0]); 
-            
-            //Remove the ingredient items.
-            scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
+        {   
+            //Remove the old weapon, then append the tag to the recycled ds list.
             scr_invenRemoveItem(selectedEquipment,-1,selectedType,false,-1,equipmentTags);
+            ds_list_add(equipmentTags,selectedTag[| 0]); 
+        
+            //Remove the ingredient tag.
+            scr_invenRemoveItem(ITEMID.item_modTag,1,ITEMTYPE.def,false,-1,selectedTag);
         }
         else 
         {
@@ -451,7 +534,7 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
             
             event_user(0); //Reset the mod bench.
             
-            scr_playSound(obj_player.localEmitter,snd_modificationSuccess,false,10,obj_player.x,obj_player.y);
+            scr_playSound(snd_modificationSuccess,false,10,obj_player.x,obj_player.y,1);
         } 
         else 
         {
@@ -460,6 +543,47 @@ else if showCraftingMenu == true && craftingMenu == "menu_mod"
         }
     }
 }
+//--------- TRASH SLOT --------------------------
+if cursorHoldItem == true
+{
+    var x1 = 106/(invenXMax/invenX);
+    var y1 = 4+(16*ceil(maxInvenSlots/7));
+
+    if point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+    {
+        trashSlotIcon = cursorItem;
+        trashSlotType = cursorType;
+        trashSlotAmt = cursorAmt;
+        trashSlotTags = cursorTags;
+        
+        //variable reset
+        scr_clearSlot(cursorSlot);
+        
+        //check for accessory
+        if cursorType == ITEMTYPE.accessory
+        {
+            var _size = ds_list_size(accessories_equipped)
+            
+            for(n=0;n<_size;n++)
+            {
+                //dequip the accessory
+                if cursorItem == accessories_equipped[| n]
+                {
+                    scr_applyAccessory(cursorItem);
+                }
+            }
+        }
+        
+        cursorHoldItem = false;
+        cursorItem = noone;
+        cursorAmt = noone;
+        cursorSlot = noone;
+        cursorType = noone;
+        cursorTags = noone;
+    }
+}
+
+
 
 //--------- INVENTORY INTERACTIONS -------------
 for (i=0;i<maxInvenSlots;i++)
@@ -491,21 +615,35 @@ for (i=0;i<maxInvenSlots;i++)
         //-----------------------------Copy current item and place in old slot if need be.----------------------------
             if i != cursorSlot
             {
-            
+                //Trash slot interaction
+                if cursorSlot == "trashSlot"
+                {
+                    //Place item in new slot
+                    cursorHoldItem = false;
+                    inventorySlotIcon[i] = cursorItem;
+                    inventorySlotType[i] = cursorType;
+                    inventorySlotAmt[i] = cursorAmt;
+                    inventorySlotTags[i] = cursorTags;
+                    
+                    selectedSlot = noone;
+                    pickupTimer = 0;
+                    pickupTimerMax = 60;
+                    pickupTimerRate = 4;
+                    
+                    scr_clearSlot("trashSlot");
+                    
+                    exit;
+                }
             
             //- Replace slots with cursor item.
                 //-- Case: The new slot is the same item & can be stacked.
                 if inventorySlotIcon[i] == cursorItem && inventorySlotAmt[i] > 0 && inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
                 {  
-                    
                     //-Update the slot previously picked up.
                         //-- Case: the old slot will have no AMT left.
                     if inventorySlotAmt[cursorSlot]-cursorAmt == 0
                     {
-                        inventorySlotIcon[cursorSlot] = 0;
-                        inventorySlotType[cursorSlot] = 0;
-                        inventorySlotAmt[cursorSlot] = 0;
-                        inventorySlotTags[cursorSlot] = noone;
+                        scr_clearSlot(cursorSlot);
                     } 
                     else //Case: the old slot will have left-over items.
                     { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
@@ -513,7 +651,8 @@ for (i=0;i<maxInvenSlots;i++)
                     //Update amount in cursor 
                     cursorAmt += inventorySlotAmt[i];
                     
-                } else if inventorySlotIcon[i] != 0
+                } 
+                else if inventorySlotIcon[i] != 0
                 {
                     //Remove items to prevent deletion
                     if cursorAmt != inventorySlotAmt[cursorSlot]
@@ -567,13 +706,10 @@ for (i=0;i<maxInvenSlots;i++)
     if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
      && obj_player.toolReady == true
     {
-        selectedSlot = i;
         scr_slotEquip(i);
         break;
     }
 }
-
-
 
 //Ensure variable reset
 cursorHoldItem = false;
@@ -607,6 +743,16 @@ if settingsMenu = true
     //- Debug mode
     if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
     { dev = !dev; show_debug_overlay(dev); }
+    
+    //- toggle background
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    { 
+        showBackground = !showBackground;
+        background_visible[2] = showBackground;
+        background_visible[3] = showBackground;
+        background_visible[4] = showBackground;
+        background_visible[5] = showBackground;
+    }
     
     
     //- Exit button
@@ -676,6 +822,7 @@ else
         if point_in_rectangle(dx,dy,x1,y1,x2,y2)
         {
             selectedTag = noone;
+            modCanConfirm = false;
         }
         else if point_in_rectangle(dx,dy,x1+50,y1,x2+50,y2)
         {
@@ -684,6 +831,7 @@ else
             selectedType = noone;
             equipmentTags = noone;
             equipmentIcon = 0;
+            modCanConfirm = false;
         }
     }
 }
@@ -699,7 +847,7 @@ modCanConfirm = false;
 
 
 #event draw
-if room == rm_zero
+if room == rm_zero || room == rm_tutorial
 {    
     //Building indicator
     var xx = round(mouse_x/16)*16;
@@ -711,17 +859,21 @@ if room == rm_zero
     {
         if inventorySlotType[selectedSlot] == 3
         {
+            var _tile = scr_invenTileIndex(inventorySlotIcon[selectedSlot]);
             
             draw_set_alpha(0.5);
         
-            if !position_meeting(xx,yy,TILE_ALL) && 
+            if !position_meeting(xx,yy,OBSTA) && !(object_get_parent(_tile) == PLR_NOCOL && position_meeting(xx,yy,NOCOL)) &&
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) && 
             !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &&
             !position_meeting(xx,yy+1,obj_pie) &&
             (isConnected(xx,yy) || isGrounded(xx,yy))
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
+            draw_set_blend_mode(bm_add);
             draw_rectangle(xx-8,yy-8,xx+8,yy+8,false);
+            draw_sprite(object_get_sprite(_tile),0,xx,yy);
+            draw_set_blend_mode(bm_normal);
         }
     }
     
@@ -794,12 +946,42 @@ if invenX > 5
     }
     
     //Draw tooltip
-    if selectedSlot != noone
+    if selectedSlot != noone && selectedSlot != "trashSlot"
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot]);
-        draw_text_transformed(6,119,text[0],1.25,1.25,0);
-        draw_text_transformed(6,140,text[1],1,1,0);
+        var _text = text[0]+"##"+text[1]+"##"+text[2];
+        draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
+        /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
+        draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
+        draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
     }
+    
+    //-Draw equipped accessories
+    if ds_exists(accessories_equipped,ds_type_list)
+    {
+        var list_size = ds_list_size(accessories_equipped);
+        
+        if list_size > 0
+        {
+            for(m=0;m<list_size;m++)
+            {
+                var accessory = accessories_equipped[| m];
+                draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
+            }
+        }
+    }
+    
+    //- Draw Trash Slot
+    var _center = 6; //Center the sprite onto the slot
+    var x1 = 106/(invenXMax/invenX);
+    var y1 = 4+(16*ceil(maxInvenSlots/7));
+    //- slot
+    draw_sprite_ext(spr_ui_trashSlot,0,x1,y1,0.6,0.6,0,c_white,1);
+    //- item
+    draw_sprite_ext(spr_itemDrops,trashSlotIcon,x1+_center,y1+_center,0.5,0.5,0,c_white,1);
+    //- amt
+    if trashSlotAmt > 0 then draw_text_transformed(x1-8,y1+46.5,string(trashSlotAmt),0.75,0.75,0);
+    
 }
 
 //----------------Draw Hotbar-----------------------
@@ -843,7 +1025,7 @@ if invenX <= 5
 
 if showCraftingMenu == true
 {
-    //- draw background --Change to NineSliceBox
+    //- draw background
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
     
@@ -897,8 +1079,8 @@ if showCraftingMenu == true
         draw_set_font(global.fnt_Ui);
         
         //Tag and Equipment Slots respectively
-        draw_nineSliceBox(spr_ui_9slice,x1,y1,x2,y2,0);
-        draw_nineSliceBox(spr_ui_9slice,x1+50,y1,x2+50,y2,0);
+        draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
+        draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
         
         //Draw icons
         if selectedTag != noone 
@@ -983,6 +1165,8 @@ if worldControl.raidBoss == true
         //All possible boss objects.
         case obj_bombKing: { bossName = "The Bomb King" } break;
         case obj_sphereKing: {bossName = "The Sphere King"} break;
+        case obj_nilmerg: {bossName = "Nilmerg, the Grem-Bee"} break;
+        case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
     }
     
     if boss != noone
@@ -994,6 +1178,11 @@ if worldControl.raidBoss == true
         draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
     }
 }
+
+// - Energy
+if instance_exists(worldControl)
+{ draw_text(viewWidth-80,30,string(energy)); }
+
 //#endregion
 
 //-------------------Settings Menu-----------------------------
@@ -1008,11 +1197,15 @@ if settingsMenu == true
     
     //PopMessage Setting
     draw_sprite(spr_ui_selectedBool,showPopMessage,xx-40,yy-40);
-    draw_text(xx-32,yy-43,"Show Pop Messages");
+    draw_text(xx-32,yy-43,"Damage Numbers");
     
     //Debug setting
     draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
     draw_text(xx-32,yy-33,"Debug Mode");
+    
+    //toggle background setting
+    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
+    draw_text(xx-32,yy-23,"Toggle Background");
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
@@ -1021,7 +1214,7 @@ if settingsMenu == true
 }
 
 //------------------Quests/Task List--------------------------
-if room == rm_zero
+if room == rm_tutorial
 {
     if showTaskList == true
     {
@@ -1029,7 +1222,10 @@ if room == rm_zero
         var yy = 0;
         
         //Draw text
-        draw_text_transformed(xx-100,yy+28,scr_getTaskText(currentTask,0,0),1,1,0);
+        var str = scr_getTaskText(currentTask);
+        var str_length = string_length(str)*2.25;
+        if (str_length > viewWidth/2) then str_length = viewWidth/2;
+        draw_text_transformed(x+viewWidth/2-str_length,y+30,str,1.25,1.25,0);
     }
 }
 //#endregion
@@ -1042,7 +1238,40 @@ if interm == false
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
 }
-
+//#endregion
+//-----------------Upgrade Menu-----------------------------
+//#region
+if room = rm_lobby
+{
+    if upgradeMenu_visible == true
+    {
+        print("HELPME!");
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
+    
+        draw_set_alpha(0.75);
+        draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
+        draw_set_alpha(1);
+        
+        //- INIT BUTTONS
+        var h_size = 12;
+        var v_size = 6;
+        
+        //- Regeneration Upgrade button
+        var xx = 15;
+        var yy = 12;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Regeneration");
+        
+        //- Tile base HP Upgrade button
+        var xx = 50;
+        var yy = 12;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Tile Strength");
+    }
+}
 
 draw_set_alpha(1);
 
