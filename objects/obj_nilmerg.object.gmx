@@ -114,12 +114,14 @@ if dropItem != true then exit;
 
 var r = irandom(99); //0 to 99
 
-if r &lt;= 89 then scr_spawnEssence(5,45,15);
-if r &lt;= 49 then scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x,y,noone);
+//Drop essence
+scr_spawnEssence(5,45,15);
 
-var _t = ds_list_create();
-ds_list_add(_t,"Hive");
-if r &lt;= 20 then scr_dropItem(ITEMID.item_modTag,1,0,x,y,_t)
+//Drop items
+if r &lt;= 49 then scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x,y,noone);
+if r &gt;= 50 &amp;&amp; r &lt;= 60 then scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
+
+if r &lt;= 20 then scr_dropTag("Hive",1)
 else if r &gt;= 20 &amp;&amp; r &lt;= 35 then scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 
 if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;

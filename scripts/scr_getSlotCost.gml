@@ -4,4 +4,5 @@ switch argument0
 {
     case ITEMID.acc_ultrablueStar: { return 3; } break;
     case ITEMID.acc_satchel: { return 0; } break;
+    case ITEMID.acc_beehiveBackpack: { return 0; } break;
 }

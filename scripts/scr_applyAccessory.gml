@@ -34,8 +34,10 @@ if equip != 0
     
     if equip == 1
     {
+    
         var slots_available = 0;
-        for(i=0;i<maxInvenSlots;i++)
+        
+        for(_q=0;_q<maxInvenSlots;_q++)
         {
             //If the slots are clear
             if hudControl.inventorySlotType[_q] == 0  && hudControl.inventorySlotAmt[_q] == 0 && hudControl.inventorySlotIcon[_q] == 0  && hudControl.inventorySlotTags[_q] == noone
@@ -44,7 +46,7 @@ if equip != 0
                 if slot_cost == 0 then break;
                 
                 slots_available += 1;
-                
+            
                 if slots_available == slot_cost
                 {
                     //Slot_cost slots will be removed from the end of inventory.
@@ -71,7 +73,7 @@ if equip != 0
             }
             
             //There are not enough available slots!
-            if i == maxInvenSlots-1 && slot_cost != 0
+            if _q == maxInvenSlots-1 && slot_cost != 0
             {
                 scr_hudMessage(string(slot_cost-slots_available)+ " more slot(s) required to equip accessory.",global.fnt_Ui,5,0,c_red,0);
                 exit; 

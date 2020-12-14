@@ -454,7 +454,7 @@ if cursorHoldItem == true
     var x1 = 106/(invenXMax/invenX);
     var y1 = 4+(16*ceil(maxInvenSlots/7));
 
-    if point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+    if cursorSlot != "trashSlot" &amp;&amp; (cursorItem != ITEMID.nil &amp;&amp; cursorItem != trashSlotIcon || ( cursorItem == trashSlotIcon &amp;&amp; cursorAmt == trashSlotAmt)) &amp;&amp; point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
     {
         trashSlotIcon = cursorItem;
         trashSlotType = cursorType;
@@ -485,6 +485,7 @@ if cursorHoldItem == true
         cursorSlot = noone;
         cursorType = noone;
         cursorTags = noone;
+        selectedSlot = noone;
     }
 }
 
@@ -523,19 +524,43 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 //Trash slot interaction
                 if cursorSlot == "trashSlot"
                 {
+                    var _invItem = 0; var _invAmt= 0; var _invType = 0; var _invTags = 0;
+                    
+                    if inventorySlotIcon[i] != ITEMID.nil
+                    {
+                        _invItem = inventorySlotIcon[i];
+                        _invAmt = inventorySlotAmt[i];
+                        _invType = inventorySlotType[i];
+                        _invTags = inventorySlotTags[i];
+                    }
+                    
                     //Place item in new slot
                     cursorHoldItem = false;
                     inventorySlotIcon[i] = cursorItem;
-                    inventorySlotType[i] = cursorType;
                     inventorySlotAmt[i] = cursorAmt;
                     inventorySlotTags[i] = cursorTags;
+                    inventorySlotType[i] = cursorType;
+                    
+                    //Reallocate a replaced item slot.
+                    if _invItem != undefined
+                    {
+                        scr_invenAddItem(_invItem,_invAmt,_invType,_invTags);
+                    }
                     
                     selectedSlot = noone;
                     pickupTimer = 0;
                     pickupTimerMax = 60;
-                    pickupTimerRate = 4;
                     
                     scr_clearSlot("trashSlot");
+                    
+                    //Reset variables before script exit
+                    cursorHoldItem = false;
+                    cursorItem = noone;
+                    cursorAmt = noone;
+                    cursorSlot = noone;
+                    cursorType = noone;
+                    cursorTags = noone;
+                    selectedSlot = noone;
                     
                     exit;
                 }
@@ -547,7 +572,7 @@ for (i=0;i&lt;maxInvenSlots;i++)
                     //-Update the slot previously picked up.
                         //-- Case: the old slot will have no AMT left.
                     if inventorySlotAmt[cursorSlot]-cursorAmt == 0
-                    {
+                    { 
                         scr_clearSlot(cursorSlot);
                     } 
                     else //Case: the old slot will have left-over items.
@@ -599,6 +624,14 @@ for (i=0;i&lt;maxInvenSlots;i++)
                 pickupTimer = 0;
                 pickupTimerMax = 60;
                 pickupTimerRate = 4;
+                
+                //Reset variables
+                cursorHoldItem = false;
+                cursorItem = noone;
+                cursorAmt = noone;
+                cursorSlot = noone;
+                cursorType = noone;
+                cursorTags = noone;
                 
                 exit;
             }
@@ -1196,7 +1229,7 @@ if invenX &gt; 5
     //- item
     draw_sprite_ext(spr_itemDrops,trashSlotIcon,x1+_center,y1+_center,0.5,0.5,0,c_white,1);
     //- amt
-    if trashSlotAmt &gt; 0 then draw_text_transformed(x1-8,y1+46.5,string(trashSlotAmt),0.75,0.75,0);
+    if trashSlotAmt &gt; 0 then draw_text_transformed(x1+4,y1+8,string(trashSlotAmt),0.75,0.75,0);
     
 }
 
@@ -1335,6 +1368,9 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
     {
         draw_text(mx+3,my+4,string(cursorAmt));
     }
+    
+    draw_text(mx+5,my+8,string(cursorType));
+    
     
     //-- Draw item tags
     if cursorTags != undefined

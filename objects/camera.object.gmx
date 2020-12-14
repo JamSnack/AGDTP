@@ -31,6 +31,7 @@ follow_speed = 1;
 view_min_zoom = 0.8;
 view_zoom=1;
 view_max_zoom=1.2;
+zoom_rate = 0.05;
 
 cloudBkg_xOffset = 0;
 
@@ -180,7 +181,7 @@ if room == rm_zero || room == rm_tutorial
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_zoom -= 0.05;
+            <string>view_zoom -= zoom_rate;
 if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>
@@ -204,7 +205,7 @@ if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>view_zoom+= 0.05;
+            <string>view_zoom+= zoom_rate;
 if hudVisible == true then view_zoom=clamp(view_zoom,view_min_zoom,view_max_zoom);
 </string>
           </argument>

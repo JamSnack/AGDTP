@@ -204,7 +204,16 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\scr_applyAccessory.gml</script>
+    <scripts name="Tools">
+      <script>scripts\scr_applyAccessory.gml</script>
+      <script>scripts\scr_applyPickaxeStats.gml</script>
+      <script>scripts\scr_applyWeaponStats.gml</script>
+      <script>scripts\scr_useWeapon.gml</script>
+      <script>scripts\scr_usePickaxe.gml</script>
+      <script>scripts\scr_useConsumable.gml</script>
+      <script>scripts\scr_getSlotCost.gml</script>
+      <script>scripts\scr_applyAccessoryStats.gml</script>
+    </scripts>
     <script>scripts\print.gml</script>
     <script>scripts\scr_canPlace.gml</script>
     <script>scripts\scr_tileUpdate.gml</script>
@@ -213,11 +222,6 @@
     <script>scripts\scr_loadWorld.gml</script>
     <script>scripts\scr_activateGame.gml</script>
     <script>scripts\scr_deactivateOffscreen.gml</script>
-    <script>scripts\scr_useWeapon.gml</script>
-    <script>scripts\scr_applyWeaponStats.gml</script>
-    <script>scripts\scr_applyPickaxeStats.gml</script>
-    <script>scripts\scr_usePickaxe.gml</script>
-    <script>scripts\scr_useConsumable.gml</script>
     <scripts name="Inventory">
       <script>scripts\scr_invenAddItem.gml</script>
       <script>scripts\scr_invenRemoveItem.gml</script>
@@ -275,8 +279,6 @@
     <script>scripts\waveScale.gml</script>
     <script>scripts\insideView.gml</script>
     <script>scripts\scr_spawnEssence.gml</script>
-    <script>scripts\scr_getSlotCost.gml</script>
-    <script>scripts\scr_applyAccessoryStats.gml</script>
     <script>scripts\scr_createTip.gml</script>
   </scripts>
   <shaders name="shaders">

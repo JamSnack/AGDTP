@@ -251,7 +251,7 @@ if speed != 0 then speed = approach(speed,0,1);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),1,image_yscale,image_angle,c_white,image_alpha);
+            <string>draw_sprite_ext(sprite_index,image_index,x,y+(bobAmt*bobAltitude),image_xscale,image_yscale,image_angle,c_white,image_alpha);
 </string>
           </argument>
         </arguments>

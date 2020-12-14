@@ -7,5 +7,6 @@ switch accessory
 {    
     case ITEMID.acc_ultrablueStar: { obj_player.knock_resistance += 0.6*equip; } break;
     case ITEMID.acc_satchel: { maxInvenSlots += 4*equip; } break;
+    case ITEMID.acc_beehiveBackpack: { maxInvenSlots += 2*equip; obj_player.vsp_jump -= 1*equip; } break;
 }
 
