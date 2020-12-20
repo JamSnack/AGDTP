@@ -1,10 +1,10 @@
 ///scr_getTaskText(currentTask);
 //Type '0' for default variable.
-var currentTask = argument0;
+var ar0 = argument0;
 
 var str = "";
 
-switch currentTask
+switch ar0
 {
     case 0: //First task in the game.
     { str = "This is Barry. He is trying to bake a pie!#Gather 12 sticks to fuel the oven!" } break;

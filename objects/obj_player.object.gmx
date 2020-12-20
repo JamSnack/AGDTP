@@ -80,7 +80,7 @@ g_over = false;
 canUseTool = true;
 hitSyncX = 0; //Hitbox Synchronizers
 hitSyncY = 0;
-playerLight = 16; //How bright light is underground.
+playerLight = 0; //How bright light is underground.
 tool_snd = noone;
 
 //Tag Resets
@@ -92,22 +92,10 @@ if room = rm_zero then g_over = gameOver;
 friction = 0.3;
 
 //Apply equipped accessories
-var _size = ds_list_size(accessories_equipped);
-if _size &gt; 0
-{
-    for(i=0;i&lt;_size;i++)
-    {
-        //Reset maxInvenSlots so backpacks can re-add them.
-        maxInvenSlots = hudControl.maxInvenSlots_original;
-        { scr_applyAccessoryStats(accessories_equipped[| i],1); }
-    }
-}
+scr_reloadAccessories();
 
 //AUDIO
 audio_listener_orientation(0,0,-1000,0,1,0);
-
-scr_dropItem(ITEMID.tile_battery,99,ITEMTYPE.playertile,x,y,noone);
-scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 
 //Tutorial tips
 if tip_controls == false
@@ -119,8 +107,6 @@ if tip_controls == false
 while place_meeting(x,y,PLRTILE) y-=16;
 
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
-scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
-scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -485,7 +471,7 @@ hp = clamp(hp,0,maxHp);
 
 var _int = instance_nearest(x,y,INTERACT);
 
-if distance_to_object(INTERACT) &lt;= 32 &amp;&amp; _int.bench == true //Two tiles away
+if distance_to_object(INTERACT) &lt;= 32 &amp;&amp; (_int.bench == true || _int.object_index == obj_timeGuy) //Two tiles away
 {
     //Grab the new crafting recipes
     with _int event_user(14);
@@ -875,7 +861,7 @@ if armOffset == 0
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="99">
+    <event eventtype="10" enumb="100">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -892,12 +878,7 @@ if armOffset == 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(ITEMID.item_stonePiece,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_gremEssence,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_copperOre,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_stick,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_dirtClump,90,0,x,y,noone);
-</string>
+            <string></string>
           </argument>
         </arguments>
       </action>

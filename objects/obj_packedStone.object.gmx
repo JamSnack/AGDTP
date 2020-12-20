@@ -25,9 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
-maxHp = 25;
+            <string>maxHp = 25;
 hp = maxHp;
+event_inherited();
 
 tileID = 18;
 type = 3;

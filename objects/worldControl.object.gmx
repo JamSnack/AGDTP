@@ -38,6 +38,9 @@ maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 energy = 0;
 
+//local variable that needs to be set before scr_raidControl :)
+region_shift = false; //Whether or not to shift the region next intermission.
+
 if room == rm_zero 
 {
     scr_loadWorld(noone);
@@ -73,9 +76,34 @@ special_raidID = noone; //The ID of the raid
 world_TimeMax = room_speed*(3*60);
 dayTransition = false; //Whether or not to transition into day;
 dayAlpha = 0;
+deactivation_enabled = true;
 
-global.light_surface = surface_create(display_get_width(),display_get_height());
+//global.light_surface = surface_create(display_get_width(),display_get_height());
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///DELAYED REGION SHIFT
+scr_loadRegion("");
 </string>
           </argument>
         </arguments>
@@ -213,6 +241,8 @@ alarm[1] = room_speed/spawnRate;
           <argument>
             <kind>1</kind>
             <string>///Deactivation/Chunking and World Time
+alarm[0] = 2;
+if deactivation_enabled == false then exit;
 
 //- time control
 if interm == true 
@@ -278,12 +308,14 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
     {
         with TILE
         {
+            //if insideView() == false then break;
+        
             if light_level &lt; 255
             {
                 var dist = point_distance(x,y,playerX,playerY);
-                var light_dist = floor(255-dist*2.5);
+                var light_dist = floor(255+(playerLight)-dist*3);
                 
-                if dist &lt; playerLight*2
+                if dist &lt; (playerLight)+32
                 { light_level = 255;}
                 else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -292,12 +324,14 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
         
         with obj_nullLight
         {
+            if insideView() == false then break;    
+        
             if light_level &lt; 255
             {
                 var dist = point_distance(x,y,playerX,playerY);
-                var light_dist = floor(255-dist*2.5);
+                var light_dist = floor(255+(playerLight)-dist*3);
                 
-                if dist &lt; playerLight*2
+                if dist &lt; (playerLight)+32
                 { instance_destroy(); }
                 else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
                 else light_level = 0;
@@ -308,7 +342,7 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
 
 
 //------------- Proliferate every tick ---------------------------
-if heal_Time &gt;= room_speed
+if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
 {
     if interm == true
     {
@@ -332,11 +366,6 @@ if world_Time &gt;= world_TimeMax //3 minutes
     world_Time = 0;
     scr_raidControl(nextRaid,0,0,0,0); //Preset raid
 }
-
-
-
-
-alarm[0] = 2;
 </string>
           </argument>
         </arguments>
@@ -378,6 +407,39 @@ else if interm == false
 {
     dayAlpha = aMax;
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///LOAD NEW REGION
+//MODIFIED FOR USE IN REGION SHIFTING!
+//---------REMOVE PREVIOUS REGION---------------
+//- Reactivate everything, then destroy it.
+worldControl.deactivation_enabled = false;
+
+instance_activate_all();
+
+alarm[2] = 1;
+
+region_shift = false;
 </string>
           </argument>
         </arguments>

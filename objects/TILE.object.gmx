@@ -27,7 +27,6 @@
             <kind>1</kind>
             <string>image_speed = 0;
 if y &gt;= stoneLayer then light_level = 0 else light_level = 255;
-drawEffects = true;
 light_saturation = 0;
 knockType = noone;
 
@@ -214,9 +213,7 @@ scr_deactivateOffscreen(id);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if drawEffects == false then exit;
-
-var max_saturation = 80;
+            <string>var max_saturation = 80;
 var light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
 
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);

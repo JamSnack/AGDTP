@@ -76,7 +76,7 @@ equipmentTags = noone;
 modCanConfirm = false;
 
 //Inventory Slots
-maxInvenSlots_original = 28;
+maxInvenSlots_original = maxInvenSlots;
 
 //- initialize array length to avoid memory error.
 inventorySlotIcon[maxInvenSlots-1] = 0;
@@ -103,6 +103,7 @@ settingsMenu = false; //Whether settings menu is visible or not.
 showPopMessage = true; //Whether or not to use popMessages.
 showTaskList = true; //Show the player's tasks.
 showBackground = true;
+musicToggled = true; // Music is on!
 
 //Place Tiles
 lastPlaceX = noone;
@@ -351,7 +352,7 @@ else
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inventory Interaction
+            <string>///Ui Interactions
 if room == rm_menu then exit;
 
 var dx = device_mouse_x_to_gui(0);
@@ -489,6 +490,44 @@ if cursorHoldItem == true
     }
 }
 
+//--------- UPGRADE MENU INTERACTIONS ------------
+if upgradeMenu_visible == true &amp;&amp; room == rm_lobby
+{
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
+        
+        //- INIT BUTTONS
+        //NOTE: COORDINATES AND VARIABLES SHOULD BE 1:1 WITH WHAT IS IN THE DRAW GUI EVENT :)
+        var h_size = 36;
+        var v_size = 12;
+        var xx = 8+h_size;
+        var yy = 8+v_size;
+        
+        //- Tile Regen Rate
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("TILE_REGEN");
+        }
+        
+        //- Tile Level
+        var xx = 8+h_size;
+        var yy = 40+v_size;
+        
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("TILE_LEVEL");
+        }
+        
+        //- Electricity storage
+        var xx = 8+h_size;
+        var yy = 72+v_size;
+        
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("POWER_STORAGE");
+        }
+       
+}
 
 
 //--------- INVENTORY INTERACTIONS -------------
@@ -699,11 +738,11 @@ if settingsMenu = true
     { showPopMessage = !showPopMessage; }
     
     //- Debug mode
-    if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
     { dev = !dev; show_debug_overlay(dev); }
     
     //- toggle background
-    if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
     { 
         showBackground = !showBackground;
         background_visible[2] = showBackground;
@@ -712,9 +751,15 @@ if settingsMenu = true
         background_visible[5] = showBackground;
     }
     
+    //- Toggle music
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-10-hbox,xx-40+hbox,yy-10+hbox)
+    {
+        musicToggled = !musicToggled;
+        audio_sound_gain(music,musicToggled,0);
+    }
     
     //- Exit button
-    if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
+    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
         if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,45/60,rm_menu);
         else if interm == true
@@ -1205,21 +1250,6 @@ if invenX &gt; 5
         draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
     }
     
-    //-Draw equipped accessories
-    if ds_exists(accessories_equipped,ds_type_list)
-    {
-        var list_size = ds_list_size(accessories_equipped);
-        
-        if list_size &gt; 0
-        {
-            for(m=0;m&lt;list_size;m++)
-            {
-                var accessory = accessories_equipped[| m];
-                draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
-            }
-        }
-    }
-    
     //- Draw Trash Slot
     var _center = 6; //Center the sprite onto the slot
     var x1 = 106/(invenXMax/invenX);
@@ -1231,6 +1261,21 @@ if invenX &gt; 5
     //- amt
     if trashSlotAmt &gt; 0 then draw_text_transformed(x1+4,y1+8,string(trashSlotAmt),0.75,0.75,0);
     
+}
+
+//-Draw equipped accessories
+if ds_exists(accessories_equipped,ds_type_list)
+{
+    var list_size = ds_list_size(accessories_equipped);
+    
+    if list_size &gt; 0
+    {
+        for(m=0;m&lt;list_size;m++)
+        {
+            var accessory = accessories_equipped[| m];
+            draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,max(0.25,invenX/invenXMax));
+        }
+    }
 }
 
 //----------------Draw Hotbar-----------------------
@@ -1459,6 +1504,10 @@ if settingsMenu == true
     draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
     draw_text(xx-32,yy-23,"Toggle Background");
     
+    //toggle music setting
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
+    draw_text(xx-32,yy-13,"Toggle Music");
+    
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
     draw_text(xx-9,yy+45,"Exit");
@@ -1497,7 +1546,6 @@ if room = rm_lobby
 {
     if upgradeMenu_visible == true
     {
-        print("HELPME!");
         var _posX = viewWidth/2-120;
         var _posY = viewHeight/2-105;
     
@@ -1506,22 +1554,34 @@ if room = rm_lobby
         draw_set_alpha(1);
         
         //- INIT BUTTONS
-        var h_size = 12;
-        var v_size = 6;
+        var h_size = 36;
+        var v_size = 12;
         
+        //NOTE: Adding 32 to the y value every new button
         //- Regeneration Upgrade button
-        var xx = 15;
-        var yy = 12;
+        var xx = 8+h_size;
+        var yy = 8+v_size;
         
         draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Regeneration");
+        draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level");
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which a#player, pie, and tile#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
         
         //- Tile base HP Upgrade button
-        var xx = 50;
-        var yy = 12;
+        var xx = 8+h_size;
+        var yy = 40+v_size;
         
         draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Tile Strength");
+        draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level");
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
+        
+        //- Electricity storage
+        var xx = 8+h_size;
+        var yy = 72+v_size;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage");
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
+        
     }
 }
 

@@ -24,9 +24,10 @@ switch argument0
 }
 
 //Apply tags
-var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
-if ds_exists(tagsUnloaded,ds_type_list)
+if ds_exists(hudControl.inventorySlotTags[hudControl.selectedSlot],ds_type_list)
 {
+    var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+    
     for (i=0;i<ds_list_size(tagsUnloaded);i++)
     {
         var tag = tagsUnloaded[| i]

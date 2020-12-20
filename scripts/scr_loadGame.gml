@@ -90,6 +90,8 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     {
         energyRegenRate = _list[| 0];
         energyMax = _list[| 1];
+        tileRegenRate = _list[| 2];
+        tileLevel = _list[| 3];
     }
     
     

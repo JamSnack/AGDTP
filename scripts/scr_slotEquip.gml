@@ -26,7 +26,7 @@ else
 }
 
 //TAG RESETS
-if bright_reset == true { obj_player.playerLight = 16; bright_reset = false; }
+if bright_reset == true { obj_player.playerLight = 0; bright_reset = false; }
 
 //-STATISTICAL TAG EFFECTS
 var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
@@ -40,7 +40,7 @@ if ds_exists(tagsUnloaded,ds_type_list)
         //BRIGHT
         if tag == "Bright"
         {
-            obj_player.playerLight += 12;
+            obj_player.playerLight += 16;
             bright_reset = true;
         }
     }

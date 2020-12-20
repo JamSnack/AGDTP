@@ -6,7 +6,7 @@ var maxGrem = argument3;
 var raidBoss = argument4;
 
 var bossID = noone;
-var specialRaid = false;
+specialRaid = false;
 var special_raidID = noone;
 
 var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
@@ -39,17 +39,8 @@ switch presetSettings
         worldControl.dayTransition = true;
         world_Time = 0;
         
-        //Give wave rewards and Save the game.
-        if wave > 0
-        {
-            //Rewards
-            scr_dropItem(10,wave,0,obj_player.x,obj_player.y,noone);
-            scr_dropItem(15,wave,0,obj_player.x,obj_player.y,noone);
-        
-        
-            with gameControl event_user(0);
-            //scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
-        }
+        //Save the game.
+        with gameControl event_user(0);
         
         
         if instance_exists(GREM_BLOCK) then with GREM_BLOCK instance_destroy();
@@ -59,6 +50,26 @@ switch presetSettings
         
         //Tutorial Quest
         if currentTask == 4 { currentTask = 5; obj_tutorialControl.alarm[1] = room_speed*5; }
+        
+        //REGION SHIFT
+        if worldControl.region_shift == true
+        {
+            if scr_getInvenItemAmt(ITEMID.item_gremEssence) < 50
+            {
+                scr_hudMessage("50 essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
+            }
+            else
+            {
+                //- reset the player
+                obj_player.alarm[1] = 1; //RESPAWN THE PLAYER
+                
+                //- shift the region
+                with worldControl event_user(1);
+                
+                //- hud message
+                scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
+            }
+        }
     }
     break;
     
@@ -218,7 +229,6 @@ worldControl.spawnChance = spawnChance;
 worldControl.maxGrem = maxGrem;
 worldControl.raidBoss = raidBoss;
 worldControl.raidBossID = bossID;
-worldControl.specialRaid = specialRaid;
 worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy

@@ -85,6 +85,9 @@ if raid_boss == true
     maxAccel += 0.2;
     spwnRate-=0.25;
 }
+
+image_xscale = scale;
+image_yscale = scale;
 </string>
           </argument>
         </arguments>

@@ -81,7 +81,7 @@ room_goto(room_next(room));
 //Font
 global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
 global.fnt_Ui = font_add_sprite_ext(fnt_ui_new,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
-global.fnt_boxy = font_add_sprite_ext(fnt_ui_new,"!*+,-./0123'456789:;&lt;=#&gt;?@abcdefg$hijklmnopq%rstuvwxyz[&amp;\]^_'`(){|}~",0,0);
+//global.fnt_boxy = font_add_sprite_ext(fnt_ui_new,"!*+,-./0123'456789:;&lt;=#&gt;?@abcdefg$hijklmnopq%rstuvwxyz[&amp;\]^_'`(){|}~",0,0);
 
 
 
@@ -203,11 +203,13 @@ part_type_blend(part_stone_frag, false);
 part_type_life(part_stone_frag, 45, room_speed);
 
 //Gameplay globals and player stats
-globalvar kingDied_1,mainQuest,energyMax,energyRegenRate,accessories_equipped;
+globalvar kingDied_1,mainQuest,energyMax,energyRegenRate,accessories_equipped,tileLevel,tileRegenRate;
 energyMax = 5; //Maximum amount of energy in storage.
 energyRegenRate = 1; //Energy gained per second.
 kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
 mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
+tileLevel = 0; //Percentage to increase a tile's maximum HP when placed.
+tileRegenRate = 0; //How fast a tile's HP is regenerated.
 
 accessories_equipped = ds_list_create();
 

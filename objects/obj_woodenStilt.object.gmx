@@ -25,10 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
-level = 0;
-maxHp = 10;
+            <string>maxHp = 10;
 hp = maxHp;
+
+event_inherited();
 
 bench = false;
 canHit = true;

@@ -168,6 +168,8 @@ ds_list_add(quest_list,tip_controls);
 //Save player stats
 ds_list_add(stat_list,energyRegenRate);
 ds_list_add(stat_list,energyMax);
+ds_list_add(stat_list,tileRegenRate);
+ds_list_add(stat_list,tileLevel);
 
 //Game maker prefers to start with a ds_map.
 //Wrap the root List up in a map!

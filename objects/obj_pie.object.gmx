@@ -87,8 +87,7 @@ if hp &lt;= 0 { obj_player.g_over = true; gameOver = true; }
             <string>///Open Ui
 if !instance_exists(pieUi)
 {
-    pieUi = scr_popUiCreate(x,y,x,y-16*4,16*3,16*2,self,"PIE");
-    print(pieUi);
+    pieUi = scr_popUiCreate(x,y,x,y-16*5,16*4,16*3,id,"PIE");
 }
 </string>
           </argument>
