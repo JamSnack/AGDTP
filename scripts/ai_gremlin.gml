@@ -69,7 +69,7 @@ if x_previous = xObjective //Do not stand on top of pie.
 
 //Fall check---------------------------------------------
 // -- platformCollide and not on a platform means potential fall conditions.
-if (!position_meeting(x,y+16,OBSTA) || (!place_meeting(x,y+1,obj_platform) && platformCollide = true)) 
+if (!position_meeting(x,y+16,OBSTA) || (platformCollide = true && !place_meeting(x,y+1,obj_platform))) 
     && current_state != FALL
 {
     if gremBlockCol == false || !position_meeting(x,y+16,GREM_BLOCK)
@@ -107,7 +107,7 @@ if vForce == 0 && hForce == 0
             //Move
             var approach_speed = (spd+hForce)*image_xscale;
             
-            if !place_meeting(x+hspd,y,OBSTA) && !place_meeting(x+hspd,y,GR_ENEMY)
+            if !place_meeting(x+hspd,y,OBSTA) && !place_meeting(x+hspd,y,obj_gremlin)
             {
                 if dir != 0
                 {
@@ -119,19 +119,23 @@ if vForce == 0 && hForce == 0
                 }
                 
                 x += hspd;
-            } else if vsp == 0 && !position_meeting(x+hspd,y+jump_speed,OBSTA) 
-            {
-                //Jump if there is a tile in front of the gremlin
-                vsp = jump_speed;
-            } else if place_meeting(x,y,GR_ENEMY)
+            }
+            else if place_meeting(x,y,obj_gremlin)
             {
                 //Use arbitrary values to decide which Gremlin moves.
-                if instance_place(x,y,GR_ENEMY).id > id
+                var _gr = instance_place(x,y,obj_gremlin);
+                
+                if instance_exists(_gr) && _gr.id > id
                 {
                     sprite_index = idle_sprite;
                     hspd = 0;
-                } else { state = WANDER; alarm[stateLockAlarm] = 5; stateLock = true; hspd = 0; }
+                } else { state = WANDER; alarm[stateLockAlarm] = 5; stateLock = true; }
             }
+            else if vsp == 0
+            {
+                //Jump
+                vsp = jump_speed;
+            } 
             
             hspd = approach(hspd,approach_speed,agility);
         }
@@ -167,30 +171,26 @@ if vForce == 0 && hForce == 0
                 
                 if !place_meeting(x+hspd,y,OBSTA)
                 {
-                    if !place_meeting(x+hspd,y,GR_ENEMY)
+                    if !place_meeting(x+hspd,y,obj_gremlin)
                     {
                         x += hspd;
                     } 
-                    else if place_meeting(x,y,GR_ENEMY)
+                    else
                     {
                         //Use arbitrary values to decide which Gremlin moves.
-                        if instance_place(x,y,GR_ENEMY).id > id
+                        var _gr = instance_place(x,y,obj_gremlin);
+                        if instance_exists(_gr) && _gr.id < id && vsp = 0
                         {
-                            sprite_index = spr_gremlinIdle;
+                            vsp = jump_speed;
                         }
-                        else x += hspd;
-                    } 
-                    else { image_xscale = -image_xscale; hspd = 0; }
+                    }
                 }
                 
                 hspd = approach(hspd,approach_speed,agility);
                 
                 //- Jump Conditions -
                 //- If tile in front or gap in front
-                if vsp == 0 && (
-                    place_meeting(x+hspd,y,OBSTA) || 
-                    !place_meeting(x+hspd,y+8,OBSTA) 
-                    )
+                if vsp == 0 && (place_meeting(x+hspd,y,OBSTA) || !place_meeting(x+hspd,y+8,OBSTA))
                 {
                     //Jump if it is possible else turn around.
                     if !place_meeting(x+approach_speed,y-16,OBSTA)
@@ -266,7 +266,7 @@ if vForce == 0 && hForce == 0
         }
         
         //-----Normal Obstacles
-        if (place_meeting(x,y+vsp,OBSTA))
+        if vsp != 0 && (place_meeting(x,y+vsp,OBSTA))
         {
             //move as close as we can
             while (!place_meeting(x,y+vdir,OBSTA))  && vsp != 0

@@ -57,7 +57,7 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if insideView() == true &amp;&amp; !instance_exists(region_shifter)
+            <string>if insideView(x,y) == true &amp;&amp; !instance_exists(region_shifter)
 {
     part_particles_create(particle_system,x,y,tile_frag,irandom_range(4,8));
     scr_dropItem(item,amt,type,x,y+4,noone);

@@ -19,23 +19,26 @@ switch argument0
     case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 0.3; proj_type = 1;} break;
     
     case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; tool_firerate = 10; proj_spd = 8; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; wep_Dam = 3; wep_Knock = 0.5; proj_type = 2; tool_snd = snd_machineGunSoft; } break;
-    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 45; proj_spd = 3; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 4; wep_Knock = 2; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
+    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 45; proj_spd = 3; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 3; wep_Knock = 2; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
     case ITEMID.weapon_beemerang: { toolAnimation = "SHOOT"; tool_firerate = 45; proj_spd = 3; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_beemerang; wep_Dam = 4; wep_Knock = 3; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
 }
 
 //Apply tags
-if ds_exists(hudControl.inventorySlotTags[hudControl.selectedSlot],ds_type_list)
+if hudControl.selectedSlot != noone
 {
     var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
     
-    for (i=0;i<ds_list_size(tagsUnloaded);i++)
+    if ds_exists(tagsUnloaded,ds_type_list)
     {
-        var tag = tagsUnloaded[| i]
-        
-        //Tool Speed+
-        if tag == "Tool Speed+" 
-        { 
-            tool_firerate = clamp(tool_firerate-(tool_firerate*0.20),1,100);
+        for (i=0;i<ds_list_size(tagsUnloaded);i++)
+        {
+            var tag = tagsUnloaded[| i]
+            
+            //Tool Speed+
+            if tag == "Tool Speed+" 
+            { 
+                tool_firerate = clamp(tool_firerate-(tool_firerate*0.20),1,100);
+            }
         }
     }
 }

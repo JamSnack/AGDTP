@@ -62,8 +62,10 @@ with proj
         hAccel = hspeed;
         vAccel = vspeed;
         maxAccel = 8;
-        accelRate = 0.4;
+        accelRate = 0.3;
         speed = 0;
+        
+        alarm[2] = room_speed*5;
     }
     
     

@@ -282,35 +282,41 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
     
     if playerY &gt; stoneLayer-48
     {
-        with TILE
+        if instance_exists(TILE)
         {
-            //if insideView() == false then break;
-        
-            if light_level &lt; 255
+            with TILE
             {
-                var dist = point_distance(x,y,playerX,playerY);
-                var light_dist = floor(255+(playerLight)-dist*3);
-                
-                if dist &lt; (playerLight)+32
-                { light_level = 255;}
-                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                else light_level = 0;
+                if insideView(x,y) == false then continue;
+            
+                if light_level &lt; 255
+                {
+                    var dist = point_distance(x,y,playerX,playerY);
+                    var light_dist = floor(255+(playerLight)-dist*3);
+                    
+                    if dist &lt; (playerLight)+32
+                    { light_level = 255;}
+                    else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
+                    else light_level = 0;
+                }
             }
         }
         
-        with obj_nullLight
+        if instance_exists(obj_nullLight)
         {
-            if insideView() == false then break;    
-        
-            if light_level &lt; 255
-            {
-                var dist = point_distance(x,y,playerX,playerY);
-                var light_dist = floor(255+(playerLight)-dist*3);
-                
-                if dist &lt; (playerLight)+32
-                { instance_destroy(); }
-                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                else light_level = 0;
+            with obj_nullLight
+            {   
+                if insideView(x,y) == false then continue;
+            
+                if light_level &lt; 255
+                {
+                    var dist = point_distance(x,y,playerX,playerY);
+                    var light_dist = floor(255+(playerLight)-dist*3);
+                    
+                    if dist &lt; (playerLight)+32
+                    { instance_destroy(); }
+                    else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
+                    else light_level = 0;
+                }
             }
         }
     }

@@ -239,7 +239,7 @@ else if time == 65
     instance_destroy();
     
     //Cleanup (again)
-    if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView() == false then instance_destroy(); }
+    if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
 }
 
 

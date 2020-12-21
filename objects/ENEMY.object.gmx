@@ -76,7 +76,7 @@ if worldControl.raidBossID == id
           <argument>
             <kind>1</kind>
             <string>///Destroy Audio Emitter
-if deathSound != noone &amp;&amp; insideView() == true 
+if deathSound != noone &amp;&amp; insideView(x,y) == true 
 {
     scr_playSound(deathSound,false,8,x,y,1);
     
@@ -106,7 +106,7 @@ if deathSound != noone &amp;&amp; insideView() == true
             <kind>1</kind>
             <string>var outerBoundary = 5*16; //Slightly larger than the boundary used in activation. (4 tiles).
 
-if !insideView()
+if insideView(x,y) == false
 {
     dropItem = false;
     instance_destroy();

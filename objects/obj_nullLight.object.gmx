@@ -57,7 +57,7 @@ light_saturation = 0;
           <argument>
             <kind>1</kind>
             <string>///Destroy other nullLight tiles
-if insideView() == false then exit;
+if insideView(x,y) == false then exit;
 
 var right = instance_position(x+16,y,obj_nullLight);
 var left = instance_position(x-16,y,obj_nullLight);
