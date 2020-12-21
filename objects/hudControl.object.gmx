@@ -109,8 +109,9 @@ musicToggled = true; // Music is on!
 lastPlaceX = noone;
 lastPlaceY = noone;
 
-//Upgrade menu
-upgradeMenu_visible = true;
+//Betwixt menus
+upgradeMenu_visible = false;
+shopMenu_visible = false;
 
 
 </string>
@@ -761,23 +762,23 @@ if settingsMenu = true
     //- Exit button
     else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
-        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,45/60,rm_menu);
+        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,rm_menu);
         else if interm == true
         {
             //Warp out of the FLATLANDS
             if instance_exists(ENEMY)
             {
-                for(z=0;z&lt;instance_number(ENEMY)-1;z++)
+                for(_z=0;_z&lt;instance_number(ENEMY)-1;_z++)
                 {
-                    var _grem = instance_find(ENEMY,z);
+                    var _grem = instance_find(ENEMY,_z);
                     
-                    if _grem.y &lt; stoneLayer-48 &amp;&amp; _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
+                    if _grem.y &lt; stoneLayer-32 &amp;&amp; _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
                     {
                         scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
                         break;
-                    } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+                    } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
                 }
-            } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+            } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
         }
         
         //Save the game
@@ -1563,7 +1564,7 @@ if room = rm_lobby
         var yy = 8+v_size;
         
         draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level");
+        draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level#Cost: "+string(tileRegenRate*25));
         draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which a#player, pie, and tile#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
         
         //- Tile base HP Upgrade button
@@ -1571,7 +1572,7 @@ if room = rm_lobby
         var yy = 40+v_size;
         
         draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level");
+        draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level#Cost: "+string(tileLevel*50));
         draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
         
         //- Electricity storage
@@ -1579,7 +1580,7 @@ if room = rm_lobby
         var yy = 72+v_size;
         
         draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage");
+        draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage#Cost: "+string((energyMax-4)*100));
         draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
         
     }

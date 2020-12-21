@@ -286,6 +286,7 @@
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
+    <shader type="GLSLES">shaders\sh_transition.shader</shader>
   </shaders>
   <fonts name="fonts">
     <font>fonts\fnt_terrariaSmall</font>
@@ -372,13 +373,15 @@
     <object>objects\obj_youtubeLink</object>
     <object>objects\obj_menuGremlin</object>
     <object>objects\obj_timeGuy</object>
+    <object>objects\obj_tadGremlin</object>
     <object>objects\obj_tutorialDirt</object>
     <object>objects\obj_tutorialWorkbench</object>
+    <object>objects\region_shifter</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
-    <room>rooms\rm_zero</room>
     <room>rooms\rm_menu</room>
+    <room>rooms\rm_zero</room>
     <room>rooms\rm_lobby</room>
     <room>rooms\rm_tutorial</room>
   </rooms>

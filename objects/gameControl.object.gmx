@@ -324,7 +324,7 @@ if dev == true
             <string>if gameOver == true
 {
     event_user(0);
-    scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+    scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,rm_lobby);
 }
 </string>
           </argument>

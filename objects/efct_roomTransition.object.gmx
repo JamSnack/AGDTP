@@ -27,8 +27,18 @@
             <kind>1</kind>
             <string>image_speed = 0;
 drawText = true;
+type = roomTransition_1;
+subImage = irandom(sprite_get_number(type)-1);
 
 audio_sound_gain(music,0,room_speed*10);
+
+//Define our stuff
+//transition
+transition_length = 1/4; //seconds
+transition_time = 0;
+
+//shader
+uni_time = shader_get_uniform(sh_transition, "time");
 </string>
           </argument>
         </arguments>
@@ -101,18 +111,23 @@ print("transitioning...");
             <kind>1</kind>
             <string>if rm_goto == room
 {
-    image_speed = -speed_current;
-    image_index = floor(image_index);
-    if image_index &lt;= 0 then instance_destroy();
+    transition_time = approach(transition_time,0,1/room_speed);
+    if transition_time &lt;= 0 then instance_destroy();
     
     if rm_goto == rm_lobby then scr_musicTransition(snd_theStarsForever,room_speed*20);
 }
+else transition_time = approach(transition_time,transition_length,1/room_speed);
+
+
+//Warp to the room!
+if room_current == room &amp;&amp; transition_time == transition_length-0.1
+{ alarm[0] = 30; }
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="7">
+    <event eventtype="8" enumb="75">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -129,13 +144,13 @@ print("transitioning...");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room_current == room &amp;&amp; sprite_index != noone
+            <string>//Draw some text YO
+if drawText == true &amp;&amp; str != ""
 {
-    image_speed = 0;
-    image_index = sprite_get_number(roomTransition_1)-1;
-    alarm[0] = 30;
+    draw_set_font(font);
+    draw_set_colour(color);
+    draw_text_transformed_colour((view_wview[0]/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,transition_time/transition_length);
 }
-
 </string>
           </argument>
         </arguments>
@@ -158,14 +173,11 @@ print("transitioning...");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_stretched(roomTransition_1,image_index,0,0,view_wview[0],view_hview[0]);
-
-if drawText == true &amp;&amp; str != ""
-{
-    draw_set_font(font);
-    draw_set_colour(color);
-    draw_text_transformed_colour((view_wview[0]/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,image_index/10);
-}
+            <string>//Draw the transition
+shader_set(sh_transition);
+shader_set_uniform_f(uni_time,transition_time/transition_length);
+draw_sprite_tiled_ext(type, subImage, 0, 0,0.25,0.25,c_white,1);
+shader_reset();
 </string>
           </argument>
         </arguments>

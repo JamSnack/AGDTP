@@ -878,7 +878,8 @@ if armOffset == 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string></string>
+            <string>instance_create(x,y,region_shifter);
+</string>
           </argument>
         </arguments>
       </action>

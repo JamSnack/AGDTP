@@ -64,7 +64,7 @@ switch presetSettings
                 obj_player.alarm[1] = 1; //RESPAWN THE PLAYER
                 
                 //- shift the region
-                with worldControl event_user(1);
+                instance_create(x,y,region_shifter);
                 
                 //- hud message
                 scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);

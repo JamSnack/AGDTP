@@ -63,7 +63,8 @@ print(maxHp);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if itemDrop == true then scr_dropItem(tileID,1,type,x,y,noone);
+            <string>if instance_exists(region_shifter) then exit;
+if itemDrop == true then scr_dropItem(tileID,1,type,x,y,noone);
 
 //ACTION MUST BE DELAYED A FRAME. ALARM USAGE IS NECESSARY.
 scr_updateConnections(x,y);
