@@ -30,8 +30,8 @@ follow_speed = 1;
 
 view_min_zoom = 0.8;
 view_zoom=1;
-view_max_zoom=1.2;
-zoom_rate = 0.05;
+view_max_zoom=1;
+zoom_rate = 1;
 
 cloudBkg_xOffset = 0;
 
@@ -72,6 +72,8 @@ if room == rm_zero || rm_tutorial
           <argument>
             <kind>1</kind>
             <string>//Follow an instance
+view_zoom = 1;
+
 if instance_exists(followThis)
 {
     var fx = followThis.x;
@@ -79,8 +81,8 @@ if instance_exists(followThis)
     
     if distance_to_point(fx,fy) &gt; 4
     {
-        x += ((fx - x)*follow_speed)*0.5;
-        y += ((fy - y)*follow_speed)*0.5;
+        x += round(((fx - x)*follow_speed)*0.5);
+        y += round(((fy - y)*follow_speed)*0.5);
     } else
     {
         //Otherwise snap to the point!
@@ -92,18 +94,13 @@ if instance_exists(followThis)
     y = round(y);
 }
 
-//Update view
-
-var zoom_speed = .1;
-//view_zoom+=keyboard_check(vk_up)*zoom_speed;
-//view_zoom-=keyboard_check(vk_down)*zoom_speed;
-
-view_wview=obj_init.ideal_width/view_zoom;
-view_hview=obj_init.ideal_height/view_zoom;
+//Update view based on zoom
+view_wview=round(obj_init.ideal_width/view_zoom);
+view_hview=round(obj_init.ideal_height/view_zoom);
 
 //Center on camera
-view_xview=x-view_wview/2-10;
-view_yview=y-view_hview/2-10;
+view_xview=round(x-view_wview/2-10);
+view_yview=round(y-view_hview/2-10);
 
 //clamp to room
 view_xview=clamp(view_xview,0,room_width-view_wview);

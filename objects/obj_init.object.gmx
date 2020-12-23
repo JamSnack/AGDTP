@@ -39,7 +39,7 @@ display_height=display_get_height();
 aspect_ratio=display_width/display_height;
 
 ideal_width=round(ideal_height*aspect_ratio);
-//ideal_height=round(ideal_width / aspect_ratio);
+ideal_height=round(ideal_width / aspect_ratio);
 
 //Perfect Pixel Scaling
 if(display_width mod ideal_width != 0)
@@ -82,6 +82,16 @@ room_goto(room_next(room));
 global.fnt_menu = font_add_sprite_ext(fnt_grem,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
 global.fnt_Ui = font_add_sprite_ext(fnt_ui_new,"!'#$%()*,-./0123456789:;&lt;=&gt;ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}.?+",0,0);
 //global.fnt_boxy = font_add_sprite_ext(fnt_ui_new,"!*+,-./0123'456789:;&lt;=#&gt;?@abcdefg$hijklmnopq%rstuvwxyz[&amp;\]^_'`(){|}~",0,0);
+
+//Keybinds
+global.key_jump = ord("W");
+global.key_left = ord("A");
+global.key_right = ord("D");
+global.key_down = ord("S");
+global.key_inven = ord("I");
+global.key_craft = ord("C");
+global.key_interact = ord("E");
+
 
 
 
@@ -213,6 +223,8 @@ tileRegenRate = 0; //How fast a tile's HP is regenerated.
 
 accessories_equipped = ds_list_create();
 
+print(window_get_width());
+print(window_get_height());
 </string>
           </argument>
         </arguments>
@@ -261,6 +273,9 @@ surface_resize(application_surface,display_get_width(),display_get_height());
             <kind>1</kind>
             <string>///Center window
 window_center();
+
+print(window_get_width());
+print(window_get_height());
 </string>
           </argument>
         </arguments>
@@ -283,11 +298,10 @@ window_center();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if window_get_fullscreen() == true then exit;
-zoom = 3;
+            <string>zoom = 2;
 
 window_set_size(ideal_width*zoom,ideal_height*zoom);
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
+//surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
 alarm[0]=1;
 </string>
           </argument>
@@ -311,11 +325,9 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if window_get_fullscreen() == true then exit;
-
-zoom = 1;
+            <string>zoom = 1;
 window_set_size(ideal_width*zoom,ideal_height*zoom);
-surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
+//surface_resize(application_surface,ideal_width*zoom,ideal_height*zoom);
 alarm[0]=1;
 </string>
           </argument>
@@ -323,26 +335,6 @@ alarm[0]=1;
       </action>
     </event>
     <event eventtype="10" enumb="70">
-      <action>
-        <libid>1</libid>
-        <id>531</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_fullscreen</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
-          </argument>
-        </arguments>
-      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -359,7 +351,10 @@ alarm[0]=1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[1] = 1;
+            <string>zoom = 3;
+window_set_size(display_get_width(),display_get_width());
+surface_resize(application_surface,display_get_width(),display_get_height());
+alarm[0]=1;
 </string>
           </argument>
         </arguments>

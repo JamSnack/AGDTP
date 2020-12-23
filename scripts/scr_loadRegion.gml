@@ -42,7 +42,7 @@ else if time == 2
 
 else if time == 3
 {
-    if instance_exists(NOCOL) then with NOCOL { if object_index != PLR_NOCOL then instance_destroy(); }
+    if instance_exists(NOCOL) then with NOCOL { if object_get_parent(object_index) != PLR_NOCOL then instance_destroy(); }
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
 }
 
@@ -234,12 +234,13 @@ else if (time >= 48 && time <= 63) // 16 steps
 else if time == 64 then with NOCOL event_user(1);
 else if time == 65 
 {
+    //Cleanup (again)
+    if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
+    if instance_exists(ENEMY) then with ENEMY { if insideView(x,y) == false then instance_destroy(); }
+
     //Reenable deactivation
     worldControl.deactivation_enabled = true;
     instance_destroy();
-    
-    //Cleanup (again)
-    if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
 }
 
 

@@ -104,6 +104,8 @@ showPopMessage = true; //Whether or not to use popMessages.
 showTaskList = true; //Show the player's tasks.
 showBackground = true;
 musicToggled = true; // Music is on!
+keybindMenu_visible = false; //SHOW YA KEYBINDS BIFF
+input_wait = false; //Whether or not to wait for an input.
 
 //Place Tiles
 lastPlaceX = noone;
@@ -257,6 +259,50 @@ else if maxInvenSlots &lt; array_size
         }
     }
 }
+
+//--------------KEYBINDING-----------------
+if input_wait == true &amp;&amp; keyboard_key != 0
+{
+    if global.key_jump == noone
+    { global.key_jump = keyboard_key; }
+    else if global.key_left == noone
+    { global.key_left = keyboard_key; }
+    else if global.key_right == noone
+    { global.key_right = keyboard_key; }
+    else if global.key_down == noone
+    { global.key_down = keyboard_key; }
+    else if global.key_inven == noone
+    { global.key_inven = keyboard_key; }
+    else if global.key_craft == noone
+    { global.key_craft = keyboard_key; }
+    else if global.key_interact == noone
+    { global.key_interact = keyboard_key; }
+    
+    input_wait = false;
+}
+
+
+//-----------KEY INTERATION----------------
+
+if keyboard_check_released(global.key_inven)
+{
+    //- Toggle Inventory Visibility.
+    invOpen = !invOpen;
+}
+
+if keyboard_check_released(global.key_craft)
+{
+    ///Toggle crafting menu
+    showCraftingMenu = !showCraftingMenu;
+    
+    if instance_exists(gameControl)
+    { if currentTask == 1 then currentTask = 2; }
+    
+        
+    //init mod bench
+    event_user(0);
+}
+
 </string>
           </argument>
         </arguments>
@@ -722,15 +768,14 @@ craftTimerMax = 40;
           <argument>
             <kind>1</kind>
             <string>///Settings interactions
+var xx = display_get_gui_width()/2;
+var yy = display_get_gui_height()/2;
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
+var hbox = 4;
+
 if settingsMenu = true
-{
-    ///Settings menu interaction
-    var xx = display_get_gui_width()/2;
-    var yy = display_get_gui_height()/2;
-    var mx = device_mouse_x_to_gui(0);
-    var my = device_mouse_y_to_gui(0);
-    var hbox = 4;
-    
+{   
     //Show Pop Messages
     
     //- settings
@@ -759,6 +804,13 @@ if settingsMenu = true
         audio_sound_gain(music,musicToggled,0);
     }
     
+    //Keybinds
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-hbox,xx-40+hbox,yy+hbox)
+    {
+        keybindMenu_visible = true;
+        settingsMenu = false;
+    }
+    
     //- Exit button
     else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
@@ -783,6 +835,65 @@ if settingsMenu = true
         
         //Save the game
         with gameControl event_user(0);
+    }
+}
+else if keybindMenu_visible == true
+{
+    //-Movement keys
+    //-- Jump
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-40-hbox,xx-40+hbox,yy-40+hbox)
+    {
+        global.key_jump = noone;
+        input_wait = true;
+    }
+    
+    //- left
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
+    {
+        global.key_left = noone;
+        input_wait = true;
+    }
+    
+    //- right
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    {
+        global.key_right = noone;
+        input_wait = true;
+    }
+    
+    //- down
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-10-hbox,xx-40+hbox,yy-10+hbox)
+    {
+        global.key_down = noone;
+        input_wait = true;
+    }
+    
+    //- inventory
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-hbox,xx-40+hbox,yy+hbox)
+    {
+        global.key_inven = noone;
+        input_wait = true;
+    }
+    
+    //- crafting
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+10-hbox,xx-40+hbox,yy+10+hbox)
+    {
+        global.key_craft = noone;
+        input_wait = true;
+    }
+    
+    //- interact
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+20-hbox,xx-40+hbox,yy+20+hbox)
+    {
+        global.key_interact = noone;
+        input_wait = true;
+    }
+    
+    //- Back button
+    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
+    {
+        keybindMenu_visible = false;
+        settingsMenu = true;
     }
 }
 </string>
@@ -1509,10 +1620,57 @@ if settingsMenu == true
     draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
     draw_text(xx-32,yy-13,"Toggle Music");
     
+    //keybind setting
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy);
+    draw_text(xx-32,yy-3,"Change Keybinds");
+    
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
-    draw_text(xx-9,yy+45,"Exit");
+    draw_text(xx-15,yy+45,"Leave");
     
+}
+else if keybindMenu_visible == true
+{
+    //Draw the keybinding menu!
+    var xx = display_get_gui_width()/2;
+    var yy = display_get_gui_height()/2;
+
+    //-Draw background
+    draw_nineSliceBox(spr_ui_9slice,(xx)-50,(yy)-65,(xx)+50,(yy)+65,0);
+    
+    //-Movement keys
+    //-- jump
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy-40);
+    draw_text(xx-32,yy-43,"Jump: "+chr(global.key_jump));
+
+    //-- left
+    draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
+    draw_text(xx-32,yy-33,"Move Left: "+chr(global.key_left));
+    
+    //-- right
+    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
+    draw_text(xx-32,yy-23,"Move Right: "+chr(global.key_right));
+    
+    //-- down
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
+    draw_text(xx-32,yy-13,"Move Down: "+chr(global.key_down));
+    
+    //- Ui keys
+    //-- Inventory
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy);
+    draw_text(xx-32,yy-3,"Open Inventory: "+chr(global.key_inven));
+    
+    //-- Crafting Menu
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy+10);
+    draw_text(xx-32,yy+7,"Crafting Menu: "+chr(global.key_craft));
+    
+    //-- Interact
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy+20);
+    draw_text(xx-32,yy+17,"Interact: "+chr(global.key_interact));
+    
+    //Draw save and exit button
+    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
+    draw_text(xx-15,yy+45,"Go Back");
 }
 
 //------------------Quests/Task List--------------------------
@@ -1666,61 +1824,6 @@ draw_set_alpha(1);
           <argument>
             <kind>1</kind>
             <string>hudVisible = !hudVisible;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="73">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Toggle Inventory Visibility.
-invOpen = !invOpen;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="67">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Toggle crafting menu
-showCraftingMenu = !showCraftingMenu;
-
-if instance_exists(gameControl)
-{ if currentTask == 1 then currentTask = 2; }
-
-    
-//init mod bench
-event_user(0);
 </string>
           </argument>
         </arguments>
@@ -1955,6 +2058,7 @@ if invOpen == false &amp;&amp; showCraftingMenu == false
 //Close other menus
 if invOpen == true then invOpen = false;
 if showCraftingMenu == true then showCraftingMenu = false;
+if keybindMenu_visible = true then keybindMenu_visible = false;
 </string>
           </argument>
         </arguments>

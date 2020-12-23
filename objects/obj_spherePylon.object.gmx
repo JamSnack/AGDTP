@@ -70,6 +70,8 @@ event_inherited();
 
 knock_resistance = 25;
 damage = 0;
+
+image_speed = 20/60;
 </string>
           </argument>
         </arguments>

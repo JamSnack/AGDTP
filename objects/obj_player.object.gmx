@@ -218,10 +218,10 @@ if dead = false &amp;&amp; g_over == false
 {
     if knockBack == false
     {
-        key_right = (keyboard_check(ord("D")) || keyboard_check(vk_right));
-        key_left = (keyboard_check(ord("A")) || keyboard_check(vk_left));
-        key_jump = (keyboard_check(ord("W")) || keyboard_check(vk_up));
-        key_down = (keyboard_check(ord("S")) || keyboard_check(vk_down));
+        key_right = keyboard_check(global.key_right);
+        key_left = keyboard_check(global.key_left);
+        key_jump = keyboard_check(global.key_jump);
+        key_down = keyboard_check(global.key_down);
     }
     
     hsp = (key_right - key_left) * hsp_walk;
@@ -465,7 +465,7 @@ hp = clamp(hp,0,maxHp);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Crafting Menu
+            <string>///Crafting/Interact
 
 var _int = instance_nearest(x,y,INTERACT);
 
@@ -484,6 +484,21 @@ else
     if room == rm_lobby
     {
         hudControl.upgradeMenu_visible = false;
+    }
+}
+
+//-------INTERACT KEY------------
+if keyboard_check_released(global.key_interact)
+{
+    ///Interact with objects that aren't crafting
+    if instance_exists(INTERACT)
+    {
+        var interact = instance_nearest(x,y,INTERACT);
+        
+        if distance_to_point(interact.x,interact.y) &lt; 32 &amp;&amp; interact.bench == false
+        {
+            with interact event_user(0);
+        }
     }
 }
 </string>
@@ -877,6 +892,31 @@ if armOffset == 0
           <argument>
             <kind>1</kind>
             <string>instance_create(x,y,region_shifter);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="99">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
+scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);
+scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
 </string>
           </argument>
         </arguments>

@@ -163,7 +163,7 @@ if hp &gt;= maxHp then hp = maxHp;
             <string>///Do not inherit from parent.
 draw_set_color(c_white);
 draw_self();
-draw_text(x-8,y-16,"HP: "+string(hp));
+if hp &lt; maxHp then draw_text(x-8,y-16,"HP: "+string(hp));
 
 if gameOver == true
 {

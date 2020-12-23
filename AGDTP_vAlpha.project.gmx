@@ -100,12 +100,12 @@
       <sprite>sprites\spr_shadowGremlin</sprite>
       <sprite>sprites\spr_drillin</sprite>
       <sprite>sprites\spr_sphere</sprite>
+      <sprite>sprites\spr_spherePylon</sprite>
       <sprite>sprites\spr_bombKingIdle</sprite>
       <sprite>sprites\spr_nilmerg_transition</sprite>
       <sprite>sprites\spr_nilmerg_hover</sprite>
       <sprite>sprites\spr_nilmerg_move</sprite>
       <sprite>sprites\spr_beeMinion</sprite>
-      <sprite>sprites\spr_spherePylon</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -170,7 +170,7 @@
       <sprite>sprites\spr_nullGib</sprite>
     </sprites>
     <sprite>sprites\spr_fog</sprite>
-    <sprite>sprites\spr_multiPlace</sprite>
+    <sprite>sprites\spr_ui_ammo</sprite>
     <sprite>sprites\spr_portalBlock</sprite>
     <sprite>sprites\spr_menuGremlin</sprite>
     <sprite>sprites\hbox_sword</sprite>
