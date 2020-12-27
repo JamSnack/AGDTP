@@ -34,8 +34,6 @@ item = ITEMID.item_stonePiece;
 amt = 1;
 type = ITEMTYPE.def;
 
-image_xscale = choose(1,-1);
-
 tile_frag = part_stone_frag;
 </string>
           </argument>

@@ -129,11 +129,11 @@
       <sprite>sprites\spr_break</sprite>
       <sprite>sprites\spr_treeCanopy</sprite>
       <sprite>sprites\spr_copperOre</sprite>
-      <sprite>sprites\spr_dirtTile</sprite>
       <sprite>sprites\spr_flatland</sprite>
       <sprite>sprites\spr_chest</sprite>
       <sprite>sprites\spr_lobbyPlatform</sprite>
       <sprite>sprites\spr_nullLight</sprite>
+      <sprite>sprites\spr_dirtTile</sprite>
     </sprites>
     <sprites name="Projectiles">
       <sprite>sprites\spr_projectile1</sprite>
@@ -188,6 +188,8 @@
     <sprite>sprites\spr_nothing</sprite>
     <sprite>sprites\spr_ui_electricity</sprite>
     <sprite>sprites\spr_ui_tips</sprite>
+    <sprite>sprites\sprite103</sprite>
+    <sprite>sprites\sprite104</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -284,6 +286,7 @@
     <script>scripts\scr_spawnEssence.gml</script>
     <script>scripts\scr_createTip.gml</script>
     <script>scripts\scr_buyUpgrade.gml</script>
+    <script>scripts\scr_autoTile.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
