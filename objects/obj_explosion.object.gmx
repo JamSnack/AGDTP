@@ -102,7 +102,7 @@ with type //TILE or PLRTILE
                 hp -= d;
                 
                 //Check for tile death otherwise heal.
-                if hp &lt;= 0 
+                if hp &lt;= 0 &amp;&amp; object_index != obj_pie
                 {
                     scr_tileUpdate(x,y);
                     instance_destroy();

@@ -91,7 +91,7 @@ item = ITEMID.item_gremEssence;
           <argument>
             <kind>1</kind>
             <string>//Gravitate toward player
-if canPickUp == true &amp;&amp; insideView(x,y) == true
+if canPickUp == true
 {
     var dir = point_direction(x,y,obj_player.x,obj_player.y);
     motion_add(dir,1);

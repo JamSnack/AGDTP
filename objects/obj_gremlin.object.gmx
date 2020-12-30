@@ -50,7 +50,7 @@ aggroRange = 16*2;
 stateLock = true;
 alarm[stateLockAlarm] = 20;
 
-gremBlockCol = interm;
+gremBlockCol = !interm;
 
 image_xscale = sign(target.x-x);
 

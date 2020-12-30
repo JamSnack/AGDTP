@@ -129,7 +129,7 @@ for (i=0;i<spawnAmt;i++)
         //(y+16) because the trees spawn one tile above the ground
         var t = instance_create(xInterval,yInterval,obj_tree);
         
-        if j == treeHeight-1 then t.canopy = true;
+        if j == treeHeight-1 then { t.canopy = true; depth = -1; }
         
         xInterval = xInterval_Original;
         yInterval = yInterval_Original;

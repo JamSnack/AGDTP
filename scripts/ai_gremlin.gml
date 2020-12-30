@@ -319,7 +319,7 @@ else if ( hForce != 0 || vForce != 0 )
     hspd = 0;
     vsp = 0;
     
-    sprite_index = spr_gremlinJump;
+    sprite_index = jump_sprite;
     image_index = 1;
 
     //Separate gravity

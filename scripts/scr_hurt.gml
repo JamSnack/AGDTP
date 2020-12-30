@@ -44,7 +44,7 @@ if (hp-damage <= 0)
     
     
     //Destroy tiles immediately
-    if (object_index == PLRTILE || object_index == TILE)
+    if (object_index == PLRTILE || object_index == TILE) && object_index != obj_pie
     {
         itemDrop = false;
         instance_destroy();

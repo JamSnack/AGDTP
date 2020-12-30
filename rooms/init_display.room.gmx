@@ -53,6 +53,7 @@
   <instances>
     <instance objName="obj_init" x="0" y="0" name="inst_175507A2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="hudControl" x="32" y="0" name="inst_52EDF904" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="twitchControl" x="64" y="0" name="inst_C9CDA31C" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

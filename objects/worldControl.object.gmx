@@ -141,7 +141,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
     while position_meeting(xx,yy,OBSTA) yy-=16;
     
     //Spawn gremlin
-    var flyChance = 0.3;
+    var specialChance = 0.3;
     var gremNumber = random(1);
     
     //-Check whether or not the enemy will spawn inside the view.
@@ -150,7 +150,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
         //--SpawnGremlins directly ontop of a tile from the sky
         while (!position_meeting(xx,yy+16,TILE_ALL) &amp;&amp; !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy &gt; room_height then break; }
         
-        new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID);
+        new_raidGremlin(xx,yy,gremNumber,specialChance,special_raidID);
         
         //Special mob spawns.
             //-Sphere Pylon
@@ -161,7 +161,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
                 instance_create(xx,yy,obj_spherePylon);
             }
         }
-    } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,flyChance,special_raidID); }
+    } else if spawn_at_portal == true { new_raidGremlin(xx,yy,gremNumber,specialChance,special_raidID); }
     
     //Clear active mob roster
     if array_length_1d(enemyActiveList) &gt; 3 { enemyActiveList = 0; }
