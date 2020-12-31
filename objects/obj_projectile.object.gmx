@@ -29,6 +29,7 @@
 localGrav = 0;
 deadProjectile = false;
 tags = noone;
+time = 0;
 
 //Latent behaviors
 bBouncy = false;
@@ -218,24 +219,27 @@ switch type
 {
     case "SPHERE":
     {
-        //Sphere behaviors
-        var _enemy = instance_nearest(x,y,ENEMY);
-    
-        if _enemy != noone //if an enemy exists
-        { 
-            if distance_to_object(_enemy) &lt;= 16*8
-            {
-                if speed != 0 then speed = approach(speed,0,1);
-            
-                //Direction
-                var dir = sign(_enemy.x-x);
-                var vdir = sign(_enemy.y-(y));
+        if time &gt; 25
+        {
+            //Sphere behaviors
+            var _enemy = instance_nearest(x,y,ENEMY);
+        
+            if _enemy != noone //if an enemy exists
+            { 
+                if distance_to_object(_enemy) &lt;= 16*8
+                {
+                    if speed != 0 then speed = approach(speed,0,1);
                 
-                //Horizontal Acceleration
-                hAccel = approach(hAccel,maxAccel*dir,accelRate);
-                
-                //Vertical Acceleration
-                vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+                    //Direction
+                    var dir = sign(_enemy.x-x);
+                    var vdir = sign(_enemy.y-(y));
+                    
+                    //Horizontal Acceleration
+                    hAccel = approach(hAccel,maxAccel*dir,accelRate);
+                    
+                    //Vertical Acceleration
+                    vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+                }
             }
         }
         
@@ -270,6 +274,9 @@ switch type
 //Gravity
 if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
 { vspeed += (localGrav); }
+
+//Time
+time += 1;
 </string>
           </argument>
         </arguments>

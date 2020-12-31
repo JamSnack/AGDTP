@@ -108,7 +108,10 @@ if raid_boss == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>event_inherited();
+            <string>//Call this region king death check before event_inherited();
+if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;
+
+event_inherited();
 
 if dropItem != true then exit;
 
@@ -123,8 +126,6 @@ if r &gt;= 50 &amp;&amp; r &lt;= 60 then scr_dropItem(ITEMID.acc_beehiveBackpack
 
 if r &lt;= 20 then scr_dropTag("Hive",1)
 else if r &gt;= 20 &amp;&amp; r &lt;= 35 then scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
-
-if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;
 </string>
           </argument>
         </arguments>

@@ -125,7 +125,7 @@ else if string_pos("!lightning",data) == 1
 }
 else if string_pos("!rspawn",data) == 1
 {
-    var i = instance_create(x,y,choose(obj_shadowGremlin,obj_grassGremlin,obj_gremlin,obj_drillin,obj_beeMinion,obj_sphereMinion,obj_spherePylon));
+    var i = instance_create(obj_player.x,obj_player.y,choose(obj_sphereMinion,obj_shadowGremlin,obj_grassGremlin,obj_gremlin,obj_drillin,obj_beeMinion,obj_sphereKing,obj_bombKing,obj_nilmerg,obj_spherePylon));
     twitch_chat_say("Enemy spawned: "+string(object_get_name(i.object_index)));
     
     scr_hudMessage("Enemy spawned",global.fnt_Ui,5,0,c_blue,0);

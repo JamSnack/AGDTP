@@ -1854,8 +1854,12 @@ draw_set_alpha(1);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 6;
-scr_slotEquip(6);
+    selectedSlot = 6;
+    scr_slotEquip(6);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 6;
 </string>
           </argument>
@@ -1883,8 +1887,12 @@ scr_slotEquip(6);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 5;
-scr_slotEquip(5);
+    selectedSlot = 5;
+    scr_slotEquip(5);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 5;
 </string>
           </argument>
@@ -1912,8 +1920,13 @@ scr_slotEquip(5);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 4;
-scr_slotEquip(4);
+    selectedSlot = 4;
+    scr_slotEquip(4);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+    
 } else equipQueue = 4;
 </string>
           </argument>
@@ -1941,8 +1954,12 @@ scr_slotEquip(4);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 3;
-scr_slotEquip(3);
+    selectedSlot = 3;
+    scr_slotEquip(3);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 3;
 </string>
           </argument>
@@ -1970,9 +1987,13 @@ scr_slotEquip(3);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 2;
-scr_slotEquip(2);
-} else equipQueue = 3;
+    selectedSlot = 2;
+    scr_slotEquip(2);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+} else equipQueue = 2;
 </string>
           </argument>
         </arguments>
@@ -1999,8 +2020,12 @@ scr_slotEquip(2);
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 1;
-scr_slotEquip(1);
+    selectedSlot = 1;
+    scr_slotEquip(1);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 1;
 </string>
           </argument>
@@ -2030,6 +2055,10 @@ if obj_player.toolReady == true
 {
     selectedSlot = 0;
     scr_slotEquip(0);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 0;
 </string>
           </argument>

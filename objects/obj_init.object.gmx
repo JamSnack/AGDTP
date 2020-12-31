@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Display Properties
 globalvar dev;
-dev = true; //Dev tool boolean.
+dev = false; //Dev tool boolean.
 
 ideal_width=0;
 ideal_height=247;
@@ -136,6 +136,7 @@ enum ITEMID
     tile_battery,
     acc_satchel,
     acc_beehiveBackpack,
+    cons_treeFruit,
 }
 
 //Item Types

@@ -1,4 +1,4 @@
-///ai_gremlin(state,idle_sprite,move_sprite,speed,objective,attackBox);
+///ai_pylon(state,idle_sprite,move_sprite,speed,objective,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
 var move_sprite = argument2;

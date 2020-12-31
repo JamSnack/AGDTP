@@ -46,6 +46,23 @@ switch item
         alarm[2] = room_speed;
     }
     break;
+    
+    case ITEMID.cons_treeFruit:
+    {
+        var _hp = obj_player.hp;
+        var _maxHp = obj_player.maxHp;
+    
+        obj_player.hp = approach(_hp,_maxHp,10);
+        scr_popMessage("10",global.fnt_Ui,3,c_green,x,y);
+        
+        armIndex = spr_armSwing;
+        armAngleGoal = 71;
+        armAngle = 70; //Straight up
+        armAngleRate = 0;
+        toolSprite = spr_itemDrops;
+        alarm[2] = room_speed;
+    }
+    break;
 }
 
 scr_invenRemoveItem(item,1,4,false,hudControl.selectedSlot,noone);

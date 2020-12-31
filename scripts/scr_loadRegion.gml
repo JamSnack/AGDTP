@@ -42,7 +42,7 @@ else if time == 2
 
 else if time == 3
 {
-    if instance_exists(NOCOL) then with NOCOL { if object_get_parent(object_index) != PLR_NOCOL then instance_destroy(); }
+    if instance_exists(NOCOL) then with NOCOL { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
 }
 

@@ -43,7 +43,7 @@ switch specialRaidID
             {
                 case 0: if wave >= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
                 case 1: if wave >= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 2: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin; } break;
+                case 2: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin; print("This");} break;
             }
 
             build_index += 1;

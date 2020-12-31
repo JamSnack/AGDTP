@@ -25,7 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Initialize Twitch Integration
+            <string>if dev == false 
+{
+    instance_destroy();
+    exit;
+}
+
+///Initialize Twitch Integration
 twitch_init("bne5oolfgen8un336r7g59ffkpvp5x");
 
 //Connect

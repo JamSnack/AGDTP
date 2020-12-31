@@ -37,10 +37,8 @@ itemDrop = true;
 
 if !isConnected(x,y) then instance_destroy();
 
-maxHp += maxHp*(tileLevel/100);
+maxHp += maxHp*(tileLevel/50);
 hp = maxHp;
-
-print(maxHp);
 </string>
           </argument>
         </arguments>
