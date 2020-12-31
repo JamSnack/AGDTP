@@ -60,7 +60,7 @@ switch item
         armAngle = 70; //Straight up
         armAngleRate = 0;
         toolSprite = spr_itemDrops;
-        alarm[2] = room_speed;
+        alarm[2] = 45;
     }
     break;
 }

@@ -1326,6 +1326,9 @@ if invenX &gt; 5
             var y1 = -45+(16*c);
             var y2 = -35+(16*c);
         }
+        
+        var inv_amt = inventorySlotAmt[i];
+        
                 
         //Draw slots
         draw_set_alpha(1);
@@ -1348,7 +1351,18 @@ if invenX &gt; 5
         draw_set_color(c_white);
         
         //Draw item amount
-        if inventorySlotAmt[i] &gt; 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
+        if inv_amt &gt; 0 
+        {
+            var str = string(inv_amt);
+            
+            if inv_amt &gt;= 1000
+            {
+                str = string_delete(str,2,3);
+                str += "k";
+            }
+            
+            draw_text_transformed(x2-9,y2+47.5,str,0.6,0.6,0);
+        }
     }
     
     //Draw tooltip
@@ -1406,6 +1420,8 @@ if invenX &lt;= 5
         var y1 = -45;
         var y2 = -35;
         
+        var inv_amt = inventorySlotAmt[i];
+        
         //Draw hotbar slots
         draw_sprite_ext(spr_ui_invenSlot,0,x1,50+y1,0.6,0.6,0,c_white,1);
         draw_set_alpha(1);
@@ -1421,7 +1437,19 @@ if invenX &lt;= 5
         //Draw hotbar item amount (numbers)
         draw_set_font(global.fnt_Ui);
         draw_set_color(c_white);
-        if inventorySlotAmt[i] &gt; 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
+        
+        if inv_amt &gt; 0 
+        {
+            var str = string(inv_amt);
+            
+            if inv_amt &gt;= 1000
+            {
+                str = string_delete(str,2,3);
+                str += "k";
+            }
+            
+            draw_text_transformed(x2-9,y2+47.5,str,0.6,0.6,0);
+        }
     }
 }
 //#endregion
@@ -1465,9 +1493,9 @@ if showCraftingMenu == true
             {
                 draw_set_color(c_white);
                 scr_craftingToolTip(craftingMenu,craftSelect);
-                draw_text_transformed(120,134,text[0],1.25,1.25,0);
-                draw_text_transformed(121,155,text[1],1,1,0);
-                draw_text_transformed(121,175,"Items Needed: "+text[2],1,1,0);
+                draw_text_transformed(130,134,text[0],1.25,1.25,0);
+                draw_text_transformed(131,155,text[1],1,1,0);
+                draw_text_transformed(131,175,"Items Needed: "+text[2],1,1,0);
             }
         }
     } 
@@ -1523,7 +1551,7 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
     //-Draw item amount
     if cursorAmt &gt; 0 
     {
-        draw_text(mx+3,my+4,string(cursorAmt));
+        draw_text(mx-8,my+4,string(cursorAmt));
     }
     
     
