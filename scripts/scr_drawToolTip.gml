@@ -94,6 +94,7 @@ switch argument0
     case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Energy Storage#Place within 8 tiles of the pie.#Charges over time.#Energy is distributed when needed."; } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "#Increases inventory size by 2.#Increase jump-height by 1 tile."; } break;
     case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "#A delectable little snack!#Heals 10 health points."; } break;
+    case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "#A true marksman's humble beginning."; } break;
 }
 
 //TAG TEXT

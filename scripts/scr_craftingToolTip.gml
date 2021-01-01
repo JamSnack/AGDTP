@@ -29,6 +29,7 @@ switch argument0
             case 7: { text[0] = "Packed Stone"; text[1] = "Health: 25"; text[2] = "Stone Piece x 4" } break;
             case 8: { text[0] = "Mod Bench"; text[1] = "Use to apply Mod Tags#to your equipment."; text[2] = "Synthetic Essence x 30#Copper Ore x 15" } break;
             case 9: { text[0] = "Battery"; text[1] = "Use this to store energy for later use!"; text[2] = "Synthetic Essence x 5#Copper Ore x 5" } break;
+            case 10: { text[0] = "Acorn Rifle"; text[1] = "Slay your foes with the power of the forest."; text[2] = "Stick x 100#Copper Ore x 10#Acorn x 50" } break;
         }
     }
 }

@@ -21,6 +21,7 @@ switch argument0
     case ITEMID.tile_modBench: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 30; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 15; itemID = ITEMID.tile_modBench; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemID = ITEMID.tile_woodenStilt; itemAmt = 2; itemType = 3;} break;
     case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemID = ITEMID.tile_battery; itemAmt = 1; itemType = 3;} break;
+    case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 50; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemID = ITEMID.weapon_acornRifle; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
 }
 
 //Check the player's inventory.
