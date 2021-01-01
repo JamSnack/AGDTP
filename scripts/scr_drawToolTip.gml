@@ -29,26 +29,32 @@ switch inventorySlotType[selectedSlot]
 {
     case ITEMTYPE.weapon:
     {
-        text[1] += ("Damage: "+string(obj_player.weaponDamage)+"#Cooldown: "+string(obj_player.toolFireRate)+"#Knockback: "+string(obj_player.weaponKnockback));
+        text[1] += ("Weapon##Damage: "+string(obj_player.weaponDamage)+"#Cooldown: "+string(obj_player.toolFireRate)+"#Knockback: "+string(obj_player.weaponKnockback));
     }
     break;
     
     case ITEMTYPE.pickaxe:
     {
-        text[1] += ("Tier: "+string(obj_player.pickLevel)+"#Cooldown: "+string(obj_player.toolFireRate)+"#Power: "+string(obj_player.pickDamage));
+        text[1] += ("Pickaxe##Tier: "+string(obj_player.pickLevel)+"#Cooldown: "+string(obj_player.toolFireRate)+"#Power: "+string(obj_player.pickDamage));
     }
     break;
     
     case ITEMTYPE.playertile:
     {
         var _hp = scr_invenTileHealthIndex(argument0);
-        text[1] += ("Health: "+string(_hp+(_hp*tileLevel/50)));
+        text[1] += ("Tile##Health: "+string(_hp+(_hp*tileLevel/50)));
     }
     break;
     
     case ITEMTYPE.accessory:
     {
-        text[1] += ("Accessory#Slot Cost: "+string(scr_getSlotCost(argument0)))
+        text[1] += ("Accessory##Slot Cost: "+string(scr_getSlotCost(argument0)))
+    }
+    break;
+    
+    case ITEMTYPE.consumable:
+    {
+        text[1] += ("Consumable##");
     }
     break;
 }
@@ -73,7 +79,7 @@ switch argument0
     case 14: { text[0] = "Gremlin Talisman"; text[1] += "Consume this to skip a wave."; } break;
     case 15: { text[0] = "Synthetic Essence"; text[1] += "It feels rubbery,# but is also a#liquid!"; } break;
     case 16: { text[0] = "Platform"; text[1] += "#Useful for building!"; } break;
-    case 17: { text[0] = "Bomb"; text[1] += "Consumed on use.#Use this to#quickly gather#resources!"; } break;
+    case 17: { text[0] = "Bomb"; text[1] += "Use this to quickly#gather resources!"; } break;
     case 18: { text[0] = "Packed Stone"; text[1] += "#A reliable,#easy-to-gather defense!"; } break;
     case 19: { text[0] = "Sub-Lime Machine#Gun"; text[1] += "#A reliable,#high-firerate fruit!"; } break;
     case ITEMID.item_modTag: { text[0] = "Mod Tag"; text[1] += "Modify your equipment#with this tag.##Used at a Mod Bench."; } break;
@@ -87,6 +93,7 @@ switch argument0
     case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "#Increases inventory size by 4." } break;
     case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Energy Storage#Place within 8 tiles of the pie.#Charges over time.#Energy is distributed when needed."; } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "#Increases inventory size by 2.#Increase jump-height by 1 tile."; } break;
+    case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "#A delectable little snack!#Heals 10 health points."; } break;
 }
 
 //TAG TEXT

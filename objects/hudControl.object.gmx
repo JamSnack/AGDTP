@@ -1342,7 +1342,7 @@ if invenX &gt; 5
         
         //Draw item icon
         var _center = 6; //Center the sprite onto the slot
-        draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.5,0.5,0,c_white,1);
+        draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.4,0.4,0,c_white,1);
         
         
         //-- inventory slots layer two --
@@ -1411,7 +1411,7 @@ if invenX &lt;= 5
     ///--Layer One--
     for (i=0;i&lt;7;i++)
     {
-        var scale = 0.5;
+        var scale = 0.4;
         if selectedSlot == i then scale = 0.65;
         
     
@@ -1621,8 +1621,11 @@ if worldControl.raidBoss == true
 }
 
 // - Energy
-if instance_exists(worldControl)
-{ draw_text(viewWidth-80,30,string(energy)); }
+if instance_exists(worldControl) &amp;&amp; room == rm_zero
+{ 
+    draw_text(viewWidth-12,30,string(energy));
+    draw_sprite(spr_ui_electricity,0,viewWidth-25,30);
+}
 
 //#endregion
 

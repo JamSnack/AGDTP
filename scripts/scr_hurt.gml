@@ -58,12 +58,30 @@ hp -= damage;
 
 if knock == true && knockType != noone
 {
-    var otherX = other.x;
-    var otherY = other.y;
+    var other_hspeed = other.hspeed;
+    var other_vspeed = other.vspeed;
 
     //add Force equal to the knockAmt* 1 or -1, depending on whether or not the source instance is to the left or the right of the hurt instance.
-    hForce += knockAmt*(sign(x-otherX));
-    vForce += knockAmt*(sign(y-otherY));
+    
+    //if we have a projectile, like a sword, that has no hspeed
+    if other_hspeed == 0 && other_vspeed == 0
+    {
+        //Correct for sprite origin
+        var otherX = other.x;
+        var otherY = other.y
+        
+        var h_correction = otherX+lengthdir_x(other.sprite_width/2,point_direction(x,y,otherX,otherY));
+        var v_correction = otherY+lengthdir_y(other.sprite_height/2,point_direction(x,y,otherX,otherY));
+    
+        var _direction = point_direction(h_correction,v_correction,otherX,otherY);
+        
+        //Apply corrections
+        other_hspeed = lengthdir_x(knockAmt,_direction);
+        other_vspeed = lengthdir_y(knockAmt,_direction);
+    }
+    
+    hForce += knockAmt*sign(other_hspeed);
+    vForce += knockAmt*sign(other_vspeed);
     
     vForce = approach(vForce,0,knock_resistance);
     hForce = approach(hForce,0,knock_resistance);

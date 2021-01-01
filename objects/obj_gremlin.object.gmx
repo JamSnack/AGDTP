@@ -147,7 +147,7 @@ if stateLock == false
         if instance_exists(PLRTILE)
         { if plrTile.canHurt == false then plrTile = instance_nearest(plrTile.x,plrTile.y,PLRTILE); }
         
-        if distance_to_object(plrTile) &lt;= plrTileAggroRange
+        if distance_to_object(plrTile) &lt;= plrTileAggroRange &amp;&amp; collision_line(x,y,objective,objective,plrTile,false,true)
         {
             objective = plrTile;
             state = MOVE; 

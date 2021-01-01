@@ -17,7 +17,7 @@ switch argument0
     case "GREM_TALISMAN": { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 10; itemID = ITEMID.cons_gremTalisman; itemAmt = 1; itemType = 4; } break;
     case "PLATFORM": { mats[0] = 9; matsAmt[0] = 2; itemID = 16; itemAmt = 1; itemType = 3; } break;
     case "BOMB": { mats[0] = 8; matsAmt[0] = ITEMID.item_copperOre; mats[1] = 15; matsAmt[1] = 2; mats[2] = ITEMID.item_copperOre; matsAmt[2] = 2; itemID = 17; itemAmt = 1; itemType = 4; } break;
-    case "PACKED_STONE": { mats[0] = 8; matsAmt[0] = 8; itemID = 18; itemAmt = 1; itemType = 3;} break;
+    case "PACKED_STONE": { mats[0] = 8; matsAmt[0] = 4; itemID = 18; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_modBench: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 30; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 15; itemID = ITEMID.tile_modBench; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemID = ITEMID.tile_woodenStilt; itemAmt = 2; itemType = 3;} break;
     case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemID = ITEMID.tile_battery; itemAmt = 1; itemType = 3;} break;
