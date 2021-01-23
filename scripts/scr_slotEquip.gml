@@ -8,14 +8,15 @@ var _item = inventorySlotIcon[slot];
 
 if _item != ITEMID.nil && obj_player.toolReady == true
 {
+    hudControl.selectedSlot = slot;
+    obj_player.tool = _type;
+
     switch _type
     {
         case ITEMTYPE.weapon: { scr_applyWeaponStats(_item); } break;    
         case ITEMTYPE.pickaxe: { scr_applyPickaxeStats(_item); } break;
     }
-    
-    hudControl.selectedSlot = slot;
-    obj_player.tool = _type;
+
     scr_playSound(snd_inventoryClick,false,8,obj_player.x,obj_player.y,1);
 } 
 else 

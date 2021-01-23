@@ -105,8 +105,6 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-
-scr_dropItem(ITEMID.weapon_acornRifle,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -233,7 +231,6 @@ if dead = false &amp;&amp; g_over == false
     if (place_meeting(x,y+1,OBSTA) || (place_meeting(x,y+1,obj_platform) &amp;&amp; vsp &gt;= 0 )) &amp;&amp; (key_jump)
     {
         vsp = vsp_jump;
-        platformCollide = false;
     }
     
     //Horizontal Movement
@@ -257,33 +254,8 @@ if dead = false &amp;&amp; g_over == false
     if place_meeting(x,y,obj_ladder)
     { vsp = 0; }
     
-    //--Platform Logic
-    if key_down
-    { platformCollide = false; }
     
-    if platformCollide = true
-    {
-        var true_vsp = vsp+vForce;
-        var colRect = collision_rectangle(x-4,y+true_vsp,x+4,y+15+true_vsp,obj_platform,true,true);
-    
-        if true_vsp &gt; 0
-        {     
-            if colRect
-            {
-                //Snap player to platform
-                // - value adjusted for platform center.
-                var platY = (colRect.y)-8
-                if y &lt; platY &amp;&amp; point_distance(x,y+16,x,platY) &lt; 2 then y = (platY)-16;
-                
-                vsp = 0;
-                vForce = 0;
-            }
-        }
-        
-        if place_meeting(x,y+1,obj_platform) { vsp = 0; vForce = 0; }
-    }
-    
-    //--Collision with ground
+    //--Collision with ground; else platform
     if place_meeting(x,y+vsp+vForce,OBSTA)
     {
         //move as close as we can
@@ -292,8 +264,24 @@ if dead = false &amp;&amp; g_over == false
         vsp = 0;
         vForce = 0;
     }
+    //---------PLATFORM COLLISION
+    else if vsp+vForce &gt; 0 &amp;&amp; (place_meeting(x,y+vsp+vForce,obj_platform) &amp;&amp; !key_down)
+    {
+        while(!place_meeting(x,y+sign(vsp+vForce),obj_platform))
+        {
+            y += sign(vsp+vForce);
+        }
+        
+        vForce = 0;
+        vsp = 0;
+    }
+    // - extra platform logic
+    if key_down &amp;&amp; place_meeting(x,y+1,obj_platform) &amp;&amp; !place_meeting(x,y+vsp+grav,OBSTA)
+    {
+        y+=grav;
+    }
 
-    y = y + vsp+vForce;
+    y = y+vsp+vForce;
     vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
@@ -648,7 +636,7 @@ platformCollide = false;
             <kind>1</kind>
             <string>///Use Tool
 //Check for inventory use
-if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudControl.selectedSlot != noone
+if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudControl.selectedSlot != noone &amp;&amp; hudControl.equipQueue == noone
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
@@ -675,7 +663,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
         //Play the tool's audio.
         if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; (tool == 2 || tool == 1)
         {
-            scr_playSound(tool_snd,false,5,x,y,0.8);
+            scr_playSound(tool_snd,false,5,x,y,0.9);
         }
         
         

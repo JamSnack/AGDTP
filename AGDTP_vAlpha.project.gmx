@@ -41,8 +41,6 @@
   </datafiles>
   <NewExtensions/>
   <sounds name="sound">
-    <sound>sound\snd_overworld_1</sound>
-    <sound>sound\snd_wave_1</sound>
     <sound>sound\snd_enemydie_boss</sound>
     <sound>sound\snd_enemydie_ghost</sound>
     <sound>sound\snd_enemydie_monster</sound>
@@ -57,10 +55,20 @@
     <sound>sound\snd_rareItem</sound>
     <sound>sound\snd_inventoryClick</sound>
     <sound>sound\snd_modificationSuccess</sound>
-    <sound>sound\snd_FlightoftheRegionKing</sound>
+    <sound>sound\snd_rifle</sound>
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_sphereLaunch</sound>
-    <sound>sound\snd_Triple_King</sound>
+    <sounds name="Music">
+      <sound>sound\snd_Triple_King</sound>
+      <sound>sound\snd_FlightoftheRegionKing</sound>
+      <sound>sound\snd_The_Grasslands</sound>
+      <sound>sound\snd_overworld_1</sound>
+      <sound>sound\snd_wave_1</sound>
+      <sound>sound\snd_Aquatic_Mesa</sound>
+    </sounds>
+    <sound>sound\snd_unequip</sound>
+    <sound>sound\snd_equip</sound>
+    <sound>sound\snd_turret_shoot</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">

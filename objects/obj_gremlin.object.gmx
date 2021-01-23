@@ -30,7 +30,7 @@
 canActiveRegion = true;
 canHurt = true;
 hp = 20;
-image_speed = 15/60;
+image_speed = 12/60;
 state = WANDER;
 stunned = false;
 
@@ -170,7 +170,7 @@ if stateLock == false
     }
 }
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); }
+{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,0.8,objective,-4,atkBox); }
 </string>
           </argument>
         </arguments>

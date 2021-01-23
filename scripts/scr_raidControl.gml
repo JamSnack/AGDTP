@@ -45,7 +45,7 @@ switch presetSettings
         
         if instance_exists(GREM_BLOCK) then with GREM_BLOCK instance_destroy();
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
-        scr_musicTransition(snd_overworld_1,musicTransitionTime);
+        scr_musicTransition(snd_The_Grasslands,musicTransitionTime);
         nextRaid = "RAID";
         
         //Tutorial Quest
@@ -169,7 +169,7 @@ switch presetSettings
 }
 
 //MUSIC CONTROL
-var _music = snd_overworld_1;
+var _music = snd_The_Grasslands;
 
 if interm == false then _music = snd_wave_1;
 

@@ -50,7 +50,7 @@ stateLockAlarm = 2;
 aggroRange = 16*8; //8 tiles
 hAccel = 0;
 vAccel = 0;
-maxAccel = 3;
+maxAccel = 2.5;
 accelRate = 0.1;
 
 stateLock = true;
