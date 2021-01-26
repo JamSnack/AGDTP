@@ -23,6 +23,16 @@ if (instance_exists(obj_player) && instance_exists(obj_pie) && point_distance(ob
         case ITEMID.tile_packedStone: { returnID = true; } break;
         case ITEMID.tile_battery: { returnID = true; } break;
         case ITEMID.weapon_acornRifle: { returnID = true; } break;
+        case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
+    }
+    
+    //NILMERG
+    if kingDied_1 == true
+    {
+        switch argument0
+        {
+            case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
+        }
     }
 }
 

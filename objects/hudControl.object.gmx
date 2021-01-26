@@ -70,6 +70,7 @@ craftBuffer = 0; //Last Item crafted
 drawn_crafting_slots = 0; //Used to synchronize slots when drawing the crafting menu.
 
 //- crafting filters. Whether or not to filter out an item of a specific type.
+craft_filter_resources = false;
 craft_filter_weapon = false;
 craft_filter_pickaxe = false;
 craft_filter_cons = false;
@@ -442,7 +443,7 @@ if showSuperMenu == true
     else if ui_state == "MOD" then _modOn = offset;
     else if ui_state == "UPGRADE" then _upgradeOn = offset;
     
-    //Crafting menu
+    //all menus
     if point_in_rectangle(dx,dy,_posX-15+_craftOn-10,_posY+10-10,_posX-15+_craftOn+10,_posY+10+10)
     {
         ui_state = "CRAFT";
@@ -454,6 +455,40 @@ if showSuperMenu == true
     else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
     {
         ui_state = "UPGRADE";
+    }
+    
+    //Crafting Menu Filters
+    if ui_state == "CRAFT"
+    {
+        //Filters
+        var _ico_scale = 0.8;
+        var _y_offset = 14;
+        var enabled_offset = 4;
+        
+        if point_in_rectangle(dx,dy,_posX+140-8,_posY-_y_offset+(enabled_offset*craft_filter_resources)-8,_posX+140+(8),_posY-_y_offset+(enabled_offset*craft_filter_resources)+(8))
+        {
+            craft_filter_resources = !craft_filter_resources;
+        }
+        else if point_in_rectangle(dx,dy,_posX+158-8,_posY-_y_offset+(enabled_offset*craft_filter_weapon)-8,_posX+158+(8),_posY-_y_offset+(enabled_offset*craft_filter_weapon)+(8))
+        {
+            craft_filter_weapon = !craft_filter_weapon;
+        }
+        else if point_in_rectangle(dx,dy,_posX+176-8,_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)-8,_posX+176+(8),_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)+(8))
+        {
+            craft_filter_pickaxe = !craft_filter_pickaxe;
+        }
+        else if point_in_rectangle(dx,dy,_posX+194-8,_posY-_y_offset+(enabled_offset*craft_filter_plrtile)-8,_posX+194+(8),_posY-_y_offset+(enabled_offset*craft_filter_plrtile)+(8))
+        {
+            craft_filter_plrtile = !craft_filter_plrtile;
+        }
+        else if point_in_rectangle(dx,dy,_posX+212-8,_posY-_y_offset+(enabled_offset*craft_filter_cons)-8,_posX+212+(8),_posY-_y_offset+(enabled_offset*craft_filter_cons)+(8))
+        {
+            craft_filter_cons = !craft_filter_cons;
+        }
+        else if point_in_rectangle(dx,dy,_posX+230-8,_posY-_y_offset+(enabled_offset*craft_filter_acc)-8,_posX+230+(8),_posY-_y_offset+(enabled_offset*craft_filter_acc)+(8))
+        {
+            craft_filter_acc = !craft_filter_acc;
+        }
     }
 }
 
@@ -1062,7 +1097,7 @@ if invOpen == true
             <string>///SUPERMENU INTERACTION
 if room == rm_menu then exit;
 
-if obj_player.dead == false
+if obj_player.dead == false &amp;&amp; showSuperMenu == true
 {
     if ui_state == "CRAFT"
     {
@@ -1077,7 +1112,7 @@ if obj_player.dead == false
         {   
             for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
             {
-                if scr_checkCraftingIndex(i) == true
+                if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
                 {
                     var size = 35; //The size of the distance between slots - the actual size of the slots.
                     var column = 7;
@@ -1109,7 +1144,7 @@ if obj_player.dead == false
             
             craftTimer += 1;
             
-            if craftTimer &gt;= craftTimerMax &amp;&amp; scr_checkCraftingIndex(craftIndex) == true
+            if craftTimer &gt;= craftTimerMax &amp;&amp; scr_checkCraftingIndex(craftIndex) == true &amp;&amp; scr_checkCraftingType(craftIndex) == true
             {
                 craftTimer = 1;
                 
@@ -1525,7 +1560,6 @@ if showSuperMenu == true
     var _posY = viewHeight/2-105;
     
     //Draw background
-    
     draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
 
     //Draw menu content
@@ -1536,7 +1570,18 @@ if showSuperMenu == true
     //-----------------Crafting Menu---------------------------------------
     //#region
     
-        //- draw background
+        //- draw filters
+        var _ico_scale = 0.8;
+        var _y_offset = 14;
+        var enabled_offset = 4;
+        
+        draw_sprite_ext(spr_menuIcons,0,_posX+140,_posY-_y_offset+(enabled_offset*craft_filter_resources),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,1,_posX+158,_posY-_y_offset+(enabled_offset*craft_filter_weapon),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,2,_posX+176,_posY-_y_offset+(enabled_offset*craft_filter_pickaxe),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,3,_posX+194,_posY-_y_offset+(enabled_offset*craft_filter_plrtile),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,4,_posX+212,_posY-_y_offset+(enabled_offset*craft_filter_cons),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,5,_posX+230,_posY-_y_offset+(enabled_offset*craft_filter_acc),_ico_scale,_ico_scale,0,c_white,1);
+        
         
         //draw crafting buttons
         for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
@@ -1553,10 +1598,10 @@ if showSuperMenu == true
                 var y2 = _posY+25+(size*c);
                 
                 //Draw Slots
-                draw_sprite(spr_ui_invenSlot,0,x1,y1);
+                draw_sprite(spr_ui_craftingIcon,0,x1,y1);
                 
                 //Draw items
-                var _center = 10;
+                var _center = 12;
                 draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
                 
                 //Draw crafting tooltip

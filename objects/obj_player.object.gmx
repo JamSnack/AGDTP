@@ -615,7 +615,7 @@ platformCollide = false;
             <kind>1</kind>
             <string>///Use Tool
 //Check for inventory use
-if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudControl.selectedSlot != noone &amp;&amp; hudControl.equipQueue == noone
+if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudControl.selectedSlot != noone &amp;&amp; hudControl.equipQueue == noone &amp;&amp; hudControl.showSuperMenu == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)

@@ -1,4 +1,4 @@
-// 2021-01-26 14:35:35
+// 2021-01-26 14:34:55
 ///scr_checkCraftingList(itemID);
 //Returns true if the item is on the list.
 
@@ -32,7 +32,7 @@ if (instance_exists(obj_player) && instance_exists(obj_pie) && point_distance(ob
     {
         switch argument0
         {
-            case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
+            case ITEMID.pickaxe_stingerDrill: { returnID = true; print("this"); } break;
         }
     }
 }

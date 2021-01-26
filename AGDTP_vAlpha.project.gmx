@@ -164,6 +164,7 @@
       <sprite>sprites\fnt_grem</sprite>
       <sprite>sprites\fnt_ui</sprite>
       <sprite>sprites\spr_ui_invenSlot</sprite>
+      <sprite>sprites\spr_ui_craftingIcon</sprite>
       <sprite>sprites\spr_menuIcons</sprite>
       <sprite>sprites\spr_ui_trashSlot</sprite>
       <sprite>sprites\spr_ui_button</sprite>

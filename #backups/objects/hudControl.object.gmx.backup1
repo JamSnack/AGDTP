@@ -1,4 +1,4 @@
-// 2021-01-25 14:47:05
+// 2021-01-26 14:19:37
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -43,6 +43,14 @@ craftIndex = -1; //The CRAFTING ID of the item to craft
 craftSelect = -1; //Which crafting slot has its information displayed.
 craftBuffer = 0; //Last Item crafted
 drawn_crafting_slots = 0; //Used to synchronize slots when drawing the crafting menu.
+
+//- crafting filters. Whether or not to filter out an item of a specific type.
+craft_filter_resources = false;
+craft_filter_weapon = true;
+craft_filter_pickaxe = false;
+craft_filter_cons = false;
+craft_filter_plrtile = false;
+craft_filter_acc = false;
 
 //Mod Menu
 selectedTag = noone;
@@ -126,7 +134,7 @@ if ui_state == "CRAFT"
         
         for(i=0;i<sprite_get_number(spr_itemDrops);i++)
         {
-            if scr_checkCraftingIndex(i) == true
+            if scr_checkCraftingIndex(i) == true && scr_checkCraftingType(i) == true
             {
                 var size = 35; //The size of the distance between slots - the actual size of the slots.
                 var column = 7;
@@ -251,7 +259,7 @@ if keyboard_check_released(global.key_craft)
 }
 
 
-#event mouse_global_left_button|Crafting interaction
+#event mouse_global_left_button|SUPERMENU INTERACTION
 if room == rm_menu then exit;
 
 if obj_player.dead == false
@@ -317,6 +325,8 @@ if obj_player.dead == false
         } else if ui_state != "MOD" { craftIndex = -1; }
     } else { craftIndex = -1; }
 }
+
+
 #section|Slot interaction
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
@@ -417,7 +427,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) && selectedSlot != noone
             var _x1 = 10;
             var _x2 = 10+(7*16);
         
-            if showCraftingMenu == false && !point_in_rectangle(dx,dy,_x1,50+y3,_x2,50+y4) && cursorHoldItem == false
+            if showSuperMenu == false && !point_in_rectangle(dx,dy,_x1,50+y3,_x2,50+y4) && cursorHoldItem == false
             {
                 if inventorySlotType[selectedSlot] == 3 && obj_player.tool == 3
                 {
@@ -523,9 +533,75 @@ if room == rm_menu then exit;
 var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
+//-------------Super Menu UI State buttons-----------------
+if showSuperMenu == true
+{
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    
+    var _craftOn, _modOn, _upgradeOn, offset;
+    
+    _craftOn = 0;
+    _modOn = 0;
+    _upgradeOn = 0;
+    offset = 4;
+    
+    if ui_state == "CRAFT" then _craftOn = offset;
+    else if ui_state == "MOD" then _modOn = offset;
+    else if ui_state == "UPGRADE" then _upgradeOn = offset;
+    
+    //all menus
+    if point_in_rectangle(dx,dy,_posX-15+_craftOn-10,_posY+10-10,_posX-15+_craftOn+10,_posY+10+10)
+    {
+        ui_state = "CRAFT";
+    }
+    else if point_in_rectangle(dx,dy,_posX-15+_modOn-10,_posY+35-10,_posX-15+_modOn+10,_posY+35+10)
+    {
+        ui_state = "MOD";
+    }
+    else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
+    {
+        ui_state = "UPGRADE";
+    }
+    
+    //Crafting Menu Filters
+    if ui_state == "CRAFT"
+    {
+        //Filters
+        var _ico_scale = 0.8;
+        var _y_offset = 14;
+        var enabled_offset = 4;
+        
+        if point_in_rectangle(dx,dy,_posX+140-8,_posY-_y_offset+(enabled_offset*craft_filter_resources)-8,_posX+140+(8),_posY-_y_offset+(enabled_offset*craft_filter_resources)+(8))
+        {
+            craft_filter_resources = !craft_filter_resources;
+        }
+        else if point_in_rectangle(dx,dy,_posX+158-8,_posY-_y_offset+(enabled_offset*craft_filter_weapon)-8,_posX+158+(8),_posY-_y_offset+(enabled_offset*craft_filter_weapon)+(8))
+        {
+            craft_filter_weapon = !craft_filter_weapon;
+        }
+        else if point_in_rectangle(dx,dy,_posX+176-8,_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)-8,_posX+176+(8),_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)+(8))
+        {
+            craft_filter_pickaxe = !craft_filter_pickaxe;
+        }
+        else if point_in_rectangle(dx,dy,_posX+194-8,_posY-_y_offset+(enabled_offset*craft_filter_plrtile)-8,_posX+194+(8),_posY-_y_offset+(enabled_offset*craft_filter_plrtile)+(8))
+        {
+            craft_filter_plrtile = !craft_filter_plrtile;
+        }
+        else if point_in_rectangle(dx,dy,_posX+212-8,_posY-_y_offset+(enabled_offset*craft_filter_cons)-8,_posX+212+(8),_posY-_y_offset+(enabled_offset*craft_filter_cons)+(8))
+        {
+            craft_filter_cons = !craft_filter_cons;
+        }
+        else if point_in_rectangle(dx,dy,_posX+230-8,_posY-_y_offset+(enabled_offset*craft_filter_acc)-8,_posX+230+(8),_posY-_y_offset+(enabled_offset*craft_filter_acc)+(8))
+        {
+            craft_filter_acc = !craft_filter_acc;
+        }
+    }
+}
+
 //---------- MOD BENCH FUNCTIONALITY ---------------
 
-if cursorHoldItem == true && craftingMenu == "menu_mod"
+if cursorHoldItem == true && ui_state == "MOD" && showSuperMenu == true
 {
     //The dimensions of the menu's slots, as defined in the draw event.
     var _posX = viewWidth/2-120;
@@ -559,7 +635,7 @@ if cursorHoldItem == true && craftingMenu == "menu_mod"
         modCanConfirm = true;
     }
 }
-else if showCraftingMenu == true && craftingMenu == "menu_mod"
+else if showSuperMenu == true && ui_state == "menu_mod"
 {
     //-- Create new item
     //The dimensions of the menu's slots, as defined in the draw event.
@@ -656,7 +732,7 @@ if cursorHoldItem == true
 }
 
 //--------- UPGRADE MENU INTERACTIONS ------------
-if upgradeMenu_visible == true && room == rm_lobby
+if showSuperMenu == true && ui_state == "UPGRADE"
 {
         var _posX = viewWidth/2-120;
         var _posY = viewHeight/2-105;
@@ -839,7 +915,7 @@ for (i=0;i<maxInvenSlots;i++)
                 
                 exit;
             }
-        } else if i == cursorSlot && (showCraftingMenu == false && craftingMenu != "menu_mod") && !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
+        } else if i == cursorSlot && (showSuperMenu == false && ui_state != "MOD") && !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
     }
     
     
@@ -1004,7 +1080,7 @@ var dx = device_mouse_x_to_gui(0);
 var dy = device_mouse_y_to_gui(0);
 
 //Hotbar+inventory coordinates
-if !point_in_rectangle(dx,dy,0,50-45,invenX,200) && showCraftingMenu == false
+if !point_in_rectangle(dx,dy,0,50-45,invenX,200) && showSuperMenu == false
 {
     if cursorHoldItem == true
     { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); }
@@ -1028,7 +1104,7 @@ else
     var x2 = (_posX)+size+xOff;
     var y2 = (_posY)+size+yOff;
     
-    if (showCraftingMenu == true && craftingMenu == "menu_mod")
+    if (showSuperMenu == true && ui_state == "MOD")
     {
         //Clear mod slots
         //- Tag Slot
@@ -1260,6 +1336,183 @@ if invenX <= 5
     }
 }
 //#endregion
+
+//--------------------Super Menu Control----------------------
+if showSuperMenu == true
+{
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    
+    //Draw background
+    draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
+
+    //Draw menu content
+    switch ui_state
+    {
+        case "CRAFT":
+        {
+    //-----------------Crafting Menu---------------------------------------
+    //#region
+    
+        //- draw filters
+        var _ico_scale = 0.8;
+        var _y_offset = 14;
+        var enabled_offset = 4;
+        
+        draw_sprite_ext(spr_menuIcons,0,_posX+140,_posY-_y_offset+(enabled_offset*craft_filter_resources),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,1,_posX+158,_posY-_y_offset+(enabled_offset*craft_filter_weapon),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,2,_posX+176,_posY-_y_offset+(enabled_offset*craft_filter_pickaxe),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,3,_posX+194,_posY-_y_offset+(enabled_offset*craft_filter_plrtile),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,4,_posX+212,_posY-_y_offset+(enabled_offset*craft_filter_cons),_ico_scale,_ico_scale,0,c_white,1);
+        draw_sprite_ext(spr_menuIcons,5,_posX+230,_posY-_y_offset+(enabled_offset*craft_filter_acc),_ico_scale,_ico_scale,0,c_white,1);
+        
+        draw_rectangle(_posX+140-8,_posY-_y_offset+(enabled_offset*craft_filter_resources)-8,_posX+140+(8),_posY-_y_offset+(enabled_offset*craft_filter_resources)+(8),false);
+        
+        
+        //draw crafting buttons
+        for(i=0;i<sprite_get_number(spr_itemDrops);i++)
+        {
+            if scr_checkCraftingIndex(i) == true && scr_checkCraftingType(i) == true
+            {
+                var size = 35; //The size of the distance between slots - the actual size of the slots.
+                var column = 7;
+                var c = floor(drawn_crafting_slots/column);
+                
+                var x1 = _posX+10+(drawn_crafting_slots*size)-(c*size*column);
+                var x2 = _posX+30+(drawn_crafting_slots*size)-(c*size*column);
+                var y1 = _posY+5+(size*c);
+                var y2 = _posY+25+(size*c);
+                
+                //Draw Slots
+                draw_sprite(spr_ui_craftingIcon,0,x1,y1);
+                
+                //Draw items
+                var _center = 12;
+                draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
+                
+                //Draw crafting tooltip
+                if craftSelect != -1
+                {
+                    draw_set_color(c_white);
+                    scr_craftingToolTip(craftSelect);
+                    draw_text_transformed(130,134,text[0],1.25,1.25,0);
+                    draw_text_transformed(131,155,text[1],1,1,0);
+                    draw_text_transformed(131,175,"Items Needed: "+text[2],1,1,0);
+                }
+                
+                drawn_crafting_slots += 1;
+            }
+            
+            //reset draw_crafting_slots
+            if i == sprite_get_number(spr_itemDrops)-1 then drawn_crafting_slots = 0;
+        }
+    
+    //#endregion
+        }
+        break;
+    
+        case "UPGRADE":
+        {
+    //-----------------Upgrade Menu-----------------------------
+    //#region
+        //- INIT BUTTONS
+        var h_size = 36;
+        var v_size = 12;
+        
+        //NOTE: Adding 32 to the y value every new button
+        //- Regeneration Upgrade button
+        var xx = 8+h_size;
+        var yy = 8+v_size;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level#Cost: "+string(tileRegenRate*25));
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which a#player, pie, and tile#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
+        
+        //- Tile base HP Upgrade button
+        var xx = 8+h_size;
+        var yy = 40+v_size;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level#Cost: "+string(tileLevel*50));
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
+        
+        //- Electricity storage
+        var xx = 8+h_size;
+        var yy = 72+v_size;
+        
+        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+        draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage#Cost: "+string((energyMax-4)*100));
+        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
+        
+        //Draw essence count
+        var str_essence = ":"+string(scr_getInvenItemAmt(ITEMID.item_gremEssence));
+        
+        draw_sprite(spr_gremlinEssence,image_index,3*_posX-string_width(str_essence),_posY+204);
+        draw_text(3*_posX+4-string_width(str_essence),_posY+200,str_essence);
+        
+        }
+        break;
+        
+        case "MOD":
+        {
+            //-------Mod menu-----
+            var size = 16;
+            var xOff = 70;
+            var yOff = 100;
+            var x1 = (_posX)-size+xOff;
+            var y1 = (_posY)-size+yOff;
+            var x2 = (_posX)+size+xOff;
+            var y2 = (_posY)+size+yOff;
+            
+            draw_set_font(global.fnt_Ui);
+            
+            //Tag and Equipment Slots respectively
+            draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
+            draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
+            
+            //Draw icons
+            if selectedTag != noone 
+            { 
+                draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
+                if ds_exists(selectedTag,ds_type_list)
+                { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
+            }
+            
+            if selectedEquipment != noone 
+            { 
+                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
+            } //MN: 50+50 = 100; 50 is MN for equip slot placement.
+            
+            //Draw mod complete
+            draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
+            
+            if modCanConfirm == true
+            {
+                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
+            }
+        }
+        break;
+        
+        //#endregion
+    }
+    
+    //-----------------Draw Ui state buttons--------
+    //Drawing them underneath the menu for overlapping effect.
+    var _craftOn, _modOn, _upgradeOn, offset;
+    _craftOn = 0;
+    _modOn = 0;
+    _upgradeOn = 0;
+    offset = 4;
+    
+    if ui_state == "CRAFT" then _craftOn = offset;
+    else if ui_state == "MOD" then _modOn = offset;
+    else if ui_state == "UPGRADE" then _upgradeOn = offset;
+    
+    draw_sprite(spr_menuIcons,6,_posX-15+_craftOn,_posY+10); //Crafting menu
+    draw_sprite(spr_menuIcons,7,_posX-15+_modOn,_posY+35); //Mod menu
+    draw_sprite(spr_menuIcons,8,_posX-15+_upgradeOn,_posY+60); //Upgrade menu
+
+}
     
 //-----Draw cursor item
 //#region
@@ -1455,163 +1708,16 @@ if interm == false
 }
 //#endregion
 
-//--------------------Super Menu Control----------------------
-
-switch ui_state
-{
-    case "CRAFT":
-    {
-//-----------------Crafting Menu---------------------------------------
-//#region
-
-    //- draw background
-    var _posX = viewWidth/2-120;
-    var _posY = viewHeight/2-105;
-    
-    draw_set_alpha(0.75);
-    draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
-    draw_set_alpha(1);
-    
-    //draw crafting buttons
-    for(i=0;i<sprite_get_number(spr_itemDrops);i++)
-    {
-        if scr_checkCraftingIndex(i)
-        {
-            var size = 35; //The size of the distance between slots - the actual size of the slots.
-            var column = 7;
-            var c = floor(drawn_crafting_slots/column);
-            
-            var x1 = _posX+10+(drawn_crafting_slots*size)-(c*size*column);
-            var x2 = _posX+30+(drawn_crafting_slots*size)-(c*size*column);
-            var y1 = _posY+5+(size*c);
-            var y2 = _posY+25+(size*c);
-            
-            //Draw Slots
-            draw_sprite(spr_ui_invenSlot,0,x1,y1);
-            
-            //Draw items
-            var _center = 10;
-            draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
-            
-            //Draw crafting tooltip
-            if craftSelect != -1
-            {
-                draw_set_color(c_white);
-                scr_craftingToolTip(craftSelect);
-                draw_text_transformed(130,134,text[0],1.25,1.25,0);
-                draw_text_transformed(131,155,text[1],1,1,0);
-                draw_text_transformed(131,175,"Items Needed: "+text[2],1,1,0);
-            }
-            
-            drawn_crafting_slots += 1;
-            
-            //reset draw_crafting_slots
-            if i == sprite_get_number(spr_itemDrops)-1 then drawn_crafting_slots = 0;
-        }
-    }
-
-//#endregion
-    }
-    break;
-
-    case "UPGRADE":
-    {
-//-----------------Upgrade Menu-----------------------------
-//#region
-
-    var _posX = viewWidth/2-120;
-    var _posY = viewHeight/2-105;
-
-    draw_set_alpha(0.75);
-    draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
-    draw_set_alpha(1);
-    
-    //- INIT BUTTONS
-    var h_size = 36;
-    var v_size = 12;
-    
-    //NOTE: Adding 32 to the y value every new button
-    //- Regeneration Upgrade button
-    var xx = 8+h_size;
-    var yy = 8+v_size;
-    
-    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-    draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level#Cost: "+string(tileRegenRate*25));
-    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which a#player, pie, and tile#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
-    
-    //- Tile base HP Upgrade button
-    var xx = 8+h_size;
-    var yy = 40+v_size;
-    
-    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-    draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level#Cost: "+string(tileLevel*50));
-    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
-    
-    //- Electricity storage
-    var xx = 8+h_size;
-    var yy = 72+v_size;
-    
-    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-    draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage#Cost: "+string((energyMax-4)*100));
-    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
-    
-    draw_set_alpha(1);
-    
-    }
-    break;
-    
-    case "MOD":
-    {
-        //-------Mod menu-----
-        var size = 16;
-        var xOff = 70;
-        var yOff = 100;
-        var x1 = (_posX)-size+xOff;
-        var y1 = (_posY)-size+yOff;
-        var x2 = (_posX)+size+xOff;
-        var y2 = (_posY)+size+yOff;
-        
-        draw_set_font(global.fnt_Ui);
-        
-        //Tag and Equipment Slots respectively
-        draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
-        draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
-        
-        //Draw icons
-        if selectedTag != noone 
-        { 
-            draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
-            if ds_exists(selectedTag,ds_type_list)
-            { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
-        }
-        
-        if selectedEquipment != noone 
-        { 
-            draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
-        } //MN: 50+50 = 100; 50 is MN for equip slot placement.
-        
-        //Draw mod complete
-        draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
-        
-        if modCanConfirm == true
-        {
-            draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
-        }
-    }
-    break;
-    
-    //#endregion
-}
-
 #event keyrelease:vk_escape|Clear Ui or Open Settings
+if room == rm_menu then exit;
 
 //Settings menu
-if invOpen == false && showCraftingMenu == false
+if invOpen == false && showSuperMenu == false
 { settingsMenu = !settingsMenu; }
 
 //Close other menus
 if invOpen == true then invOpen = false;
-if showCraftingMenu == true then showCraftingMenu = false;
+if showSuperMenu == true then showSuperMenu = false;
 if keybindMenu_visible = true then keybindMenu_visible = false;
 
 #event keyrelease:1|Select slot 1

@@ -1,4 +1,4 @@
-// 2021-01-25 14:00:40
+// 2021-01-26 14:38:14
 ///scr_craftItem(itemName)
 var mats; // What type of material to look for
 var matsAmt; // How much of the material to look for/consume.
@@ -12,6 +12,7 @@ switch argument0
     case ITEMID.tile_packedDirt: { mats[0] = 1; matsAmt[0] = 4; itemID = 6; itemAmt = 1; itemType = 3;} break;
     case ITEMID.weapon_greenSword: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemID = 2; itemAmt = 0; itemType = 1;} break;
     case ITEMID.pickaxe_greenPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemID = 5; itemAmt = 0; itemType = 2;} break;
+    case ITEMID.pickaxe_stingerDrill: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 20; mats[1] = 9; matsAmt[1] = 5; itemID = 5; itemAmt = 0; itemType = 2;} break;
     case ITEMID.tile_copperTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = 9; matsAmt[1] = 5; itemID = 12; itemAmt = 1; itemType = 3; } break;
     case ITEMID.tile_ladder: { mats[0] = 9; matsAmt[0] = 2; itemID = 13; itemAmt = 1; itemType = 3; } break;
     case ITEMID.cons_gremTalisman: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 10; itemID = ITEMID.cons_gremTalisman; itemAmt = 1; itemType = 4; } break;

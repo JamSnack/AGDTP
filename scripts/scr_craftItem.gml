@@ -1,26 +1,27 @@
 ///scr_craftItem(itemName)
 var mats; // What type of material to look for
 var matsAmt; // How much of the material to look for/consume.
-var itemID; //The ID of the item to craft.
+var itemID = argument0; //The ID of the item to craft.
 var amt_remove; //For material removing purposes.
 
 //ITEMS WITH AN AMOUNT OF '0' CANNOT BE USED AS A MATERIAL YET.
 
-switch argument0
+switch itemID
 {
-    case ITEMID.tile_packedDirt: { mats[0] = 1; matsAmt[0] = 4; itemID = 6; itemAmt = 1; itemType = 3;} break;
-    case ITEMID.weapon_greenSword: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemID = 2; itemAmt = 0; itemType = 1;} break;
-    case ITEMID.pickaxe_greenPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemID = 5; itemAmt = 0; itemType = 2;} break;
+    case ITEMID.tile_packedDirt: { mats[0] = 1; matsAmt[0] = 4; itemAmt = 1; itemType = 3;} break;
+    case ITEMID.weapon_greenSword: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemAmt = 0; itemType = 1;} break;
+    case ITEMID.pickaxe_greenPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemAmt = 0; itemType = 2;} break;
+    case ITEMID.pickaxe_stingerDrill: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 20; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 8; itemAmt = 0; itemType = 2;} break;
     case ITEMID.tile_copperTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = 9; matsAmt[1] = 5; itemID = 12; itemAmt = 1; itemType = 3; } break;
     case ITEMID.tile_ladder: { mats[0] = 9; matsAmt[0] = 2; itemID = 13; itemAmt = 1; itemType = 3; } break;
-    case ITEMID.cons_gremTalisman: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 10; itemID = ITEMID.cons_gremTalisman; itemAmt = 1; itemType = 4; } break;
+    case ITEMID.cons_gremTalisman: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 10; itemAmt = 1; itemType = 4; } break;
     case ITEMID.tile_platform: { mats[0] = 9; matsAmt[0] = 2; itemID = 16; itemAmt = 1; itemType = 3; } break;
-    case ITEMID.cons_bomb: { mats[0] = 8; matsAmt[0] = ITEMID.item_copperOre; mats[1] = 15; matsAmt[1] = 2; mats[2] = ITEMID.item_copperOre; matsAmt[2] = 2; itemID = 17; itemAmt = 1; itemType = 4; } break;
+    case ITEMID.cons_bomb: { mats[0] = 8; matsAmt[0] = ITEMID.item_copperOre; mats[1] = 15; matsAmt[1] = 2; mats[2] = ITEMID.item_copperOre; matsAmt[2] = 2; itemAmt = 1; itemType = 4; } break;
     case ITEMID.tile_packedStone: { mats[0] = 8; matsAmt[0] = 4; itemID = 18; itemAmt = 1; itemType = 3;} break;
-    case ITEMID.tile_modBench: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 30; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 15; itemID = ITEMID.tile_modBench; itemAmt = 1; itemType = 3;} break;
-    case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemID = ITEMID.tile_woodenStilt; itemAmt = 2; itemType = 3;} break;
-    case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemID = ITEMID.tile_battery; itemAmt = 1; itemType = 3;} break;
-    case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 50; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemID = ITEMID.weapon_acornRifle; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
+    case ITEMID.tile_modBench: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 30; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 15; itemAmt = 1; itemType = 3;} break;
+    case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemAmt = 2; itemType = 3;} break;
+    case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemAmt = 1; itemType = 3;} break;
+    case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 50; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
 }
 
 //Check the player's inventory.

@@ -16,4 +16,5 @@ switch argument0
     case ITEMID.tile_packedStone: { text[0] = "Packed Stone"; text[1] = "Health: 25"; text[2] = "Stone Piece x 4" } break;
     case ITEMID.tile_battery: { text[0] = "Battery"; text[1] = "Use this to store energy for later use!"; text[2] = "Synthetic Essence x 5#Copper Ore x 5" } break;
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] = "Slay your foes with the power of the forest."; text[2] = "Stick x 100#Copper Ore x 10#Acorn x 50" } break;
+    case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] = "Stab that stone and gather resources faster than ever!"; text[2] = "Copper Ore x 20#Sweet Comb x 8" } break;
 }

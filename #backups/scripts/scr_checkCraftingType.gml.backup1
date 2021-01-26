@@ -1,3 +1,4 @@
+// 2021-01-26 14:27:49
 ///scr_checkCraftingType(itemID);
 //Returns true if the item is not filtered.
 
@@ -29,7 +30,7 @@ if craft_filter_pickaxe == false
     switch argument0
     {
         case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
-        case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
+        case ITEMID.pickaxe_stingerDrill: { if kingDied_1 == true then returnID = true; } break;
     }
 }
 
