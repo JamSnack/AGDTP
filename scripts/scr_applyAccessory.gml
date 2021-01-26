@@ -92,7 +92,7 @@ if equip != 0
         ds_list_add(accessories_equipped,accessory);
         //Play equpped sound!
         scr_hudMessage("equipped!",global.fnt_Ui,5,accessory,c_green,0);
-        scr_playSound(snd_equip,false,8,obj_player.x,obj_player.y,1);
+        audio_play_sound(snd_equip,8,false);
     }
     else if equip == -1 
     { 
@@ -100,6 +100,6 @@ if equip != 0
         //Play dequipped sound!
         maxInvenSlots += slot_cost;
         scr_hudMessage("un-equipped!",global.fnt_Ui,5,accessory,c_green,0);
-        scr_playSound(snd_unequip,false,8,obj_player.x,obj_player.y,1);
+        audio_play_sound(snd_unequip,8,false);
     }
 }

@@ -11,12 +11,10 @@ switch ar0
     case 1: //Task 2
     { str = "Press 'C' to open the crafting menu." } break;
     case 2:
-    { str = "Craft and place a workbench." } break;
-    case 3:
     { str = "Craft 4 Packed Dirt tiles at the workbench.#Use them to build a wall!" } break;
-    case 4:
+    case 3:
     { str = "    What's this? An anomalous event!#Kill the Gremlins, they want your pie!" } break;
-    case 5:
+    case 4:
     { str = "Something strange is happening!" } break;
 }
 

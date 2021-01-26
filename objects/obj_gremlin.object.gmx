@@ -36,7 +36,7 @@ stunned = false;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-damage = 10; //Attack damage.
+damage = 5; //Attack damage.
 
 hurtAlarm = 1;
 

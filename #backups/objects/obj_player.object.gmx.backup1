@@ -1,4 +1,4 @@
-// 2020-12-12 14:56:03
+// 2020-12-12 14:57:28
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -86,6 +86,7 @@ scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
 if tip_controls == false
 {
     scr_popUiCreate(x,y,x,y,4,10,id,"TIP");
+    print("yes")
 }
 
 #event alarm0|Reset canHurt;

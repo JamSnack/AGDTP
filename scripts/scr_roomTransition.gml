@@ -8,7 +8,7 @@ if !instance_exists(efct_roomTransition)
         
         //-Close other menus
         invOpen = false;
-        showCraftingMenu = false;
+        showSuperMenu = false;
         settingsMenu = false;
     }
 

@@ -24,14 +24,14 @@ if objective.canHurt == true
     
     if obj_player.canHurt == true && point_in_rectangle(obj_player.x,obj_player.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
-        with obj_player  //Hurt the objective.
+        with obj_player  //Hurt the player.
         {
             scr_hurt(other.damage,HURT_LONG,true,4.5);
         }
     } 
     else if instance_exists(PLR_NOCOL) && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
-        with nearestNoCol  //Hurt the objective.
+        with nearestNoCol  //Hurt the nearest tile.
         {
             scr_hurt(other.damage,HURT_LONG,true,4.5);
         }

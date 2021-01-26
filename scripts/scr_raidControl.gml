@@ -49,7 +49,7 @@ switch presetSettings
         nextRaid = "RAID";
         
         //Tutorial Quest
-        if currentTask == 4 { currentTask = 5; obj_tutorialControl.alarm[1] = room_speed*5; }
+        if currentTask == 3 { currentTask = 4; obj_tutorialControl.alarm[1] = room_speed*5; }
         
         //REGION SHIFT
         if worldControl.region_shift == true

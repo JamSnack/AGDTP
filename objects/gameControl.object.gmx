@@ -113,6 +113,7 @@ var save_list = ds_list_create(); //Inventory data
 var king_list = ds_list_create(); //Region kings defeated
 var quest_list = ds_list_create(); //List containing quest progress
 var stat_list = ds_list_create(); //List containing player stats to save.
+var accessory_list = ds_list_create(); //List containing equipped accessories.
 
 
 //Save the inventory;
@@ -171,6 +172,18 @@ ds_list_add(stat_list,energyMax);
 ds_list_add(stat_list,tileRegenRate);
 ds_list_add(stat_list,tileLevel);
 
+//- Save equipped accessories
+if ds_exists(accessories_equipped,ds_type_list)
+{
+    //Check to see if the accessory has already been equipped
+    var list_size = ds_list_size(accessories_equipped);
+    
+    for(_q=0;_q&lt;list_size;_q++)
+    {
+        ds_list_add(accessory_list,accessories_equipped[| _q]);
+    }
+}
+
 //Game maker prefers to start with a ds_map.
 //Wrap the root List up in a map!
 var _wrapper = ds_map_create();
@@ -178,6 +191,7 @@ ds_map_add_list(_wrapper,"INV",save_list);
 ds_map_add_list(_wrapper,"KING",king_list);
 ds_map_add_list(_wrapper,"QUEST",quest_list);
 ds_map_add_list(_wrapper,"STAT",stat_list);
+ds_map_add_list(_wrapper,"ACC",accessory_list);
 
 //Save to a string
 var str = json_encode(_wrapper);

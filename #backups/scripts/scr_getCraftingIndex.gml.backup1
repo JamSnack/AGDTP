@@ -1,0 +1,24 @@
+// 2021-01-25 13:46:01
+///scr_getCraftingList(itemID);
+//Returns true if the item is on the list.
+
+
+var returnID = false;
+
+switch argument0
+{
+    case ITEMID.tile_ladder: { reutrnID = true; } break; //Workbench
+    case ITEMID.tile_woodenStilt: { reutrnID = true; } break;
+    case ITEMID.weapon_greenSword: { reutrnID = true; } break; //Green Sword
+    case ITEMID.pickaxe_greenPickaxe: { reutrnID = true; } break; //Green Pick
+    case ITEMID.tile_packedDirt: { reutrnID = true; } break;
+    case ITEMID.tile_copperTurret: { reutrnID = true; } break;
+    case ITEMID.cons_gremTalisman: { reutrnID = true; } break;
+    case ITEMID.tile_platform: { reutrnID = true; } break;
+    case ITEMID.cons_bomb: { reutrnID = true; } break;
+    case ITEMID.tile_packedStone: { reutrnID = true; } break;
+    case ITEMID.tile_battery: { reutrnID = true; } break;
+    case ITEMID.weapon_acornRifle: { reutrnID = true; } break;
+}
+
+return returnID;

@@ -38,7 +38,7 @@ scale = 1;
 
 vsp = 0;
 atkBox = (16*4); //divided by 2 on calculation.
-damage = 5; //Attack damage.
+damage = 10; //Attack damage.
 
 hurtAlarm = 1;
 

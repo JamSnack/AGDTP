@@ -455,28 +455,7 @@ hp = clamp(hp,0,maxHp);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Crafting/Interact
-
-var _int = instance_nearest(x,y,INTERACT);
-
-if distance_to_object(INTERACT) &lt;= 32 &amp;&amp; (_int.bench == true || _int.object_index == obj_timeGuy) //Two tiles away
-{
-    //Grab the new crafting recipes
-    with _int event_user(14);
-}
-else
-{
-    hudControl.alarm[1] = 20; //Remove recipes when player leaves range.
-    hudControl.craftingMenu = 2; //Pie Recipes
-    hudControl.craftingSpriteSet = spr_pieCraftableItems;
-    hudControl.currentCraftingSlots = sprite_get_number(spr_pieCraftableItems); //How many slots to include.
-    
-    if room == rm_lobby
-    {
-        hudControl.upgradeMenu_visible = false;
-    }
-}
-
+            <string>///Interact
 //-------INTERACT KEY------------
 if keyboard_check_released(global.key_interact)
 {
@@ -651,7 +630,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
         &amp;&amp; hudControl.cursorHoldItem == false &amp;&amp;
         
         //- Crafting Menu stipulations
-        !(hudControl.showCraftingMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
+        !(hudControl.showSuperMenu == true &amp;&amp; point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
         //- Variable declarations and rules
         var slot = hudControl.selectedSlot;
@@ -663,7 +642,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
         //Play the tool's audio.
         if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; (tool == 2 || tool == 1)
         {
-            scr_playSound(tool_snd,false,5,x,y,0.9);
+            audio_play_sound(tool_snd,5,false);
         }
         
         

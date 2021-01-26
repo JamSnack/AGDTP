@@ -25,9 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if currentTask == 3 &amp;&amp; instance_number(obj_tutorialDirt) - 1 == 0
+            <string>if currentTask == 2 &amp;&amp; instance_number(obj_tutorialDirt) - 1 == 0
 {
-    currentTask = 4
+    currentTask = 3
     //Explode the house, fight gremmies
     with obj_tutorialControl
     {
@@ -56,7 +56,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if currentTask == 3 then visible = true else visible = false;
+            <string>if currentTask == 2 then visible = true else visible = false;
 </string>
           </argument>
         </arguments>

@@ -1,43 +1,24 @@
-// 2020-12-10 17:24:55
-///scr_getCraftingIndex(craftingMenu, craftingID);
-//Find the true itemID of the item being crafted.
+// 2021-01-25 13:46:16
+///scr_checkCraftingList(itemID);
+//Returns true if the item is on the list.
 
 
-var craftID = argument1;
-var returnID;
+var returnID = false;
 
 switch argument0
 {
-    //-----------------------------WORKBENCH--------------------
-    case 1:
-    {
-        switch craftID
-            {
-                case 0: {returnID = "GREEN_SWORD"} break;
-                case 1: {returnID = "GREEN_PICK"} break;
-                case 2: {returnID = "PACKED_DIRT"} break;
-                case 3: {returnID = "TURRET_COPPER"} break;
-                case 4: {returnID = "GREM_TALISMAN"} break;
-                case 5: {returnID = "PLATFORM" } break;
-                case 6: {returnID = "BOMB" } break;
-                case 7: {returnID = "PACKED_STONE" } break;
-                case 8: {returnID = ITEMID.tile_modBench} break;
-                case 9: {returnID = ITEMID.tile_battery} break;
-            }
-    }
-    break;
-    
-    //-----------------------------DEFAULT---------------------
-    case 2:
-    {
-        switch craftID
-            {
-                case 0: {returnID = "WORKBENCH"} break;
-                case 1: {returnID = "LADDER"} break;
-                case 2: {returnID = ITEMID.tile_woodenStilt} break;
-            }
-    }
-    break;
+    case ITEMID.tile_ladder: { reutrnID = true; } break; //Workbench
+    case ITEMID.tile_woodenStilt: { reutrnID = true; } break;
+    case ITEMID.weapon_greenSword: { reutrnID = true; } break; //Green Sword
+    case ITEMID.pickaxe_greenPickaxe: { reutrnID = true; } break; //Green Pick
+    case ITEMID.tile_packedDirt: { reutrnID = true; } break;
+    case ITEMID.tile_copperTurret: { reutrnID = true; } break;
+    case ITEMID.cons_gremTalisman: { reutrnID = true; } break;
+    case ITEMID.tile_platform: { reutrnID = true; } break;
+    case ITEMID.cons_bomb: { reutrnID = true; } break;
+    case ITEMID.tile_packedStone: { reutrnID = true; } break;
+    case ITEMID.tile_battery: { reutrnID = true; } break;
+    case ITEMID.weapon_acornRifle: { reutrnID = true; } break;
 }
 
 return returnID;

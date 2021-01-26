@@ -1,4 +1,4 @@
-// 2020-12-14 13:40:48
+// 2021-01-25 14:47:05
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -33,14 +33,16 @@ craftTimerMax = 30;
 craftTimerRate = 10;
 equipQueue = noone;
 
+
+//Super Menu
+showSuperMenu = false;
+ui_state = "CRAFT"; // No ui is visible
+
 //Crafting Menu
-showCraftingMenu = false;
-craftingMenu = 0; //Nothing
-currentCraftingSlots = 20;
-craftingSpriteSet = 0;
 craftIndex = -1; //The CRAFTING ID of the item to craft
-craftSelect = -1;
+craftSelect = -1; //Which crafting slot has its information displayed.
 craftBuffer = 0; //Last Item crafted
+drawn_crafting_slots = 0; //Used to synchronize slots when drawing the crafting menu.
 
 //Mod Menu
 selectedTag = noone;
@@ -51,7 +53,7 @@ equipmentTags = noone;
 modCanConfirm = false;
 
 //Inventory Slots
-maxInvenSlots_original = 28;
+maxInvenSlots_original = maxInvenSlots;
 
 //- initialize array length to avoid memory error.
 inventorySlotIcon[maxInvenSlots-1] = 0;
@@ -78,13 +80,17 @@ settingsMenu = false; //Whether settings menu is visible or not.
 showPopMessage = true; //Whether or not to use popMessages.
 showTaskList = true; //Show the player's tasks.
 showBackground = true;
+musicToggled = true; // Music is on!
+keybindMenu_visible = false; //SHOW YA KEYBINDS BIFF
+input_wait = false; //Whether or not to wait for an input.
 
 //Place Tiles
 lastPlaceX = noone;
 lastPlaceY = noone;
 
-//Upgrade menu
-upgradeMenu_visible = true;
+//Betwixt menus
+upgradeMenu_visible = false;
+shopMenu_visible = false;
 
 
 
@@ -107,7 +113,7 @@ if obj_player.toolReady == true && equipQueue != noone
 }
 
 //Crafting tooltip
-if showCraftingMenu == true && craftingMenu != 0
+if ui_state == "CRAFT"
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
@@ -116,20 +122,31 @@ if showCraftingMenu == true && craftingMenu != 0
     
     if point_in_rectangle(dx,dy,_posX,_posY,250+_posX,200+_posY)
     {   
-        for(i=0;i<currentCraftingSlots;i++)
+        var drawn_slots = 0;
+        
+        for(i=0;i<sprite_get_number(spr_itemDrops);i++)
         {
-            var size = 35; //The size of the distance between slots - the actual size of the slots.
-            var column = 7;
-            var c = floor(i/column);
+            if scr_checkCraftingIndex(i) == true
+            {
+                var size = 35; //The size of the distance between slots - the actual size of the slots.
+                var column = 7;
+                var c = floor(drawn_slots/column);
+                
+                var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
+                var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
+                var y1 = _posY+5+(size*c);
+                var y2 = _posY+25+(size*c);
+                
+                //Get Crafting ID of slot
+                //WIP: DRAW USING A TOOLTIP OBJECT INSTEAD :)
+                if point_in_rectangle(dx,dy,x1,y1,x2,y2)
+                { craftSelect = i; }
+                
+                drawn_slots += 1;
+            }
             
-            var x1 = _posX+10+(i*size)-(c*size*column);
-            var x2 = _posX+30+(i*size)-(c*size*column);
-            var y1 = _posY+5+(size*c);
-            var y2 = _posY+25+(size*c);
-            
-            //Get Crafting ID of slot
-            if point_in_rectangle(dx,dy,x1,y1,x2,y2)
-            { craftSelect = i; }
+            //reset draw_crafting_slots
+            if i == sprite_get_number(spr_itemDrops)-1 then drawn_slots = 0;
         }
     }
 }
@@ -190,61 +207,115 @@ else if maxInvenSlots < array_size
     }
 }
 
+//--------------KEYBINDING-----------------
+if input_wait == true && keyboard_key != 0
+{
+    if global.key_jump == noone
+    { global.key_jump = keyboard_key; }
+    else if global.key_left == noone
+    { global.key_left = keyboard_key; }
+    else if global.key_right == noone
+    { global.key_right = keyboard_key; }
+    else if global.key_down == noone
+    { global.key_down = keyboard_key; }
+    else if global.key_inven == noone
+    { global.key_inven = keyboard_key; }
+    else if global.key_craft == noone
+    { global.key_craft = keyboard_key; }
+    else if global.key_interact == noone
+    { global.key_interact = keyboard_key; }
+    
+    input_wait = false;
+}
+
+
+//-----------KEY INTERATION----------------
+
+if keyboard_check_released(global.key_inven)
+{
+    //- Toggle Inventory Visibility.
+    invOpen = !invOpen;
+}
+
+if keyboard_check_released(global.key_craft)
+{
+    ///Toggle crafting menu
+    showSuperMenu = !showSuperMenu;
+    
+    if instance_exists(gameControl)
+    { if currentTask == 1 then currentTask = 2; }
+    
+        
+    //init mod bench
+    event_user(0);
+}
+
+
 #event mouse_global_left_button|Crafting interaction
 if room == rm_menu then exit;
 
 if obj_player.dead == false
 {
-    if craftingMenu != 0 && showCraftingMenu == true
+    if ui_state == "CRAFT"
     {
         var _posX = viewWidth/2-120;
         var _posY = viewHeight/2-105;
         var dx = device_mouse_x_to_gui(0);
         var dy = device_mouse_y_to_gui(0);
+        var drawn_slots = 0;
         
             //This function represents the crafting menu as a whole.
         if point_in_rectangle(dx,dy,_posX,_posY,250+_posX,200+_posY)
         {   
-            for(i=0;i<currentCraftingSlots;i++)
+            for(i=0;i<sprite_get_number(spr_itemDrops);i++)
             {
-                var size = 35; //The size of the distance between slots - the actual size of the slots.
-                var column = 7;
-                var c = floor(i/column);
-                
-                var x1 = _posX+10+(i*size)-(c*size*column);
-                var x2 = _posX+30+(i*size)-(c*size*column);
-                var y1 = _posY+5+(size*c);
-                var y2 = _posY+25+(size*c);
-                
-                //Get Crafting ID of slot
-                if point_in_rectangle(dx,dy,x1,y1,x2,y2)
-                { 
-                    craftIndex = i; 
-                    craftSelect = i;
+                if scr_checkCraftingIndex(i) == true
+                {
+                    var size = 35; //The size of the distance between slots - the actual size of the slots.
+                    var column = 7;
+                    var c = floor(drawn_slots/column);
                     
-                    if craftTimer == 0 
-                    { scr_craftItem(scr_getCraftingIndex(craftingMenu,craftIndex)); }
+                    var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
+                    var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
+                    var y1 = _posY+5+(size*c);
+                    var y2 = _posY+25+(size*c);
                     
-                    break; 
-                } else craftIndex = -1;
+                    //Get Crafting ID of slot
+                    if point_in_rectangle(dx,dy,x1,y1,x2,y2)
+                    { 
+                        craftIndex = i; //Current itemID. 
+                        craftSelect = i; //Current information
+                        
+                        if craftTimer == 0 
+                        { scr_craftItem(i); }
+                        
+                        break; 
+                    } else { craftIndex = -1; craftSelect = -1; }
+                    
+                    drawn_slots += 1;
+            
+                    //reset draw_crafting_slots
+                    if i == sprite_get_number(spr_itemDrops)-1 then drawn_slots = 0;
+                }
             }
             
             craftTimer += 1;
             
-            if craftTimer >= craftTimerMax
+            if craftTimer >= craftTimerMax && scr_checkCraftingIndex(craftIndex) == true
             {
                 craftTimer = 1;
                 
                 if craftTimerMax > 5 then craftTimerMax -= craftTimerRate;
                 if craftIndex != -1// && craftTimer > craftTimerMax 
                 { 
-                    scr_craftItem(scr_getCraftingIndex(craftingMenu,craftIndex)); 
+                    scr_craftItem(craftIndex); 
+                    craftSelect = craftIndex;
                     craftBuffer = craftIndex;
                 } 
             }
             
-        } else if craftingMenu != "menu_mod" { craftIndex = -1; craftSelect = -1; showCraftingMenu = false; }
-    } else { craftIndex = -1; craftSelect = -1; }
+        } else if ui_state != "MOD" { craftIndex = -1; }
+    } else { craftIndex = -1; }
 }
 #section|Slot interaction
 var dx = device_mouse_x_to_gui(0);
@@ -446,7 +517,7 @@ if invOpen == true
     }
 }
 
-#event mouse_global_left_release|Inventory Interaction
+#event mouse_global_left_release|Ui Interactions
 if room == rm_menu then exit;
 
 var dx = device_mouse_x_to_gui(0);
@@ -549,7 +620,7 @@ if cursorHoldItem == true
     var x1 = 106/(invenXMax/invenX);
     var y1 = 4+(16*ceil(maxInvenSlots/7));
 
-    if (cursorItem != ITEMID.nil && cursorItem != trashSlotIcon && cursorSlot != "trashSlot") && point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
+    if cursorSlot != "trashSlot" && (cursorItem != ITEMID.nil && cursorItem != trashSlotIcon || ( cursorItem == trashSlotIcon && cursorAmt == trashSlotAmt)) && point_in_rectangle(dx,dy,x1,y1,x1+10,y1+10)
     {
         trashSlotIcon = cursorItem;
         trashSlotType = cursorType;
@@ -580,9 +651,48 @@ if cursorHoldItem == true
         cursorSlot = noone;
         cursorType = noone;
         cursorTags = noone;
+        selectedSlot = noone;
     }
 }
 
+//--------- UPGRADE MENU INTERACTIONS ------------
+if upgradeMenu_visible == true && room == rm_lobby
+{
+        var _posX = viewWidth/2-120;
+        var _posY = viewHeight/2-105;
+        
+        //- INIT BUTTONS
+        //NOTE: COORDINATES AND VARIABLES SHOULD BE 1:1 WITH WHAT IS IN THE DRAW GUI EVENT :)
+        var h_size = 36;
+        var v_size = 12;
+        var xx = 8+h_size;
+        var yy = 8+v_size;
+        
+        //- Tile Regen Rate
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("TILE_REGEN");
+        }
+        
+        //- Tile Level
+        var xx = 8+h_size;
+        var yy = 40+v_size;
+        
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("TILE_LEVEL");
+        }
+        
+        //- Electricity storage
+        var xx = 8+h_size;
+        var yy = 72+v_size;
+        
+        if point_in_rectangle(dx,dy,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy)
+        {
+            scr_buyUpgrade("POWER_STORAGE");
+        }
+       
+}
 
 
 //--------- INVENTORY INTERACTIONS -------------
@@ -618,41 +728,44 @@ for (i=0;i<maxInvenSlots;i++)
                 //Trash slot interaction
                 if cursorSlot == "trashSlot"
                 {
-                        var _invItem = 0; var _invAmt= 0; var _invType = 0; var _invTags = 0;
-                        
-                        if inventorySlotIcon[i] != ITEMID.nil
-                        {
-                            _invItem = inventorySlotIcon[i];
-                            _invAmt = inventorySlotAmt[i];
-                            _invType = inventorySlotType[i];
-                            _invTags = inventorySlotTags[i];
-                        }
-                        
-                        //Place item in new slot
-                        cursorHoldItem = false;
-                        inventorySlotIcon[i] = cursorItem;
-                        inventorySlotAmt[i] = cursorAmt;
-                        inventorySlotTags[i] = cursorTags;
-                        
-                        //Reallocate a replaced item slot.
-                        if _invItem != undefined
-                        {
-                            scr_invenAddItem(_invItem,_invAmt,_invType,_invTags);
-                        }
-                        
-                        selectedSlot = noone;
-                        pickupTimer = 0;
-                        pickupTimerMax = 60;
-                        
-                        scr_clearSlot("trashSlot");
-                        
-                        //Reset variables before script exit
-                        cursorHoldItem = false;
-                        cursorItem = noone;
-                        cursorAmt = noone;
-                        cursorSlot = noone;
-                        cursorType = noone;
-                        cursorTags = noone;
+                    var _invItem = 0; var _invAmt= 0; var _invType = 0; var _invTags = 0;
+                    
+                    if inventorySlotIcon[i] != ITEMID.nil
+                    {
+                        _invItem = inventorySlotIcon[i];
+                        _invAmt = inventorySlotAmt[i];
+                        _invType = inventorySlotType[i];
+                        _invTags = inventorySlotTags[i];
+                    }
+                    
+                    //Place item in new slot
+                    cursorHoldItem = false;
+                    inventorySlotIcon[i] = cursorItem;
+                    inventorySlotAmt[i] = cursorAmt;
+                    inventorySlotTags[i] = cursorTags;
+                    inventorySlotType[i] = cursorType;
+                    
+                    //Reallocate a replaced item slot.
+                    if _invItem != undefined
+                    {
+                        scr_invenAddItem(_invItem,_invAmt,_invType,_invTags);
+                    }
+                    
+                    selectedSlot = noone;
+                    pickupTimer = 0;
+                    pickupTimerMax = 60;
+                    
+                    scr_clearSlot("trashSlot");
+                    
+                    //Reset variables before script exit
+                    cursorHoldItem = false;
+                    cursorItem = noone;
+                    cursorAmt = noone;
+                    cursorSlot = noone;
+                    cursorType = noone;
+                    cursorTags = noone;
+                    selectedSlot = noone;
+                    
                     exit;
                 }
             
@@ -753,15 +866,14 @@ cursorTags = noone;
 craftTimer = 0;
 craftTimerMax = 40;
 #section|Settings interactions
+var xx = display_get_gui_width()/2;
+var yy = display_get_gui_height()/2;
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
+var hbox = 4;
+
 if settingsMenu = true
-{
-    ///Settings menu interaction
-    var xx = display_get_gui_width()/2;
-    var yy = display_get_gui_height()/2;
-    var mx = device_mouse_x_to_gui(0);
-    var my = device_mouse_y_to_gui(0);
-    var hbox = 4;
-    
+{   
     //Show Pop Messages
     
     //- settings
@@ -770,11 +882,11 @@ if settingsMenu = true
     { showPopMessage = !showPopMessage; }
     
     //- Debug mode
-    if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
     { dev = !dev; show_debug_overlay(dev); }
     
     //- toggle background
-    if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
     { 
         showBackground = !showBackground;
         background_visible[2] = showBackground;
@@ -783,31 +895,103 @@ if settingsMenu = true
         background_visible[5] = showBackground;
     }
     
+    //- Toggle music
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-10-hbox,xx-40+hbox,yy-10+hbox)
+    {
+        musicToggled = !musicToggled;
+        audio_sound_gain(music,musicToggled,0);
+    }
+    
+    //Keybinds
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-hbox,xx-40+hbox,yy+hbox)
+    {
+        keybindMenu_visible = true;
+        settingsMenu = false;
+    }
     
     //- Exit button
-    if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
+    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
     {
-        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,45/60,rm_menu);
+        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,rm_menu);
         else if interm == true
         {
             //Warp out of the FLATLANDS
             if instance_exists(ENEMY)
             {
-                for(z=0;z<instance_number(ENEMY)-1;z++)
+                for(_z=0;_z<instance_number(ENEMY)-1;_z++)
                 {
-                    var _grem = instance_find(ENEMY,z);
+                    var _grem = instance_find(ENEMY,_z);
                     
-                    if _grem.y < stoneLayer-48 && _grem.x > RAIDBOUND_Lower && _grem.x < RAIDBOUND_Upper
+                    if _grem.y < stoneLayer-32 && _grem.x > RAIDBOUND_Lower && _grem.x < RAIDBOUND_Upper
                     {
                         scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
                         break;
-                    } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+                    } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
                 }
-            } else scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,45/60,rm_lobby);
+            } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
         }
         
         //Save the game
         with gameControl event_user(0);
+    }
+}
+else if keybindMenu_visible == true
+{
+    //-Movement keys
+    //-- Jump
+    if point_in_rectangle(mx,my,xx-40-hbox,yy-40-hbox,xx-40+hbox,yy-40+hbox)
+    {
+        global.key_jump = noone;
+        input_wait = true;
+    }
+    
+    //- left
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-30-hbox,xx-40+hbox,yy-30+hbox)
+    {
+        global.key_left = noone;
+        input_wait = true;
+    }
+    
+    //- right
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-20-hbox,xx-40+hbox,yy-20+hbox)
+    {
+        global.key_right = noone;
+        input_wait = true;
+    }
+    
+    //- down
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-10-hbox,xx-40+hbox,yy-10+hbox)
+    {
+        global.key_down = noone;
+        input_wait = true;
+    }
+    
+    //- inventory
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy-hbox,xx-40+hbox,yy+hbox)
+    {
+        global.key_inven = noone;
+        input_wait = true;
+    }
+    
+    //- crafting
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+10-hbox,xx-40+hbox,yy+10+hbox)
+    {
+        global.key_craft = noone;
+        input_wait = true;
+    }
+    
+    //- interact
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+20-hbox,xx-40+hbox,yy+20+hbox)
+    {
+        global.key_interact = noone;
+        input_wait = true;
+    }
+    
+    //- Back button
+    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
+    {
+        keybindMenu_visible = false;
+        settingsMenu = true;
     }
 }
 
@@ -949,6 +1133,9 @@ if invenX > 5
             var y1 = -45+(16*c);
             var y2 = -35+(16*c);
         }
+        
+        var inv_amt = inventorySlotAmt[i];
+        
                 
         //Draw slots
         draw_set_alpha(1);
@@ -962,7 +1149,7 @@ if invenX > 5
         
         //Draw item icon
         var _center = 6; //Center the sprite onto the slot
-        draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.5,0.5,0,c_white,1);
+        draw_sprite_ext(spr_itemDrops,inventorySlotIcon[i],x1+_center,50+y1+_center,0.4,0.4,0,c_white,1);
         
         
         //-- inventory slots layer two --
@@ -971,7 +1158,18 @@ if invenX > 5
         draw_set_color(c_white);
         
         //Draw item amount
-        if inventorySlotAmt[i] > 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
+        if inv_amt > 0 
+        {
+            var str = string(inv_amt);
+            
+            if inv_amt >= 1000
+            {
+                str = string_delete(str,2,3);
+                str += "k";
+            }
+            
+            draw_text_transformed(x2-9,y2+47.5,str,0.6,0.6,0);
+        }
     }
     
     //Draw tooltip
@@ -983,21 +1181,6 @@ if invenX > 5
         /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
         draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
         draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
-    }
-    
-    //-Draw equipped accessories
-    if ds_exists(accessories_equipped,ds_type_list)
-    {
-        var list_size = ds_list_size(accessories_equipped);
-        
-        if list_size > 0
-        {
-            for(m=0;m<list_size;m++)
-            {
-                var accessory = accessories_equipped[| m];
-                draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,1);
-            }
-        }
     }
     
     //- Draw Trash Slot
@@ -1013,6 +1196,21 @@ if invenX > 5
     
 }
 
+//-Draw equipped accessories
+if ds_exists(accessories_equipped,ds_type_list)
+{
+    var list_size = ds_list_size(accessories_equipped);
+    
+    if list_size > 0
+    {
+        for(m=0;m<list_size;m++)
+        {
+            var accessory = accessories_equipped[| m];
+            draw_sprite_ext(spr_itemDrops,accessory,viewWidth-10,50+14*m,0.75,0.75,0,c_white,max(0.25,invenX/invenXMax));
+        }
+    }
+}
+
 //----------------Draw Hotbar-----------------------
 if invenX <= 5
 {
@@ -1020,7 +1218,7 @@ if invenX <= 5
     ///--Layer One--
     for (i=0;i<7;i++)
     {
-        var scale = 0.5;
+        var scale = 0.4;
         if selectedSlot == i then scale = 0.65;
         
     
@@ -1028,6 +1226,8 @@ if invenX <= 5
         var x2 = (20+(i*16));
         var y1 = -45;
         var y2 = -35;
+        
+        var inv_amt = inventorySlotAmt[i];
         
         //Draw hotbar slots
         draw_sprite_ext(spr_ui_invenSlot,0,x1,50+y1,0.6,0.6,0,c_white,1);
@@ -1044,16 +1244,226 @@ if invenX <= 5
         //Draw hotbar item amount (numbers)
         draw_set_font(global.fnt_Ui);
         draw_set_color(c_white);
-        if inventorySlotAmt[i] > 0 then draw_text_transformed(x2-8,y2+46.5,string(inventorySlotAmt[i]),0.75,0.75,0);
+        
+        if inv_amt > 0 
+        {
+            var str = string(inv_amt);
+            
+            if inv_amt >= 1000
+            {
+                str = string_delete(str,2,3);
+                str += "k";
+            }
+            
+            draw_text_transformed(x2-9,y2+47.5,str,0.6,0.6,0);
+        }
+    }
+}
+//#endregion
+    
+//-----Draw cursor item
+//#region
+if cursorHoldItem == true && drawCursorItem == true
+{
+    //-Draw item
+    draw_sprite_ext(spr_itemDrops,cursorItem,mx,my,0.75,0.75,0,c_white,1);
+    
+    //-Draw item amount
+    if cursorAmt > 0 
+    {
+        draw_text(mx-8,my+4,string(cursorAmt));
+    }
+    
+    
+    //-- Draw item tags
+    if cursorTags != undefined
+    {
+        if ds_exists(cursorTags,ds_type_list)
+        { 
+            for(i=0;i<ds_list_size(cursorTags);i++)
+            {
+                draw_text(mx+4,my+10*i,ds_list_find_value(cursorTags,i));
+            }
+        }
     }
 }
 //#endregion
 
+//-------------------- Healthbars ---------------------------
+//#region
+var playerHp = obj_player.hp;
+
+if playerHp > 0
+{ draw_nineSliceBox(spr_ui_healthBar,viewWidth-110,10,viewWidth-110+((playerHp)),13,0); }
+draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
+
+//-Red Health vial
+draw_nineSliceBox(spr_ui_vial,viewWidth-110,9,viewWidth-10,16,0);
+
+//- Pie health bar
+if instance_exists(obj_pie)
+{
+    var pieHp = obj_pie.hp;
+
+    if pieHp > 0
+    { draw_nineSliceBox(spr_ui_pieHealth,viewWidth-110,20,viewWidth-110+((pieHp)),23,0); }
+    draw_text(viewWidth-95,20,"HP: "+string(pieHp)+"\"+string(obj_pie.maxHp));
+    
+    //-Blue health vial
+    draw_nineSliceBox(spr_ui_vial,viewWidth-110,19,viewWidth-10,26,0);
+}
+
+//- Boss health bar
+if worldControl.raidBoss == true
+{
+    //Boss ID
+    var boss = worldControl.raidBossID;
+    var bossName = "Null";
+    
+    //Return the boss's name.
+    switch boss.object_index
+    {
+        //All possible boss objects.
+        case obj_bombKing: { bossName = "The Bomb King" } break;
+        case obj_sphereKing: {bossName = "The Sphere King"} break;
+        case obj_nilmerg: {bossName = "Nilmerg, the Grem-Bee"} break;
+        case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
+    }
+    
+    if boss != noone
+    {
+        var bossHp = boss.hp;
+        var bossMaxHp = boss.maxHp
+        draw_text(18,dispHeight-30,bossName);
+        draw_nineSliceBox(spr_ui_healthBar,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
+        draw_nineSliceBox(spr_ui_vial,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
+    }
+}
+
+// - Energy
+if instance_exists(worldControl) && room == rm_zero
+{ 
+    draw_text(viewWidth-12,30,string(energy));
+    draw_sprite(spr_ui_electricity,0,viewWidth-25,30);
+}
+
+//#endregion
+
+//-------------------Settings Menu-----------------------------
+//#region
+if settingsMenu == true
+{
+    var xx = display_get_gui_width()/2;
+    var yy = display_get_gui_height()/2;
+
+    //Draw background
+    draw_nineSliceBox(spr_ui_9slice,(xx)-50,(yy)-65,(xx)+50,(yy)+65,0);
+    
+    //PopMessage Setting
+    draw_sprite(spr_ui_selectedBool,showPopMessage,xx-40,yy-40);
+    draw_text(xx-32,yy-43,"Damage Numbers");
+    
+    //Debug setting
+    draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
+    draw_text(xx-32,yy-33,"Debug Mode");
+    
+    //toggle background setting
+    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
+    draw_text(xx-32,yy-23,"Toggle Background");
+    
+    //toggle music setting
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
+    draw_text(xx-32,yy-13,"Toggle Music");
+    
+    //keybind setting
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy);
+    draw_text(xx-32,yy-3,"Change Keybinds");
+    
+    //Draw save and exit button
+    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
+    draw_text(xx-15,yy+45,"Leave");
+    
+}
+else if keybindMenu_visible == true
+{
+    //Draw the keybinding menu!
+    var xx = display_get_gui_width()/2;
+    var yy = display_get_gui_height()/2;
+
+    //-Draw background
+    draw_nineSliceBox(spr_ui_9slice,(xx)-50,(yy)-65,(xx)+50,(yy)+65,0);
+    
+    //-Movement keys
+    //-- jump
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy-40);
+    draw_text(xx-32,yy-43,"Jump: "+chr(global.key_jump));
+
+    //-- left
+    draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
+    draw_text(xx-32,yy-33,"Move Left: "+chr(global.key_left));
+    
+    //-- right
+    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
+    draw_text(xx-32,yy-23,"Move Right: "+chr(global.key_right));
+    
+    //-- down
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
+    draw_text(xx-32,yy-13,"Move Down: "+chr(global.key_down));
+    
+    //- Ui keys
+    //-- Inventory
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy);
+    draw_text(xx-32,yy-3,"Open Inventory: "+chr(global.key_inven));
+    
+    //-- Crafting Menu
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy+10);
+    draw_text(xx-32,yy+7,"Crafting Menu: "+chr(global.key_craft));
+    
+    //-- Interact
+    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy+20);
+    draw_text(xx-32,yy+17,"Interact: "+chr(global.key_interact));
+    
+    //Draw save and exit button
+    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
+    draw_text(xx-15,yy+45,"Go Back");
+}
+
+//------------------Quests/Task List--------------------------
+if room == rm_tutorial
+{
+    if showTaskList == true
+    {
+        var xx = display_get_gui_width();
+        var yy = 0;
+        
+        //Draw text
+        var str = scr_getTaskText(currentTask);
+        var str_length = string_length(str)*2.25;
+        if (str_length > viewWidth/2) then str_length = viewWidth/2;
+        draw_text_transformed(x+viewWidth/2-str_length,y+30,str,1.25,1.25,0);
+    }
+}
+//#endregion
+
+//-------------------Wave Progress Meter----------------------
+//#region
+if interm == false
+{
+    draw_text(10,dispHeight-13,"Raid Progress: ");
+    draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
+    draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
+}
+//#endregion
+
+//--------------------Super Menu Control----------------------
+
+switch ui_state
+{
+    case "CRAFT":
+    {
 //-----------------Crafting Menu---------------------------------------
 //#region
 
-if showCraftingMenu == true
-{
     //- draw background
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
@@ -1063,16 +1473,16 @@ if showCraftingMenu == true
     draw_set_alpha(1);
     
     //draw crafting buttons
-    if ( craftingSpriteSet != noone && craftingMenu != "menu_mod" )
+    for(i=0;i<sprite_get_number(spr_itemDrops);i++)
     {
-        for(i=0;i<currentCraftingSlots;i++)
+        if scr_checkCraftingIndex(i)
         {
             var size = 35; //The size of the distance between slots - the actual size of the slots.
             var column = 7;
-            var c = floor(i/column);
+            var c = floor(drawn_crafting_slots/column);
             
-            var x1 = _posX+10+(i*size)-(c*size*column);
-            var x2 = _posX+30+(i*size)-(c*size*column);
+            var x1 = _posX+10+(drawn_crafting_slots*size)-(c*size*column);
+            var x2 = _posX+30+(drawn_crafting_slots*size)-(c*size*column);
             var y1 = _posY+5+(size*c);
             var y2 = _posY+25+(size*c);
             
@@ -1081,20 +1491,76 @@ if showCraftingMenu == true
             
             //Draw items
             var _center = 10;
-            draw_sprite(craftingSpriteSet,i,x1+_center,y1+_center);
+            draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
             
             //Draw crafting tooltip
             if craftSelect != -1
             {
                 draw_set_color(c_white);
-                scr_craftingToolTip(craftingMenu,craftSelect);
-                draw_text_transformed(120,134,text[0],1.25,1.25,0);
-                draw_text_transformed(121,155,text[1],1,1,0);
-                draw_text_transformed(121,175,"Items Needed: "+text[2],1,1,0);
+                scr_craftingToolTip(craftSelect);
+                draw_text_transformed(130,134,text[0],1.25,1.25,0);
+                draw_text_transformed(131,155,text[1],1,1,0);
+                draw_text_transformed(131,175,"Items Needed: "+text[2],1,1,0);
             }
+            
+            drawn_crafting_slots += 1;
+            
+            //reset draw_crafting_slots
+            if i == sprite_get_number(spr_itemDrops)-1 then drawn_crafting_slots = 0;
         }
-    } 
-    else if craftingMenu == "menu_mod"
+    }
+
+//#endregion
+    }
+    break;
+
+    case "UPGRADE":
+    {
+//-----------------Upgrade Menu-----------------------------
+//#region
+
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+
+    draw_set_alpha(0.75);
+    draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
+    draw_set_alpha(1);
+    
+    //- INIT BUTTONS
+    var h_size = 36;
+    var v_size = 12;
+    
+    //NOTE: Adding 32 to the y value every new button
+    //- Regeneration Upgrade button
+    var xx = 8+h_size;
+    var yy = 8+v_size;
+    
+    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+    draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level#Cost: "+string(tileRegenRate*25));
+    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which a#player, pie, and tile#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
+    
+    //- Tile base HP Upgrade button
+    var xx = 8+h_size;
+    var yy = 40+v_size;
+    
+    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+    draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level#Cost: "+string(tileLevel*50));
+    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
+    
+    //- Electricity storage
+    var xx = 8+h_size;
+    var yy = 72+v_size;
+    
+    draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
+    draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage#Cost: "+string((energyMax-4)*100));
+    draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
+    
+    draw_set_alpha(1);
+    
+    }
+    break;
+    
+    case "MOD":
     {
         //-------Mod menu-----
         var size = 16;
@@ -1132,179 +1598,10 @@ if showCraftingMenu == true
             draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
         }
     }
+    break;
+    
+    //#endregion
 }
-
-//#endregion
-    
-//-----Draw cursor item
-//#region
-if cursorHoldItem == true && drawCursorItem == true
-{
-    //-Draw item
-    draw_sprite_ext(spr_itemDrops,cursorItem,mx,my,0.75,0.75,0,c_white,1);
-    
-    //-Draw item amount
-    if cursorAmt > 0 
-    {
-        draw_text(mx+3,my+4,string(cursorAmt));
-    }
-    
-    //-- Draw item tags
-    if cursorTags != undefined
-    {
-        if ds_exists(cursorTags,ds_type_list)
-        { 
-            for(i=0;i<ds_list_size(cursorTags);i++)
-            {
-                draw_text(mx+4,my+10*i,ds_list_find_value(cursorTags,i));
-            }
-        }
-    }
-}
-//#endregion
-
-//-------------------- Healthbars ---------------------------
-//#region
-var playerHp = obj_player.hp;
-
-if playerHp > 0
-{ draw_nineSliceBox(spr_ui_healthBar,viewWidth-110,10,viewWidth-110+((playerHp)),13,0); }
-draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
-
-//- Pie health bar
-if instance_exists(obj_pie)
-{
-    var pieHp = obj_pie.hp;
-
-    if pieHp > 0
-    { draw_nineSliceBox(spr_ui_pieHealth,viewWidth-110,20,viewWidth-110+((pieHp)),23,0); }
-    draw_text(viewWidth-95,20,"HP: "+string(pieHp)+"\"+string(obj_pie.maxHp));
-}
-
-//- Boss health bar
-if worldControl.raidBoss == true
-{
-    //Boss ID
-    var boss = worldControl.raidBossID;
-    var bossName = "Null";
-    
-    //Return the boss's name.
-    switch boss.object_index
-    {
-        //All possible boss objects.
-        case obj_bombKing: { bossName = "The Bomb King" } break;
-        case obj_sphereKing: {bossName = "The Sphere King"} break;
-        case obj_nilmerg: {bossName = "Nilmerg, the Grem-Bee"} break;
-        case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
-    }
-    
-    if boss != noone
-    {
-        var bossHp = boss.hp;
-        var bossMaxHp = boss.maxHp
-        draw_text(18,dispHeight-30,bossName);
-        draw_nineSliceBox(spr_ui_bossHealthBar,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
-        draw_nineSliceBox(spr_ui_bossHealth,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
-    }
-}
-
-// - Energy
-if instance_exists(worldControl)
-{ draw_text(viewWidth-80,30,string(energy)); }
-
-//#endregion
-
-//-------------------Settings Menu-----------------------------
-//#region
-if settingsMenu == true
-{
-    var xx = display_get_gui_width()/2;
-    var yy = display_get_gui_height()/2;
-
-    //Draw background
-    draw_nineSliceBox(spr_ui_9slice,(xx)-50,(yy)-65,(xx)+50,(yy)+65,0);
-    
-    //PopMessage Setting
-    draw_sprite(spr_ui_selectedBool,showPopMessage,xx-40,yy-40);
-    draw_text(xx-32,yy-43,"Damage Numbers");
-    
-    //Debug setting
-    draw_sprite(spr_ui_selectedBool,dev,xx-40,yy-30);
-    draw_text(xx-32,yy-33,"Debug Mode");
-    
-    //toggle background setting
-    draw_sprite(spr_ui_selectedBool,showBackground,xx-40,yy-20);
-    draw_text(xx-32,yy-23,"Toggle Background");
-    
-    //Draw save and exit button
-    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
-    draw_text(xx-9,yy+45,"Exit");
-    
-}
-
-//------------------Quests/Task List--------------------------
-if room == rm_tutorial
-{
-    if showTaskList == true
-    {
-        var xx = display_get_gui_width();
-        var yy = 0;
-        
-        //Draw text
-        var str = scr_getTaskText(currentTask);
-        var str_length = string_length(str)*2.25;
-        if (str_length > viewWidth/2) then str_length = viewWidth/2;
-        draw_text_transformed(x+viewWidth/2-str_length,y+30,str,1.25,1.25,0);
-    }
-}
-//#endregion
-
-//-------------------Wave Progress Meter----------------------
-//#region
-if interm == false
-{
-    draw_text(10,dispHeight-13,"Raid Progress: ");
-    draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
-    draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
-}
-//#endregion
-//-----------------Upgrade Menu-----------------------------
-//#region
-if room = rm_lobby
-{
-    if upgradeMenu_visible == true
-    {
-        print("HELPME!");
-        var _posX = viewWidth/2-120;
-        var _posY = viewHeight/2-105;
-    
-        draw_set_alpha(0.75);
-        draw_nineSliceBox(spr_ui_9slice, _posX,_posY,250+_posX,200+_posY,0);
-        draw_set_alpha(1);
-        
-        //- INIT BUTTONS
-        var h_size = 12;
-        var v_size = 6;
-        
-        //- Regeneration Upgrade button
-        var xx = 15;
-        var yy = 12;
-        
-        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Regeneration");
-        
-        //- Tile base HP Upgrade button
-        var xx = 50;
-        var yy = 12;
-        
-        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text(_posX-h_size/2+xx,_posY-v_size/2+yy,"Tile Strength");
-    }
-}
-
-draw_set_alpha(1);
-
-//#endregion
 
 #event keyrelease:vk_escape|Clear Ui or Open Settings
 
@@ -1315,6 +1612,7 @@ if invOpen == false && showCraftingMenu == false
 //Close other menus
 if invOpen == true then invOpen = false;
 if showCraftingMenu == true then showCraftingMenu = false;
+if keybindMenu_visible = true then keybindMenu_visible = false;
 
 #event keyrelease:1|Select slot 1
 if room == rm_menu then exit;
@@ -1322,68 +1620,84 @@ if obj_player.toolReady == true
 {
     selectedSlot = 0;
     scr_slotEquip(0);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 0;
 
 #event keyrelease:2|Select slot 2
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 1;
-scr_slotEquip(1);
+    selectedSlot = 1;
+    scr_slotEquip(1);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 1;
 
 #event keyrelease:3|Select slot 3
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 2;
-scr_slotEquip(2);
-} else equipQueue = 3;
+    selectedSlot = 2;
+    scr_slotEquip(2);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+} else equipQueue = 2;
 
 #event keyrelease:4|Select slot 4
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 3;
-scr_slotEquip(3);
+    selectedSlot = 3;
+    scr_slotEquip(3);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 3;
 
 #event keyrelease:5|Select slot 5
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 4;
-scr_slotEquip(4);
+    selectedSlot = 4;
+    scr_slotEquip(4);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+    
 } else equipQueue = 4;
 
 #event keyrelease:6|Select slot 6
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 5;
-scr_slotEquip(5);
+    selectedSlot = 5;
+    scr_slotEquip(5);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
 } else equipQueue = 5;
 
 #event keyrelease:7|Select slot 7
 if room == rm_menu then exit;
 if obj_player.toolReady == true
 {
-selectedSlot = 6;
-scr_slotEquip(6);
-} else equipQueue = 6;
-
-#event keyrelease:C|Toggle crafting menu
-showCraftingMenu = !showCraftingMenu;
-
-if instance_exists(gameControl)
-{ if currentTask == 1 then currentTask = 2; }
-
+    selectedSlot = 6;
+    scr_slotEquip(6);
     
-//init mod bench
-event_user(0);
-
-#event keyrelease:I|Toggle Inventory Visibility.
-invOpen = !invOpen;
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+} else equipQueue = 6;
 
 #event keyrelease:vk_numpad2
 hudVisible = !hudVisible;

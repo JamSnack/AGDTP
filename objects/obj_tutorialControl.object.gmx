@@ -50,7 +50,7 @@ task_inventory_completed = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>currentTask = 6;
+            <string>currentTask = 5;
 mainQuest = 1;
 
 print("Tutorial Complete!");
