@@ -91,7 +91,7 @@ item = ITEMID.item_gremEssence;
           <argument>
             <kind>1</kind>
             <string>//Gravitate toward player
-if canPickUp == true
+if canPickUp == true &amp;&amp; obj_player.dead == false
 {
     var dir = point_direction(x,y,obj_player.x,obj_player.y);
     motion_add(dir,1);
@@ -123,7 +123,9 @@ if canPickUp == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if scr_invenAddItem(ITEMID.item_gremEssence,amt,type,tags) != -1 
+            <string>if obj_player.dead == true then exit;
+
+if scr_invenAddItem(ITEMID.item_gremEssence,amt,type,tags) != -1 
 {
     instance_destroy();
     scr_playSound(snd_itemPickup,false,10,obj_player.x,obj_player.y,0.8);

@@ -89,10 +89,10 @@ switch presetSettings
                 {
                     //---------- Special Raid: Shadow Gremlins Only settings ---------
                     specialRaid = true;
-                    spawnRate = 1+(0.1*wave);
+                    spawnRate = clamp(1+(0.1*wave),1,30); //spawn rate = 60/spawnRate. This caps the spawn rate to 60/30 or 2;
                     spawnChance = 70+(wave*5);
-                    maxGrem = 10+(wave*2);
-                    maxRaidProgress = 15+(wave*3);
+                    maxGrem = 15+(wave*2);
+                    maxRaidProgress = min(25+(wave*3),100);
                     
                     interm = false;
                     

@@ -28,11 +28,12 @@
             <string>///Initialize the Gremlin
 canActiveRegion = true;
 canHurt = true;
-maxHp = 16;
+maxHp = 12;
 hp = maxHp;
 image_speed = 12/60;
 state = WANDER;
 stunned = false;
+knockback_resistance = 1;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
@@ -224,7 +225,7 @@ if stateLock == false
     }
 }
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,jump_sprite,move_sprite,0.8,objective,-4,atkBox); }
+{ ai_gremlin(state,spr_gremlinIdle,jump_sprite,move_sprite,0.7,objective,-4,atkBox); }
 
 
 //Grass Gremlin step

@@ -32,6 +32,7 @@ if instance_exists(objective)
 if objective.canHurt == true
 {
     var nearestNoCol = instance_nearest(x,y,PLR_NOCOL);
+    var nearestCol = instance_nearest(x,y,PLRTILE);
     var _xx = x;
     var _yy = y;
     
@@ -46,6 +47,17 @@ if objective.canHurt == true
         stateLock = true;
         alarm[stateLockAlarm] = 30;
     } 
+    else if instance_exists(PLRTILE) && point_in_rectangle(nearestCol.x,nearestCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    {
+        with nearestCol  //Hurt the objective.
+        {
+            scr_hurt(other.damage,HURT_LONG,true,3);
+        }
+    
+        state = WANDER;
+        stateLock = true;
+        alarm[stateLockAlarm] = 30;
+    }
     else if instance_exists(PLR_NOCOL) && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with nearestNoCol  //Hurt the objective.
@@ -72,7 +84,7 @@ if x_previous = xObjective //Do not stand on top of pie.
 if (!position_meeting(x,y+16,OBSTA) || (platformCollide = true && !place_meeting(x,y+1,obj_platform))) 
     && current_state != FALL
 {
-    if gremBlockCol == false || !position_meeting(x,y+16,GREM_BLOCK)
+    if !position_meeting(x,y+16,GREM_BLOCK)
     { state = FALL; }
     
     if ceil(yObjective) > y && place_meeting(x,y+1,obj_platform)
@@ -150,12 +162,12 @@ if vForce == 0 && hForce == 0
                 //Turn around at RAIDBOUNDS
                 if interm == false && stateLock == false
                 {
-                    if x+hspd < RAIDBOUND_Lower && gremBlockCol == false
+                    if x+hspd < RAIDBOUND_Lower
                     {
                         image_xscale = 1;
                         stateLock = true;
                         alarm[stateLockAlarm] = 30;
-                    } else if x+hspd > RAIDBOUND_Upper && gremBlockCol == false
+                    } else if x+hspd > RAIDBOUND_Upper
                     {
                         image_xscale = -1;
                         stateLock = true;
@@ -203,7 +215,7 @@ if vForce == 0 && hForce == 0
     }
     
     // Grem Block check ----------------------------
-    if gremBlockCol == true
+    if gremBlockCol == true && interm == false
     {
         var flatLandsY = (room_height/2)-(16*3);
         
@@ -214,7 +226,7 @@ if vForce == 0 && hForce == 0
         }
         
     
-        if position_meeting(x,flatLandsY,FLATLAND) || position_meeting(x,y-6,GREM_BLOCK) then gremBlockCol = false;
+        if position_meeting(x,y-6,GREM_BLOCK) then gremBlockCol = false;
     }
     
     //Handle vertical movement states------------------------------------------

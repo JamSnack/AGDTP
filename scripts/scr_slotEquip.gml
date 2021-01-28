@@ -17,7 +17,7 @@ if _item != ITEMID.nil && obj_player.toolReady == true
         case ITEMTYPE.pickaxe: { scr_applyPickaxeStats(_item); } break;
     }
 
-    scr_playSound(snd_inventoryClick,false,8,obj_player.x,obj_player.y,1);
+    audio_play_sound(snd_inventoryClick,8,false);
 } 
 else 
 {

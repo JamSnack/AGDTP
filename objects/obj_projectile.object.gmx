@@ -155,17 +155,22 @@ var ly = lengthdir_y(speed,direction);
 
 // - Stab
 if bStab == true
-{
-    //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
-    var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
+{    
+    //Despawn and track the hitbox
+    if obj_player.armStabComplete == false &amp;&amp; obj_player.dead == false
+    { 
+        //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+        var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
+        
+        //- prepare _dir for further processing...
+        if image_xscale == -1 then _dir = (_dir-180)*-1;
+        
+        direction = _dir;
     
-    //- prepare _dir for further processing...
-    if image_xscale == -1 then _dir = (_dir-180)*-1;
-    
-    direction = _dir;
-
-    x = obj_player.hitSyncX;
-    y = obj_player.hitSyncY;
+        x = obj_player.hitSyncX;
+        y = obj_player.hitSyncY;
+        alarm[2] = 4;
+    }
 }
 
 

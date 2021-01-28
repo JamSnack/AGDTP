@@ -27,6 +27,8 @@ if objective.canHurt == true
         with obj_player  //Hurt the player.
         {
             scr_hurt(other.damage,HURT_LONG,true,4.5);
+            
+            if state == "DIVE" then state = "WANDER";
         }
     } 
     else if instance_exists(PLR_NOCOL) && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
@@ -87,6 +89,9 @@ switch state
     {
         sprite_index = spr_nilmerg_move;
         
+        //Attack the living player!
+        if obj_player.dead == false then objective = obj_player;
+        
         //Direction
         var dir = sign(objective.x-x);
         var vdir = sign((objective.y-16)-y);
@@ -108,6 +113,7 @@ switch state
         {
             state = "TRANSITION";
             transition_to = "WANDER";
+            objective = obj_pie;
         }
     }
     break;
@@ -184,7 +190,7 @@ switch state
                 case 2:
                 {
                     //Spawn a minion!
-                    repeat(1+waveScale(1,10,0,2))
+                    repeat(1+waveScale(1,20,0,2))
                     { instance_create(x,y,obj_beeMinion); }
                 }
                 break;
@@ -194,7 +200,7 @@ switch state
         if state != "TRANSITION" && stateLock == false
         {
             stateLock = true;
-            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),45,attackCooldown*room_speed);
+            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),60,attackCooldown*room_speed);
         }
     }
     break;

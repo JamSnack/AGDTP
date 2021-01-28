@@ -20,6 +20,7 @@ if craft_filter_weapon == false
     {
         case ITEMID.weapon_greenSword: { returnID = true; } break;
         case ITEMID.weapon_acornRifle: { returnID = true; } break;
+        case ITEMID.weapon_beemerang: { returnID = true; } break;
     }
 }
 
@@ -58,15 +59,15 @@ if craft_filter_plrtile == false
     }
 }
 
-/*
+
 //---------ACCESSORIES-------------
 if craft_filter_acc == false
 {
     switch argument0
     {
-        
+        case ITEMID.acc_beehiveBackpack: { returnID = true; } break;
     }
-}*/
+}
 
 
 

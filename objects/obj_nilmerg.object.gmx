@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 150+waveScale(50,15,0,-1);
+hp = 120+waveScale(10,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "TRANSITION";
@@ -39,7 +39,7 @@ atkBox = 32; //divided by 2 on calculation.
 b_atkBox = 16*7; //Range for bomb attack.
 damage = 8; //body damage.
 s_damage = 15; //swoop damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
-attackCooldown = 3; //How long until the boss rolls for another attack.
+attackCooldown = 4; //How long until the boss rolls for another attack.
 
 hurtAlarm = 1;
 image_speed = 30/60;

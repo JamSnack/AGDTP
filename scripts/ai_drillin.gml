@@ -25,7 +25,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,6);
+            scr_hurt(other.damage,HURT_LONG,true,2);
         }
         
         state = WANDER;
@@ -36,7 +36,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,6);
+            scr_hurt(other.damage,HURT_LONG,true,2);
         }
     
         state = WANDER;

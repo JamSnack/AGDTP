@@ -110,6 +110,7 @@ if item != ITEMID.nil
 } 
 else if slot != -1
 {
+    //This case is used in crafting.
     //Unequip a dropped accessory (UNO MAS)
     if invType == ITEMTYPE.accessory
     {

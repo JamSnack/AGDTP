@@ -41,7 +41,7 @@ viewHeight = view_hview[0];
 
 
 //Further fit backgrounds
-if room == rm_zero || rm_tutorial
+/*if room == rm_zero || rm_tutorial
 {
     background_xscale[3] = 0.5;
     background_yscale[3] = 0.5;
@@ -103,8 +103,8 @@ view_xview=round(x-view_wview/2-10);
 view_yview=round(y-view_hview/2-10);
 
 //clamp to room
-view_xview=clamp(view_xview,0,room_width-view_wview);
-view_yview=clamp(view_yview,0,room_height-view_hview);
+view_xview=round(clamp(view_xview,0,room_width-view_wview));
+view_yview=round(clamp(view_yview,0,room_height-view_hview));
 
 //GameOver
 if instance_exists(gameControl)
@@ -136,8 +136,8 @@ if room == rm_zero || room == rm_tutorial
     background_x[3] = view_xview/1.6; //hills close
     background_x[4] = view_xview/2.2; //grass
     
-    background_y[2] = (-view_yview/5.15)+80*3; //hill
-    background_y[3] = (-view_yview/5.20)+85*2; //hill close
+    background_y[2] = (-view_yview/5.15)+85*4; //hill
+    background_y[3] = (-view_yview/5.20)+95*3; //hill close
     background_y[4] = (-view_yview/5.25)-52; //foreground feature
 } else if room == rm_lobby
 {

@@ -118,7 +118,8 @@ else if r &gt;= 85
     scr_dropTag("Grenade",1);
     scr_playSound(snd_rareItem,false,11,x,y,1);
 } 
-else if r &gt;= 25 &amp;&amp; r &lt;= 85
+
+if r &gt;= 95 &amp;&amp; r &lt;= 15
 {
     scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 }

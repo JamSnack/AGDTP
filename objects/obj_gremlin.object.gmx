@@ -29,7 +29,7 @@
 
 canActiveRegion = true;
 canHurt = true;
-hp = 20;
+hp = 16;
 image_speed = 12/60;
 state = WANDER;
 stunned = false;
@@ -55,6 +55,8 @@ gremBlockCol = !interm;
 image_xscale = sign(target.x-x);
 
 event_inherited();
+
+knockback_resistance = 1;
 </string>
           </argument>
         </arguments>

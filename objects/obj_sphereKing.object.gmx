@@ -53,7 +53,7 @@ stateLock = false;
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 1;
+maxAccel = 4;
 accelRate = 0.01;
 
 //Animation
@@ -71,7 +71,9 @@ spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
 knockType = "FLY";
 death_gib = part_nullGib;
-knock_resistance = 0.5;
+knock_resistance = 3;
+sphere_backup = 1;
+sphere_max = 8;
 
 repeat(clamp(floor(wave/4),1,6))
 {
@@ -149,8 +151,23 @@ scr_spawnEssence(1,60,5+floor(wave/3));
           <argument>
             <kind>1</kind>
             <string>///Create a Sphere Minion
-var a = instance_create(x,y,obj_sphereMinion);
-a.parentKing = id;
+if !place_meeting(x,y,OBSTA)
+{
+    repeat(sphere_backup)
+    {
+        var a = instance_create(x,y,obj_sphereMinion);
+        a.parentKing = id;
+        sphere_backup = 1;
+        
+        if instance_exists(obj_sphereMinion) &amp;&amp; instance_number(obj_sphereMinion) &gt; sphere_max
+        {
+            sphere_backup = 1;
+            break;
+        }
+    }
+}
+else sphere_backup += 1;
+
 alarm[3] = room_speed*spwnRate;
 </string>
           </argument>

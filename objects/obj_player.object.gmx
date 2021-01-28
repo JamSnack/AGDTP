@@ -265,20 +265,30 @@ if dead = false &amp;&amp; g_over == false
         vForce = 0;
     }
     //---------PLATFORM COLLISION
-    else if vsp+vForce &gt; 0 &amp;&amp; (place_meeting(x,y+vsp+vForce,obj_platform) &amp;&amp; !key_down)
+    else if !key_down &amp;&amp; instance_exists(obj_platform)
     {
-        while(!place_meeting(x,y+sign(vsp+vForce),obj_platform))
+        var _plat = instance_place(x,y+vsp+vForce,obj_platform);
+        var spr_height = ceil(sprite_height/2);
+                
+        if _plat != noone &amp;&amp; vsp+vForce &gt; 0 &amp;&amp; y+spr_height &lt; _plat.y-7
         {
-            y += sign(vsp+vForce);
+            while(!place_meeting(x,y+sign(vsp+vForce),_plat))
+            {
+                y += sign(vsp+vForce);
+            }
+            
+            if position_meeting(x,y+spr_height+vsp+vForce,_plat)
+            {
+                //Check for cases w/ overlapping hitboxes
+                while(place_meeting(x,y,_plat))
+                {
+                    y -= 1;
+                }
+            }
+            
+            vForce = 0;
+            vsp = 0;
         }
-        
-        vForce = 0;
-        vsp = 0;
-    }
-    // - extra platform logic
-    if key_down &amp;&amp; place_meeting(x,y+1,obj_platform) &amp;&amp; !place_meeting(x,y+vsp+grav,OBSTA)
-    {
-        y+=grav;
     }
 
     y = y+vsp+vForce;
@@ -411,6 +421,15 @@ if dead == false
         dead = true;
         alarm[1] = room_speed*5;
         visible = false;
+        
+        //LOSE ESSENCE
+        var essence_lost = ceil(scr_getInvenItemAmt(ITEMID.item_gremEssence)*0.10);
+        
+        scr_spawnEssence(1,room_speed*5,essence_lost);
+        scr_invenRemoveItem(ITEMID.item_gremEssence,essence_lost,0,false,-1,noone);
+        scr_hudMessage(string(essence_lost)+" essence lost...",global.fnt_Ui,5,0,c_red,0);
+        
+        //Respawn at the pie
         x = obj_pie.x;
         y = obj_pie.y;
     }
@@ -418,12 +437,6 @@ if dead == false
 //---AUDIO LISTENENR POSITION----
 audio_listener_position(x,y,0);
 }
-
-
-//Platform logic
-if !position_meeting(x,y+17,obj_platform) &amp;&amp; place_meeting(x,y,obj_platform) then platformCollide = false 
-else if collision_rectangle(x-4,y+10,x+4,y+15,obj_platform,true,true) then platformCollide = false
-else platformCollide = true;
 
 //Remain inside the room at all times
 x = clamp(x,0,room_width);

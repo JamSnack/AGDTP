@@ -21,7 +21,9 @@ switch itemID
     case ITEMID.tile_modBench: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 30; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 15; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemAmt = 2; itemType = 3;} break;
     case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemAmt = 1; itemType = 3;} break;
-    case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 50; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
+    case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 15; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
+    case ITEMID.weapon_beemerang: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 6; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
+    case ITEMID.acc_beehiveBackpack: { mats[0] = ITEMID.acc_satchel; matsAmt[0] = -1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
 }
 
 //Check the player's inventory.
@@ -45,7 +47,13 @@ for (i=0;i<maxInvenSlots;i++)
     if i == maxInvenSlots-1
     { //Check for total confirmation
         for (k=0;k<array_length_1d(mats);k++) { if mats[k] != 0 then return false; } // The crafting has failed
-        for (k=0;k<maxInvenSlots;k++) { if amt_remove[k] != 0 then scr_invenRemoveItem(0,amt_remove[k],0,false,k,noone); }
+        for (k=0;k<maxInvenSlots;k++) 
+        { 
+            if amt_remove[k] != 0 
+            {
+                scr_invenRemoveItem(0,amt_remove[k],0,false,k,noone); 
+            }
+        }
     }
 } //Crafting succeeds if it makes it through the final check.
 
