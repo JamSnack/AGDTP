@@ -216,6 +216,9 @@ canHurt = true;
             <string>///Movement and Death Check
 if dead = false &amp;&amp; g_over == false
 {
+    var spr_height = sprite_get_height(spr_playerIdle)/2;
+    var spr_width = sprite_get_width(spr_playerIdle)/2;
+
     if knockBack == false
     {
         key_right = keyboard_check(global.key_right);
@@ -228,15 +231,16 @@ if dead = false &amp;&amp; g_over == false
     if vsp &lt; maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if (place_meeting(x,y+1,OBSTA) || (place_meeting(x,y+1,obj_platform) &amp;&amp; vsp &gt;= 0 )) &amp;&amp; (key_jump)
+    if  key_jump &amp;&amp; ((position_meeting(x-4,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
     {
         vsp = vsp_jump;
     }
     
     //Horizontal Movement
     var hdir = sign(hsp+hForce) //Horizontal Direction
+    
     if hdir != 0 then image_xscale = hdir;
-    if (place_meeting(x+hsp+hForce,y,OBSTA))
+    if hsp+hForce != 0 &amp;&amp; (place_meeting(x+hsp+hForce,y,OBSTA))
     {
         //move as close as we can
         while (!place_meeting(x+hdir,y,OBSTA))
@@ -244,6 +248,7 @@ if dead = false &amp;&amp; g_over == false
         hsp = 0;
         hForce = 0;
     }
+    
     x = x +hsp+hForce;
     hForce = approach(hForce,0,knock_resistance);
     
@@ -251,16 +256,16 @@ if dead = false &amp;&amp; g_over == false
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
     //Ladder Logic
-    if place_meeting(x,y,obj_ladder)
+    if vsp != 0 &amp;&amp; place_meeting(x,y,obj_ladder)
     { vsp = 0; }
     
     
     //--Collision with ground; else platform
-    if place_meeting(x,y+vsp+vForce,OBSTA)
+    if (vsp+vForce &gt;= 0 &amp;&amp; (position_meeting(x-4,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+2,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce &lt; 0 &amp;&amp; (position_meeting(x-4,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+2,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
         while (!place_meeting(x,y+hdir,OBSTA))
-        { y = y + hdir; }
+        { y = y+hdir; }
         vsp = 0;
         vForce = 0;
     }
@@ -268,7 +273,6 @@ if dead = false &amp;&amp; g_over == false
     else if !key_down &amp;&amp; instance_exists(obj_platform)
     {
         var _plat = instance_place(x,y+vsp+vForce,obj_platform);
-        var spr_height = ceil(sprite_height/2);
                 
         if _plat != noone &amp;&amp; vsp+vForce &gt; 0 &amp;&amp; y+spr_height &lt; _plat.y-7
         {
@@ -326,7 +330,7 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != spr_playerWalk &amp;&amp; (position_meeting(x,y+17,OBSTA) || position_meeting(x,y+17,obj_platform) ) then sprite_index = spr_playerWalk;
+            if sprite_index != spr_playerWalk &amp;&amp; (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = spr_playerWalk;
             if armIndex != spr_armWalk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = spr_armWalk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             

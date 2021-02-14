@@ -181,6 +181,8 @@
       <sprite>sprites\roomTransition_1</sprite>
       <sprite>sprites\fnt_ui_new</sprite>
       <sprite>sprites\spr_ui_vial</sprite>
+      <sprite>sprites\spr_ui_electricity</sprite>
+      <sprite>sprites\spr_ui_tips</sprite>
     </sprites>
     <sprites name="Particles">
       <sprite>sprites\spr_tile_frag_dirt</sprite>
@@ -204,19 +206,15 @@
     <sprite>sprites\spr_youTubeLink</sprite>
     <sprite>sprites\spr_gremlinEssence</sprite>
     <sprite>sprites\spr_nothing</sprite>
-    <sprite>sprites\spr_ui_electricity</sprite>
-    <sprite>sprites\spr_ui_tips</sprite>
+    <sprite>sprites\spr_ui_superMenuBackground</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
     <background>background\bkg_overworldSky</background>
     <background>background\bkg_overworldNightSky</background>
     <background>background\bkg_overworldGrass</background>
-    <background>background\bkg_overworldHills</background>
     <background>background\bkg_overworldHills_new</background>
-    <background>background\bkg_overworldHillsFurther</background>
     <background>background\bkg_overworldHillsFurther_new</background>
-    <background>background\bkg_overworldHillsLow</background>
     <background>background\bkg_lobbySky</background>
     <background>background\bkg_lobbyStars1</background>
     <background>background\bkg_lobbyStars2</background>
@@ -318,15 +316,12 @@
       <script>scripts\twitch_log.gml</script>
       <script>scripts\twitch_execute_command.gml</script>
     </scripts>
+    <script>scripts\scr_convertToCompressedString.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
     <shader type="GLSLES">shaders\sh_transition.shader</shader>
   </shaders>
-  <fonts name="fonts">
-    <font>fonts\fnt_terrariaSmall</font>
-    <font>fonts\fnt_karma</font>
-  </fonts>
   <objects name="objects">
     <objects name="Control">
       <object>objects\gameControl</object>

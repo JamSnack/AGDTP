@@ -229,7 +229,6 @@ accessories_equipped = ds_list_create();
 //Surface
 alarm[1] = 1;
 
-
 </string>
           </argument>
         </arguments>

@@ -217,7 +217,7 @@ alarm[1] = room_speed/spawnRate;
           <argument>
             <kind>1</kind>
             <string>///Deactivation/Chunking and World Time
-alarm[0] = 2;
+alarm[0] = 1;
 if deactivation_enabled == false then exit;
 
 //- time control
@@ -232,6 +232,9 @@ var playerY = obj_player.y;
 var view_zoom = camera.view_zoom;
 var playerLight = obj_player.playerLight;
 
+var player_distance_amt_x = abs(playerX-plr_xBuffer);
+var player_distance_amt_y = abs(playerY-plr_yBuffer);
+
 //----Deactivation---------
 if view_zoom != view_zoom_buffer
 {
@@ -239,7 +242,7 @@ if view_zoom != view_zoom_buffer
     view_zoom = view_zoom_buffer;
     
     //-Deactivation and Reactivation updates every two tiles.
-    if (abs(playerX-plr_xBuffer) &gt; 32 || abs(playerY-plr_yBuffer) &gt; 32)
+    if (player_distance_amt_x &gt; 32 || player_distance_amt_y &gt; 32)
     {
             
         //-Activate everything inside the camera view.
@@ -252,10 +255,10 @@ if view_zoom != view_zoom_buffer
         {   instance_activate_object(obj_sapling); }
         
         //-Deactivate offscreen objects.
-        with obj_itemDrop scr_deactivateOffscreen(id);
-        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
-        with INTERACT scr_deactivateOffscreen(id);
-        with NOCOL if object_get_parent(object_index) != PLR_NOCOL then scr_deactivateOffscreen(id);
+        if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
+        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
+        if instance_exists(INTERACT) then with INTERACT scr_deactivateOffscreen(id);
+        if instance_exists(NOCOL) then with NOCOL if object_get_parent(object_index) != PLR_NOCOL then scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);
@@ -277,46 +280,42 @@ if view_zoom != view_zoom_buffer
 
 //-----------Light up underground tiles----------------
 //Updates every tile.
-if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
+if playerY &gt; stoneLayer-48 &amp;&amp; (player_distance_amt_x &gt; 15 || player_distance_amt_y &gt; 15)
 {
-    
-    if playerY &gt; stoneLayer-48
+    if instance_exists(TILE)
     {
-        if instance_exists(TILE)
+        with TILE
         {
-            with TILE
+            if insideView(x,y) == false then continue;
+        
+            if light_level &lt; 255
             {
-                if insideView(x,y) == false then continue;
-            
-                if light_level &lt; 255
-                {
-                    var dist = point_distance(x,y,playerX,playerY);
-                    var light_dist = floor(255+(playerLight)-dist*3);
-                    
-                    if dist &lt; (playerLight)+32
-                    { light_level = 255;}
-                    else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                    else light_level = 0;
-                }
+                var dist = point_distance(x,y,playerX,playerY);
+                var light_dist = floor(255+(playerLight)-dist*3);
+                
+                if dist &lt; (playerLight)+32
+                { light_level = 255;}
+                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
+                else light_level = 0;
             }
         }
+    }
+    
+    if instance_exists(obj_nullLight)
+    {
+        with obj_nullLight
+        {   
+            if insideView(x,y) == false then continue;
         
-        if instance_exists(obj_nullLight)
-        {
-            with obj_nullLight
-            {   
-                if insideView(x,y) == false then continue;
-            
-                if light_level &lt; 255
-                {
-                    var dist = point_distance(x,y,playerX,playerY);
-                    var light_dist = floor(255+(playerLight)-dist*3);
-                    
-                    if dist &lt; (playerLight)+32
-                    { instance_destroy(); }
-                    else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                    else light_level = 0;
-                }
+            if light_level &lt; 255
+            {
+                var dist = point_distance(x,y,playerX,playerY);
+                var light_dist = floor(255+(playerLight)-dist*3);
+                
+                if dist &lt; (playerLight)+32
+                { instance_destroy(); }
+                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
+                else light_level = 0;
             }
         }
     }
@@ -326,15 +325,16 @@ if (abs(playerX-plr_xBuffer) &gt; 15 || abs(playerY-plr_yBuffer) &gt; 15)
 //------------- Proliferate every tick ---------------------------
 if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
 {
+    //Tile regeneration
     if interm == true
     {
-        with PLRTILE event_user(15);
-        with PLR_NOCOL event_user(15);
-        with obj_pie event_user(1);
-        if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
+        if instance_exists(PLRTILE) then with PLRTILE event_user(15);
+        if instance_exists(PLRTILE) then with PLR_NOCOL event_user(15);
+        if instance_exists(PLRTILE) then with obj_pie event_user(1);
     }
     
-    //-Energy regeneration-
+    //-Energy &amp; health regeneration-
+    if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
     energy = approach(energy,energyMax,energyRegenRate);
     
     heal_Time = 0;
