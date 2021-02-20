@@ -178,14 +178,14 @@ if invOpen == true
 else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
     
 //Fire equipment queue
-if obj_player.toolReady == true &amp;&amp; equipQueue != noone
+if equipQueue != noone &amp;&amp; obj_player.toolReady == true
 {
     scr_slotEquip(equipQueue);
     equipQueue = noone;
 }
 
-//Crafting tooltip
-if ui_state == "CRAFT"
+//--------Crafting tooltip--------------
+if showSuperMenu == true &amp;&amp; ui_state == "CRAFT"
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
@@ -223,7 +223,7 @@ if ui_state == "CRAFT"
     }
 }
 
-//Update inventory size if needed
+//---------Update inventory size if needed----------
 var array_size = array_length_1d(inventorySlotIcon);
 
 if maxInvenSlots &gt; array_size

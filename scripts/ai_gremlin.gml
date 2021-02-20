@@ -13,10 +13,14 @@ var _x = round(x);
 var xObjective = objective.x;
 var yObjective = objective.y;
 
+var spr_width = sprite_width;
+var spr_height = sprite_height;
+
 //Init platform
 var platformCollide;
+var on_platform = place_meeting(x,y+1,obj_platform);
 
-if (yObjective < y && point_distance(x,y,xObjective,y) < 16*5)
+if (yObjective < y-16 && point_distance(x,y,xObjective,y) < 16*5)
 { platformCollide = false }
 else
 platformCollide = true;
@@ -81,13 +85,12 @@ if x_previous = xObjective //Do not stand on top of pie.
 
 //Fall check---------------------------------------------
 // -- platformCollide and not on a platform means potential fall conditions.
-if (!position_meeting(x,y+16,OBSTA) || (platformCollide = true && !place_meeting(x,y+1,obj_platform))) 
-    && current_state != FALL
+if (!position_meeting(x,y+16,OBSTA) || platformCollide == false && !on_platform)  && current_state != FALL
 {
-    if !position_meeting(x,y+16,GREM_BLOCK)
+    if !instance_exists(GREM_BLOCK) || (instance_exists(GREM_BLOCK) && !position_meeting(x,y+16,GREM_BLOCK))
     { state = FALL; }
     
-    if ceil(yObjective) > y && place_meeting(x,y+1,obj_platform)
+    else if ceil(yObjective) > y && on_platform
     { platformCollide = false; state = FALL; }
 }
 
@@ -115,14 +118,16 @@ if vForce == 0 && hForce == 0
         {
             if sprite_index != move_sprite then sprite_index = move_sprite;
             
-            
             //Move
             var approach_speed = (spd+hForce)*image_xscale;
+            hspd = approach(hspd,approach_speed,agility);
+            var obsta_in_front = place_meeting(x+hspd,y,OBSTA);
             
-            if !place_meeting(x+hspd,y,OBSTA) && !place_meeting(x+hspd,y,obj_gremlin)
+            if hspd != 0 && !obsta_in_front
             {
                 if dir != 0
                 {
+                    //Collision with an obstacle
                     if image_xscale != dir
                     {
                         hspd = 0;
@@ -132,10 +137,10 @@ if vForce == 0 && hForce == 0
                 
                 x += hspd;
             }
-            else if place_meeting(x,y,obj_gremlin)
+            else if position_meeting(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin)
             {
                 //Use arbitrary values to decide which Gremlin moves.
-                var _gr = instance_place(x,y,obj_gremlin);
+                var _gr = instance_place(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin);
                 
                 if instance_exists(_gr) && _gr.id > id
                 {
@@ -147,9 +152,7 @@ if vForce == 0 && hForce == 0
             {
                 //Jump
                 vsp = jump_speed;
-            } 
-            
-            hspd = approach(hspd,approach_speed,agility);
+            }
         }
         break;
         
@@ -180,32 +183,20 @@ if vForce == 0 && hForce == 0
                 //NOTE: the var, dir, is objective based. Wandering has no objective.
                 //a "maximum speed to approach toward" is required for accurate collision checks. Use before flipping xscale, hspd tends to lag behind this value.
                 var approach_speed = (spd)*image_xscale;
-                
-                if !place_meeting(x+hspd,y,OBSTA)
-                {
-                    if !place_meeting(x+hspd,y,obj_gremlin)
-                    {
-                        x += hspd;
-                    } 
-                    else
-                    {
-                        //Use arbitrary values to decide which Gremlin moves.
-                        var _gr = instance_place(x,y,obj_gremlin);
-                        if instance_exists(_gr) && _gr.id < id && vsp = 0
-                        {
-                            vsp = jump_speed;
-                        }
-                    }
-                }
-                
                 hspd = approach(hspd,approach_speed,agility);
+                var obsta_in_front = place_meeting(x+hspd,y,OBSTA);
+                
+                if hspd != 0 && !obsta_in_front
+                {
+                    x += hspd;
+                }
                 
                 //- Jump Conditions -
                 //- If tile in front or gap in front
-                if vsp == 0 && (place_meeting(x+hspd,y,OBSTA) || !place_meeting(x+hspd,y+8,OBSTA))
+                if (obsta_in_front || !place_meeting(x+hspd,y+8,OBSTA))
                 {
-                    //Jump if it is possible else turn around.
-                    if !place_meeting(x+approach_speed,y-16,OBSTA)
+                    //Jump if vsp = 0 else turn around.
+                    if vsp == 0
                     { vsp = jump_speed; } 
                     else { image_xscale = -image_xscale; hspd = 0; }
                 }
@@ -219,7 +210,7 @@ if vForce == 0 && hForce == 0
     {
         var flatLandsY = (room_height/2)-(16*3);
         
-        if place_meeting(x,y,GREM_BLOCK)
+        if position_meeting(x,y+spr_height,GREM_BLOCK)
         {
             while place_meeting(x,y,GREM_BLOCK)
             { y-=1; }
@@ -257,7 +248,7 @@ if vForce == 0 && hForce == 0
                 }
             }
             
-            if place_meeting(x,y+1,obj_platform) { vsp = 0; vForce = 0; }
+            if on_platform { vsp = 0; vForce = 0; }
         }
         
         //-------Gremlin Blocks
@@ -281,12 +272,12 @@ if vForce == 0 && hForce == 0
         if vsp != 0 && (place_meeting(x,y+vsp,OBSTA))
         {
             //move as close as we can
-            while (!place_meeting(x,y+vdir,OBSTA))  && vsp != 0
+            while (!place_meeting(x,y+vdir,OBSTA))
             {
                 y = y + vdir;
             }
             vsp = 0;
-            state = WANDER;
+            state = MOVE;
             
             exit;
         }
@@ -296,15 +287,20 @@ if vForce == 0 && hForce == 0
         var dir = image_xscale;
         var approach_speed = ((spd)*dir);
         hspd = approach(hspd,approach_speed,agility/2);
+        var obsta_in_front = place_meeting(x+hspd,y,OBSTA);
         
         //Move while in a vertical movement state.
-       if place_meeting(x+hspd,y,OBSTA)
+       if hspd != 0 && obsta_in_front
        {
-           while !place_meeting(x+sign(hspd),y,OBSTA) && hspd != 0
-           {
-               x+=sign(hspd);
-           }
-           hspd = 0;
+            if (hspd > 1 || hspd < -1)
+            {
+                while !place_meeting(x+sign(hspd),y,OBSTA)
+                {
+                    x+=sign(hspd);
+                }
+            }
+            
+            hspd = 0;
        } else x+=hspd;
         
         //Vertical sprites
@@ -314,9 +310,9 @@ if vForce == 0 && hForce == 0
     }
     
     //Jump Check ------------------------------------------
-    if (position_meeting(x,y+6,OBSTA) || position_meeting(x,y+6,obj_platform)) && current_state != FALL
+    if vsp == 0 && (position_meeting(x,y+spr_height/2,OBSTA) || on_platform) && current_state != FALL
     {
-        if vsp == 0 && ((!position_meeting(x+((sprite_width/2)*(spd))*image_xscale,y+1,OBSTA) || _x == x_previous))
+        if ((!position_meeting(x+((spr_width/2)*(spd))*image_xscale,y+1,OBSTA) || _x == x_previous))
         {
             vsp = jump_speed;
             platformCollide = false;
@@ -342,7 +338,7 @@ else if ( hForce != 0 || vForce != 0 )
 
     if place_meeting(x+hForce,y,OBSTA)
     {
-        while !place_meeting(x+hdir,y,OBSTA)  && hdir != 0
+        while hdir != 0 && !place_meeting(x+hdir,y,OBSTA)  
         { x+=hdir; }
         hForce = 0;
     }
@@ -360,7 +356,7 @@ else if ( hForce != 0 || vForce != 0 )
     x+=(hForce);
     y+=(vForce);
     
-    if place_meeting(x,y+1,OBSTA)
+    if position_meeting(x,y+spr_height+1,OBSTA)
     {
        hForce = approach(hForce,0,knock_resistance);
     }

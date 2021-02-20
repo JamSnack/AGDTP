@@ -261,7 +261,7 @@ if dead = false &amp;&amp; g_over == false
     
     
     //--Collision with ground; else platform
-    if (vsp+vForce &gt;= 0 &amp;&amp; (position_meeting(x-4,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+2,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce &lt; 0 &amp;&amp; (position_meeting(x-4,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+2,y-spr_height+vsp+vForce+1,OBSTA)))
+    if (vsp+vForce &gt;= 0 &amp;&amp; (position_meeting(x-3,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
         while (!place_meeting(x,y+hdir,OBSTA))

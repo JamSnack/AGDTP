@@ -67,7 +67,7 @@ sm_rate = 0.5;
 sm_dir = 1;
 knockType = "FLY";
 deathSound = snd_enemydie_ghost;
-knock_resistance = 0.12;
+knockback_resistance = 0.12;
 parentKing = noone;
 </string>
           </argument>

@@ -394,6 +394,73 @@ else if interm == false
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///CONSTRUCT THE WAVE
+
+//Initialize gremlin lists.
+normalGremlins[0] = obj_gremlin;
+specialGremlins[0] = obj_shadowGremlin;
+
+normal_array_size = array_length_1d(normalGremlins);
+special_array_size = array_length_1d(specialGremlins);
+
+//Locals
+var build_target = waveScale(1,5,2,4); //Gremlin variety
+var build_index = 0;
+
+
+//Add normal gremlins to the list as the wave number increases.
+switch special_raidID
+{
+    case "SR_Shadow":
+    {
+        specialChance = 1;
+        specialGremlins[0] = obj_shadowGremlin;
+    }
+    break;
+    
+    default:
+    {    
+        //Build'a wave!
+        while build_index &lt; build_target
+        {    
+            normal_array_size = array_length_1d(normalGremlins);
+            special_array_size = array_length_1d(specialGremlins);
+        
+        
+            //Add Gremlins to the list as the wave number increases.
+            switch irandom(3)
+            {
+                case 0: if wave &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                case 1: if wave &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                case 2: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin;} break;
+            }
+
+            build_index += 1;
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>

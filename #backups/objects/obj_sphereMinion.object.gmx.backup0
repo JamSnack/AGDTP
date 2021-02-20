@@ -1,4 +1,4 @@
-// 2020-10-18 12:19:28
+// 2021-02-19 14:55:07
 #event create|Initialize the Pylon
 scale = 0.25;
 image_xscale = scale;
@@ -13,7 +13,7 @@ stunned = false;
 
 vsp = 0;
 atkBox = (32); //divided by 2 on calculation.
-damage = 5; //Attack damage.
+damage = 4; //Attack damage.
 
 hurtAlarm = 1;
 
@@ -30,6 +30,7 @@ hAccel = 0;
 vAccel = 0;
 maxAccel = 5;
 accelRate = 0.1;
+death_gib = part_nullGib;
 
 event_inherited();
 
@@ -40,7 +41,8 @@ sm_rate = 0.5;
 sm_dir = 1;
 knockType = "FLY";
 deathSound = snd_enemydie_ghost;
-knock_resistance = 0.12;
+knockback_resistance = 0.12;
+parentKing = noone;
 
 #event alarm1|Reset hurt
 canHurt = true;

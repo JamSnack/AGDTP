@@ -93,6 +93,17 @@ switch current_state
     break;
 }
 
+//-------------Conflate vForce and hForce for calculation---------------------
+if vForce != 0 
+{ 
+    vForce = approach(vForce,0,knockback_resistance);
+}
+
+if hForce != 0
+{
+    hForce = approach(hForce,0,knockback_resistance);
+}
+
 
 //------------------------------------------------------
 //Collision and movement
@@ -100,9 +111,9 @@ switch current_state
 var targetPlrTile = noone;
 var _stall = 1;
 
-if !place_meeting(x+hAccel,y,OBSTA)
-{ x += hAccel; }
-else
+if !place_meeting(x+hAccel+hForce,y,OBSTA)
+{ x += hAccel+hForce; }
+else if hForce == 0
 {
     targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
     
@@ -110,9 +121,10 @@ else
     alarm[stateLockAlarm] = _stall;
     hAccel = -hAccel;
 }
-if !place_meeting(x,y+vAccel,OBSTA)
-{ y += vAccel; }
-else
+
+if !place_meeting(x,y+vAccel+vForce,OBSTA)
+{ y += vAccel+vForce; }
+else if vForce == 0
 {
     targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
     
@@ -132,32 +144,4 @@ if state != WANDER && targetPlrTile != noone
     state = WANDER;
     stateLock = true;
     alarm[stateLockAlarm] = 30;
-}
-
-//Knockback Collision ---------------------------------------------
-if ( hForce != 0 || vForce != 0 )
-{
-    var hdir = sign(hForce);
-    var vdir = sign(vForce);
-
-    if place_meeting(x+hForce,y,OBSTA)
-    {
-        while !place_meeting(x+hForce,y,OBSTA)
-        { x+=hdir; }
-        hForce = 0;
-    }
-    
-    if place_meeting(x,y+vForce,OBSTA)
-    {
-        while !place_meeting(x,y+vForce,OBSTA)
-        { y+=vdir; }
-    
-        vForce = 0;
-    }
-    
-    x+=hForce;
-    y+=vForce;
-    
-    vForce = approach(vForce,0,knock_resistance);
-    hForce = approach(hForce,0,knock_resistance);
 }

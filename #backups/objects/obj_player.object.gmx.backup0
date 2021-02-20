@@ -1,4 +1,4 @@
-// 2021-01-25 14:23:50
+// 2021-02-19 14:53:06
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -106,6 +106,9 @@ armOffsetRate = 0;
 #event step|Movement and Death Check
 if dead = false && g_over == false
 {
+    var spr_height = sprite_get_height(spr_playerIdle)/2;
+    var spr_width = sprite_get_width(spr_playerIdle)/2;
+
     if knockBack == false
     {
         key_right = keyboard_check(global.key_right);
@@ -118,15 +121,16 @@ if dead = false && g_over == false
     if vsp < maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if (place_meeting(x,y+1,OBSTA) || (place_meeting(x,y+1,obj_platform) && vsp >= 0 )) && (key_jump)
+    if  key_jump && ((position_meeting(x-4,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
     {
         vsp = vsp_jump;
     }
     
     //Horizontal Movement
     var hdir = sign(hsp+hForce) //Horizontal Direction
+    
     if hdir != 0 then image_xscale = hdir;
-    if (place_meeting(x+hsp+hForce,y,OBSTA))
+    if hsp+hForce != 0 && (place_meeting(x+hsp+hForce,y,OBSTA))
     {
         //move as close as we can
         while (!place_meeting(x+hdir,y,OBSTA))
@@ -134,6 +138,7 @@ if dead = false && g_over == false
         hsp = 0;
         hForce = 0;
     }
+    
     x = x +hsp+hForce;
     hForce = approach(hForce,0,knock_resistance);
     
@@ -141,34 +146,43 @@ if dead = false && g_over == false
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
     //Ladder Logic
-    if place_meeting(x,y,obj_ladder)
+    if vsp != 0 && place_meeting(x,y,obj_ladder)
     { vsp = 0; }
     
     
     //--Collision with ground; else platform
-    if place_meeting(x,y+vsp+vForce,OBSTA)
+    if (vsp+vForce >= 0 && (position_meeting(x-3,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce < 0 && (position_meeting(x-3,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
         while (!place_meeting(x,y+hdir,OBSTA))
-        { y = y + hdir; }
+        { y = y+hdir; }
         vsp = 0;
         vForce = 0;
     }
     //---------PLATFORM COLLISION
-    else if vsp+vForce > 0 && (place_meeting(x,y+vsp+vForce,obj_platform) && !key_down)
+    else if !key_down && instance_exists(obj_platform)
     {
-        while(!place_meeting(x,y+sign(vsp+vForce),obj_platform))
+        var _plat = instance_place(x,y+vsp+vForce,obj_platform);
+                
+        if _plat != noone && vsp+vForce > 0 && y+spr_height < _plat.y-7
         {
-            y += sign(vsp+vForce);
+            while(!place_meeting(x,y+sign(vsp+vForce),_plat))
+            {
+                y += sign(vsp+vForce);
+            }
+            
+            if position_meeting(x,y+spr_height+vsp+vForce,_plat)
+            {
+                //Check for cases w/ overlapping hitboxes
+                while(place_meeting(x,y,_plat))
+                {
+                    y -= 1;
+                }
+            }
+            
+            vForce = 0;
+            vsp = 0;
         }
-        
-        vForce = 0;
-        vsp = 0;
-    }
-    // - extra platform logic
-    if key_down && place_meeting(x,y+1,obj_platform) && !place_meeting(x,y+vsp+grav,OBSTA)
-    {
-        y+=grav;
     }
 
     y = y+vsp+vForce;
@@ -206,7 +220,7 @@ if dead = false && g_over == false
     
         case MOVE:
         {
-            if sprite_index != spr_playerWalk && (position_meeting(x,y+17,OBSTA) || position_meeting(x,y+17,obj_platform) ) then sprite_index = spr_playerWalk;
+            if sprite_index != spr_playerWalk && (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = spr_playerWalk;
             if armIndex != spr_armWalk && armAngle == 0 && vsp == 0 then armIndex = spr_armWalk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
@@ -301,6 +315,15 @@ if dead == false
         dead = true;
         alarm[1] = room_speed*5;
         visible = false;
+        
+        //LOSE ESSENCE
+        var essence_lost = ceil(scr_getInvenItemAmt(ITEMID.item_gremEssence)*0.10);
+        
+        scr_spawnEssence(1,room_speed*5,essence_lost);
+        scr_invenRemoveItem(ITEMID.item_gremEssence,essence_lost,0,false,-1,noone);
+        scr_hudMessage(string(essence_lost)+" essence lost...",global.fnt_Ui,5,0,c_red,0);
+        
+        //Respawn at the pie
         x = obj_pie.x;
         y = obj_pie.y;
     }
@@ -308,12 +331,6 @@ if dead == false
 //---AUDIO LISTENENR POSITION----
 audio_listener_position(x,y,0);
 }
-
-
-//Platform logic
-if !position_meeting(x,y+17,obj_platform) && place_meeting(x,y,obj_platform) then platformCollide = false 
-else if collision_rectangle(x-4,y+10,x+4,y+15,obj_platform,true,true) then platformCollide = false
-else platformCollide = true;
 
 //Remain inside the room at all times
 x = clamp(x,0,room_width);
@@ -364,7 +381,7 @@ if dev == true then y += 5;
 
 #event mouse_global_left_button|Use Tool
 //Check for inventory use
-if dead == false && hudControl.settingsMenu == false && hudControl.selectedSlot != noone && hudControl.equipQueue == noone
+if dead == false && hudControl.settingsMenu == false && hudControl.selectedSlot != noone && hudControl.equipQueue == noone && hudControl.showSuperMenu == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
@@ -379,7 +396,7 @@ if dead == false && hudControl.settingsMenu == false && hudControl.selectedSlot 
         && hudControl.cursorHoldItem == false &&
         
         //- Crafting Menu stipulations
-        !(hudControl.showCraftingMenu == true && point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
+        !(hudControl.showSuperMenu == true && point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
         //- Variable declarations and rules
         var slot = hudControl.selectedSlot;

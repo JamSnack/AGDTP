@@ -1,4 +1,4 @@
-// 2020-12-12 14:57:28
+// 2021-02-19 14:51:46
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -54,7 +54,7 @@ g_over = false;
 canUseTool = true;
 hitSyncX = 0; //Hitbox Synchronizers
 hitSyncY = 0;
-playerLight = 16; //How bright light is underground.
+playerLight = 0; //How bright light is underground.
 tool_snd = noone;
 
 //Tag Resets
@@ -66,28 +66,19 @@ if room = rm_zero then g_over = gameOver;
 friction = 0.3;
 
 //Apply equipped accessories
-var _size = ds_list_size(accessories_equipped);
-if _size > 0
-{
-    for(i=0;i<_size;i++)
-    {
-        if accessories_equipped[| i] != ITEMID.acc_satchel //We do not want to affect inventory slots.
-        { scr_applyAccessoryStats(accessories_equipped[| i],1); }
-    }
-}
+scr_reloadAccessories();
 
 //AUDIO
 audio_listener_orientation(0,0,-1000,0,1,0);
 
-scr_dropItem(ITEMID.tile_battery,99,ITEMTYPE.playertile,x,y,noone);
-scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
-
 //Tutorial tips
 if tip_controls == false
 {
-    scr_popUiCreate(x,y,x,y,4,10,id,"TIP");
-    print("yes")
+    scr_createTip(1.5,1.75,"controls");
 }
+
+//SPAWN NOT INSIDE TILES
+while place_meeting(x,y,PLRTILE) y-=16;
 
 #event alarm0|Reset canHurt;
 canHurt = true;
@@ -115,28 +106,31 @@ armOffsetRate = 0;
 #event step|Movement and Death Check
 if dead = false && g_over == false
 {
+    var spr_height = sprite_get_height(spr_playerIdle)/2;
+    var spr_width = sprite_get_width(spr_playerIdle)/2;
+
     if knockBack == false
     {
-        key_right = (keyboard_check(ord("D")) || keyboard_check(vk_right));
-        key_left = (keyboard_check(ord("A")) || keyboard_check(vk_left));
-        key_jump = (keyboard_check(ord("W")) || keyboard_check(vk_up));
-        key_down = (keyboard_check(ord("S")) || keyboard_check(vk_down));
+        key_right = keyboard_check(global.key_right);
+        key_left = keyboard_check(global.key_left);
+        key_jump = keyboard_check(global.key_jump);
+        key_down = keyboard_check(global.key_down);
     }
     
     hsp = (key_right - key_left) * hsp_walk;
     if vsp < maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if (place_meeting(x,y+1,OBSTA) || (place_meeting(x,y+1,obj_platform) && vsp >= 0 )) && (key_jump)
+    if  key_jump && ((position_meeting(x-4,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
     {
         vsp = vsp_jump;
-        platformCollide = false;
     }
     
     //Horizontal Movement
     var hdir = sign(hsp+hForce) //Horizontal Direction
+    
     if hdir != 0 then image_xscale = hdir;
-    if (place_meeting(x+hsp+hForce,y,OBSTA))
+    if hsp+hForce != 0 && (place_meeting(x+hsp+hForce,y,OBSTA))
     {
         //move as close as we can
         while (!place_meeting(x+hdir,y,OBSTA))
@@ -144,6 +138,7 @@ if dead = false && g_over == false
         hsp = 0;
         hForce = 0;
     }
+    
     x = x +hsp+hForce;
     hForce = approach(hForce,0,knock_resistance);
     
@@ -151,46 +146,46 @@ if dead = false && g_over == false
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
     //Ladder Logic
-    if place_meeting(x,y,obj_ladder)
+    if vsp != 0 && place_meeting(x,y,obj_ladder)
     { vsp = 0; }
     
-    //--Platform Logic
-    if key_down
-    { platformCollide = false; }
     
-    if platformCollide = true
-    {
-        var true_vsp = vsp+vForce;
-        var colRect = collision_rectangle(x-4,y+true_vsp,x+4,y+15+true_vsp,obj_platform,true,true);
-    
-        if true_vsp > 0
-        {     
-            if colRect
-            {
-                //Snap player to platform
-                // - value adjusted for platform center.
-                var platY = (colRect.y)-8
-                if y < platY && point_distance(x,y+16,x,platY) < 2 then y = (platY)-16;
-                
-                vsp = 0;
-                vForce = 0;
-            }
-        }
-        
-        if place_meeting(x,y+1,obj_platform) { vsp = 0; vForce = 0; }
-    }
-    
-    //--Collision with ground
-    if place_meeting(x,y+vsp+vForce,OBSTA)
+    //--Collision with ground; else platform
+    if (vsp+vForce >= 0 && (position_meeting(x-4,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+4,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce < 0 && (position_meeting(x-4,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+4,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
         while (!place_meeting(x,y+hdir,OBSTA))
-        { y = y + hdir; }
+        { y = y+hdir; }
         vsp = 0;
         vForce = 0;
     }
+    //---------PLATFORM COLLISION
+    else if !key_down && instance_exists(obj_platform)
+    {
+        var _plat = instance_place(x,y+vsp+vForce,obj_platform);
+                
+        if _plat != noone && vsp+vForce > 0 && y+spr_height < _plat.y-7
+        {
+            while(!place_meeting(x,y+sign(vsp+vForce),_plat))
+            {
+                y += sign(vsp+vForce);
+            }
+            
+            if position_meeting(x,y+spr_height+vsp+vForce,_plat)
+            {
+                //Check for cases w/ overlapping hitboxes
+                while(place_meeting(x,y,_plat))
+                {
+                    y -= 1;
+                }
+            }
+            
+            vForce = 0;
+            vsp = 0;
+        }
+    }
 
-    y = y + vsp+vForce;
+    y = y+vsp+vForce;
     vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
@@ -225,7 +220,7 @@ if dead = false && g_over == false
     
         case MOVE:
         {
-            if sprite_index != spr_playerWalk && (position_meeting(x,y+17,OBSTA) || position_meeting(x,y+17,obj_platform) ) then sprite_index = spr_playerWalk;
+            if sprite_index != spr_playerWalk && (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = spr_playerWalk;
             if armIndex != spr_armWalk && armAngle == 0 && vsp == 0 then armIndex = spr_armWalk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
@@ -320,6 +315,15 @@ if dead == false
         dead = true;
         alarm[1] = room_speed*5;
         visible = false;
+        
+        //LOSE ESSENCE
+        var essence_lost = ceil(scr_getInvenItemAmt(ITEMID.item_gremEssence)*0.10);
+        
+        scr_spawnEssence(1,room_speed*5,essence_lost);
+        scr_invenRemoveItem(ITEMID.item_gremEssence,essence_lost,0,false,-1,noone);
+        scr_hudMessage(string(essence_lost)+" essence lost...",global.fnt_Ui,5,0,c_red,0);
+        
+        //Respawn at the pie
         x = obj_pie.x;
         y = obj_pie.y;
     }
@@ -327,12 +331,6 @@ if dead == false
 //---AUDIO LISTENENR POSITION----
 audio_listener_position(x,y,0);
 }
-
-
-//Platform logic
-if !position_meeting(x,y+17,obj_platform) && place_meeting(x,y,obj_platform) then platformCollide = false 
-else if collision_rectangle(x-4,y+10,x+4,y+15,obj_platform,true,true) then platformCollide = false
-else platformCollide = true;
 
 //Remain inside the room at all times
 x = clamp(x,0,room_width);
@@ -344,25 +342,19 @@ else if image_xscale != -1 && image_xscale < 0 then image_xscale = -1;
 
 //HP clamp
 hp = clamp(hp,0,maxHp);
-#section|Crafting Menu
-
-var _int = instance_nearest(x,y,INTERACT);
-
-if distance_to_object(INTERACT) <= 32 && _int.bench == true //Two tiles away
+#section|Interact
+//-------INTERACT KEY------------
+if keyboard_check_released(global.key_interact)
 {
-    //Grab the new crafting recipes
-    with _int event_user(14);
-}
-else
-{
-    hudControl.alarm[1] = 20; //Remove recipes when player leaves range.
-    hudControl.craftingMenu = 2; //Pie Recipes
-    hudControl.craftingSpriteSet = spr_pieCraftableItems;
-    hudControl.currentCraftingSlots = sprite_get_number(spr_pieCraftableItems); //How many slots to include.
-    
-    if room == rm_lobby
+    ///Interact with objects that aren't crafting
+    if instance_exists(INTERACT)
     {
-        hudControl.upgradeMenu_visible = false;
+        var interact = instance_nearest(x,y,INTERACT);
+        
+        if distance_to_point(interact.x,interact.y) < 32 && interact.bench == false
+        {
+            with interact event_user(0);
+        }
     }
 }
 
@@ -389,7 +381,7 @@ if dev == true then y += 5;
 
 #event mouse_global_left_button|Use Tool
 //Check for inventory use
-if dead == false && hudControl.settingsMenu == false
+if dead == false && hudControl.settingsMenu == false && hudControl.selectedSlot != noone && hudControl.equipQueue == noone && hudControl.showSuperMenu == false
 {
     var dx = device_mouse_x_to_gui(0)
     var dy = device_mouse_y_to_gui(0)
@@ -404,7 +396,7 @@ if dead == false && hudControl.settingsMenu == false
         && hudControl.cursorHoldItem == false &&
         
         //- Crafting Menu stipulations
-        !(hudControl.showCraftingMenu == true && point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
+        !(hudControl.showSuperMenu == true && point_in_rectangle(dx,dy,_cmX,_cmY,250+_cmX,200+_cmY))
     {
         //- Variable declarations and rules
         var slot = hudControl.selectedSlot;
@@ -416,7 +408,7 @@ if dead == false && hudControl.settingsMenu == false
         //Play the tool's audio.
         if tool_snd != noone && toolReady == true && (tool == 2 || tool == 1)
         {
-            scr_playSound(tool_snd,false,5,x,y,0.8);
+            audio_play_sound(tool_snd,5,false);
         }
         
         
@@ -593,23 +585,13 @@ if armOffset == 0
 { draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,1); }
 
 
-#event keyrelease:E|Interact with objects that aren't crafting
-if instance_exists(INTERACT)
-{
-    var interact = instance_nearest(x,y,INTERACT);
-    
-    if distance_to_point(interact.x,interact.y) < 32 && interact.bench == false
-    {
-        with interact event_user(0);
-    }
-}
-
 #event keyrelease:vk_numpad1
-instance_create(mouse_x,mouse_y,obj_sphereKing);
+instance_create(mouse_x,mouse_y,obj_grassGremlin);
 
 #event keyrelease:vk_numpad3
-scr_dropItem(ITEMID.item_stonePiece,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_gremEssence,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_copperOre,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_stick,90,0,x,y,noone);
-scr_dropItem(ITEMID.item_dirtClump,90,0,x,y,noone);
+scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
+scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);
+scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
+
+#event keyrelease:vk_numpad4
+instance_create(x,y,region_shifter);

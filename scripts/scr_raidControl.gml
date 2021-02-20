@@ -233,3 +233,6 @@ worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
 with bossID event_perform(ev_create,0);
+
+//Build a new wave
+with worldControl { event_user(1); }
