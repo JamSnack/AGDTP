@@ -231,7 +231,7 @@ if dead = false &amp;&amp; g_over == false
     if vsp &lt; maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if  key_jump &amp;&amp; ((position_meeting(x-4,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
+    if  key_jump &amp;&amp; ((position_meeting(x-3,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
     {
         vsp = vsp_jump;
     }
@@ -274,7 +274,7 @@ if dead = false &amp;&amp; g_over == false
     {
         var _plat = instance_place(x,y+vsp+vForce,obj_platform);
                 
-        if _plat != noone &amp;&amp; vsp+vForce &gt; 0 &amp;&amp; y+spr_height &lt; _plat.y-7
+        if _plat != noone &amp;&amp; vsp+vForce &gt; 0 &amp;&amp; y+spr_height &lt; _plat.y
         {
             while(!place_meeting(x,y+sign(vsp+vForce),_plat))
             {

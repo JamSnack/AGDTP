@@ -1,3 +1,4 @@
+/// scr_loadWorld(preset)
 ///scr_loadWorld(preset);
 randomize();
 var preset = argument0;
@@ -82,21 +83,51 @@ for (i=0;i<spawnAmt;i++)
     var xInterval = xInterval_Original;
     
     
-    for (j=0;j<veinAmt;j++)
+    //-------PLACE ORE--------
+    //NOTE: 
+    for (_k=0;_k<2;_k++)
     {
-        
-        while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
-        { yInterval += choose(16,-16,0); xInterval += choose(16,-16); }
-        
-        //Replace tiles with Ore Tiles.
-        if position_meeting(xInterval,yInterval,TILE) 
+        switch _k
         {
-            with instance_position(xInterval,yInterval,TILE) instance_destroy();
+            //---------SPAWN COPPER ORE-----------
             
-            var t = instance_create(xInterval,yInterval,obj_copperOre);
+            case 0:
+            {
+                for (j=0;j<veinAmt;j++)
+                {
+                    while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
+                    { yInterval += choose(16,-16,0); xInterval += choose(16,-16); }
+                    
+                    //Replace tiles with Ore Tiles.
+                    if position_meeting(xInterval,yInterval,TILE) 
+                    {
+                        with instance_position(xInterval,yInterval,TILE) instance_destroy();
+                        var t = instance_create(xInterval,yInterval,obj_copperOre);
+                        
+                        xInterval = xInterval_Original;
+                        yInterval = yInterval_Original;
+                    }
+                }
+            }
+            break;
             
-            xInterval = xInterval_Original;
-            yInterval = yInterval_Original;
+            //--------------SPAWN ESSENCE ORE---------------
+            case 1:
+            {
+                xInterval = 16*irandom(160);
+                yInterval = floor(irandom_range(oreHeight,oreHeightMax)/16)*16;
+                
+                //Replace tiles with Ore Tiles.
+                if position_meeting(xInterval,yInterval,TILE) 
+                {
+                    with instance_position(xInterval,yInterval,TILE) instance_destroy();
+                    var t = instance_create(xInterval,yInterval,obj_essenceOre);
+                    
+                    xInterval = xInterval_Original;
+                    yInterval = yInterval_Original;
+                }
+            }
+            break;
         }
     }
 }

@@ -413,16 +413,19 @@ else if interm == false
             <kind>1</kind>
             <string>///CONSTRUCT THE WAVE
 
+//Locals
+var build_target = waveScale(1,5,2,4); //Gremlin variety
+var build_index = 0;
+
 //Initialize gremlin lists.
+normalGremlins = array_create(build_target);
+specialGremlins = array_create(build_target);
+
 normalGremlins[0] = obj_gremlin;
 specialGremlins[0] = obj_shadowGremlin;
 
 normal_array_size = array_length_1d(normalGremlins);
 special_array_size = array_length_1d(specialGremlins);
-
-//Locals
-var build_target = waveScale(1,5,2,4); //Gremlin variety
-var build_index = 0;
 
 
 //Add normal gremlins to the list as the wave number increases.
@@ -445,14 +448,19 @@ switch special_raidID
         
         
             //Add Gremlins to the list as the wave number increases.
-            switch irandom(3)
+            switch irandom(4)
             {
-                case 0: if wave &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
-                case 1: if wave &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 2: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin;} break;
+                case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
+                case 1: if wave &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                case 2: if wave &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                case 3: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin;} break;
             }
 
-            build_index += 1;
+            //Only increase the build_index number if a gremlin was successfully added to a list.
+            if normal_array_size != array_length_1d(normalGremlins) || special_array_size != array_length_1d(specialGremlins)
+            { 
+                build_index += 1;
+            }
         }
     }
 }

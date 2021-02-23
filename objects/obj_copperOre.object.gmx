@@ -30,10 +30,6 @@ level = 0;
 maxHp = 4;
 hp = maxHp;
 
-image_index = irandom(2);
-image_xscale = choose(1,-1);
-image_yscale = choose(1,-1);
-
 tile_frag = part_stone_frag;
 
 item = ITEMID.item_copperOre;

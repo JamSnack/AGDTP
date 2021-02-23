@@ -53,8 +53,8 @@ stateLock = false;
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 4;
-accelRate = 0.01;
+maxAccel = 3;
+accelRate = 0.02;
 
 //Animation
 bobAmt = 0;
@@ -84,7 +84,7 @@ repeat(clamp(floor(wave/4),1,6))
 if raid_boss == true
 {
     scale += 0.25; 
-    maxAccel += 0.2;
+    accelRate += 0.2;
     spwnRate-=0.25;
 }
 

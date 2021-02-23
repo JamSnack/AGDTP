@@ -1,4 +1,4 @@
-// 2020-09-19 11:44:41
+// 2020-09-19 11:50:04
 ///scr_loadWorld();
 randomize();
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
@@ -150,7 +150,7 @@ for (i=0;i<spawnAmt;i++)
         
         if pos
         { 
-            with instance_position(xInterval,yInterval,TILE)
+            with TILE
             {
                 if point_distance(xInterval,yInterval,x,y) <= (holeAmt*16)+8
                 {

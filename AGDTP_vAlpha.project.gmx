@@ -126,6 +126,7 @@
       <sprites name="Player Tiles">
         <sprite>sprites\spr_packedDirt</sprite>
         <sprite>sprites\spr_woodenStilt</sprite>
+        <sprite>sprites\spr_woodenPlatform</sprite>
         <sprite>sprites\spr_packedStone</sprite>
         <sprite>sprites\spr_turretBase</sprite>
         <sprite>sprites\spr_platform</sprite>
@@ -137,13 +138,15 @@
       </sprites>
       <sprite>sprites\spr_sapling</sprite>
       <sprite>sprites\spr_stoneTile</sprite>
+      <sprite>sprites\spr_copperOre</sprite>
+      <sprite>sprites\spr_essenceOre</sprite>
+      <sprite>sprites\spr_essenceGlow</sprite>
       <sprite>sprites\spr_battery</sprite>
       <sprite>sprites\spr_stoneWall</sprite>
       <sprite>sprites\spr_treeTile</sprite>
       <sprite>sprites\spr_gremBlock</sprite>
       <sprite>sprites\spr_break</sprite>
       <sprite>sprites\spr_treeCanopy</sprite>
-      <sprite>sprites\spr_copperOre</sprite>
       <sprite>sprites\spr_chest</sprite>
       <sprite>sprites\spr_lobbyPlatform</sprite>
       <sprite>sprites\spr_nullLight</sprite>
@@ -352,6 +355,7 @@
       <object>objects\obj_tree</object>
       <object>objects\obj_stone</object>
       <object>objects\obj_copperOre</object>
+      <object>objects\obj_essenceOre</object>
       <object>objects\obj_packedDirt</object>
       <object>objects\obj_packedStone</object>
       <object>objects\obj_workbench</object>
