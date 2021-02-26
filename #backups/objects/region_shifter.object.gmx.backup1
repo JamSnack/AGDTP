@@ -1,0 +1,48 @@
+// 2021-02-26 13:45:18
+#event create|LOAD NEW REGION
+//MODIFIED FOR USE IN REGION SHIFTING!
+//---------REMOVE PREVIOUS REGION---------------
+//- Reactivate everything, then destroy it.
+time = 0;
+worldControl.deactivation_enabled = false;
+worldControl.region_shift = false;
+instance_activate_all();
+with obj_player alarm[1] = 10; //Respawn the player in 10 frames.
+
+alarm[0] = 1;
+//NOTE: An alarm should be used because the game needs to cycle through the events for one frame before activating instances.
+
+animation_frame = 0;
+animation_max = 1;
+
+#event alarm0
+if time == 0
+{
+    //- Declare variables
+    sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
+    sizeY = 30;
+    
+    xx = 0;
+    yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
+    
+    heightSeed = get_height_seed(15,"FLAT");
+    heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
+}
+
+if (time >= 4 && time <= 23 && animation_frame == 1) || time >= 23 || time < 4
+{
+    time += 1;
+    scr_loadRegion("");
+}
+
+alarm[0] = 1;
+
+#event step|ANIMATION
+if time == 30 && animation_frame == animation_max && animation_frame > 0 then animation_max = -1;
+animation_frame = approach(animation_frame,animation_max,0.075);
+
+#event draw_gui_end
+draw_set_color(c_white);
+draw_set_alpha(animation_frame);
+draw_rectangle(0,0,window_get_width(),window_get_height(),false);
+draw_set_alpha(1);

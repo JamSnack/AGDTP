@@ -1,10 +1,11 @@
+// 2021-02-26 13:46:50
 /// scr_loadRegion(preset)
 ///scr_loadRegion(preset);
 //MODIFIED FOR USE IN REGION SHIFTING!
 
 //----------GENERATE THE REGION VARIABLES----------------
 randomize();
-var preset = argument0;
+#args preset
 
 /*-------- Presets:
 -- "TUTORIAL"

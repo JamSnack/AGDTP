@@ -33,6 +33,10 @@ time = 0;
 worldControl.deactivation_enabled = false;
 worldControl.region_shift = false;
 instance_activate_all();
+
+with TILE { visible = false; }
+obj_pie.visible = true;
+
 with obj_player alarm[1] = 10; //Respawn the player in 10 frames.
 
 alarm[0] = 1;
@@ -105,7 +109,7 @@ alarm[0] = 1;
           <argument>
             <kind>1</kind>
             <string>///ANIMATION
-if time == 23 &amp;&amp; animation_frame == animation_max &amp;&amp; animation_frame &gt; 0 then animation_max = -1;
+if time == 60 &amp;&amp; animation_frame == animation_max &amp;&amp; animation_frame &gt; 0 then animation_max = -1;
 animation_frame = approach(animation_frame,animation_max,0.075);
 </string>
           </argument>

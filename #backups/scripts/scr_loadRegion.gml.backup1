@@ -1,10 +1,11 @@
+// 2021-02-26 13:45:45
 /// scr_loadRegion(preset)
 ///scr_loadRegion(preset);
 //MODIFIED FOR USE IN REGION SHIFTING!
 
 //----------GENERATE THE REGION VARIABLES----------------
 randomize();
-var preset = argument0;
+#args preset
 
 /*-------- Presets:
 -- "TUTORIAL"
@@ -263,17 +264,14 @@ else if (time >= 48 && time <= 63) // 16 steps
     }
 }
 else if time == 64 then with NOCOL event_user(1);
-else if time == 65 
-{
-    //Reenable deactivation and destroy the region shifter
-    worldControl.deactivation_enabled = true;
-}
-else if time == 70
+else if time == 70 
 {
     //Cleanup (again)
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
     if instance_exists(ENEMY) then with ENEMY { if insideView(x,y) == false then instance_destroy(); }
-    
+
+    //Reenable deactivation and destroy the region shifter
+    worldControl.deactivation_enabled = true;
     instance_destroy();
 }
 

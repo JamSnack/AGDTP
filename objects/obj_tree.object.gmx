@@ -54,7 +54,9 @@ canopy = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(ITEMID.item_stick,irandom_range(1,2),0,x,y+4,noone);
+            <string>if instance_exists(region_shifter) then exit;
+
+scr_dropItem(ITEMID.item_stick,irandom_range(1,2),0,x,y+4,noone);
 
 //A 1 in 5 chance to drop an acorn.
 var r = irandom(6);

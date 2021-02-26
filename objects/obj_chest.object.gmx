@@ -58,7 +58,9 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(9,4,0,x,y,noone);
+            <string>if instance_exists(region_shifter) then exit;
+
+scr_dropItem(9,4,0,x,y,noone);
 event_user(0);
 </string>
           </argument>

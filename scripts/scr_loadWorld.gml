@@ -58,13 +58,16 @@ for(i=0;i<160;i++)
     if heightDirection == 0 then heightDirection = -1;
     
     //Create a column using the currently selected hight value.
+
     for (j=0;j<(heightIndex/16)+(sizeY);j++)
     {
-        if j > (heightIndex/16)+irandom_range(6,10) then tileType = obj_stone else tileType = obj_dirt;
-        var inst = instance_create(xInterval,yy+(16*j)-(heightIndex*heightDirection)+16,tileType);
-        
-        if inst.x > RAIDBOUND_Lower && inst.x < RAIDBOUND_Upper && inst.y < stoneLayer
-        { with inst instance_destroy(); }
+        var tile_y = yy+(16*j)-(heightIndex*heightDirection)+16;
+    
+        if tile_y >= (yy+(20*16)) || (xInterval < RAIDBOUND_Lower || xInterval > RAIDBOUND_Upper)
+        {
+            if j > (heightIndex/16)+irandom_range(6,10) then tileType = obj_stone else tileType = obj_dirt;
+            var inst = instance_create(xInterval,tile_y,tileType);
+        }
     }
         
 }
