@@ -230,7 +230,7 @@ for(i=0;i<sizeX*2+20;i++)
 }
 
 //Place Pie
-instance_create((sizeX*16)+((_flatX*16)/2),yy-16,obj_pie);
+instance_create((sizeX*16)+((_flatX*16)/2),yy-15,obj_pie);
 
 //Update tiles
 with TILE event_user(1);

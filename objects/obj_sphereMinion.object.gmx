@@ -32,7 +32,7 @@ image_yscale = scale;
 
 canActiveRegion = false;
 canHurt = true;
-hp = 5+(5*floor(wave/3));
+hp = 5;
 image_speed = 10/60;
 state = MOVE;
 stunned = false;
@@ -67,7 +67,7 @@ sm_rate = 0.5;
 sm_dir = 1;
 knockType = "FLY";
 deathSound = snd_enemydie_ghost;
-knockback_resistance = 0.12;
+knockback_resistance = 0.8;
 parentKing = noone;
 </string>
           </argument>
