@@ -1,4 +1,4 @@
-// 2020-10-18 11:19:43
+// 2020-11-12 17:53:26
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -14,6 +14,13 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 
 //Spawn Rate is: alarm[0] = room_speed/spawn_rate;
 //Spawn Chance is: if irandom(100) < spawnChance;
+
+
+//------FORCED WAVES----------------
+if interm == true
+{
+    if wave+1 == 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
+}
 
 //----------------PRESET SETTINGS-------------------
 switch presetSettings
@@ -31,7 +38,7 @@ switch presetSettings
         
         //- return to daylight.
         worldControl.dayTransition = true;
-        worldControl.world_Time = 0;
+        world_Time = 0;
         
         //Give wave rewards and Save the game.
         if wave > 0
@@ -57,6 +64,7 @@ switch presetSettings
         nextRaid = "RAID";
     }
     break;
+    
     case "RAID":
     {
         //---------- Normal Raid settings ---------
@@ -127,6 +135,29 @@ switch presetSettings
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
         
         scr_musicTransition(snd_Triple_King,musicTransitionTime);
+    }
+    break;
+    
+    case "KING":
+    {
+        //ONLY THE GRASSLANDS REGION EXISTS RIGHT NOW.
+        //Get the region > spawn appropriate region king...
+        
+        //---------- Region King Raid ---------
+        specialRaid = true;
+        spawnRate = 1+(0.1*wave);
+        spawnChance = 70+(wave*5);
+        maxGrem = 10+(wave*2);
+        maxRaidProgress = 15+(wave*3);
+        
+        interm = false;
+        
+        raidBoss = true;
+        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_nilmerg);;
+        
+        scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
+        
+        scr_musicTransition(snd_FlightoftheRegionKing,musicTransitionTime);
     }
     break;
 }

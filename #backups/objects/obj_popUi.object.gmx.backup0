@@ -1,0 +1,206 @@
+// 2021-03-10 13:32:49
+#event create
+//script variables
+targX = x;
+targY = y;
+targSizeX = 0;
+targSizeY = 0;
+sizeX = 0;
+sizeY = 0;
+targObject = noone;
+type = 0;
+
+
+//Locals
+displayContents = false;
+destroyRange = 16*2;
+destroy = false;
+init = false; //bool initialized ui
+
+//Ui buttons
+deconstructBaseInit = false; //bool to begin the countdown till base destruction.
+region_shift = worldControl.region_shift;
+
+#event alarm0|Reset buttons
+deconstructBaseInit = false;
+
+#event step|Animate and Other
+
+//Scale and translate the Ui accordingly.
+
+var r = sizeX/targSizeX;
+if sizeX == 0 then r = 0.1;
+
+if destroy == false
+{
+    if sizeX != targSizeX then sizeX = lerp(sizeX,targSizeX,r);
+    if sizeY != targSizeY then sizeY = lerp(sizeY,targSizeY,r);
+} else if destroy == true
+{
+   if sizeX > 0 then sizeX -= ceil(sizeX*0.25);
+   if sizeY > 0 then sizeY -= ceil(sizeY*0.25);
+}
+
+if x != targX then x = lerp(x,targX,r);
+if y != targY then y = lerp(y,targY,r);
+
+
+
+//Display contents
+if displayContents == false && destroy == false
+{
+    if sizeX == targSizeX && sizeY == targSizeY
+    {
+        displayContents = true;
+        init = true;
+    }
+}
+
+
+
+//Delete the Ui
+if destroy == false && init == true
+{
+    var sX = (sizeX/targSizeX)*sizeX;
+    var sY = (sizeY/targSizeY)*sizeY;
+    var b1 = x-sX+8;
+    var b2 = x+sX;
+    var tx = obj_player.x;
+    
+    if (tx < b1-destroyRange || tx > b2+destroyRange) 
+    {
+        destroy = true;
+        displayContents = false;
+    }
+}
+//- instance_destroy the ui.
+//--##Magic Numbers: 9 > nineslice box.
+if destroy == true && sizeX <= 9 && sizeY <= 9 && init == true then instance_destroy();
+
+
+#event mouse_global_left_release|Ui functionality
+if init == true
+{
+    var sX = (sizeX/targSizeX)*sizeX;
+    var sY = (sizeY/targSizeY)*sizeY;
+    
+    
+    //Destroy cases
+    if destroy == false
+    {
+        if !point_in_rectangle(mouse_x,mouse_y,x-sX,y-sY,x+sX,y+sY)
+        { destroy = true; displayContents = false; }
+    }
+    
+    //- NO RUNNO EL CODEO :))))))))))))))))))))))
+    if destroy == true then exit;
+    
+    
+    //Ui Functionality
+    
+    //- Destroy Base -
+    
+    
+    //##Magic Number Explanation: Hitboxes are slightly distorted for some reason. x2 and y2
+    // are roughly offset by 8 < x < 9 pixels at this size.##
+    var xx = 0;
+    var yy = -16;
+    
+    if point_in_rectangle(mouse_x,mouse_y,x-17+xx,y-27+yy,x+11+xx,y-9+yy)
+    {
+        if deconstructBaseInit == true
+        {
+            scr_deconstructBase();
+            destroy = true;
+            displayContents = false;
+        }
+        else if deconstructBaseInit == false
+        {
+            deconstructBaseInit = true;
+            alarm[0] = room_speed*2;
+        }
+    }
+    
+    // - Region Shift -
+    var xx = 0;
+    var yy = 16;
+    
+    if point_in_rectangle(mouse_x,mouse_y,x-18+xx,y-27+yy,x+9+xx,y-9+yy)
+    {
+        if !region_shift == true && scr_getInvenItemAmt(ITEMID.item_gremEssence) < 50
+        {
+            scr_hudMessage("50 essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
+            exit;
+        }
+        
+        region_shift = !region_shift;
+        
+        if region_shift == true
+        {
+            worldControl.region_shift = true;
+        }
+    }
+    
+}
+
+
+#event draw
+var sX = (sizeX/targSizeX)*sizeX;
+var sY = (sizeY/targSizeY)*sizeY;
+
+
+//Draw the ui background.
+if sizeX != targSizeX
+{
+    draw_sprite_ext(spr_ui_9slice,0,x-sX,y-sY,(sizeX/targSizeX),(sizeY/targSizeY),0,c_white,1);
+}
+else draw_nineSliceBox(spr_ui_9slice,x-sX,y-sY,x+sX,y+sY,destroy);
+
+
+//Draw an arrow to calling object.
+if targetObject != noone && displayContents == true
+{
+    var tx = targetObject.x;
+    
+    //Boundaries
+    var b1 = x-sX;
+    var b2 = x+sX;
+    
+    //Keep the arrow within the Ui.
+    if tx < b1+8 then tx = b1+8;
+    else if tx > b2 then tx = b2;
+    
+    draw_sprite_ext(spr_ui_arrow_down,0,tx,y+sY+(3*floor(sizeY/16)),sizeX/targSizeX,sizeY/targSizeY,0,c_white,1);
+}
+
+
+//Draw UI options
+if displayContents == true
+{
+    switch type
+    {
+        case "PIE":
+        {
+            //Draw Pie buttons
+            var xx = 0;
+            var yy = -16;
+            
+            draw_nineSliceBox(spr_ui_button,x-17+xx,y-27+yy,x+11+xx,y-9+yy,deconstructBaseInit);
+            if deconstructBaseInit == false
+            { draw_text_transformed(x-15.5+xx,y-18+yy,"Deconstruct#    Base",0.6,0.6,0); }
+            else
+            { draw_text_transformed(x-13+xx,y-18+yy," Are you#  sure?",0.6,0.6,0); }
+            
+            //Region destination
+            var xx = 0;
+            var yy = 16;
+            
+            draw_nineSliceBox(spr_ui_button,x-18+xx,y-27+yy,x+9+xx,y-9+yy,region_shift);
+            if region_shift == false
+            { draw_text_transformed(x-15.5+xx,y-18+yy,"Region#Shift",0.75,0.75,0); }
+            else
+            { draw_text_transformed(x-11+xx,y-18+yy," Destination:#Grasslands",0.6,0.6,0); }
+        }
+        break;
+    }
+}

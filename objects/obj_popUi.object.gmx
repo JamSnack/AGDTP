@@ -221,9 +221,9 @@ if init == true
             exit;
         }
         
-        region_shift = !region_shift
+        region_shift = !region_shift;
         
-        if region_shift = true
+        if region_shift == true
         {
             worldControl.region_shift = true;
         }

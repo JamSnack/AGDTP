@@ -70,6 +70,9 @@ switch presetSettings
                 scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
             }
         }
+        
+        //Build a new wave
+        with worldControl { event_user(1); }
     }
     break;
     
@@ -233,6 +236,3 @@ worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
 with bossID event_perform(ev_create,0);
-
-//Build a new wave
-with worldControl { event_user(1); }

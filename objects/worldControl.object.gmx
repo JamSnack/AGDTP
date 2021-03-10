@@ -40,6 +40,7 @@ energy = 0;
 
 //local variable that needs to be set before scr_raidControl :)
 region_shift = false; //Whether or not to shift the region next intermission.
+special_raidID = "";
 
 if room == rm_zero 
 {
@@ -414,7 +415,7 @@ else if interm == false
             <string>///CONSTRUCT THE WAVE
 
 //Locals
-var build_target = waveScale(1,5,2,4); //Gremlin variety
+var build_target = waveScale(1,4,2,6); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
@@ -464,6 +465,44 @@ switch special_raidID
         }
     }
 }
+
+//Hud Control information sprites!
+hudControl.enemySprites = ds_list_create();
+
+var enemySprites = hudControl.enemySprites;
+    
+//- Populate the array with normal gremlins!
+for (_a=0;_a&lt;normal_array_size;_a++)
+{
+    var _sprite = object_get_sprite(normalGremlins[_a]);
+    
+    if sprite_exists(_sprite)
+    {
+        //If the enemy sprite is not apart of our list, then add it.
+        if ds_list_find_index(enemySprites,_sprite) == -1
+        {
+            ds_list_add(enemySprites,_sprite);
+        }
+    }
+}
+
+//- Populate the array with special gremlins!
+for (_a=0;_a&lt;special_array_size;_a++)
+{
+    var _sprite = object_get_sprite(specialGremlins[_a]);
+    
+    if sprite_exists(_sprite)
+    {
+        //If the enemy sprite is not apart of our list, then add it.
+        if ds_list_find_index(enemySprites,_sprite) == -1
+        {
+            ds_list_add(enemySprites,_sprite);
+        }
+    }
+}
+
+ds_list_copy(hudControl.enemySprites,enemySprites);
+
 </string>
           </argument>
         </arguments>

@@ -1,4 +1,4 @@
-// 2021-02-26 14:51:03
+// 2021-03-10 14:18:34
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -37,6 +37,9 @@ equipQueue = noone;
 //Super Menu
 showSuperMenu = false;
 ui_state = "CRAFT"; // No ui is visible
+
+//Wave Menu
+enemySprites = ds_list_create();
 
 //Crafting Menu
 craftIndex = -1; //The CRAFTING ID of the item to craft
@@ -537,16 +540,18 @@ if showSuperMenu == true
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
     
-    var _craftOn, _modOn, _upgradeOn, offset;
+    var _craftOn, _modOn, _upgradeOn, _waveOn, offset;
     
     _craftOn = 0;
     _modOn = 0;
     _upgradeOn = 0;
+    _waveOn = 0;
     offset = 4;
     
     if ui_state == "CRAFT" then _craftOn = offset;
     else if ui_state == "MOD" then _modOn = offset;
     else if ui_state == "UPGRADE" then _upgradeOn = offset;
+    else if ui_state == "WAVE" then _waveOn = offset;
     
     //Menu buttons
     if invOpen == false
@@ -562,6 +567,10 @@ if showSuperMenu == true
         else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
         {
             ui_state = "UPGRADE";
+        }
+        else if point_in_rectangle(dx,dy,_posX-15+_waveOn-10,_posY+85-10,_posX-15+_waveOn+10,_posY+85+10)
+        {
+            ui_state = "WAVE";
         }
     }
     
@@ -596,6 +605,38 @@ if showSuperMenu == true
         else if point_in_rectangle(dx,dy,_posX+230-8,_posY-_y_offset+(enabled_offset*craft_filter_acc)-8,_posX+230+(8),_posY-_y_offset+(enabled_offset*craft_filter_acc)+(8))
         {
             craft_filter_acc = !craft_filter_acc;
+        }
+    }
+    //Region Shifting
+    else if ui_state == "WAVE"
+    {
+        if room == rm_zero
+        {
+            //-- region button hitbox definition
+            for(_p=0;_p<sprite_get_number(spr_ui_regions);_p++)
+            {
+                if point_in_rectangle(dx,dy,_posX+20+(_p*38),_posY+30,_posX+20+(_p*38)+35,_posY+30+35)
+                {
+                    var r_shift = _p;
+                    
+                    //Region shift
+                    /*switch _p
+                    {
+                        //No region!
+                        case 0:
+                        {
+                            
+                        }
+                        break;
+                        
+                        //Grasslands region!
+                        
+                        case 1:
+                        {
+                    }*/
+                    worldControl.region_shift = r_shift;
+                }
+            }
         }
     }
 }
@@ -1191,6 +1232,7 @@ if showSuperMenu == true
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
+    draw_set_font(global.fnt_Ui);
     
     //Draw background
     draw_sprite(spr_ui_superMenuBackground,0,_posX,_posY);
@@ -1293,8 +1335,8 @@ if showSuperMenu == true
         //Draw essence count
         var str_essence = ":"+string(scr_getInvenItemAmt(ITEMID.item_gremEssence));
         
-        draw_sprite(spr_gremlinEssence,image_index,3*_posX-string_width(str_essence),_posY+204);
-        draw_text(3*_posX+4-string_width(str_essence),_posY+200,str_essence);
+        draw_sprite(spr_gremlinEssence,image_index,3*_posX-string_width(str_essence),_posY+190);
+        draw_text(3*_posX+4-string_width(str_essence),_posY+186,str_essence);
         
         }
         break;
@@ -1340,6 +1382,51 @@ if showSuperMenu == true
         break;
         
         //#endregion
+        case "WAVE":
+        {
+           //------REGION SHIFTING----------
+           var region_shift = worldControl.region_shift;
+           
+            draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+20,_posX+226,_posY+20+65,0);
+            draw_sprite(spr_ui_regionShiftBool,region_shift,_posX+12,_posY+13);
+            
+            //-- draw region buttons
+            for(_p=0;_p<sprite_get_number(spr_ui_regions);_p++)
+            {
+                draw_sprite(spr_ui_regions,_p,_posX+20+(_p*38),_posY+30);
+            }
+            
+            //-- cost
+            if region_shift == true
+            {
+                draw_text(_posX+173,_posY+10,"Cost: 50");
+                draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30);
+            }
+            else
+            {
+                draw_text(_posX+173,_posY+10,"Cost: 0");
+                draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30);
+            }
+           
+           //-----ENEMY INFORMATION--------
+           draw_text(_posX+12,_posY+97,"Enemies: ");
+           draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+105,_posX+226,_posY+105+65,0);
+           
+           //--- Draw the enemy information
+           if room != rm_lobby
+           {
+                for (_p=0;_p<ds_list_size(enemySprites);_p++)
+                {
+                    var _sprite = enemySprites[| _p];
+                    
+                    if sprite_exists(_sprite)
+                    {
+                        draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
+                        draw_sprite(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22);
+                    }
+                }
+           }
+        }
     }
     
     //-----------------Draw Ui state buttons--------
@@ -1347,19 +1434,22 @@ if showSuperMenu == true
     
     if invOpen == false
     {
-        var _craftOn, _modOn, _upgradeOn, offset;
+        var _craftOn, _modOn, _upgradeOn, _waveOn, offset;
         _craftOn = 0;
         _modOn = 0;
         _upgradeOn = 0;
+        _waveOn = 0;
         offset = 4;
         
         if ui_state == "CRAFT" then _craftOn = offset;
         else if ui_state == "MOD" then _modOn = offset;
         else if ui_state == "UPGRADE" then _upgradeOn = offset;
+        else if ui_state == "WAVE" then _waveOn = offset;
         
         draw_sprite(spr_menuIcons,6,_posX-15+_craftOn,_posY+10); //Crafting menu
         draw_sprite(spr_menuIcons,7,_posX-15+_modOn,_posY+35); //Mod menu
         draw_sprite(spr_menuIcons,8,_posX-15+_upgradeOn,_posY+60); //Upgrade menu
+        draw_sprite(spr_menuIcons,9,_posX-15+_waveOn,_posY+85); //Wave menu
     }
 
 }
