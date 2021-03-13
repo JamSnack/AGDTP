@@ -30,6 +30,8 @@ localGrav = 0;
 deadProjectile = false;
 tags = noone;
 time = 0;
+origin_x = x;
+origin_y = y;
 
 //Latent behaviors
 bBouncy = false;
@@ -263,7 +265,7 @@ switch type
     {
         if alarm[1] == -1 &amp;&amp; canReverse == true
         {
-            alarm[1] = room_speed*2;
+            alarm[1] = room_speed*0.5;
         }
     
         image_angle += 5*speed;
@@ -271,6 +273,11 @@ switch type
         if canReverse == false
         {
             speed = approach(speed,-oSpeed,0.5);
+            
+            if point_distance(ox,oy,x,y) &lt; 2
+            {
+                instance_destroy();
+            }
         }
     }
     break;
@@ -379,7 +386,7 @@ if other.object_index != obj_nullLight
     {
         if alarm[2] == -1 then alarm[2] = room_speed*3;
         canReverse = false;
-    } else if canReverse == false then instance_destroy();
+    }
 }
 </string>
           </argument>

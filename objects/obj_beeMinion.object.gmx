@@ -48,7 +48,7 @@ stateLockAlarm = 2;
 aggroRange = 16*8; //8 tiles
 hAccel = 0;
 vAccel = 0;
-maxAccel = 4;
+maxAccel = 2;
 accelRate = 0.4;
 
 stateLock = true;
@@ -58,7 +58,7 @@ image_xscale = sign(target.x-x);
 
 event_inherited();
 knockType = "FLY";
-knock_resistance = 0.1;
+knockback_resistance = 0.1;
 deathSound = snd_enemydie_ghost;
 death_gib = part_gib;
 </string>

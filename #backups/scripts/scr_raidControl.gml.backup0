@@ -1,4 +1,4 @@
-// 2021-03-08 14:06:42
+// 2021-03-12 16:42:00
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -114,18 +114,21 @@ switch presetSettings
             break;
         }
         //#endregion
-        
-        spawnRate = 1;
-        spawnChance = 70+(wave*5);
-        maxGrem = 10+(wave*2);
-        maxRaidProgress = 20+(wave*5);
-        
-        interm = false;
-        
-        if random(1) < wave/10 && wave > 2
+        else
         {
-            raidBoss = true;
-            bossID = new_raidBoss(0);
+        
+            spawnRate = 1;
+            spawnChance = 70+(wave*5);
+            maxGrem = 10+(wave*2);
+            maxRaidProgress = 20+(wave*5);
+            
+            interm = false;
+            
+            if random(1) < wave/10 && wave > 2
+            {
+                raidBoss = true;
+                bossID = new_raidBoss(0);
+            }
         }
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
@@ -226,7 +229,7 @@ if interm == false
 maxRaidProgress = clamp(maxRaidProgress,10,100);
 spawnChance = clamp(spawnChance,0,100);
 maxGrem = clamp(maxGrem,0,25);
-spawnRate = clamp(spawnRate,0,6);
+spawnRate = clamp(spawnRate,0.5,6);
 
 worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;

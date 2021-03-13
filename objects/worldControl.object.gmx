@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -330,8 +330,8 @@ if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
     if interm == true
     {
         if instance_exists(PLRTILE) then with PLRTILE event_user(15);
-        if instance_exists(PLRTILE) then with PLR_NOCOL event_user(15);
-        if instance_exists(PLRTILE) then with obj_pie event_user(1);
+        if instance_exists(PLR_NOCOL) then with PLR_NOCOL event_user(15);
+        with obj_pie event_user(1);
     }
     
     //-Energy &amp; health regeneration-
@@ -442,19 +442,28 @@ switch special_raidID
     default:
     {    
         //Build'a wave!
+        var last_ran = 0;
+        
         while build_index &lt; build_target
         {    
+            //Encourage diversity!
+            var ran = irandom(4);
+            
+            if ran == last_ran
+            {
+                ran = irandom(4);
+            }
+            
             normal_array_size = array_length_1d(normalGremlins);
             special_array_size = array_length_1d(specialGremlins);
         
-        
             //Add Gremlins to the list as the wave number increases.
-            switch irandom(4)
+            switch ran
             {
                 case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
                 case 1: if wave &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
                 case 2: if wave &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 3: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin;} break;
+                case 3: if kingDied_1 == true { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
             }
 
             //Only increase the build_index number if a gremlin was successfully added to a list.

@@ -151,6 +151,7 @@
       <sprite>sprites\spr_lobbyPlatform</sprite>
       <sprite>sprites\spr_nullLight</sprite>
       <sprite>sprites\spr_dirtTile</sprite>
+      <sprite>sprites\spr_sandTile</sprite>
       <sprite>sprites\spr_flatlandTile</sprite>
     </sprites>
     <sprites name="Projectiles">
@@ -189,6 +190,8 @@
       <sprite>sprites\spr_ui_tips</sprite>
       <sprite>sprites\spr_ui_regionShiftBool</sprite>
       <sprite>sprites\spr_ui_superMenuBackground</sprite>
+      <sprite>sprites\spr_ui_regionSelected</sprite>
+      <sprite>sprites\spr_ui_regions</sprite>
     </sprites>
     <sprites name="Particles">
       <sprite>sprites\spr_tile_frag_dirt</sprite>
@@ -214,8 +217,6 @@
     <sprite>sprites\spr_nothing</sprite>
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
-    <sprite>sprites\spr_ui_regions</sprite>
-    <sprite>sprites\spr_ui_regionSelected</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

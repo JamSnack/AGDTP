@@ -98,11 +98,13 @@ with type //TILE or PLRTILE
             case ENEMY: if canHurt == true { scr_hurt(d,DEF_HURT,true,4); } break;
             case TILE:
             {
+                if object_index == obj_pie then exit;
+                
                 //Damage the tile
                 hp -= d;
                 
                 //Check for tile death otherwise heal.
-                if hp &lt;= 0 &amp;&amp; object_index != obj_pie
+                if hp &lt;= 0
                 {
                     scr_tileUpdate(x,y);
                     instance_destroy();

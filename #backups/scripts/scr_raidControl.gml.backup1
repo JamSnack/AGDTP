@@ -1,4 +1,4 @@
-// 2020-11-12 17:53:26
+// 2021-03-12 16:38:53
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -7,7 +7,7 @@ var maxGrem = argument3;
 var raidBoss = argument4;
 
 var bossID = noone;
-var specialRaid = false;
+specialRaid = false;
 var special_raidID = noone;
 
 var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
@@ -19,7 +19,7 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 //------FORCED WAVES----------------
 if interm == true
 {
-    if wave+1 == 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
+    if wave+1 >= 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
 }
 
 //----------------PRESET SETTINGS-------------------
@@ -40,28 +40,40 @@ switch presetSettings
         worldControl.dayTransition = true;
         world_Time = 0;
         
-        //Give wave rewards and Save the game.
-        if wave > 0
-        {
-            //Rewards
-            scr_dropItem(10,wave,0,obj_player.x,obj_player.y,noone);
-            scr_dropItem(15,wave,0,obj_player.x,obj_player.y,noone);
+        //Save the game.
+        with gameControl event_user(0);
         
-        
-            with gameControl event_user(0);
-            //scr_hudMessage("Game saved.",global.fnt_menu,5,0,c_green,0);
-        }
-        
-        //Tutorial quest
-        if currentTask == 5 { if wave >= 5 then currentTask = 6}
         
         if instance_exists(GREM_BLOCK) then with GREM_BLOCK instance_destroy();
-        
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
-        
-        scr_musicTransition(snd_overworld_1,musicTransitionTime);
-        
+        scr_musicTransition(snd_The_Grasslands,musicTransitionTime);
         nextRaid = "RAID";
+        
+        //Tutorial Quest
+        if currentTask == 3 { currentTask = 4; obj_tutorialControl.alarm[1] = room_speed*5; }
+        
+        //REGION SHIFT
+        if worldControl.region_shift == true
+        {
+            if scr_getInvenItemAmt(ITEMID.item_gremEssence) < 50
+            {
+                scr_hudMessage("50 essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
+            }
+            else
+            {
+                //- reset the player
+                obj_player.alarm[1] = 1; //RESPAWN THE PLAYER
+                
+                //- shift the region
+                instance_create(x,y,region_shifter);
+                
+                //- hud message
+                scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
+            }
+        }
+        
+        //Build a new wave
+        with worldControl { event_user(1); }
     }
     break;
     
@@ -70,7 +82,7 @@ switch presetSettings
         //---------- Normal Raid settings ---------
         // - 5% Chance to turn into a special raid.
         //#region Special Raids
-        if irandom(100) <= 20
+        if irandom(100) <= 10 && wave > 2
         {
             //Special raids
             special_raidID = choose("SR_Shadow");
@@ -81,17 +93,21 @@ switch presetSettings
                 {
                     //---------- Special Raid: Shadow Gremlins Only settings ---------
                     specialRaid = true;
-                    spawnRate = 1+(0.1*wave);
+                    spawnRate = clamp(1+(0.1*wave),1,30); //spawn rate = 60/spawnRate. This caps the spawn rate to 60/30 or 2;
                     spawnChance = 70+(wave*5);
-                    maxGrem = 10+(wave*2);
-                    maxRaidProgress = 15+(wave*3);
+                    maxGrem = 15+(wave*2);
+                    maxRaidProgress = min(25+(wave*3),100);
                     
                     interm = false;
                     
+                    if wave >= 6
+                    {
+                        raidBoss = true;
+                        bossID = new_raidBoss(obj_shadowGremlin);
+                    }
+                    
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
                     scr_overMessage("!!The Shadow Gremlins are swarming!!",global.fnt_menu,5,c_yellow,0,-35);
-                    
-                    scr_musicTransition(snd_wave_1,musicTransitionTime);
                 }
                 break;
             }
@@ -109,12 +125,10 @@ switch presetSettings
         if random(1) < wave/10 && wave > 2
         {
             raidBoss = true;
-            bossID = new_raidBoss();
+            bossID = new_raidBoss(0);
         }
         
         scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
-        
-        scr_musicTransition(snd_wave_1,musicTransitionTime);
     }
     break;
     
@@ -130,11 +144,9 @@ switch presetSettings
         interm = false;
         
         raidBoss = true;
-        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_sphereKing);;
+        bossID = new_raidBoss(obj_sphereKing);
         
         scr_hudMessage("The Sphere King has arrived.",0,20,0,c_yellow,0);
-        
-        scr_musicTransition(snd_Triple_King,musicTransitionTime);
     }
     break;
     
@@ -153,14 +165,31 @@ switch presetSettings
         interm = false;
         
         raidBoss = true;
-        bossID = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,obj_nilmerg);;
+        bossID = new_raidBoss(obj_nilmerg);
         
-        scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
-        
-        scr_musicTransition(snd_FlightoftheRegionKing,musicTransitionTime);
+        if kingDied_1 == false then scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
     }
     break;
 }
+
+//MUSIC CONTROL
+var _music = snd_The_Grasslands;
+
+if interm == false then _music = snd_wave_1;
+
+if instance_exists(bossID)
+{
+    var _boss = bossID.object_index;
+    
+    switch _boss
+    {
+        case obj_sphereKing: { _music = snd_Triple_King; } break;
+        case obj_nilmerg: { _music = snd_FlightoftheRegionKing; } break;
+    }
+}
+
+scr_musicTransition(_music,musicTransitionTime);
+
 
 //GREMBLOCK CONTROL
 //#region
@@ -197,12 +226,14 @@ if interm == false
 maxRaidProgress = clamp(maxRaidProgress,10,100);
 spawnChance = clamp(spawnChance,0,100);
 maxGrem = clamp(maxGrem,0,25);
-spawnRate = clamp(spawnRate,0,6);
+spawnRate = clamp(spawnRate,0.5,6);
 
 worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;
 worldControl.maxGrem = maxGrem;
 worldControl.raidBoss = raidBoss;
 worldControl.raidBossID = bossID;
-worldControl.specialRaid = specialRaid;
 worldControl.special_raidID = special_raidID;
+
+//Buff that lead boss boy
+with bossID event_perform(ev_create,0);

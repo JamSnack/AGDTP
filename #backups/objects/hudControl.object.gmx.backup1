@@ -1,4 +1,4 @@
-// 2021-03-10 14:18:34
+// 2021-03-10 14:19:10
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -1405,7 +1405,7 @@ if showSuperMenu == true
             else
             {
                 draw_text(_posX+173,_posY+10,"Cost: 0");
-                draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30);
+                draw_sprite(spr_ui_regionSelected,0,_posX+20,_posY+30);
             }
            
            //-----ENEMY INFORMATION--------

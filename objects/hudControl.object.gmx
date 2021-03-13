@@ -707,165 +707,164 @@ if showSuperMenu == true &amp;&amp; ui_state == "UPGRADE"
 
 
 //--------- INVENTORY INTERACTIONS -------------
-if invOpen == true
+
+for (i=0;i&lt;maxInvenSlots;i++)
 {
-    for (i=0;i&lt;maxInvenSlots;i++)
-    {
-        //inventory slots
-        var column = 7;
-        var c = floor(i/column);
-        
-        var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
-        var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
-        var y1 = -45+(16*c);
-        var y2 = -35+(16*c);
-        
-        //Hotbar slots
-        var x3 = (10+(i*16));
-        var x4 = (20+(i*16));
-        var y3 = -45;
-        var y4 = -35;
+    //inventory slots
+    var column = 7;
+    var c = floor(i/column);
     
-        if cursorHoldItem == true
-        {
-            
-            
-            //---------- SET AN ITEM IN A SLOT -----------------------------
-            
-            if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
-            {
-            
-            //-----------------------------Copy current item and place in old slot if need be.----------------------------
-                if i != cursorSlot
-                {
-                    //Trash slot interaction
-                    if cursorSlot == "trashSlot"
-                    {
-                        var _invItem = 0; var _invAmt= 0; var _invType = 0; var _invTags = 0;
-                        
-                        if inventorySlotIcon[i] != ITEMID.nil
-                        {
-                            _invItem = inventorySlotIcon[i];
-                            _invAmt = inventorySlotAmt[i];
-                            _invType = inventorySlotType[i];
-                            _invTags = inventorySlotTags[i];
-                        }
-                        
-                        //Place item in new slot
-                        cursorHoldItem = false;
-                        inventorySlotIcon[i] = cursorItem;
-                        inventorySlotAmt[i] = cursorAmt;
-                        inventorySlotTags[i] = cursorTags;
-                        inventorySlotType[i] = cursorType;
-                        
-                        //Reallocate a replaced item slot.
-                        if _invItem != undefined
-                        {
-                            scr_invenAddItem(_invItem,_invAmt,_invType,_invTags);
-                        }
-                        
-                        selectedSlot = noone;
-                        pickupTimer = 0;
-                        pickupTimerMax = 60;
-                        
-                        scr_clearSlot("trashSlot");
-                        
-                        //Reset variables before script exit
-                        cursorHoldItem = false;
-                        cursorItem = noone;
-                        cursorAmt = noone;
-                        cursorSlot = noone;
-                        cursorType = noone;
-                        cursorTags = noone;
-                        selectedSlot = noone;
-                        
-                        exit;
-                    }
-                
-                //- Replace slots with cursor item.
-                    //-- Case: The new slot is the same item &amp; can be stacked.
-                    if inventorySlotIcon[i] == cursorItem &amp;&amp; inventorySlotAmt[i] &gt; 0 &amp;&amp; inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
-                    {  
-                        //-Update the slot previously picked up.
-                            //-- Case: the old slot will have no AMT left.
-                        if inventorySlotAmt[cursorSlot]-cursorAmt == 0
-                        { 
-                            scr_clearSlot(cursorSlot);
-                        } 
-                        else //Case: the old slot will have left-over items.
-                        { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
-                       
-                        //Update amount in cursor 
-                        cursorAmt += inventorySlotAmt[i];
-                        
-                    } 
-                    else if inventorySlotIcon[i] != 0
-                    {
-                        //Remove items to prevent deletion
-                        if cursorAmt != inventorySlotAmt[cursorSlot]
-                        {
-                            scr_invenRemoveItem(inventorySlotIcon[cursorSlot],
-                                                inventorySlotAmt[cursorSlot]-cursorAmt,
-                                                inventorySlotType[cursorSlot],
-                                                true,cursorSlot,inventorySlotTags[cursorSlot]);
-                        }
-                    
-                        //Copy current slot and update the cursorSlot.
-                        inventorySlotIcon[cursorSlot] = inventorySlotIcon[i];
-                        inventorySlotAmt[cursorSlot] = inventorySlotAmt[i];
-                        inventorySlotType[cursorSlot] = inventorySlotType[i];
-                        inventorySlotTags[cursorSlot] = inventorySlotTags[i];
-                    }
-                    else
-                    {
-                        if inventorySlotAmt[cursorSlot]-cursorAmt == 0
-                        {
-                            inventorySlotIcon[cursorSlot] = 0;
-                            inventorySlotType[cursorSlot] = 0;
-                            inventorySlotAmt[cursorSlot] = 0;
-                            inventorySlotTags[cursorSlot] = noone;
-                        } 
-                        else
-                        { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
-                    }
+    var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
+    var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
+    var y1 = -45+(16*c);
+    var y2 = -35+(16*c);
+    
+    //Hotbar slots
+    var x3 = (10+(i*16));
+    var x4 = (20+(i*16));
+    var y3 = -45;
+    var y4 = -35;
+
+    if cursorHoldItem == true
+    {
         
+        
+        //---------- SET AN ITEM IN A SLOT -----------------------------
+        
+        if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4))
+        {
+        
+        //-----------------------------Copy current item and place in old slot if need be.----------------------------
+            if i != cursorSlot
+            {
+                //Trash slot interaction
+                if cursorSlot == "trashSlot"
+                {
+                    var _invItem = 0; var _invAmt= 0; var _invType = 0; var _invTags = 0;
+                    
+                    if inventorySlotIcon[i] != ITEMID.nil
+                    {
+                        _invItem = inventorySlotIcon[i];
+                        _invAmt = inventorySlotAmt[i];
+                        _invType = inventorySlotType[i];
+                        _invTags = inventorySlotTags[i];
+                    }
                     
                     //Place item in new slot
                     cursorHoldItem = false;
                     inventorySlotIcon[i] = cursorItem;
-                    inventorySlotType[i] = cursorType;
                     inventorySlotAmt[i] = cursorAmt;
                     inventorySlotTags[i] = cursorTags;
+                    inventorySlotType[i] = cursorType;
+                    
+                    //Reallocate a replaced item slot.
+                    if _invItem != undefined
+                    {
+                        scr_invenAddItem(_invItem,_invAmt,_invType,_invTags);
+                    }
                     
                     selectedSlot = noone;
                     pickupTimer = 0;
                     pickupTimerMax = 60;
-                    pickupTimerRate = 4;
                     
-                    //Reset variables
+                    scr_clearSlot("trashSlot");
+                    
+                    //Reset variables before script exit
                     cursorHoldItem = false;
                     cursorItem = noone;
                     cursorAmt = noone;
                     cursorSlot = noone;
                     cursorType = noone;
                     cursorTags = noone;
+                    selectedSlot = noone;
                     
                     exit;
                 }
-            } else if i == cursorSlot &amp;&amp; (showSuperMenu == false &amp;&amp; ui_state != "MOD") &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
-        }
-        
-        
-        
-        //----------------Click to select a slot-------------------
-        if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || ( i &lt; column &amp;&amp; point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4)))
-         &amp;&amp; obj_player.toolReady == true
-        {
-            scr_slotEquip(i);
-            break;
-        }
+            
+            //- Replace slots with cursor item.
+                //-- Case: The new slot is the same item &amp; can be stacked.
+                if inventorySlotIcon[i] == cursorItem &amp;&amp; inventorySlotAmt[i] &gt; 0 &amp;&amp; inventorySlotTags[i] == cursorTags //0 AMT means an item cannot be stacked, otherwise it would be 1.
+                {  
+                    //-Update the slot previously picked up.
+                        //-- Case: the old slot will have no AMT left.
+                    if inventorySlotAmt[cursorSlot]-cursorAmt == 0
+                    { 
+                        scr_clearSlot(cursorSlot);
+                    } 
+                    else //Case: the old slot will have left-over items.
+                    { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
+                   
+                    //Update amount in cursor 
+                    cursorAmt += inventorySlotAmt[i];
+                    
+                } 
+                else if inventorySlotIcon[i] != 0
+                {
+                    //Remove items to prevent deletion
+                    if cursorAmt != inventorySlotAmt[cursorSlot]
+                    {
+                        scr_invenRemoveItem(inventorySlotIcon[cursorSlot],
+                                            inventorySlotAmt[cursorSlot]-cursorAmt,
+                                            inventorySlotType[cursorSlot],
+                                            true,cursorSlot,inventorySlotTags[cursorSlot]);
+                    }
+                
+                    //Copy current slot and update the cursorSlot.
+                    inventorySlotIcon[cursorSlot] = inventorySlotIcon[i];
+                    inventorySlotAmt[cursorSlot] = inventorySlotAmt[i];
+                    inventorySlotType[cursorSlot] = inventorySlotType[i];
+                    inventorySlotTags[cursorSlot] = inventorySlotTags[i];
+                }
+                else
+                {
+                    if inventorySlotAmt[cursorSlot]-cursorAmt == 0
+                    {
+                        inventorySlotIcon[cursorSlot] = 0;
+                        inventorySlotType[cursorSlot] = 0;
+                        inventorySlotAmt[cursorSlot] = 0;
+                        inventorySlotTags[cursorSlot] = noone;
+                    } 
+                    else
+                    { inventorySlotAmt[cursorSlot] = inventorySlotAmt[cursorSlot]-cursorAmt; }
+                }
+    
+                
+                //Place item in new slot
+                cursorHoldItem = false;
+                inventorySlotIcon[i] = cursorItem;
+                inventorySlotType[i] = cursorType;
+                inventorySlotAmt[i] = cursorAmt;
+                inventorySlotTags[i] = cursorTags;
+                
+                selectedSlot = noone;
+                pickupTimer = 0;
+                pickupTimerMax = 60;
+                pickupTimerRate = 4;
+                
+                //Reset variables
+                cursorHoldItem = false;
+                cursorItem = noone;
+                cursorAmt = noone;
+                cursorSlot = noone;
+                cursorType = noone;
+                cursorTags = noone;
+                
+                exit;
+            }
+        } else if i == cursorSlot &amp;&amp; (showSuperMenu == false &amp;&amp; ui_state != "MOD") &amp;&amp; !point_in_rectangle(dx,dy,0,50-45,invenX,200) { scr_invenRemoveItem(cursorItem,cursorAmt,cursorType,true,cursorSlot,cursorTags); selectedSlot = noone; break; }
+    }
+    
+    
+    
+    //----------------Click to select a slot-------------------
+    if (point_in_rectangle(dx,dy,x1,50+y1,x2,50+y2) || ( i &lt; column &amp;&amp; point_in_rectangle(dx,dy,x3,50+y3,x4,50+y4)))
+     &amp;&amp; obj_player.toolReady == true
+    {
+        scr_slotEquip(i);
+        break;
     }
 }
+
 
 //Ensure variable reset
 cursorHoldItem = false;
