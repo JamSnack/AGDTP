@@ -1,4 +1,4 @@
-// 2021-03-12 17:35:29
+// 2021-03-12 21:30:42
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -52,6 +52,7 @@ world_TimeMax = room_speed*(3*60);
 dayTransition = false; //Whether or not to transition into day;
 dayAlpha = 0;
 deactivation_enabled = true;
+shift_destination = "";
 
 //global.light_surface = surface_create(display_get_width(),display_get_height());
 

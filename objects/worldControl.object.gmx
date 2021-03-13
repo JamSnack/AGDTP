@@ -78,6 +78,7 @@ world_TimeMax = room_speed*(3*60);
 dayTransition = false; //Whether or not to transition into day;
 dayAlpha = 0;
 deactivation_enabled = true;
+shift_destination = "";
 
 //global.light_surface = surface_create(display_get_width(),display_get_height());
 

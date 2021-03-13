@@ -1,10 +1,10 @@
-/// scr_loadRegion(preset)
-///scr_loadRegion(preset);
+/// scr_loadRegion(preset, region_type)
+///scr_loadRegion(preset, terrain_type, ore, tree_bool);
 //MODIFIED FOR USE IN REGION SHIFTING!
 
 //----------GENERATE THE REGION VARIABLES----------------
 randomize();
-var preset = argument0;
+var preset = argument0, region_type = argument1;
 
 /*-------- Presets:
 -- "TUTORIAL"
@@ -17,6 +17,23 @@ if preset == "TUTORIAL"
     heightNegativeSeed = "111111111000000111100";
 }
 
+
+//REGION SPECIFIC SETTINGS
+var dirt_tileset = obj_dirt;
+var stone_tileset = obj_stone;
+var tree_bool = true;
+
+
+switch region_type
+{
+    case "COVE":
+    {
+        dirt_tileset = obj_sand;
+        stone_tileset = obj_sandStone;
+        tree_bool = false;
+    }
+    break;
+}
 
 //FlatLands definition
 var _flatX = 32;
@@ -64,7 +81,7 @@ else if (time >= 4 && time <= 43 )
         //Create a column using the currently selected hight value.
         for (j=0;j<(heightIndex/16)+(sizeY);j++)
         {
-            if j > (heightIndex/16)+irandom_range(6,10) then tileType = obj_stone else tileType = obj_dirt;
+            if j > (heightIndex/16)+irandom_range(6,10) then tileType = stone_tileset else tileType = dirt_tileset;
             var inst = instance_create(xInterval,yy+(16*j)-(heightIndex*heightDirection)+16,tileType);
             inst.visible = false; //optimize
             
@@ -144,37 +161,40 @@ else if time == 44
 else if time == 45
 {
     //Spawn trees
-    var spawnAmt = irandom_range(5,15);
-    
-    for (i=0;i<spawnAmt;i++)
+    if tree_bool == true
     {
-        var treeHeight = irandom_range(4,7);
-        var xInterval_Original = floor(irandom(room_width)/16)*16;
-        var yInterval_Original = yy+(16*9); //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
-        var yInterval = yInterval_Original;
-        var xInterval = xInterval_Original;
-        var variance = 16*choose(1,-1);
+        var spawnAmt = irandom_range(5,15);
         
-        //This for loop creates 1 tree.
-        for (j=0;j<treeHeight;j++)
+        for (i=0;i<spawnAmt;i++)
         {
-            //Check and correct Y position.
-            if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { break; }
-            while position_meeting(xInterval,yInterval+16,obj_tree) || 
-                position_meeting(xInterval,yInterval,obj_tree) 
-                { xInterval += variance; }
-               
-            //Place tree tiles using previously used xInterval variable.
-            while position_meeting(xInterval,yInterval,OBSTA) yInterval -= 16;
-            while position_meeting(xInterval,yInterval,obj_tree) yInterval -= 16;
+            var treeHeight = irandom_range(4,7);
+            var xInterval_Original = floor(irandom(room_width)/16)*16;
+            var yInterval_Original = yy+(16*9); //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
+            var yInterval = yInterval_Original;
+            var xInterval = xInterval_Original;
+            var variance = 16*choose(1,-1);
             
-            //(y+16) because the trees spawn one tile above the ground
-            var t = instance_create(xInterval,yInterval,obj_tree);
-            
-            if j == treeHeight-1 then t.canopy = true;
-            
-            xInterval = xInterval_Original;
-            yInterval = yInterval_Original;
+            //This for loop creates 1 tree.
+            for (j=0;j<treeHeight;j++)
+            {
+                //Check and correct Y position.
+                if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { break; }
+                while position_meeting(xInterval,yInterval+16,obj_tree) || 
+                    position_meeting(xInterval,yInterval,obj_tree) 
+                    { xInterval += variance; }
+                   
+                //Place tree tiles using previously used xInterval variable.
+                while position_meeting(xInterval,yInterval,OBSTA) yInterval -= 16;
+                while position_meeting(xInterval,yInterval,obj_tree) yInterval -= 16;
+                
+                //(y+16) because the trees spawn one tile above the ground
+                var t = instance_create(xInterval,yInterval,obj_tree);
+                
+                if j == treeHeight-1 then t.canopy = true;
+                
+                xInterval = xInterval_Original;
+                yInterval = yInterval_Original;
+            }
         }
     }
 }

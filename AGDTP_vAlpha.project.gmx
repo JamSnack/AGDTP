@@ -138,6 +138,7 @@
       </sprites>
       <sprite>sprites\spr_sapling</sprite>
       <sprite>sprites\spr_stoneTile</sprite>
+      <sprite>sprites\spr_sandStoneTile</sprite>
       <sprite>sprites\spr_copperOre</sprite>
       <sprite>sprites\spr_essenceOre</sprite>
       <sprite>sprites\spr_essenceGlow</sprite>
@@ -359,8 +360,10 @@
       <object>objects\PLR_NOCOL</object>
       <object>objects\PLT_1</object>
       <object>objects\obj_dirt</object>
+      <object>objects\obj_sand</object>
       <object>objects\obj_tree</object>
       <object>objects\obj_stone</object>
+      <object>objects\obj_sandStone</object>
       <object>objects\obj_copperOre</object>
       <object>objects\obj_essenceOre</object>
       <object>objects\obj_packedDirt</object>

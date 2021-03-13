@@ -32,6 +32,10 @@
 time = 0;
 worldControl.deactivation_enabled = false;
 worldControl.region_shift = false;
+
+next_region = worldControl.shift_destination;
+worldControl.shift_destination = "";
+
 instance_activate_all();
 
 with TILE { visible = false; }
@@ -82,7 +86,7 @@ animation_max = 1;
 if (time &gt;= 4 &amp;&amp; time &lt;= 23 &amp;&amp; animation_frame == 1) || time &gt;= 23 || time &lt; 4
 {
     time += 1;
-    scr_loadRegion("");
+    scr_loadRegion("",next_region);
 }
 
 alarm[0] = 1;

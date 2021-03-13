@@ -1,4 +1,4 @@
-// 2021-03-12 17:35:05
+// 2021-03-12 17:35:29
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -388,7 +388,7 @@ switch special_raidID
                 case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
                 case 1: if wave >= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
                 case 2: if wave >= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 3: if kingDied_1 == true { specialGremlins[special_array_size] = obj_grassGremlin;} break;
+                case 3: if kingDied_1 == true { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
             }
 
             //Only increase the build_index number if a gremlin was successfully added to a list.

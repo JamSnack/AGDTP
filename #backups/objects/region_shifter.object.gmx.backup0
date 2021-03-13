@@ -1,4 +1,4 @@
-// 2021-02-26 13:47:43
+// 2021-03-12 21:33:44
 #event create|LOAD NEW REGION
 //MODIFIED FOR USE IN REGION SHIFTING!
 //---------REMOVE PREVIOUS REGION---------------
@@ -6,7 +6,15 @@
 time = 0;
 worldControl.deactivation_enabled = false;
 worldControl.region_shift = false;
+
+next_region = worldControl.shift_destination;
+worldControl.shift_destination = "";
+
 instance_activate_all();
+
+with TILE { visible = false; }
+obj_pie.visible = true;
+
 with obj_player alarm[1] = 10; //Respawn the player in 10 frames.
 
 alarm[0] = 1;
@@ -32,7 +40,7 @@ if time == 0
 if (time >= 4 && time <= 23 && animation_frame == 1) || time >= 23 || time < 4
 {
     time += 1;
-    scr_loadRegion("");
+    scr_loadRegion("",next_region);
 }
 
 alarm[0] = 1;
