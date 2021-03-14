@@ -316,6 +316,7 @@
     <script>scripts\scr_createTip.gml</script>
     <script>scripts\scr_buyUpgrade.gml</script>
     <script>scripts\scr_autoTile.gml</script>
+    <script>scripts\scr_getRegionCost.gml</script>
     <scripts name="Twitch Integration">
       <script>scripts\twitch_chat_say.gml</script>
       <script>scripts\twitch_chat_disconnect.gml</script>

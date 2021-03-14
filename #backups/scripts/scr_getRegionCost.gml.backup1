@@ -1,0 +1,20 @@
+// 2021-03-13 18:30:30
+/// scr_getRegionCost(region_name);
+#args region_name
+
+switch region_name
+{
+    case "GRASSLANDS":
+    {
+        str += "50";
+        draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30);
+    }
+    break;
+    
+    case "COVE":
+    {
+        str += "100";
+        draw_sprite(spr_ui_regionSelected,0,_posX+20+76,_posY+30);
+    }
+    break;
+}

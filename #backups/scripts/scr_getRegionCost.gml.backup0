@@ -1,0 +1,10 @@
+// 2021-03-13 18:31:37
+/// scr_getRegionCost(region_name);
+#args region_name
+
+switch region_name
+{
+    case "GRASSLANDS": { return 50; } break;
+    case "COVE": { return 100; } break;
+    default: { return 0; }
+}

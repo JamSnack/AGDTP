@@ -92,8 +92,8 @@ event_inherited(); //STEAL LOGIC FROM CLASS PARENT
 
 if grass_state == "GRASS" &amp;&amp; split_life &gt; 0 &amp;&amp; dropItem == true
 {
-    var vertical_force = -(random_range(2,4));
-    var horizontal_force = (random_range(2,3));
+    var vertical_force = -(random_range(1,2));
+    var horizontal_force = (random_range(1,2));
 
     //We wanna be splittin' yo
     var _first = instance_create(x,y,obj_grassGremlin);

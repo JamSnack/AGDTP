@@ -1,0 +1,136 @@
+// 2021-03-13 19:27:09
+#event create|Initialize the Gremlin
+canActiveRegion = true;
+canHurt = true;
+maxHp = 16;
+hp = maxHp;
+image_speed = 12/60;
+state = WANDER;
+stunned = false;
+knockback_resistance = 1;
+
+vsp = 0;
+atkBox = 32; //divided by 2 on calculation.
+damage = 5; //Attack damage.
+
+hurtAlarm = 1;
+
+target = obj_pie; //Target priority.
+if interm == false then target = obj_pie;
+
+objective = target;
+stateLockAlarm = 2;
+aggroRange = 16*2;
+
+stateLock = true;
+alarm[stateLockAlarm] = 20;
+
+gremBlockCol = !interm;
+
+image_xscale = sign(target.x-x);
+
+event_inherited();
+
+//Local variables
+grass_state = "DIRT";
+growth_target = room_speed*8; //How many steps until fully grown.
+growth = 0; //Grown amount
+split_life = 3; //How many lives are left in the split.
+
+move_sprite = spr_dirtGremlinWalk;
+jump_sprite = spr_dirtGremlinJump;
+
+#event destroy|Grass Gremlin Logic
+event_inherited(); //STEAL LOGIC FROM CLASS PARENT
+
+if grass_state == "GRASS" && split_life > 0 && dropItem == true
+{
+    var vertical_force = -(random_range(1,2));
+    var horizontal_force = (random_range(1,2));
+
+    //We wanna be splittin' yo
+    var _first = instance_create(x,y,obj_grassGremlin);
+    _first.hForce = -horizontal_force;
+    _first.vForce = vertical_force;
+    _first.split_life = split_life-1;
+    _first.maxHp = maxHp/2; 
+    _first.hp = maxHp/2;
+    
+    var _second = instance_create(x,y,obj_grassGremlin);
+    _second.hForce = horizontal_force;
+    _second.vForce = vertical_force;
+    _second.split_life = split_life-1;
+    _second.maxHp = maxHp/2;
+    _second.hp = maxHp/2;
+}
+
+#event alarm1|Reset hurt
+canHurt = true;
+
+#event alarm2|Reset state lock
+stateLock = false;
+
+objective = target;
+state = MOVE;
+image_index = sign(objective.x-x);
+
+#event step
+if canHurt == false then state = MOVE;
+var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
+var plrTileAggroRange = 16*4;
+
+//Gremlin Ai
+if stateLock == false
+{
+    if canSeeTarget 
+    { state = MOVE; objective = target; }
+    else
+    {
+        //Player Tile Aggro logic
+        //Magic number '9': sprite width - center = 8, then add 1.
+        var plrTile = instance_nearest(x+(9*image_xscale),y,PLRTILE);
+        
+        if instance_exists(PLRTILE)
+        { if plrTile.canHurt == false then plrTile = instance_nearest(plrTile.x,plrTile.y,PLRTILE); }
+        
+        if distance_to_object(plrTile) <= plrTileAggroRange
+        {
+            objective = plrTile;
+            state = MOVE; 
+        } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
+        {
+            objective = instance_position(x,y+plrTileAggroRange,PLRTILE);
+            state = MOVE;
+        }
+        else objective = obj_pie;
+    }
+    
+    //Player Aggro Logic
+    if target == obj_pie
+    {
+        if distance_to_object(obj_player) <= aggroRange && obj_player.dead == false
+        && !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true)
+        { objective = obj_player; } 
+         else 
+        { state = MOVE; stateLock = true; alarm[stateLockAlarm] = 20; }
+    }
+}
+if instance_exists(objective) 
+{ ai_gremlin(state,spr_gremlinIdle,jump_sprite,move_sprite,0.7,objective,-4,atkBox); }
+
+
+//Grass Gremlin step
+
+//He be growin'
+if grass_state == "DIRT"
+{
+    growth = approach(growth,growth_target,1);
+    
+    if growth == growth_target
+    {
+        grass_state = "GRASS"; //He be grown.
+        
+        move_sprite = spr_grassGremlinWalk;
+        jump_sprite = spr_grassGremlinJump;
+    }
+}

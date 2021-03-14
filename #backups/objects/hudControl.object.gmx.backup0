@@ -1,4 +1,4 @@
-// 2021-03-12 21:30:28
+// 2021-03-13 18:33:13
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -618,7 +618,7 @@ if showSuperMenu == true
                 if point_in_rectangle(dx,dy,_posX+20+(_p*38),_posY+30,_posX+20+(_p*38)+35,_posY+30+35)
                 {
                     var r_shift = true;
-                    var s_destination;
+                    var s_destination = "";
                     
                     //Region shift
                     switch _p
@@ -1398,6 +1398,7 @@ if showSuperMenu == true
         {
            //------REGION SHIFTING----------
            var region_shift = worldControl.region_shift;
+           var region_type = worldControl.shift_destination;
            
             draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+20,_posX+226,_posY+20+65,0);
             draw_sprite(spr_ui_regionShiftBool,region_shift,_posX+12,_posY+13);
@@ -1411,8 +1412,15 @@ if showSuperMenu == true
             //-- cost
             if region_shift == true
             {
-                draw_text(_posX+173,_posY+10,"Cost: 50");
-                draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30);
+                var str = "Cost: ";
+                
+                switch region_type
+                {
+                    case "GRASSLANDS": { draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30); } break;
+                    case "COVE": { draw_sprite(spr_ui_regionSelected,0,_posX+20+76,_posY+30); } break;
+                }
+                
+                draw_text(_posX+173,_posY+10,str+string(scr_getRegionCost(region_type)));
             }
             else
             {

@@ -54,9 +54,11 @@ switch presetSettings
         //REGION SHIFT
         if worldControl.region_shift == true
         {
-            if scr_getInvenItemAmt(ITEMID.item_gremEssence) < 50
+            var _cost = scr_getRegionCost(worldControl.shift_destination);
+            
+            if scr_getInvenItemAmt(ITEMID.item_gremEssence) < _cost
             {
-                scr_hudMessage("50 essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
+                scr_hudMessage(string(_cost)+" essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
             }
             else
             {
@@ -68,6 +70,9 @@ switch presetSettings
                 
                 //- hud message
                 scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
+                
+                //- remove essence
+                scr_invenRemoveItem(ITEMID.item_gremEssence,_cost,ITEMTYPE.def,false,-1,noone);
             }
         }
         
