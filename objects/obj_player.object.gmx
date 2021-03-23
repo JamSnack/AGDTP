@@ -452,6 +452,8 @@ else if image_xscale != -1 &amp;&amp; image_xscale &lt; 0 then image_xscale = -1
 
 //HP clamp
 hp = clamp(hp,0,maxHp);
+
+print(region);
 </string>
           </argument>
         </arguments>

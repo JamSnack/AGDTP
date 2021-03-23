@@ -1,4 +1,4 @@
-// 2021-02-19 14:51:46
+// 2021-02-19 14:53:06
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -151,7 +151,7 @@ if dead = false && g_over == false
     
     
     //--Collision with ground; else platform
-    if (vsp+vForce >= 0 && (position_meeting(x-4,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+4,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce < 0 && (position_meeting(x-4,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+4,y-spr_height+vsp+vForce+1,OBSTA)))
+    if (vsp+vForce >= 0 && (position_meeting(x-3,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce < 0 && (position_meeting(x-3,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
         while (!place_meeting(x,y+hdir,OBSTA))

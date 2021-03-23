@@ -34,6 +34,7 @@ worldControl.deactivation_enabled = false;
 worldControl.region_shift = false;
 
 next_region = worldControl.shift_destination;
+region = next_region;
 worldControl.shift_destination = "";
 
 instance_activate_all();

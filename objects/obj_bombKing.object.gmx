@@ -30,7 +30,7 @@ canActiveRegion = true;
 
 scale = 1;
 canHurt = true;
-hp = 60+waveScale(25,5,0,-1);
+hp = 50+waveScale(25,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = MOVE;
@@ -41,7 +41,7 @@ atkBox = 32; //divided by 2 on calculation.
 b_atkBox = 16*7; //Range for bomb attack.
 damage = 5; //Attack damage.
 b_damage = 40; //Bomb damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
-attackCooldown = 3; //How long until the bombKing can launch another attack.
+attackCooldown = 4; //How long until the bombKing can launch another attack.
 
 hurtAlarm = 1;
 friction = 0.2;
@@ -55,7 +55,7 @@ aggroRange = 0; //0 tiles
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 1;
+maxAccel = 0.6;
 accelRate = 0.05;
 
 //Animation

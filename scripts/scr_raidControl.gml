@@ -45,7 +45,7 @@ switch presetSettings
         
         if instance_exists(GREM_BLOCK) then with GREM_BLOCK instance_destroy();
         scr_hudMessage("Peace ensues.",0,5,0,c_yellow,0);
-        scr_musicTransition(snd_The_Grasslands,musicTransitionTime);
+        //scr_musicTransition(snd_The_Grasslands,musicTransitionTime);
         nextRaid = "RAID";
         
         //Tutorial Quest
@@ -121,7 +121,7 @@ switch presetSettings
         else
         {
         
-            spawnRate = 1;
+            spawnRate = 1+(wave*0.5);
             spawnChance = 70+(wave*5);
             maxGrem = 10+(wave*2);
             maxRaidProgress = 20+(wave*5);
@@ -182,7 +182,18 @@ switch presetSettings
 //MUSIC CONTROL
 var _music = snd_The_Grasslands;
 
-if interm == false then _music = snd_wave_1;
+if interm == false
+{
+    _music = snd_wave_1; 
+}
+else
+{
+    switch region
+    {
+        case "GRASSLANDS": { _music = snd_The_Grasslands; } break;
+        case "COVE": { _music = snd_Salty_Paradise; } break;
+    }
+}
 
 if instance_exists(bossID)
 {
@@ -233,7 +244,7 @@ if interm == false
 maxRaidProgress = clamp(maxRaidProgress,10,100);
 spawnChance = clamp(spawnChance,0,100);
 maxGrem = clamp(maxGrem,0,25);
-spawnRate = clamp(spawnRate,0.5,6);
+spawnRate = clamp(spawnRate,0.5,10);
 
 worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;
@@ -243,4 +254,7 @@ worldControl.raidBossID = bossID;
 worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
-with bossID event_perform(ev_create,0);
+if object_get_parent(object_get_name(bossID)) == ENEMY
+{
+    with bossID event_perform(ev_create,0);
+}

@@ -1,4 +1,4 @@
-// 2021-03-12 21:32:30
+// 2021-03-14 14:13:05
 #event create|LOAD NEW REGION
 //MODIFIED FOR USE IN REGION SHIFTING!
 //---------REMOVE PREVIOUS REGION---------------
@@ -9,6 +9,8 @@ worldControl.region_shift = false;
 
 next_region = worldControl.shift_destination;
 worldControl.shift_destination = "";
+region = next_region;
+
 instance_activate_all();
 
 with TILE { visible = false; }

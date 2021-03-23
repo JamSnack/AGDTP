@@ -1,4 +1,4 @@
-// 2021-03-12 21:30:42
+// 2021-03-18 09:07:24
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -16,24 +16,6 @@ energy = 0;
 region_shift = false; //Whether or not to shift the region next intermission.
 special_raidID = "";
 
-if room == rm_zero 
-{
-    scr_loadWorld(noone);
-    scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
-    alarm[0] = 1;
-    alarm[1] = 120;
-    plr_xBuffer = 0;
-    plr_yBuffer = 0;
-}
-else if room == rm_tutorial
-{
-    scr_loadWorld("TUTORIAL");
-    scr_raidControl(0,0,0,0,0); //Tutorial stuff
-    alarm[0] = 1;
-    alarm[1] = 120;
-    plr_xBuffer = 0;
-    plr_yBuffer = 0;
-}
 
 //Local variables
 world_Time = 0;
@@ -53,6 +35,26 @@ dayTransition = false; //Whether or not to transition into day;
 dayAlpha = 0;
 deactivation_enabled = true;
 shift_destination = "";
+
+if room == rm_zero 
+{
+    scr_loadWorld(noone);
+    scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
+    alarm[0] = 1;
+    alarm[1] = 120;
+    plr_xBuffer = 0;
+    plr_yBuffer = 0;
+}
+else if room == rm_tutorial
+{
+    scr_loadWorld("TUTORIAL");
+    scr_raidControl(0,0,0,0,0); //Tutorial stuff
+    alarm[0] = 1;
+    alarm[1] = 120;
+    plr_xBuffer = 0;
+    plr_yBuffer = 0;
+    with worldControl { event_user(1); }
+}
 
 //global.light_surface = surface_create(display_get_width(),display_get_height());
 

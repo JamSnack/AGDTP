@@ -1,4 +1,4 @@
-// 2021-03-12 17:35:29
+// 2021-03-14 14:58:18
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -15,6 +15,26 @@ energy = 0;
 //local variable that needs to be set before scr_raidControl :)
 region_shift = false; //Whether or not to shift the region next intermission.
 special_raidID = "";
+
+
+//Local variables
+world_Time = 0;
+heal_Time = 10; //Heal something (defense) every interval.
+playerTiles = 0;
+view_zoom_buffer = 0; //Remember the last value of the zoom.
+maxGrem = 5; //Maximum gremlins in the world.
+spawnRate = 1; //How many times a second to check for and spawn a thing.
+spawnChance = 0; //The chance that the thing will spawn out of 100.
+raidBoss = false; //No raid boss.
+raidBossID = noone; //The instance ID of the boss.
+nextRaid = "RAID"; //The next raid's type.
+specialRaid = false; //Bool telling whether or not a special raid is in progress.
+special_raidID = noone; //The ID of the raid
+world_TimeMax = room_speed*(3*60);
+dayTransition = false; //Whether or not to transition into day;
+dayAlpha = 0;
+deactivation_enabled = true;
+shift_destination = "";
 
 if room == rm_zero 
 {
@@ -34,24 +54,6 @@ else if room == rm_tutorial
     plr_xBuffer = 0;
     plr_yBuffer = 0;
 }
-
-//Local variables
-world_Time = 0;
-heal_Time = 10; //Heal something (defense) every interval.
-playerTiles = 0;
-view_zoom_buffer = 0; //Remember the last value of the zoom.
-maxGrem = 5; //Maximum gremlins in the world.
-spawnRate = 1; //How many times a second to check for and spawn a thing.
-spawnChance = 0; //The chance that the thing will spawn out of 100.
-raidBoss = false; //No raid boss.
-raidBossID = noone; //The instance ID of the boss.
-nextRaid = "RAID"; //The next raid's type.
-specialRaid = false; //Bool telling whether or not a special raid is in progress.
-special_raidID = noone; //The ID of the raid
-world_TimeMax = room_speed*(3*60);
-dayTransition = false; //Whether or not to transition into day;
-dayAlpha = 0;
-deactivation_enabled = true;
 
 //global.light_surface = surface_create(display_get_width(),display_get_height());
 
