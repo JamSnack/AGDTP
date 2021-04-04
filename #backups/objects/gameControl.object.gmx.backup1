@@ -1,0 +1,175 @@
+// 2021-04-04 17:02:41
+#event create|Initialize the game
+globalvar canPlace,light,currentTask,elementGoal,waveElement,itemElement,gameOver,region;
+
+canPlace = false; //Whether or not an object can be placed.
+removeReady = true; //Can remove a block or not
+cellSize = 8; //The size of the building tile selection.
+currentTask = 0; //Nothing
+elementGoal = 0;
+waveElement = 0;
+itemElement = 0;
+gameOver = false;
+region = "GRASSLANDS"; //Region the player is currently visiting.
+print("GC: "+string(instance_number(gameControl)));
+
+
+if dev == true 
+{
+    show_debug_overlay(true);
+}
+
+//Local variables
+canExit = false;
+//currentTrack = 0; //Overworld theme 1;
+
+#event step|Background control
+if !instance_exists(obj_player) || hudControl.showBackground == false then exit;
+
+var backgroundAlpha;
+var _playerY = obj_player.y;
+
+if _playerY > stoneLayer-(16)
+{
+    if _playerY < stoneLayer+(16*6) && _playerY > stoneLayer-(16)
+    {
+        backgroundAlpha = ((_playerY-stoneLayer-16)/(stoneLayer+(16*6)))*9;
+    } else backgroundAlpha = 1;
+    
+    background_alpha[5] = backgroundAlpha;
+    background_visible[5] = true;
+    
+} else { backgroundAlpha = 0; background_alpha[5] = backgroundAlpha; background_visible[5] = false;}
+
+
+#event other_user0|SAVE GAME
+var save_list = ds_list_create(); //Inventory data
+var king_list = ds_list_create(); //Region kings defeated
+var quest_list = ds_list_create(); //List containing quest progress
+var stat_list = ds_list_create(); //List containing player stats to save.
+var accessory_list = ds_list_create(); //List containing equipped accessories.
+
+
+//Save the inventory;
+with hudControl
+{
+    
+    for (i=0;i<maxInvenSlots;i++)
+    {    
+        if inventorySlotIcon[i] != 0
+        {
+            var _map = ds_map_create();
+            ds_list_add(save_list,_map);
+            ds_list_mark_as_map(save_list,ds_list_size(save_list)-1);
+        
+        
+            //print('item saved '+string(inventorySlotIcon[i]));
+            var icon = inventorySlotIcon[i];
+            var type = inventorySlotType[i];
+            var amt = inventorySlotAmt[i];
+            var slot = i;
+            
+            //- Package item tags
+            var tagList = inventorySlotTags[i];
+            
+            if ds_exists(tagList, ds_type_list)
+            {
+                var str = "";
+                
+                for (k=0;k<ds_list_size(tagList);k++)
+                {
+                    if is_string(str) && is_string(tagList[| k])
+                    { str = str+tagList[| k]+"$"; }
+                    else print("ERROR? TAG LIST: "+string(tagList[| k])+"STR: "+string(str));
+                }
+                ds_map_add(_map,"tags",str);
+            }
+            
+            
+            //- Package item data
+            ds_map_add(_map,"icon",icon);
+            ds_map_add(_map,"type",type);
+            ds_map_add(_map,"amt",amt);
+            ds_map_add(_map,"slot",slot);
+        }
+    }
+}
+
+//Save other variables
+ds_list_add(king_list,kingDied_1);
+ds_list_add(quest_list,mainQuest);
+ds_list_add(quest_list,tip_controls);
+
+//Save player stats
+ds_list_add(stat_list,energyRegenRate);
+ds_list_add(stat_list,energyMax);
+ds_list_add(stat_list,tileRegenRate);
+ds_list_add(stat_list,tileLevel);
+
+//- Save equipped accessories
+if ds_exists(accessories_equipped,ds_type_list)
+{
+    //Check to see if the accessory has already been equipped
+    var list_size = ds_list_size(accessories_equipped);
+    
+    for(_q=0;_q<list_size;_q++)
+    {
+        ds_list_add(accessory_list,accessories_equipped[| _q]);
+    }
+}
+
+//Game maker prefers to start with a ds_map.
+//Wrap the root List up in a map!
+var _wrapper = ds_map_create();
+ds_map_add_list(_wrapper,"INV",save_list);
+ds_map_add_list(_wrapper,"KING",king_list);
+ds_map_add_list(_wrapper,"QUEST",quest_list);
+ds_map_add_list(_wrapper,"STAT",stat_list);
+ds_map_add_list(_wrapper,"ACC",accessory_list);
+
+//Save to a string
+var str = json_encode(_wrapper);
+scr_saveString("agdtpSaveData.sav",str);
+
+//"Nuke the data." ~Shuan Spalding
+ds_map_destroy(_wrapper);
+
+print('Game Saved');
+
+#event draw
+if dev == true
+{
+    draw_line(RAIDBOUND_Lower,room_height,RAIDBOUND_Lower,0);
+    draw_line(RAIDBOUND_Upper,room_height,RAIDBOUND_Upper,0);
+}
+
+#event draw_gui|Draw World Stats
+draw_set_color(c_white);
+draw_set_font(global.fnt_Ui);
+
+if dev == true
+{
+    if instance_exists(ENEMY)
+    { draw_text(10,25,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
+} else
+{
+    if interm == false 
+    { draw_text(10,20,"Wave "+string(wave)); }
+    else
+    {
+        draw_text(10,20,"Next Wave: "+string(wave+1)); 
+    }
+}
+
+#event keyrelease:vk_return
+if gameOver == true
+{
+    event_user(0);
+    scr_roomTransition("WARP","Warping to: The Place Betwixt Time...",global.fnt_menu,c_white,rm_lobby);
+}
+
+#event keyrelease:R
+if dev == true then game_restart();
+
+#event keyrelease:V
+if dev == true then with ENEMY instance_destroy();

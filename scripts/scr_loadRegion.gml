@@ -23,6 +23,11 @@ var dirt_tileset = obj_dirt;
 var stone_tileset = obj_stone;
 var tree_bool = true;
 
+var background_far = bkg_overworldHillsFurther_new;
+var background_close = bkg_overworldHills_new;
+var foreground = bkg_overworldGrass;
+var background_cave = bkg_cave;
+
 
 switch region_type
 {
@@ -31,9 +36,21 @@ switch region_type
         dirt_tileset = obj_sand;
         stone_tileset = obj_sandStone;
         tree_bool = false;
+
+        var background_far = bkg_lobbySky;
+        var background_close = bkg_overworldHills_new;
+        var foreground = bkg_overworldGrass;
+        var background_cave = bkg_cave;
     }
     break;
 }
+
+//APPLY BACKGROUNDS
+background[0] = bkg_overworldSky;
+background[1] = bkg_overworldNightSky;
+background[2] = background_far;
+background[3] = background_close;
+background[4] = foreground;
 
 //FlatLands definition
 var _flatX = 32;

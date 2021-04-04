@@ -1,4 +1,4 @@
-// 2021-03-18 09:34:39
+// 2021-04-04 16:26:00
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -255,4 +255,10 @@ worldControl.raidBossID = bossID;
 worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
-with bossID event_perform(ev_create,0);
+if instance_exists(bossID)
+{
+    if object_get_parent(bossID.object_index) == ENEMY
+    {
+        //with bossID event_perform(ev_create,0);
+    }
+}

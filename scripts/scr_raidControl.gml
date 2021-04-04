@@ -254,7 +254,10 @@ worldControl.raidBossID = bossID;
 worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
-if object_get_parent(object_get_name(bossID)) == ENEMY
+if instance_exists(bossID)
 {
-    with bossID event_perform(ev_create,0);
+    if object_get_parent(bossID.object_index) == ENEMY
+    {
+        with bossID event_perform(ev_create,0);
+    }
 }

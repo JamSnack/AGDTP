@@ -422,8 +422,8 @@ var build_target = waveScale(1,4,2,6); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
-normalGremlins = array_create(build_target);
-specialGremlins = array_create(build_target);
+normalGremlins = array_create(0);
+specialGremlins = array_create(0);
 
 normalGremlins[0] = obj_gremlin;
 specialGremlins[0] = obj_shadowGremlin;
