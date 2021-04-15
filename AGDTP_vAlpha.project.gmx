@@ -218,6 +218,7 @@
     <sprite>sprites\spr_nothing</sprite>
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
+    <sprite>sprites\spr_portal</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
