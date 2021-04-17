@@ -229,10 +229,17 @@ if interm == false
         var raid_Upper = (RAIDBOUND_Upper)+(i*16)-(c*16*2);
         
         //Remove left tiles
-        instance_create(raid_Lower+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        var l_tile = instance_create(raid_Lower+8,flatLandsY+(c*16)-32,ANTI_TILE);
         
         //Remove right tiles
-        instance_create(raid_Upper+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        var u_tile = instance_create(raid_Upper+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        
+        //Update portal sprites
+        if i == 0 
+        {
+            l_tile.visible = true;
+            u_tile.visible = true;
+        } 
     }
     
     wave += 1;

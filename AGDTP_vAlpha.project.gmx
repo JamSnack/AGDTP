@@ -45,7 +45,6 @@
     <sound>sound\snd_enemydie_ghost</sound>
     <sound>sound\snd_enemydie_monster</sound>
     <sound>sound\snd_hit</sound>
-    <sound>sound\snd_theStarsForever</sound>
     <sound>sound\snd_shoot</sound>
     <sound>sound\snd_machineGunSoft</sound>
     <sound>sound\snd_swish1</sound>
@@ -59,6 +58,7 @@
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_sphereLaunch</sound>
     <sounds name="Music">
+      <sound>sound\snd_theStarsForever</sound>
       <sound>sound\snd_Triple_King</sound>
       <sound>sound\snd_FlightoftheRegionKing</sound>
       <sound>sound\snd_The_Grasslands</sound>
@@ -219,6 +219,7 @@
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
+    <sprite>sprites\spr_portal_new</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

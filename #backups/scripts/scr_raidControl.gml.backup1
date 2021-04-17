@@ -1,4 +1,4 @@
-// 2021-04-04 16:26:00
+// 2021-04-17 14:07:42
 ///scr_raidControl(presetSettings,spawnRate,spawnChance,maxGrem,raidBoss);
 var presetSettings = argument0;
 var spawnRate = argument1;
@@ -230,10 +230,20 @@ if interm == false
         var raid_Upper = (RAIDBOUND_Upper)+(i*16)-(c*16*2);
         
         //Remove left tiles
-        instance_create(raid_Lower+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        var l_tile = instance_create(raid_Lower+8,flatLandsY+(c*16)-32,ANTI_TILE);
         
         //Remove right tiles
-        instance_create(raid_Upper+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        var u_tile = instance_create(raid_Upper+8,flatLandsY+(c*16)-32,ANTI_TILE);
+        
+        //Update portal sprites
+        if i == 0 
+        {
+            l_tile.visible = true;
+            u_tile.visible = true;
+            
+            l_tile.image_xscale = 1.25;
+            l_tile.image_yscale = 1.5;
+        } 
     }
     
     wave += 1;
@@ -259,6 +269,6 @@ if instance_exists(bossID)
 {
     if object_get_parent(bossID.object_index) == ENEMY
     {
-        //with bossID event_perform(ev_create,0);
+        with bossID event_perform(ev_create,0);
     }
 }
