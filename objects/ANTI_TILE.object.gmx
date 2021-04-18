@@ -3,7 +3,7 @@
   <spriteName>spr_portal_new</spriteName>
   <solid>0</solid>
   <visible>0</visible>
-  <depth>-9</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>

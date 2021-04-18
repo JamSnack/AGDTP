@@ -11,9 +11,9 @@ switch argument0
     //Dull Pickaxe
     case 4: { tool_firerate = 40; tool_spr = spr_pickaxe; pick_Dam = 1; pick_range = 2; pick_level = 0; } break;
     //green Pickaxe
-    case 5: { tool_firerate = 30; tool_spr = spr_pickaxeGreen; pick_Dam = 1; pick_range = 2; pick_level = 0; } break;
+    case 5: { tool_firerate = 35; tool_spr = spr_pickaxeGreen; pick_Dam = 1; pick_range = 2; pick_level = 0; } break;
     //Stinger drill
-    case ITEMID.pickaxe_stingerDrill: { toolAnimation = "SHOOT"; tool_firerate = 15; tool_spr = spr_stingerDrill; pick_Dam = 1; pick_range = 2; pick_level = 1; } break;
+    case ITEMID.pickaxe_stingerDrill: { toolAnimation = "SHOOT"; tool_firerate = 25; tool_spr = spr_stingerDrill; pick_Dam = 1; pick_range = 2; pick_level = 1; } break;
 }
 
 //Apply tags

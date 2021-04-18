@@ -1,4 +1,4 @@
-// 2021-02-19 14:53:06
+// 2021-03-18 09:37:37
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -121,7 +121,7 @@ if dead = false && g_over == false
     if vsp < maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if  key_jump && ((position_meeting(x-4,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
+    if  key_jump && ((position_meeting(x-3,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
     {
         vsp = vsp_jump;
     }
@@ -164,7 +164,7 @@ if dead = false && g_over == false
     {
         var _plat = instance_place(x,y+vsp+vForce,obj_platform);
                 
-        if _plat != noone && vsp+vForce > 0 && y+spr_height < _plat.y-7
+        if _plat != noone && vsp+vForce > 0 && y+spr_height < _plat.y
         {
             while(!place_meeting(x,y+sign(vsp+vForce),_plat))
             {
@@ -342,6 +342,8 @@ else if image_xscale != -1 && image_xscale < 0 then image_xscale = -1;
 
 //HP clamp
 hp = clamp(hp,0,maxHp);
+
+print(region);
 #section|Interact
 //-------INTERACT KEY------------
 if keyboard_check_released(global.key_interact)
