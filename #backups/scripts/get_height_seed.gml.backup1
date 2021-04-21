@@ -1,13 +1,14 @@
-/// get_height_seed(strLength, terrainType)
+// 2021-04-21 14:02:51
+/// get_height_seed(strLength)
 ///get_height_seed(stringLength,terrainType);
-var strLength = argument0, terrainType = argument1;
+#args strLength, terrainType
 var str = "";
 var digit = 1;
 
 for (i=0;i<strLength;i++)
 {
     //Add to the string based on type of terrain.
-    switch terrainType
+    switch argument1
     { 
         case "FLAT": { digit += choose(0,0,0,-1,-1,-1,1,1,1,-2,2); } break;
         case "HILL": { digit += choose(0,0,-1,1,1,1); } break;

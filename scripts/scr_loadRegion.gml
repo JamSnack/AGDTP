@@ -10,6 +10,7 @@ var preset = argument0, region_type = argument1;
 -- "TUTORIAL"
 */
 
+
 //Apply presets
 if preset == "TUTORIAL"
 {
@@ -37,20 +38,24 @@ switch region_type
         stone_tileset = obj_sandStone;
         tree_bool = false;
 
-        var background_far = bkg_lobbySky;
-        var background_close = bkg_overworldHills_new;
+        var background_far = bkg_overworldSky_test;
+        var background_close = bkg_dunesOG_new;
         var foreground = bkg_overworldGrass;
         var background_cave = bkg_cave;
+        
+        heightSeed = get_height_seed(35,"HILL");
+        heightNegativeSeed = "100";
     }
     break;
 }
 
+
 //APPLY BACKGROUNDS
-background[0] = bkg_overworldSky;
-background[1] = bkg_overworldNightSky;
-background[2] = background_far;
-background[3] = background_close;
-background[4] = foreground;
+background_index[0] = bkg_overworldSky;
+background_index[1] = bkg_overworldNightSky;
+background_index[2] = background_far;
+background_index[3] = background_close;
+background_index[4] = foreground;
 
 //FlatLands definition
 var _flatX = 32;

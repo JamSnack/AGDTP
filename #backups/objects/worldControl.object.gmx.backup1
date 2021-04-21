@@ -1,4 +1,4 @@
-// 2021-03-18 09:07:24
+// 2021-04-04 16:58:00
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -347,8 +347,8 @@ var build_target = waveScale(1,4,2,6); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
-normalGremlins = array_create(build_target);
-specialGremlins = array_create(build_target);
+normalGremlins = array_create(0);
+specialGremlins = array_create(0);
 
 normalGremlins[0] = obj_gremlin;
 specialGremlins[0] = obj_shadowGremlin;

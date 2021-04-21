@@ -1,4 +1,4 @@
-// 2021-04-04 16:58:00
+// 2021-04-18 14:48:37
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -351,7 +351,7 @@ normalGremlins = array_create(0);
 specialGremlins = array_create(0);
 
 normalGremlins[0] = obj_gremlin;
-specialGremlins[0] = obj_shadowGremlin;
+specialGremlins[0] = noone;
 
 normal_array_size = array_length_1d(normalGremlins);
 special_array_size = array_length_1d(specialGremlins);

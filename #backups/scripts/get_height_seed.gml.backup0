@@ -1,6 +1,7 @@
+// 2021-04-21 14:03:01
 /// get_height_seed(strLength, terrainType)
 ///get_height_seed(stringLength,terrainType);
-var strLength = argument0, terrainType = argument1;
+#args strLength, terrainType
 var str = "";
 var digit = 1;
 

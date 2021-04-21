@@ -1,4 +1,4 @@
-// 2021-04-04 17:02:41
+// 2021-04-21 13:46:02
 #event create|Initialize the game
 globalvar canPlace,light,currentTask,elementGoal,waveElement,itemElement,gameOver,region;
 
@@ -10,9 +10,7 @@ elementGoal = 0;
 waveElement = 0;
 itemElement = 0;
 gameOver = false;
-region = "GRASSLANDS"; //Region the player is currently visiting.
-print("GC: "+string(instance_number(gameControl)));
-
+region = "COVE"; //Region the player is currently visiting.
 
 if dev == true 
 {

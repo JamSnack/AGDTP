@@ -1,4 +1,4 @@
-// 2021-04-04 17:02:47
+// 2021-04-21 13:49:24
 #event create|Initialize the game
 globalvar canPlace,light,currentTask,elementGoal,waveElement,itemElement,gameOver,region;
 

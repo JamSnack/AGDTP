@@ -13,7 +13,7 @@
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>496</width>
-  <height>316</height>
-  <data>images\bkg_overworldSky_test.png</data>
+  <width>471</width>
+  <height>300</height>
+  <data>images\bkg_dunesOG_new.png</data>
 </background>

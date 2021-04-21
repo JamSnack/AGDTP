@@ -426,7 +426,7 @@ normalGremlins = array_create(0);
 specialGremlins = array_create(0);
 
 normalGremlins[0] = obj_gremlin;
-specialGremlins[0] = obj_shadowGremlin;
+specialGremlins[0] = noone;
 
 normal_array_size = array_length_1d(normalGremlins);
 special_array_size = array_length_1d(specialGremlins);
