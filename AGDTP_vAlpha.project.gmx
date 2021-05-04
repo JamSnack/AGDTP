@@ -226,6 +226,7 @@
     <background>background\bkg_overworldSky</background>
     <background>background\bkg_overworldNightSky</background>
     <background>background\bkg_overworldGrass</background>
+    <background>background\bkg_sand_foreground</background>
     <background>background\bkg_overworldHills_new</background>
     <background>background\bkg_dunes</background>
     <background>background\bkg_duneOG</background>
@@ -236,6 +237,7 @@
     <background>background\bkg_lobbyStars2</background>
     <background>background\bkg_lobbyStars3</background>
     <background>background\bkg_overworldSky_test</background>
+    <background>background\bkg_grass_plains</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">

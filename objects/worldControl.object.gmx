@@ -418,7 +418,8 @@ else if interm == false
             <string>///CONSTRUCT THE WAVE
 
 //Locals
-var build_target = waveScale(1,4,2,6); //Gremlin variety
+var difficulty = wave + (kingDied_1*5);
+var build_target = waveScale(1,4,2,6)+floor(difficulty/wave); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
@@ -446,26 +447,28 @@ switch special_raidID
     {    
         //Build'a wave!
         var last_ran = 0;
+        var list_size = 4; //The size of the list of enemies we can choose from.
         
         while build_index &lt; build_target
         {    
             //Encourage diversity!
-            var ran = irandom(4);
+            var ran = irandom(list_size);
             
             if ran == last_ran
             {
-                ran = irandom(4);
+                //Note: irandom(last_ran) will naturally make enemies higher on the list less likely to spawn.
+                ran = irandom(last_ran);
             }
             
             normal_array_size = array_length_1d(normalGremlins);
             special_array_size = array_length_1d(specialGremlins);
         
-            //Add Gremlins to the list as the wave number increases.
+            //Add Gremlins to the list as the difficulty number increases.
             switch ran
             {
                 case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
-                case 1: if wave &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
-                case 2: if wave &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                case 1: if difficulty &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
                 case 3: if kingDied_1 == true { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
             }
 

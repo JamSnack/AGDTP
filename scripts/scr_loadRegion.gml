@@ -40,7 +40,7 @@ switch region_type
 
         var background_far = bkg_overworldSky_test;
         var background_close = bkg_dunesOG_new;
-        var foreground = bkg_overworldGrass;
+        var foreground = bkg_sand_foreground;
         var background_cave = bkg_cave;
         
         heightSeed = get_height_seed(35,"HILL");
