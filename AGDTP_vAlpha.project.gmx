@@ -121,6 +121,10 @@
         <sprite>sprites\spr_grassGremlinJump</sprite>
         <sprite>sprites\spr_dirtGremlinJump</sprite>
       </sprites>
+      <sprites name="Stone Gremlin">
+        <sprite>sprites\spr_stoneGremlinWalk</sprite>
+        <sprite>sprites\spr_stoneGremlinJump</sprite>
+      </sprites>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -409,6 +413,7 @@
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
+      <object>objects\obj_stoneGremlin</object>
       <object>objects\obj_grassGremlin</object>
       <object>objects\obj_spherePylon</object>
       <object>objects\obj_sphereKing</object>

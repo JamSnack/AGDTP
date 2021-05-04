@@ -447,7 +447,7 @@ switch special_raidID
     {    
         //Build'a wave!
         var last_ran = 0;
-        var list_size = 4; //The size of the list of enemies we can choose from.
+        var list_size = 5; //The size of the list of enemies we can choose from.
         
         while build_index &lt; build_target
         {    
@@ -469,7 +469,8 @@ switch special_raidID
                 case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
                 case 1: if difficulty &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
                 case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 3: if kingDied_1 == true { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                case 4: if difficulty &gt;= 12 { normalGremlins[normal_array_size] = obj_stoneGremlin;} break;
             }
 
             //Only increase the build_index number if a gremlin was successfully added to a list.
