@@ -115,6 +115,7 @@
       <sprite>sprites\spr_nilmerg_hover</sprite>
       <sprite>sprites\spr_nilmerg_move</sprite>
       <sprite>sprites\spr_beeMinion</sprite>
+      <sprite>sprites\spr_sweetWorm</sprite>
       <sprites name="Grass Gremlin">
         <sprite>sprites\spr_grassGremlinWalk</sprite>
         <sprite>sprites\spr_dirtGremlinWalk</sprite>
@@ -425,6 +426,7 @@
       <object>objects\obj_bombKing</object>
       <object>objects\obj_nilmerg</object>
       <object>objects\obj_drillin</object>
+      <object>objects\obj_sweetWorm</object>
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>

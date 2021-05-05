@@ -482,7 +482,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            default: { if difficulty &gt; 20 { normalGremlins[normal_array_size] = obj_hornedHapp; } } break;
+                            default: { if difficulty &gt; 10 { normalGremlins[normal_array_size] = obj_sweetWorm; } } break;
+                            case 0: { if difficulty &gt; 20 { specialGremlins[special_array_size] = obj_hornedHapp; } } break;
                         }
                     }
                     break;

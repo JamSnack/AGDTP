@@ -44,7 +44,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,3);
+            scr_hurt(other.damage,DEF_HURT,true,3);
         }
         
         state = WANDER;
