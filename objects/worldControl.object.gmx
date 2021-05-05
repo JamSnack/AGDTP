@@ -472,6 +472,28 @@ switch special_raidID
                 case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
                 case 4: if difficulty &gt;= 12 { normalGremlins[normal_array_size] = obj_stoneGremlin;} break;
             }
+            
+            //Add a region specific enemy!
+            if build_index &gt; 4
+            {
+                switch region
+                {
+                    case "GRASSLANDS":
+                    {
+                        switch ran
+                        {
+                            default: { if difficulty &gt; 20 { normalGremlins[normal_array_size] = obj_hornedHapp; } } break;
+                        }
+                    }
+                    break;
+                    
+                    case "COVE":
+                    {
+                        //Nothing to see here folks!
+                    }
+                    break;
+                }
+            }
 
             //Only increase the build_index number if a gremlin was successfully added to a list.
             if normal_array_size != array_length_1d(normalGremlins) || special_array_size != array_length_1d(specialGremlins)

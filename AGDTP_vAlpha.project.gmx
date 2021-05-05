@@ -125,6 +125,7 @@
         <sprite>sprites\spr_stoneGremlinWalk</sprite>
         <sprite>sprites\spr_stoneGremlinJump</sprite>
       </sprites>
+      <sprite>sprites\spr_hornedHapp</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -419,6 +420,7 @@
       <object>objects\obj_sphereKing</object>
       <object>objects\obj_sphereMinion</object>
       <object>objects\obj_shadowGremlin</object>
+      <object>objects\obj_hornedHapp</object>
       <object>objects\obj_beeMinion</object>
       <object>objects\obj_bombKing</object>
       <object>objects\obj_nilmerg</object>
