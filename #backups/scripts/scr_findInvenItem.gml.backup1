@@ -1,0 +1,15 @@
+// 2021-05-05 21:43:10
+/// scr_findInvenItem(item)
+//Returns a bool based on an item's existence in the inventory.
+#args item
+
+for(i=0;i<maxInvenSlots;i++)
+{
+    if hudControl.inventorySlotIcon[i] == item
+    {
+        return true;
+    }
+    
+    //Fail case
+    else if i == maxInvenSlots-1 then return false;
+}

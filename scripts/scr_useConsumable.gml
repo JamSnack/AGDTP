@@ -64,5 +64,5 @@ switch item
     }
     break;
 }
-
-scr_invenRemoveItem(item,1,4,false,hudControl.selectedSlot,noone);
+//Slot is non-specific due to quick heal using this script :)
+scr_invenRemoveItem(item,1,4,false,-1,noone);

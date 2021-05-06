@@ -477,7 +477,7 @@ hp = clamp(hp,0,maxHp);
 //-------INTERACT KEY------------
 if keyboard_check_released(global.key_interact)
 {
-    ///Interact with objects that aren't crafting
+    //Interact with objects that aren't crafting
     if instance_exists(INTERACT)
     {
         var interact = instance_nearest(x,y,INTERACT);
@@ -485,6 +485,25 @@ if keyboard_check_released(global.key_interact)
         if distance_to_point(interact.x,interact.y) &lt; 32 &amp;&amp; interact.bench == false
         {
             with interact event_user(0);
+        }
+    }
+}
+
+//-----QUICK HEAL KEY----------
+if hp &lt; maxHp keyboard_check_released(global.key_quick_heal) &amp;&amp; room == rm_zero
+{
+    var heal_list = array_create(1);
+    heal_list[0] = ITEMID.cons_treeFruit;
+    
+    //Quickly heal by searching for the first healing item in the inventory and eating it!
+    for(i=0;i&lt;array_length_1d(heal_list);i++)
+    {
+        //Find the item's 
+        var heal_slot = scr_findInvenItem(heal_list[i]);
+        
+        if heal_slot != noone
+        {
+            scr_useConsumable(hudControl.inventorySlotIcon[heal_slot]);
         }
     }
 }

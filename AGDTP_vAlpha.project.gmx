@@ -277,6 +277,7 @@
       <script>scripts\scr_dropItem.gml</script>
       <script>scripts\scr_dropTag.gml</script>
       <script>scripts\scr_getInvenItemAmt.gml</script>
+      <script>scripts\scr_findInvenItem.gml</script>
       <script>scripts\scr_reloadAccessories.gml</script>
     </scripts>
     <scripts name="Ai">

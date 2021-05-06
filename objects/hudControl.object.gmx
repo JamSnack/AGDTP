@@ -299,12 +299,14 @@ if input_wait == true &amp;&amp; keyboard_key != 0
     { global.key_craft = keyboard_key; }
     else if global.key_interact == noone
     { global.key_interact = keyboard_key; }
+    else if global.key_quick_heal == noone
+    { global.key_quick_heal = keyboard_key; }
     
     input_wait = false;
 }
 
 
-//-----------KEY INTERATION----------------
+//-----------KEY INTERACTION----------------
 
 if keyboard_check_released(global.key_inven)
 {
@@ -1030,6 +1032,13 @@ else if keybindMenu_visible == true
     else if point_in_rectangle(mx,my,xx-40-hbox,yy+20-hbox,xx-40+hbox,yy+20+hbox)
     {
         global.key_interact = noone;
+        input_wait = true;
+    }
+    
+    //- quick heal
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+30-hbox,xx-40+hbox,yy+30+hbox)
+    {
+        global.key_quick_heal = noone;
         input_wait = true;
     }
     
@@ -1994,6 +2003,10 @@ else if keybindMenu_visible == true
     //-- Interact
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+20);
     draw_text(xx-32,yy+17,"Interact: "+chr(global.key_interact));
+    
+    //-- quick heal
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy+30);
+    draw_text(xx-32,yy+27,"Quick Heal: "+chr(global.key_quick_heal));
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);

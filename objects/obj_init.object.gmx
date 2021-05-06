@@ -91,6 +91,7 @@ global.key_down = ord("S");
 global.key_inven = ord("I");
 global.key_craft = ord("C");
 global.key_interact = ord("E");
+global.key_quick_heal = ord("G");
 
 
 

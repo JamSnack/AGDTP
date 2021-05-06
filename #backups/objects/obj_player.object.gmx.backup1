@@ -1,4 +1,4 @@
-// 2021-03-18 09:37:37
+// 2021-05-05 22:27:52
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -319,7 +319,6 @@ if dead == false
         //LOSE ESSENCE
         var essence_lost = ceil(scr_getInvenItemAmt(ITEMID.item_gremEssence)*0.10);
         
-        scr_spawnEssence(1,room_speed*5,essence_lost);
         scr_invenRemoveItem(ITEMID.item_gremEssence,essence_lost,0,false,-1,noone);
         scr_hudMessage(string(essence_lost)+" essence lost...",global.fnt_Ui,5,0,c_red,0);
         
@@ -343,12 +342,12 @@ else if image_xscale != -1 && image_xscale < 0 then image_xscale = -1;
 //HP clamp
 hp = clamp(hp,0,maxHp);
 
-print(region);
+//print(region);
 #section|Interact
 //-------INTERACT KEY------------
 if keyboard_check_released(global.key_interact)
 {
-    ///Interact with objects that aren't crafting
+    //Interact with objects that aren't crafting
     if instance_exists(INTERACT)
     {
         var interact = instance_nearest(x,y,INTERACT);
@@ -356,6 +355,25 @@ if keyboard_check_released(global.key_interact)
         if distance_to_point(interact.x,interact.y) < 32 && interact.bench == false
         {
             with interact event_user(0);
+        }
+    }
+}
+
+//-----QUICK HEAL KEY----------
+if hp < maxHp keyboard_check_released(global.key_quick_heal) && room == rm_zero
+{
+    var heal_list = array_create(1);
+    heal_list[0] = ITEMID.cons_treeFruit;
+    
+    //Quickly heal by searching for the first healing item in the inventory and eating it!
+    for(i=0;i<array_length_1d(heal_list);i++)
+    {
+        //Find the item's 
+        var heal_slot = scr_findInvenItem(heal_list[i]);
+        
+        if heal_slot != noone
+        {
+            scr_useConsumable(hudControl.inventorySlotIcon[heal_slot]);
         }
     }
 }
@@ -588,7 +606,7 @@ if armOffset == 0
 
 
 #event keyrelease:vk_numpad1
-instance_create(mouse_x,mouse_y,obj_grassGremlin);
+instance_create(mouse_x,mouse_y,obj_sweetWorm);
 
 #event keyrelease:vk_numpad3
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
