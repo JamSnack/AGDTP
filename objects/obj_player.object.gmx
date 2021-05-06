@@ -490,7 +490,7 @@ if keyboard_check_released(global.key_interact)
 }
 
 //-----QUICK HEAL KEY----------
-if hp &lt; maxHp keyboard_check_released(global.key_quick_heal) &amp;&amp; room == rm_zero
+if hp &lt; maxHp &amp;&amp; keyboard_check_released(global.key_quick_heal) &amp;&amp; room == rm_zero
 {
     var heal_list = array_create(1);
     heal_list[0] = ITEMID.cons_treeFruit;
@@ -945,7 +945,7 @@ scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_sweetWorm);
+            <string>instance_create(mouse_x,mouse_y,obj_gremlin);
 </string>
           </argument>
         </arguments>

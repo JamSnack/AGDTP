@@ -23,6 +23,8 @@ if preset == "TUTORIAL"
 var dirt_tileset = obj_dirt;
 var stone_tileset = obj_stone;
 var tree_bool = true;
+var spawner_bool = false;
+var spawner_type = obj_hiveGrowth;
 
 var background_far = bkg_overworldHillsFurther_new;
 var background_close = bkg_overworldHills_new;
@@ -32,6 +34,12 @@ var background_cave = bkg_cave;
 
 switch region_type
 {
+    case "GRASSLANDS":
+    {
+        if kingDied_1 == true && wave >= 5 then spawner_bool = true;
+    }
+    break;
+    
     case "COVE":
     {
         dirt_tileset = obj_sand;
@@ -182,7 +190,7 @@ else if time == 44
 
 else if time == 45
 {
-    //Spawn trees
+    //Spawn trees or spawners
     if tree_bool == true
     {
         var spawnAmt = irandom_range(5,15);
@@ -217,6 +225,32 @@ else if time == 45
                 xInterval = xInterval_Original;
                 yInterval = yInterval_Original;
             }
+        }
+    }
+    
+    //Spawners!
+    if spawner_bool == true
+    {
+        var spawnAmt = irandom_range(0,3);
+        
+        for (i=0;i<spawnAmt;i++)
+        {
+            var xInterval_Original = floor(irandom(room_width)/16)*16;
+            var yInterval_Original = yy+(16*9); //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
+            var yInterval = yInterval_Original;
+            var xInterval = xInterval_Original;
+        
+            //Check and correct Y position.
+            if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { break; }
+                   
+            //Place spawners using previously used xInterval variable.
+            while position_meeting(xInterval,yInterval,OBSTA) yInterval -= 16;
+                
+            //(y+16) because the spawners spawn one tile above the ground
+            instance_create(xInterval,yInterval,spawner_type);
+                
+            xInterval = xInterval_Original;
+            yInterval = yInterval_Original;
         }
     }
 }

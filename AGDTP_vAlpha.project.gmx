@@ -226,6 +226,7 @@
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
     <sprite>sprites\spr_portal_new</sprite>
+    <sprite>sprites\spr_hiveGrowth</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -428,6 +429,7 @@
       <object>objects\obj_nilmerg</object>
       <object>objects\obj_drillin</object>
       <object>objects\obj_sweetWorm</object>
+      <object>objects\obj_hiveGrowth</object>
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
