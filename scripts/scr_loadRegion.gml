@@ -190,6 +190,10 @@ else if time == 44
 
 else if time == 45
 {
+    
+    //Cleanup enemies
+    if instance_exists(ENEMY) then with ENEMY { if insideView(x,y) == false then instance_destroy(); }
+    
     //Spawn trees or spawners
     if tree_bool == true
     {
@@ -241,14 +245,15 @@ else if time == 45
             var xInterval = xInterval_Original;
         
             //Check and correct Y position.
-            if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { break; }
+            if (xInterval >= RAIDBOUND_Lower && xInterval <= RAIDBOUND_Upper) { xInterval = choose(irandom_range(32,RAIDBOUND_Lower),irandom_range(RAIDBOUND_Upper,room_width-32)); }
                    
             //Place spawners using previously used xInterval variable.
             while position_meeting(xInterval,yInterval,OBSTA) yInterval -= 16;
                 
             //(y+16) because the spawners spawn one tile above the ground
             instance_create(xInterval,yInterval,spawner_type);
-                
+            print("spawner");
+            
             xInterval = xInterval_Original;
             yInterval = yInterval_Original;
         }
@@ -348,7 +353,6 @@ else if time == 70
 {
     //Cleanup (again)
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
-    if instance_exists(ENEMY) then with ENEMY { if insideView(x,y) == false then instance_destroy(); }
     
     instance_destroy();
 }

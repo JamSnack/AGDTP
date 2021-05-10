@@ -189,9 +189,18 @@ if stateLock == false
 
 objective = target;
 
+//Bee acceleration
+if point_distance(0,y,0,objective.y) &lt; 6*16 &amp;&amp; point_distance(x,0,objective.x,0) &gt; 16*4
+{
+    // force the bee to fly up naturally.
+    vAccel -= accelRate;
+}
+
 if instance_exists(objective) 
 { ai_shadowGremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 
 else target = obj_pie;
+
+if insideView(x,y) == true &amp;&amp; position_meeting(x,y,OBSTA) then instance_destroy();
 </string>
           </argument>
         </arguments>

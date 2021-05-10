@@ -75,6 +75,33 @@ repeat(10)
         </arguments>
       </action>
     </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if insideView(x,y) == true
+{
+    scr_spawnEssence(2,10,5);
+    scr_dropItem(ITEMID.item_sweetComb,1+irandom(4),ITEMTYPE.def,x,y,noone);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="2" enumb="2">
       <action>
         <libid>1</libid>
@@ -98,7 +125,7 @@ spawn_charges += 1;
 if spawn_charges &gt; spawn_charges_max
 {
     spawn_charges -= 1;
-    instance_create(x,y-4,obj_sweetWorm);
+    instance_create(x,y-4,obj_beeMinion);
 }
 
 alarm[spawn_alarm] = spawn_charge_rate;
@@ -152,11 +179,11 @@ canHurt = true;
 if distance_to_object(obj_player) &lt;= aggroRange 
 {
     //DISCHARGE THE DEFENCE!
-    if  spawn_charges &gt; 0 &amp;&amp; alarm[spawn_alarm] == 0
+    if  spawn_charges &gt; 0 &amp;&amp; alarm[spawn_alarm] &lt;= 2
     {
         spawn_charges -= 1;
         
-        instance_create(x+irandom(16),y-4,obj_sweetWorm);
+        instance_create(x,y-4,obj_sweetWorm);
     }
 }
 </string>

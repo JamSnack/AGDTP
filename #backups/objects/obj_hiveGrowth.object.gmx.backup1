@@ -1,0 +1,82 @@
+// 2021-05-09 22:41:59
+#event create|Initialize the Gremlin
+canActiveRegion = false;
+
+canHurt = true;
+hp = 100;
+image_speed = 0;
+state = WANDER;
+stunned = false;
+
+vsp = 0;
+atkBox = 0; //divided by 2 on calculation.
+damage = 0; //Attack damage.
+
+hurtAlarm = 1;
+
+target = obj_player; //objective priority.
+objective = target;
+
+aggroRange = 16*4;
+
+stateLock = false;
+//alarm[stateLockAlarm] = 20;
+
+event_inherited();
+knockType = "FLY";
+knock_resistance = 100; //No knockbacks please!
+canDespawn = false;
+
+//Spawner stats
+spawn_alarm = 2;
+spawn_charges = 0;
+spawn_charges_max = 5;
+spawn_charge_rate = 3*room_speed; //How many charges per second
+
+alarm[spawn_alarm] = spawn_charge_rate;
+
+
+//GET TO DA GROUND PLEASE
+repeat(10)
+{
+    if !position_meeting(x,y-1,OBSTA)
+    { y+=1; }
+    else
+    break;
+}
+
+#event alarm1|Reset hurt
+canHurt = true;
+
+#event alarm2|CHARGE THE SPAWNER OR DISCHARGE AN EXTRA CHARGE
+spawn_charges += 1;
+
+if spawn_charges > spawn_charges_max
+{
+    spawn_charges -= 1;
+    instance_create(x,y-4,obj_beeMinion);
+}
+
+alarm[spawn_alarm] = spawn_charge_rate;
+
+#event step|SPAWNER DEFENCE RANGE
+if distance_to_object(obj_player) <= aggroRange 
+{
+    //DISCHARGE THE DEFENCE!
+    if  spawn_charges > 0 && alarm[spawn_alarm] <= 2
+    {
+        spawn_charges -= 1;
+        
+        instance_create(x,y-4,obj_sweetWorm);
+    }
+}
+
+#event destroy
+if insideView(x,y) == true
+{
+    var r = irandom(10);
+    
+    scr_spawnEssence(2,10,5);
+    
+    if r >= 7 then scr_dropItem(ITEMID.item_sweetComb,1+irandom(4),ITEMTYPE.def,x,y,noone);
+}
