@@ -1,4 +1,4 @@
-// 2021-05-09 21:01:47
+// 2021-05-11 14:24:45
 /// scr_loadRegion(preset, region_type)
 ///scr_loadRegion(preset, terrain_type, ore, tree_bool);
 //MODIFIED FOR USE IN REGION SHIFTING!
@@ -253,7 +253,6 @@ else if time == 45
                 
             //(y+16) because the spawners spawn one tile above the ground
             instance_create(xInterval,yInterval,spawner_type);
-            print("spawner");
             
             xInterval = xInterval_Original;
             yInterval = yInterval_Original;

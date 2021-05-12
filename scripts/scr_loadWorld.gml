@@ -241,7 +241,7 @@ with FLATLAND event_user(1);
 if instance_exists(obj_itemDrop) then with obj_itemDrop instance_destroy();
 
 //Spawn the player object.
-instance_create(obj_pie.x,obj_pie.y-32,obj_player);
+instance_create(obj_pie.x,obj_pie.y-16*2,obj_player);
 
 //Load game
 scr_loadGame();

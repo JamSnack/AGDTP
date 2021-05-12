@@ -225,7 +225,6 @@
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
-    <sprite>sprites\spr_portal_new</sprite>
     <sprite>sprites\spr_hiveGrowth</sprite>
   </sprites>
   <backgrounds name="background">
@@ -289,6 +288,7 @@
       <script>scripts\ai_nilmergAi.gml</script>
       <script>scripts\ai_drillin.gml</script>
       <script>scripts\scr_hurt.gml</script>
+      <script>scripts\place_meeting_fast.gml</script>
     </scripts>
     <scripts name="CraftingMenu">
       <script>scripts\scr_craftingToolTip.gml</script>

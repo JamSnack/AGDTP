@@ -66,10 +66,10 @@ if room == rm_zero
 {
     scr_loadWorld(noone);
     scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
-    alarm[0] = 1;
-    alarm[1] = 120;
     plr_xBuffer = 0;
     plr_yBuffer = 0;
+    alarm[0] = 2;
+    alarm[1] = 120;
 }
 else if room == rm_tutorial
 {
@@ -222,7 +222,7 @@ alarm[1] = room_speed/spawnRate;
             <kind>1</kind>
             <string>///Deactivation/Chunking and World Time
 alarm[0] = 1;
-if deactivation_enabled == false then exit;
+//if deactivation_enabled == false then exit;
 
 //- time control
 if interm == true 
@@ -245,12 +245,12 @@ if view_zoom != view_zoom_buffer
     //Update view_zoom
     view_zoom = view_zoom_buffer;
     
-    //-Deactivation and Reactivation updates every two tiles.
-    if (player_distance_amt_x &gt; 32 || player_distance_amt_y &gt; 32)
+    //-Deactivation and Reactivation updates every eight tiles.
+    if (player_distance_amt_x &gt; 16*2 || player_distance_amt_y &gt; 16*2)
     {
             
         //-Activate everything inside the camera view.
-        var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
+        var outerBoundary = 10*16; //-"offscreen" boundary distance from view.
         var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
         

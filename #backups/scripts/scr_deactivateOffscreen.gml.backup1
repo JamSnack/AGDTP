@@ -1,9 +1,9 @@
-// 2020-10-15 16:29:43
+// 2021-05-10 13:34:42
 /// scr_deactivateOffscreen(inst)
 ///scr_deactivateOffscreen(inst);
 #args inst
-var outerBoundary = 10*16; //(10 tiles).
-var viewBuffer = 16*2; //2 tiles b/c the player needs to move that much to call this script
+var outerBoundary = 4*16; //(10 tiles).
+var viewBuffer = 34; //3 tiles b/c the player needs to move 2 TILES to call this script
 
 if instance_exists(inst)
 {
@@ -12,9 +12,4 @@ if instance_exists(inst)
     {
         instance_deactivate_object(inst);
     }
-    else if !point_in_rectangle(x,y,view_xview-viewBuffer,view_yview-viewBuffer,view_xview+view_wview+viewBuffer,view_yview+view_hview+viewBuffer)
-    //Invisible offview
-    {
-        visible = false;
-    } else visible = true;
 }

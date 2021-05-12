@@ -1,4 +1,4 @@
-// 2021-02-19 14:22:37
+// 2021-05-11 23:53:56
 #event create|Initialize the Gremlin
 
 canActiveRegion = true;
@@ -65,7 +65,7 @@ if stateLock == false
         if distance_to_object(plrTile) <= plrTileAggroRange && collision_line(x,y,objective,objective,plrTile,false,true)
         {
             objective = plrTile;
-            state = MOVE; 
+            state = MOVE;
         } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
         {
             objective = instance_position(x,y+plrTileAggroRange,PLRTILE);
@@ -86,9 +86,3 @@ if stateLock == false
 }
 if instance_exists(objective) 
 { ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,0.8,objective,-4,atkBox); }
-
-#event draw
-draw_self();
-draw_text(x,y+10,string(state));
-draw_text(x,y+15,"H: "+string(hspd));
-draw_text(x,y+20,"V: "+string(vspd));

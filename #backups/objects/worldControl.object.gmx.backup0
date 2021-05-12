@@ -1,4 +1,4 @@
-// 2021-04-18 14:48:37
+// 2021-05-10 13:35:11
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -40,10 +40,10 @@ if room == rm_zero
 {
     scr_loadWorld(noone);
     scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
-    alarm[0] = 1;
-    alarm[1] = 120;
     plr_xBuffer = 0;
     plr_yBuffer = 0;
+    alarm[0] = 2;
+    alarm[1] = 120;
 }
 else if room == rm_tutorial
 {
@@ -61,7 +61,7 @@ else if room == rm_tutorial
 
 #event alarm0|Deactivation/Chunking and World Time
 alarm[0] = 1;
-if deactivation_enabled == false then exit;
+//if deactivation_enabled == false then exit;
 
 //- time control
 if interm == true 
@@ -84,12 +84,12 @@ if view_zoom != view_zoom_buffer
     //Update view_zoom
     view_zoom = view_zoom_buffer;
     
-    //-Deactivation and Reactivation updates every two tiles.
-    if (player_distance_amt_x > 32 || player_distance_amt_y > 32)
+    //-Deactivation and Reactivation updates every eight tiles.
+    if (player_distance_amt_x > 16*2 || player_distance_amt_y > 16*2)
     {
             
         //-Activate everything inside the camera view.
-        var outerBoundary = 10*16; //-"offscreen" boundary distance from view. 10 tiles
+        var outerBoundary = 10*16; //-"offscreen" boundary distance from view.
         var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
         
@@ -343,7 +343,8 @@ if raidProgress >= maxRaidProgress
 #event other_user1|CONSTRUCT THE WAVE
 
 //Locals
-var build_target = waveScale(1,4,2,6); //Gremlin variety
+var difficulty = wave + (kingDied_1*5);
+var build_target = waveScale(1,4,2,6)+floor(difficulty/wave); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
@@ -371,27 +372,53 @@ switch special_raidID
     {    
         //Build'a wave!
         var last_ran = 0;
+        var list_size = 5; //The size of the list of enemies we can choose from.
         
         while build_index < build_target
         {    
             //Encourage diversity!
-            var ran = irandom(4);
+            var ran = irandom(list_size);
             
             if ran == last_ran
             {
-                ran = irandom(4);
+                //Note: irandom(last_ran) will naturally make enemies higher on the list less likely to spawn.
+                ran = irandom(last_ran);
             }
             
             normal_array_size = array_length_1d(normalGremlins);
             special_array_size = array_length_1d(specialGremlins);
         
-            //Add Gremlins to the list as the wave number increases.
+            //Add Gremlins to the list as the difficulty number increases.
             switch ran
             {
                 case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
-                case 1: if wave >= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
-                case 2: if wave >= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 3: if kingDied_1 == true { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                case 1: if difficulty >= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                case 2: if difficulty >= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                case 3: if difficulty >= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                case 4: if difficulty >= 12 { normalGremlins[normal_array_size] = obj_stoneGremlin;} break;
+            }
+            
+            //Add a region specific enemy!
+            if build_index > 4
+            {
+                switch region
+                {
+                    case "GRASSLANDS":
+                    {
+                        switch ran
+                        {
+                            default: { if difficulty > 10 { normalGremlins[normal_array_size] = obj_sweetWorm; } } break;
+                            case 0: { if difficulty > 20 { specialGremlins[special_array_size] = obj_hornedHapp; } } break;
+                        }
+                    }
+                    break;
+                    
+                    case "COVE":
+                    {
+                        //Nothing to see here folks!
+                    }
+                    break;
+                }
             }
 
             //Only increase the build_index number if a gremlin was successfully added to a list.

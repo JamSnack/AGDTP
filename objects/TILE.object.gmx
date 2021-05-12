@@ -189,7 +189,8 @@ scr_deactivateOffscreen(id);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
+            <string>//if !insideView(x,y) then exit;
+draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
 if hp != maxHp then draw_sprite(spr_break,round((hp/maxHp)*10),x,y);
 
 </string>

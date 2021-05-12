@@ -153,7 +153,7 @@ if stateLock == false
         if distance_to_object(plrTile) &lt;= plrTileAggroRange &amp;&amp; collision_line(x,y,objective,objective,plrTile,false,true)
         {
             objective = plrTile;
-            state = MOVE; 
+            state = MOVE;
         } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
         {
             objective = instance_position(x,y+plrTileAggroRange,PLRTILE);

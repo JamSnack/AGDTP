@@ -252,7 +252,6 @@ else if time == 45
                 
             //(y+16) because the spawners spawn one tile above the ground
             instance_create(xInterval,yInterval,spawner_type);
-            print("spawner");
             
             xInterval = xInterval_Original;
             yInterval = yInterval_Original;

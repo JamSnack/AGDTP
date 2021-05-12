@@ -1,78 +1,45 @@
-// 2020-11-01 14:39:23
+// 2021-05-10 13:43:56
 #event create
 image_speed = 0;
 if y >= stoneLayer then light_level = 0 else light_level = 255;
-drawEffects = true;
 light_saturation = 0;
 knockType = noone;
 
+item = 0;
+amt = 0;
+type = 0;
+
+max_saturation = 80;
+light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
+alarm[1] = 10; //update light_color every frames.
+
+event_inherited();
+
+#event destroy
+if insideView(x,y) == true && !instance_exists(region_shifter)
+{
+    part_particles_create(particle_system,x,y,tile_frag,irandom_range(4,8));
+    scr_dropItem(item,amt,type,x,y+4,noone);
+    
+    //Update nearby player tiles.
+    scr_updateConnections(x,y);
+}
+
+
 #event alarm0|Reset tile
 hp = maxHp;
+
+#event alarm1|Update light_color
+light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
+alarm[1] = 20;
 
 #event other_user0|Deactivate offscreen
 scr_deactivateOffscreen(id);
 
 #event other_user1|Update sprite
-
-var ifRight = position_meeting(x+16,y,TILE_ALL);
-var ifLeft = position_meeting(x-16,y,TILE_ALL);
-var ifUp = position_meeting(x,y-16,TILE_ALL);
-var ifDown = position_meeting(x,y+16,TILE_ALL);
-
-
-
-//Check if grass or no.
-if !ifUp
-{
-        //Grass
-    if ifDown && (ifRight || ifLeft)
-    {
-        if ifRight && ifLeft
-        {
-            image_index = 1; //center
-        } else if !ifLeft
-        {
-            image_index = 0; //left
-        } else if !ifRight
-        {
-            image_index = 2; //right
-        }
-    } else
-    {
-        //Floating variants
-        if !ifLeft && !ifRight && !ifDown then image_index = 13; // Single
-        else if ifRight && ifLeft then image_index = 11; // Center
-        else if ifRight then image_index = 10; // Left
-        else if ifLeft then image_index = 12; // Right
-        else image_index = 14; //Single + ifDown;
-    }
-    
-} else if ifDown && ifUp
-{
-    //- Center pieces
-    if ifRight && ifLeft
-    {
-        image_index = 4; //center
-    } else if !ifLeft && ifRight
-    {
-        image_index = 3; //left
-    } else if !ifRight && ifLeft
-    {
-        image_index = 5; //right
-    } else {image_index = 15;}
-} else if ifUp
-{
-    if ifRight && ifLeft { image_index = 7; }
-    else if !ifRight && ifLeft { image_index = 8; }
-    else if !ifLeft && ifRight { image_index = 6; }
-    else { image_index = 9; }
-}
+scr_autoTile(id);
 
 #event draw
-if drawEffects == false then exit;
-
-var max_saturation = 80;
-var light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
-
+//if !insideView(x,y) then exit;
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
 if hp != maxHp then draw_sprite(spr_break,round((hp/maxHp)*10),x,y);

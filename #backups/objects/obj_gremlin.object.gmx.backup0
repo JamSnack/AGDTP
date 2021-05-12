@@ -1,4 +1,4 @@
-// 2021-02-19 14:29:02
+// 2021-05-11 23:53:56
 #event create|Initialize the Gremlin
 
 canActiveRegion = true;
@@ -65,7 +65,7 @@ if stateLock == false
         if distance_to_object(plrTile) <= plrTileAggroRange && collision_line(x,y,objective,objective,plrTile,false,true)
         {
             objective = plrTile;
-            state = MOVE; 
+            state = MOVE;
         } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
         {
             objective = instance_position(x,y+plrTileAggroRange,PLRTILE);

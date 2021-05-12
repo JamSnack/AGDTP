@@ -1,9 +1,10 @@
+// 2021-05-10 13:40:56
 ///insideView(x,y);
 //Returns true if the instance is inside the view.
 var xx = argument0;
 var yy = argument1;
 
-if (yy > view_yview && yy < view_yview+view_hview) && (xx > view_xview && xx < view_xview+view_wview)
+if (xx > view_xview && xx < view_xview+view_wview) && (yy > view_yview && yy < view_yview+view_hview)
 {
     return true;
 } else return false;

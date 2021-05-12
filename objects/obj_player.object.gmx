@@ -945,7 +945,7 @@ scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_beeMinion);
+            <string>instance_create(mouse_x,mouse_y,obj_gremlin);
 </string>
           </argument>
         </arguments>
