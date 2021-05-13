@@ -215,14 +215,14 @@ var _stall = 1;
 
 if state == "DIVE" && tile_punch > 0
 {
-    if place_meeting(x+hAccel,y,OBSTA)
+    if place_meeting_fast(hAccel,0,OBSTA)
     {
-        targetPlrTile = instance_place(x+hAccel,y,PLRTILE);
+        targetPlrTile = collision_point(x+hAccel,y,PLRTILE,false,true);
     }
     
-    if place_meeting(x,y+vAccel,OBSTA)
+    if place_meeting_fast(0,vAccel,OBSTA)
     {
-        targetPlrTile = instance_place(x,y+vAccel,PLRTILE);
+        targetPlrTile = collision_point(x,y+vAccel,PLRTILE,false,true);
     }
 } 
 else if tile_punch <= 0
@@ -254,18 +254,20 @@ if ( hForce != 0 || vForce != 0 )
     var hdir = sign(hForce);
     var vdir = sign(vForce);
 
-    if place_meeting(x+hForce,y,OBSTA)
+    if place_meeting_fast(hForce,0,OBSTA)
     {
-        while !place_meeting(x+hForce,y,OBSTA)
+        while !place_meeting_fast(hForce,0,OBSTA)
         { x+=hdir; }
+        hAccel += hForce;
         hForce = 0;
     }
     
-    if place_meeting(x,y+vForce,OBSTA)
+    if place_meeting_fast(0,vForce,OBSTA)
     {
-        while !place_meeting(x,y+vForce,OBSTA)
+        while !place_meeting_fast(0,vForce,OBSTA)
         { y+=vdir; }
     
+        vAccel += vForce;
         vForce = 0;
     }
     

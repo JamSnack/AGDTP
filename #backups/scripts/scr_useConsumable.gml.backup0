@@ -1,4 +1,4 @@
-// 2021-05-05 22:25:41
+// 2021-05-13 13:22:59
 /// scr_useConsumable(item)
 ///scr_useConsumable(item);
 //Return the object associated with the itemID of the tile to place.
@@ -55,13 +55,6 @@ switch item
     
         obj_player.hp = approach(_hp,_maxHp,10);
         scr_popMessage("10",global.fnt_Ui,3,c_green,x,y);
-        
-        armIndex = spr_armSwing;
-        armAngleGoal = 71;
-        armAngle = 70; //Straight up
-        armAngleRate = 0;
-        toolSprite = spr_itemDrops;
-        alarm[2] = 45;
     }
     break;
 }

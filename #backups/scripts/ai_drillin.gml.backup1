@@ -1,3 +1,4 @@
+// 2020-10-17 17:16:46
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -25,7 +26,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,2);
+            scr_hurt(other.damage,HURT_LONG,true,6);
         }
         
         state = WANDER;
@@ -36,7 +37,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,2);
+            scr_hurt(other.damage,HURT_LONG,true,6);
         }
     
         state = WANDER;
@@ -68,12 +69,11 @@ switch current_state
         //var variation; //How much the gremlin will vary horizontally (use sine waves);
         var dir = sign(objective.x-x);
         var vdir = sign(objective.y-y);
-        var hAccelRate = accelRate/2;
         
         //Horizontal Acceleration
         if dir == -1 //Objective is to the right
-        { if hAccel > -maxAccel then hAccel -= hAccelRate; }
-        else if dir == 1 { if hAccel < maxAccel then hAccel += hAccelRate; }
+        { if hAccel > -maxAccel then hAccel -= accelRate; }
+        else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
         
         //Vertical Acceleration
         if vdir == -1 //Objective is up
@@ -122,37 +122,6 @@ switch current_state
     }
     break;
 }
-}
-
-//KNOCKBACK
-//Knockback Collision ---------------------------------------------
-if ( hForce != 0 || vForce != 0 )
-{
-    var hdir = sign(hForce);
-    var vdir = sign(vForce);
-
-    if place_meeting_fast(hForce,0,OBSTA)
-    {
-        while !place_meeting_fast(hForce,0,OBSTA)
-        { x+=hdir; }
-        hAccel += hForce;
-        hForce = 0;
-    }
-    
-    if place_meeting_fast(0,vForce,OBSTA)
-    {
-        while !place_meeting_fast(0,vForce,OBSTA)
-        { y+=vdir; }
-    
-        vAccel += vForce;
-        vForce = 0;
-    }
-    
-    x+=hForce;
-    y+=vForce;
-    
-    vForce = approach(vForce,0,knock_resistance);
-    hForce = approach(hForce,0,knock_resistance);
 }
 
 //Point directions

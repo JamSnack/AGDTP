@@ -1,4 +1,4 @@
-// 2021-02-17 14:12:18
+// 2021-05-09 21:54:47
 ///ai_gremlin(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;

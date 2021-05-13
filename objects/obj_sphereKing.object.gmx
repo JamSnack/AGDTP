@@ -258,7 +258,7 @@ if point_distance(x,y,obj_player.x,obj_player.y) &lt; 10*16 //within 10 tiles
 } else target = obj_pie;
 
 
-ai_pylon(MOVE,spr_gremlinIdle,spr_gremlinWalk,1,target,atkBox);
+ai_shadowGremlin(MOVE,spr_gremlinIdle,0,spr_gremlinWalk,1,target,0,atkBox);
 if speed != 0 then speed = approach(speed,0,1);
 </string>
           </argument>

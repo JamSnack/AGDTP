@@ -1,4 +1,4 @@
-// 2021-05-05 22:27:57
+// 2021-05-13 13:25:40
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -121,7 +121,7 @@ if dead = false && g_over == false
     if vsp < maxGrav then vsp = vsp + grav;
     
     //Jump check
-    if  key_jump && ((position_meeting(x-3,y+spr_height+1,OBSTA) || position_meeting(x+2,y+spr_height+1,OBSTA)) || (position_meeting(x,y+spr_height+1,obj_platform)))
+    if  key_jump && ((collision_point(x-3,y+spr_height+1,OBSTA,false,true) || collision_point(x+2,y+spr_height+1,OBSTA,false,true)) || (collision_point(x,y+spr_height+1,obj_platform,true,true)))
     {
         vsp = vsp_jump;
     }
@@ -130,10 +130,10 @@ if dead = false && g_over == false
     var hdir = sign(hsp+hForce) //Horizontal Direction
     
     if hdir != 0 then image_xscale = hdir;
-    if hsp+hForce != 0 && (place_meeting(x+hsp+hForce,y,OBSTA))
+    if hsp+hForce != 0 && (place_meeting_fast(hsp+hForce,0,OBSTA))
     {
         //move as close as we can
-        while (!place_meeting(x+hdir,y,OBSTA))
+        while (!place_meeting_fast(hdir,0,OBSTA))
         { x = x + hdir; }
         hsp = 0;
         hForce = 0;
@@ -146,7 +146,7 @@ if dead = false && g_over == false
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
     //Ladder Logic
-    if vsp != 0 && place_meeting(x,y,obj_ladder)
+    if vsp != 0 && place_meeting_fast(0,0,obj_ladder)
     { vsp = 0; }
     
     
@@ -154,7 +154,7 @@ if dead = false && g_over == false
     if (vsp+vForce >= 0 && (position_meeting(x-3,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce < 0 && (position_meeting(x-3,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y-spr_height+vsp+vForce+1,OBSTA)))
     {
         //move as close as we can
-        while (!place_meeting(x,y+hdir,OBSTA))
+        while (!place_meeting_fast(0,hdir,OBSTA))
         { y = y+hdir; }
         vsp = 0;
         vForce = 0;
@@ -166,15 +166,15 @@ if dead = false && g_over == false
                 
         if _plat != noone && vsp+vForce > 0 && y+spr_height < _plat.y
         {
-            while(!place_meeting(x,y+sign(vsp+vForce),_plat))
+            while(!place_meeting_fast(0,sign(vsp+vForce),_plat))
             {
                 y += sign(vsp+vForce);
             }
             
-            if position_meeting(x,y+spr_height+vsp+vForce,_plat)
+            if collision_point(0,spr_height+vsp+vForce,_plat,true,true)
             {
                 //Check for cases w/ overlapping hitboxes
-                while(place_meeting(x,y,_plat))
+                while(place_meeting_fast(0,0,_plat))
                 {
                     y -= 1;
                 }
@@ -189,7 +189,7 @@ if dead = false && g_over == false
     vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
-    if vsp != 0 && !place_meeting(x,y+1,OBSTA)
+    if vsp != 0 && !place_meeting_fast(0,1,OBSTA)
     {
         if sprite_index != spr_playerJump then sprite_index = spr_playerJump;
         if armIndex != spr_armJump && armAngle == 0 then armIndex = spr_armJump;
@@ -360,7 +360,7 @@ if keyboard_check_released(global.key_interact)
 }
 
 //-----QUICK HEAL KEY----------
-if hp < maxHp keyboard_check_released(global.key_quick_heal) && room == rm_zero
+if hp < maxHp && keyboard_check_released(global.key_quick_heal) && room == rm_zero
 {
     var heal_list = array_create(1);
     heal_list[0] = ITEMID.cons_treeFruit;
@@ -379,8 +379,8 @@ if hp < maxHp keyboard_check_released(global.key_quick_heal) && room == rm_zero
 }
 
 #event collision:obj_ladder
-if !place_meeting(x,y-climbSpeed,OBSTA) && key_jump then y-=climbSpeed
-else if !place_meeting(x,y+climbSpeed,OBSTA) && key_down then y+=climbSpeed;
+if !place_meeting_fast(0,-climbSpeed,OBSTA) && key_jump then y-=climbSpeed
+else if !place_meeting_fast(0,climbSpeed,OBSTA) && key_down then y+=climbSpeed;
 
 platformCollide = false;
 
@@ -606,7 +606,7 @@ if armOffset == 0
 
 
 #event keyrelease:vk_numpad1
-instance_create(mouse_x,mouse_y,obj_sweetWorm);
+instance_create(mouse_x,mouse_y,obj_gremlin);
 
 #event keyrelease:vk_numpad3
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);

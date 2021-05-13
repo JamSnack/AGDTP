@@ -111,7 +111,7 @@ if hForce != 0
 var targetPlrTile = noone;
 var _stall = 1;
 
-if !place_meeting(x+hAccel+hForce,y,OBSTA)
+if !place_meeting_fast(hAccel+hForce,0,OBSTA)
 { x += hAccel+hForce; }
 else if hForce == 0
 {
@@ -122,7 +122,7 @@ else if hForce == 0
     hAccel = -hAccel;
 }
 
-if !place_meeting(x,y+vAccel+vForce,OBSTA)
+if !place_meeting_fast(0,vAccel+vForce,OBSTA)
 { y += vAccel+vForce; }
 else if vForce == 0
 {

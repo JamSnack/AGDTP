@@ -105,18 +105,20 @@ if ( hForce != 0 || vForce != 0 )
     var hdir = sign(hForce);
     var vdir = sign(vForce);
 
-    if place_meeting(x+hForce,y,OBSTA)
+    if place_meeting_fast(hForce,0,OBSTA)
     {
-        while !place_meeting(x+hForce,y,OBSTA)
+        while !place_meeting_fast(hForce,0,OBSTA)
         { x+=hdir; }
+        hAccel += hForce;
         hForce = 0;
     }
     
-    if place_meeting(x,y+vForce,OBSTA)
+    if place_meeting_fast(0,vForce,OBSTA)
     {
-        while !place_meeting(x,y+vForce,OBSTA)
+        while !place_meeting_fast(0,vForce,OBSTA)
         { y+=vdir; }
     
+        vAccel += vForce;
         vForce = 0;
     }
     

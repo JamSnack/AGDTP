@@ -111,7 +111,6 @@ with type //TILE or PLRTILE
                 } else alarm[0] = room_speed*5;
             }
         }
-        
     }
 }
 </string>

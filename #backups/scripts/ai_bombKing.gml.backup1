@@ -1,10 +1,13 @@
-// 2020-11-11 18:35:33
-///ai_bombKing(state,speed,objective,jumpSpeed,attackBox);
+// 2021-05-13 11:11:19
+///ai_bombKing(state,idle_,jump_sprite,move_sprite,speed,objective,jumpSpeed,attackBox);
 var current_state = argument0;
-var spd = argument1;
-var objective = argument2;
-var jump_speed = argument3;
-var atkBox = (argument4)/2;
+var idle_sprite = argument1;
+var jump_sprite = argument2;
+var move_sprite = argument3;
+var spd = argument4;
+var objective = argument5;
+var jump_speed = argument6;
+var atkBox = (argument7)/2;
 
 //Boss stuff.
 var bombRing = collision_circle(x,y,atkBox/2,PLRTILE,false,true);
@@ -66,7 +69,7 @@ switch current_state
         x += hAccel;
         y += vAccel;
         
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
     }
     break;
@@ -75,7 +78,7 @@ switch current_state
     {
         //Bobbing animation
         var dir = sign(objective.x-x);
-        image_xscale = dir;
+        image_xscale = dir*scale;
         
         bobAmt += bobRate*bobLinearDir;
         
@@ -103,18 +106,20 @@ if ( hForce != 0 || vForce != 0 )
     var hdir = sign(hForce);
     var vdir = sign(vForce);
 
-    if place_meeting(x+hForce,y,OBSTA)
+    if place_meeting_fast(hForce,0,OBSTA)
     {
-        while !place_meeting(x+hForce,y,OBSTA)
+        while !place_meeting_fast(hForce,0,OBSTA)
         { x+=hdir; }
+        hspd += hForce;
         hForce = 0;
     }
     
-    if place_meeting(x,y+vForce,OBSTA)
+    if place_meeting_fast(0,vForce,OBSTA)
     {
-        while !place_meeting(x,y+vForce,OBSTA)
+        while !place_meeting_fast(0,vForce,OBSTA)
         { y+=vdir; }
     
+        vspd += vForce;
         vForce = 0;
     }
     

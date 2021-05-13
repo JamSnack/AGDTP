@@ -1,4 +1,4 @@
-// 2021-05-13 11:12:59
+// 2021-05-13 11:10:27
 ///ai_pylon(state,idle_sprite,move_sprite,speed,objective,attackBox);
 var current_state = argument0;
 var idle_sprite = argument1;
@@ -104,7 +104,7 @@ if ( hForce != 0 || vForce != 0 )
     {
         while !place_meeting_fast(hForce,0,OBSTA)
         { x+=hdir; }
-        hAccel += hForce;
+        hspd += hForce;
         hForce = 0;
     }
     
@@ -113,7 +113,7 @@ if ( hForce != 0 || vForce != 0 )
         while !place_meeting_fast(0,vForce,OBSTA)
         { y+=vdir; }
     
-        vAccel += vForce;
+        vspd += vForce;
         vForce = 0;
     }
     
