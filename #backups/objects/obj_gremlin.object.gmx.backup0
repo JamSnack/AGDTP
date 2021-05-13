@@ -1,4 +1,4 @@
-// 2021-05-11 23:53:56
+// 2021-05-13 10:40:45
 #event create|Initialize the Gremlin
 
 canActiveRegion = true;
@@ -86,3 +86,9 @@ if stateLock == false
 }
 if instance_exists(objective) 
 { ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,0.8,objective,-4,atkBox); }
+
+#event draw
+draw_self();
+draw_text(x,y+10,string(state));
+draw_text(x-20,y+15,"hfor: "+string(hForce));
+draw_text(x+20,y+15,"vfor: "+string(vForce));

@@ -197,7 +197,9 @@ if vForce == 0 && hForce == 0
                 {
                     //Jump if vsp = 0 else turn around.
                     if vsp == 0
-                    { vsp = jump_speed; } 
+                    { 
+                        vsp = jump_speed; 
+                    } 
                     else { image_xscale = -image_xscale; hspd = 0; }
                 }
             } else state = MOVE;
@@ -338,6 +340,7 @@ else if ( hForce != 0 || vForce != 0 )
     {
         while hdir != 0 && !place_meeting_fast(hdir,0,OBSTA)  
         { x+=hdir; }
+        hspd += hForce;
         hForce = 0;
     }
     
@@ -354,7 +357,7 @@ else if ( hForce != 0 || vForce != 0 )
     x+=(hForce);
     y+=(vForce);
     
-    if position_meeting(x,y+spr_height+1,OBSTA)
+    if collision_point(x,y+spr_height+1,OBSTA,false,true)
     {
        hForce = approach(hForce,0,knock_resistance);
     }
