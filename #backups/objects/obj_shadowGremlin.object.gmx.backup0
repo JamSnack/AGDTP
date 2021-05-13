@@ -1,4 +1,4 @@
-// 2021-02-17 14:33:55
+// 2021-05-13 13:53:50
 #event create|Initialize the Gremlin
 canActiveRegion = true;
 scale = 1;
@@ -45,7 +45,8 @@ if raid_boss = true
     knock_resistance += 0.25;
     deathSound = snd_enemydie_boss;
     maxHp = 50+waveScale(10,5,0,125);
-    hp = maxHp
+    hp = maxHp;
+    print("SHADOW GREMLIN BOSS: "+string(id));
 }
 
 image_xscale = scale;

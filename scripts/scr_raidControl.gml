@@ -86,7 +86,7 @@ switch presetSettings
         //---------- Normal Raid settings ---------
         // - 5% Chance to turn into a special raid.
         //#region Special Raids
-        if irandom(100) <= 10 && wave > 2
+        if irandom(10) <= 10 && wave > 2
         {
             //Special raids
             special_raidID = choose("SR_Shadow");
@@ -116,6 +116,9 @@ switch presetSettings
                 break;
             }
             break;
+            
+            //We need to construct a new wave based on the special wave.
+            with worldControl event_user(1);
         }
         //#endregion
         else
@@ -257,7 +260,6 @@ worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;
 worldControl.maxGrem = maxGrem;
 worldControl.raidBoss = raidBoss;
-worldControl.raidBossID = bossID;
 worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy

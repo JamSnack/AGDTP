@@ -1,4 +1,4 @@
-// 2021-05-13 10:51:51
+// 2021-05-13 10:52:14
 ///scr_hurt(damage,time,knockback,knockAmt);
 if gameOver == true then exit;
 
@@ -91,12 +91,12 @@ if knock == true && knockType != noone
     {
         if place_meeting_fast(hForce,0,OBSTA)
         {
-            //hForce = 0;
+            hForce = 0;
         }
         
         if place_meeting_fast(0,vForce,OBSTA)
         {
-            //vForce = 0;
+            vForce = 0;
         }
     }
 }

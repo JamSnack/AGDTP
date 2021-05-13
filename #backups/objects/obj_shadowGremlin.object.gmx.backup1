@@ -1,17 +1,18 @@
-// 2020-10-16 21:09:00
+// 2021-05-13 13:53:01
 #event create|Initialize the Gremlin
 canActiveRegion = true;
 scale = 1;
 
 canHurt = true;
-hp = 12;
+maxHp = 12;
+hp = maxHp;
 image_speed = 15/60;
 state = WANDER;
 stunned = false;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-damage = 8; //Attack damage.
+damage = 5; //Attack damage.
 
 hurtAlarm = 1;
 friction = DEF_FRIC;
@@ -23,30 +24,57 @@ stateLockAlarm = 2;
 aggroRange = 16*8; //8 tiles
 hAccel = 0;
 vAccel = 0;
-maxAccel = 3;
-accelRate = 0.1;
+maxAccel = 2.5;
+accelRate = 0.08;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
 
-image_xscale = sign(target.x-x);
-point_direction(x,y,target.x,target.y);
+image_xscale = sign(target.x-x)*scale;
 
 event_inherited();
 knockType = "FLY";
-knock_resistance = 0.05;
+knockback_resistance = 0.1;
+deathSound = snd_enemydie_ghost;
+death_gib = part_nullGib;
+print("SHADOW CREATED")
 
-#event destroy
-var c = irandom(100);
-
-if c <= 10 then scr_dropItem(ITEMID.item_gremEssence,1,0,x,y-4,noone); //~10% chance
-if worldControl.special_raidID == "SR_Shadow" && c >= 99 
+if raid_boss = true
 {
-    scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
-    scr_playSound(obj_player.localEmitter,snd_rareItem,false,8,x,y);
+    scale = 3;
+    maxAccel -= 0.5;
+    knock_resistance += 0.25;
+    deathSound = snd_enemydie_boss;
+    maxHp = 50+waveScale(10,5,0,125);
+    hp = maxHp;
+    print("SHADOW GREMLIN BOSS: "+string(id));
 }
 
+image_xscale = scale;
+image_yscale = scale;
+
+while place_meeting(x,y,OBSTA)
+{ y -= 1; }
+
+#event destroy
 event_inherited();
+
+if dropItem != true then exit;
+
+var c = irandom(100);
+
+if c <= 10 then scr_spawnEssence(1,10,1);//~10% chance
+if worldControl.special_raidID == "SR_Shadow" && c >= 99 && insideView(x,y) == true
+{
+    scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
+    scr_playSound(snd_rareItem,false,8,x,y,1);
+}
+
+if raid_boss == true
+{
+    if c >= 80
+    { scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone); }
+}
 
 #event alarm1|Reset hurt
 canHurt = true;
@@ -84,3 +112,7 @@ objective = target;
 if instance_exists(objective) 
 { ai_shadowGremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); } 
 else target = obj_pie;
+
+
+//----Despawn Check-----------
+if position_meeting(x,y,OBSTA) then instance_destroy();

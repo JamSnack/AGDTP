@@ -1,4 +1,4 @@
-// 2021-05-10 13:35:11
+// 2021-05-13 13:44:31
 #event create|Initialize world variables
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
 grav = 0.350;
@@ -364,6 +364,7 @@ switch special_raidID
     case "SR_Shadow":
     {
         specialChance = 1;
+        normalGremlins[0] = obj_shadowGremlin;
         specialGremlins[0] = obj_shadowGremlin;
     }
     break;

@@ -1,3 +1,4 @@
+/// new_raidBoss(desired_boss)
 ///new_raidBoss(desired_boss);
 //desired_boss: leave as '0' if no boss is desired. This will overwrite the boss generation.
 var desired_boss = argument0;
@@ -48,6 +49,8 @@ while true
         g.raid_boss = true;
         
         //Reinitialize the gremlin, buffing it.
+        worldControl.raidBossID = g;
+        with g { event_perform(ev_create,0); }
         return g; //return the ID before checking for the ID :P
         
         break;

@@ -439,6 +439,7 @@ switch special_raidID
     case "SR_Shadow":
     {
         specialChance = 1;
+        normalGremlins[0] = obj_shadowGremlin;
         specialGremlins[0] = obj_shadowGremlin;
     }
     break;
