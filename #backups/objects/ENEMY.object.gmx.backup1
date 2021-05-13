@@ -1,4 +1,4 @@
-// 2020-10-19 17:37:43
+// 2021-05-13 14:55:18
 #event create
 stateLock = false; //Lock the enemy in its current state.
 knockType = "LAND";
@@ -9,27 +9,40 @@ vspd = 0;
 knock_resistance = 0.2;
 agility = 0.1;
 dropItem = true;
+death_gib = part_gib;
+canDespawn = true;
 
 //Prevent spawning inside tiles.
-while place_meeting(x,y,OBSTA) y -= 16;
-
-//Audio
-localEmitter = audio_emitter_create();
-audio_emitter_position(localEmitter,x,y,0);
-audio_emitter_gain(localEmitter,4); //volume
+while place_meeting_fast(0,0,OBSTA) y -= 16;
 
 deathSound = snd_enemydie_monster;
 
+//Change some stats for a true boss fight;
+if worldControl.raidBossID == id
+{
+    print("raidBOSS");
+    raid_boss = true;
+    maxHp += (maxHp/2); //extra 50% hp
+    hp = maxHp;
+    scale += 0.1;
+    image_xscale = scale;
+    image_yscale = scale;
+} else raid_boss = false;
+
 #event destroy|Destroy Audio Emitter
-if deathSound != noone && insideView() == true then scr_playSound(obj_player.localEmitter,deathSound,false,8,x,y);
-audio_emitter_free(localEmitter);
+if deathSound != noone && insideView(x,y) == true 
+{
+    scr_playSound(deathSound,false,8,x,y,1);
+    
+    part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
+}
 
 #event alarm0
 var outerBoundary = 5*16; //Slightly larger than the boundary used in activation. (4 tiles).
 
-if !insideView()
+if insideView(x,y) == false
 {
-    despawn = true;
+    dropItem = false;
     instance_destroy();
 }
 
@@ -37,7 +50,7 @@ if !insideView()
 instance_destroy();
 
 #event other_user0|Hit Event
-scr_playSound(localEmitter,snd_hit,false,4,x,y);
+scr_playSound(snd_hit,false,4,x,y,0.8);
 
 //Death check
 if hp <= 0 then instance_destroy();

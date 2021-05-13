@@ -1,9 +1,10 @@
-// 2021-05-13 13:22:59
+// 2021-05-13 14:00:17
 /// scr_useConsumable(item)
 ///scr_useConsumable(item);
 //Return the object associated with the itemID of the tile to place.
 #args item
 
+/*
 toolReady = false;
 armIndex = spr_armSwing;
 armAngleGoal = 71;
@@ -11,6 +12,7 @@ armAngle = 70; //Straight up
 armAngleRate = 0;
 toolSprite = spr_copperOre;
 alarm[2] = room_speed;
+*/
 
 switch item
 {

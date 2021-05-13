@@ -96,12 +96,12 @@ switch current_state
 //-------------Conflate vForce and hForce for calculation---------------------
 if vForce != 0 
 { 
-    vForce = approach(vForce,0,knockback_resistance);
+    vForce = approach(vForce,0,knock_resistance);
 }
 
 if hForce != 0
 {
-    hForce = approach(hForce,0,knockback_resistance);
+    hForce = approach(hForce,0,knock_resistance);
 }
 
 

@@ -1,4 +1,4 @@
-// 2021-05-13 11:27:16
+// 2021-05-13 14:35:52
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
@@ -20,7 +20,7 @@ target = obj_pie; //Target priority.
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 0;
+aggroRange = 16*8;
 
 stateLock = false;
 

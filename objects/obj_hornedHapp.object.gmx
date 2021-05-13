@@ -60,7 +60,7 @@ image_xscale = sign(target.x-x)*scale;
 
 event_inherited();
 knockType = "FLY";
-knockback_resistance = 0.1;
+knock_resistance = 0.1;
 deathSound = snd_enemydie_monster;
 death_gib = part_nullGib;
 

@@ -35,12 +35,9 @@ if canActiveRegion == true
 
 
 //Gremblock spawning.
-if place_meeting(x,y,GREM_BLOCK)
-{
-    while place_meeting(x,y,GREM_BLOCK)
-    {
-        y-=1;
-    }
+if instance_exists(GREM_BLOCK)
+{ 
+    while place_meeting_fast(0,0,GREM_BLOCK) { y -= 16; }
 }
 </string>
           </argument>

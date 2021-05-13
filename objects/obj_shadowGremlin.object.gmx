@@ -60,7 +60,7 @@ image_xscale = sign(target.x-x)*scale;
 
 event_inherited();
 knockType = "FLY";
-knockback_resistance = 0.1;
+knock_resistance = 0.1;
 deathSound = snd_enemydie_ghost;
 death_gib = part_nullGib;
 
@@ -72,7 +72,7 @@ if raid_boss = true
     deathSound = snd_enemydie_boss;
     maxHp = 50+waveScale(10,5,0,125);
     hp = maxHp;
-    print("SHADOW GREMLIN BOSS: "+string(id));
+    //print("SHADOW GREMLIN BOSS: "+string(id));
 }
 
 image_xscale = scale;

@@ -117,7 +117,7 @@ canHurt = true;
 
 if hp &lt;= 0 then instance_destroy();
 
-print('TILE HIT');
+//print('TILE HIT');
 </string>
           </argument>
         </arguments>

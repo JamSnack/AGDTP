@@ -1,7 +1,7 @@
-// 2020-11-12 17:34:07
+// 2021-05-13 14:02:43
 #event create
 state = 0; //Explode outwards.
-angle = irandom_range(70,110);
+angle = irandom(360);
 image_speed = 0;
 direction = angle;
 image_angle = angle;
@@ -22,7 +22,7 @@ bobAltitude = 2;
 //deactivate if the game is loaded.
 if instance_exists(obj_player) then scr_deactivateOffscreen(id);
 
-while place_meeting(x,y,FLATLAND) y-=16;
+while place_meeting_fast(0,0,FLATLAND) y-=16;
 
 #event destroy
 //if tags != noone then ds_list_destroy(tags);
@@ -47,7 +47,7 @@ switch state
     case 0:
     {
         //Angle collision checks
-        if place_meeting(lengthdir_x(speed,angle),lengthdir_y(speed,angle),OBSTA)
+        if place_meeting_fast(lengthdir_x(speed,angle),lengthdir_y(speed,angle),OBSTA)
             {
                 speed = 0;
                 state = 1;
@@ -61,20 +61,20 @@ switch state
     case 1:
     {
         //Fall to the ground
-        if !place_meeting(x,y+1,OBSTA)
+        if !place_meeting_fast(0,1,OBSTA)
         {
             if vsp < maxGrav then vsp += grav;
             
-            if place_meeting(x,y+vsp,OBSTA)
+            if place_meeting_fast(0,vsp,OBSTA)
             {
-                while !place_meeting(x,y+1,OBSTA)
+                while !place_meeting_fast(0,1,OBSTA)
                 { y+=1; }
                 
                 vsp = 0;
                 exit;
-            } else if place_meeting(x,y+vsp,obj_platform)
+            } else if place_meeting_fast(0,vsp,obj_platform)
             {
-                while !place_meeting(x,y+1,obj_platform)
+                while !place_meeting_fast(0,1,obj_platform)
                 { y+=1; }
                 
                 vsp = 0;
@@ -122,7 +122,7 @@ WAVE TO INTERMISSION.
 if scr_invenAddItem(image_index,amt,type,tags) != -1 
 {
     instance_destroy();
-    scr_playSound(obj_player.localEmitter,snd_itemPickup,false,10,obj_player.x,obj_player.y);
+    audio_play_sound(snd_itemPickup,10,false);
 }
 else 
 {alarm[0] = room_speed*2; canPickUp = false;}

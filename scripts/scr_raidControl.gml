@@ -86,7 +86,7 @@ switch presetSettings
         //---------- Normal Raid settings ---------
         // - 5% Chance to turn into a special raid.
         //#region Special Raids
-        if irandom(10) <= 10 && wave > 2
+        if irandom(10) <= 1 && wave > 2
         {
             //Special raids
             special_raidID = choose("SR_Shadow");

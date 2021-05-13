@@ -1,0 +1,49 @@
+// 2021-05-13 14:55:12
+#event create
+event_inherited();
+
+if canActiveRegion == true
+{
+    if interm == false && target == obj_pie
+    { enemyActiveList[array_length_1d(enemyActiveList)] = id; }
+}
+
+
+//Gremblock spawning.
+if instance_exists(GREM_BLOCK)
+{ 
+    while place_meeting_fast(0,0,GREM_BLOCK) {y -= 16; }
+}
+
+#event destroy|Count as raid kill if within parameters
+if interm == false
+{
+    var raidBoss = worldControl.raidBoss;
+
+    if visible == true
+    {
+        if x <= RAIDBOUND_Upper && x >= RAIDBOUND_Lower && y < stoneLayer &&
+        !(raidProgress == maxRaidProgress-1 && raidBoss == true)
+        { raidProgress += 1; with worldControl event_user(0); }
+    }
+    
+    if worldControl.raidBossID == id
+    {
+        worldControl.raidBoss = false;
+        worldControl.raidBossID = noone;
+    }
+}
+
+event_inherited();
+
+//Roll for Tag drops
+var r = irandom(300);
+
+//-Bouncy Tag
+if r == 1 
+{ 
+    scr_playSound(snd_rareItem,false,8,x,y,1);
+    var bTag = ds_list_create();
+    ds_list_add(bTag,"Bouncy");
+    scr_dropItem(ITEMID.item_modTag,1,ITEMTYPE.def,x,y,bTag);
+}

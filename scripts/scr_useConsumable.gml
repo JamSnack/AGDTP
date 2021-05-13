@@ -3,6 +3,7 @@
 //Return the object associated with the itemID of the tile to place.
 var item = argument0;
 
+/*
 toolReady = false;
 armIndex = spr_armSwing;
 armAngleGoal = 71;
@@ -10,6 +11,7 @@ armAngle = 70; //Straight up
 armAngleRate = 0;
 toolSprite = spr_copperOre;
 alarm[2] = room_speed;
+*/
 
 switch item
 {

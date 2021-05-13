@@ -46,7 +46,7 @@ target = obj_pie; //Target priority.
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 0;
+aggroRange = 16*8;
 
 stateLock = false;
 
@@ -90,6 +90,9 @@ if raid_boss == true
     accelRate += 0.01;
     spwnRate-=0.25;
 }
+
+//Prevent spawning inside tiles.
+while place_meeting_fast(0,0,OBSTA) y -= 16;
 
 image_xscale = scale;
 image_yscale = scale;

@@ -47,7 +47,7 @@ bobAltitude = 2;
 //deactivate if the game is loaded.
 if instance_exists(obj_player) then scr_deactivateOffscreen(id);
 
-while place_meeting(x,y,FLATLAND) y-=16;
+while place_meeting_fast(0,0,FLATLAND) y-=16;
 </string>
           </argument>
         </arguments>
@@ -169,7 +169,7 @@ switch state
     case 0:
     {
         //Angle collision checks
-        if place_meeting(lengthdir_x(speed,angle),lengthdir_y(speed,angle),OBSTA)
+        if place_meeting_fast(lengthdir_x(speed,angle),lengthdir_y(speed,angle),OBSTA)
             {
                 speed = 0;
                 state = 1;
@@ -183,20 +183,20 @@ switch state
     case 1:
     {
         //Fall to the ground
-        if !place_meeting(x,y+1,OBSTA)
+        if !place_meeting_fast(0,1,OBSTA)
         {
             if vsp &lt; maxGrav then vsp += grav;
             
-            if place_meeting(x,y+vsp,OBSTA)
+            if place_meeting_fast(0,vsp,OBSTA)
             {
-                while !place_meeting(x,y+1,OBSTA)
+                while !place_meeting_fast(0,1,OBSTA)
                 { y+=1; }
                 
                 vsp = 0;
                 exit;
-            } else if place_meeting(x,y+vsp,obj_platform)
+            } else if place_meeting_fast(0,vsp,obj_platform)
             {
-                while !place_meeting(x,y+1,obj_platform)
+                while !place_meeting_fast(0,1,obj_platform)
                 { y+=1; }
                 
                 vsp = 0;
