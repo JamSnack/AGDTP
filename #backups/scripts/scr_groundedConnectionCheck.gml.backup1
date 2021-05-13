@@ -1,3 +1,4 @@
+// 2021-05-13 13:34:52
 ///GROUND CONNECTION LOGIC
 
 /*Remember past tiles.
@@ -23,8 +24,8 @@ while true
     
     if leftFail == false
     {
-        if collision_point(x1,y1,PLRTILE,false,true) { ds_list_add(pastTiles,collision_point(x1,y1,PLRTILE,false,true)); };
-        if collision_point(x1,y1,PLR_NOCOL,false,true) { ds_list_add(pastTiles,collision_point(x1,y1,PLR_NOCOL,false,true)); };
+        if collision_point(x1,y1,PLRTILE,false,true) { ds_list_add(pastTiles,instance_position(x1,y1,PLRTILE)); };
+        if collision_point(x1,y1,PLR_NOCOL,false,true) { ds_list_add(pastTiles,instance_position(x1,y1,PLR_NOCOL)); };
     
         //Iterator, down-left-up-right priority.
         
@@ -48,19 +49,19 @@ while true
             
         //Up
         else if collision_point(x1,y1-16,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1-16,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1-16,PLRTILE)) == -1 
             { y1 -= 16; continue; }
         else if collision_point(x1,y1-16,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1-16,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1-16,PLR_NOCOL)) == -1 
             { y1 -= 16; continue; }               
             
             
         //Right
         else if collision_point(x1+16,y1,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1+16,y1,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1+16,y1,PLRTILE)) == -1 
             { x1 += 16; continue; }
         else if collision_point(x1+16,y1,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1+16,y1,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1+16,y1,PLR_NOCOL)) == -1 
             { x1 += 16; continue; }       
             
             
@@ -82,41 +83,41 @@ while true
     ------------------
         */
     {
-        if collision_point(x1,y1,PLRTILE,false,true) { ds_list_add(pastTiles,collision_point(x1,y1,PLRTILE,false,true)); };
-        if collision_point(x1,y1,PLR_NOCOL,false,true) { ds_list_add(pastTiles,collision_point(x1,y1,PLR_NOCOL,false,true)); };
+        if collision_point(x1,y1,PLRTILE,false,true) { ds_list_add(pastTiles,instance_position(x1,y1,PLRTILE)); };
+        if collision_point(x1,y1,PLR_NOCOL,false,true) { ds_list_add(pastTiles,instance_position(x1,y1,PLR_NOCOL)); };
     
         //Iterator, down-right-up-left priority.
         
         //Down
         if collision_point(x1,y1+16,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1+16,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1+16,PLRTILE)) == -1 
             { y1 += 16; continue; }
         else if collision_point(x1,y1+16,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1+16,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1+16,PLR_NOCOL)) == -1 
             { y1 += 16; continue; }
               
         //Right
         else if collision_point(x1+16,y1,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1+16,y1,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1+16,y1,PLRTILE)) == -1 
             { x1 += 16; continue; }
         else if collision_point(x1+16,y1,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1+16,y1,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1+16,y1,PLR_NOCOL)) == -1 
             { x1 += 16; continue; } 
             
         //Up
         else if collision_point(x1,y1-16,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1-16,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1-16,PLRTILE)) == -1 
             { y1 -= 16; continue; }
         else if collision_point(x1,y1-16,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1,y1-16,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1,y1-16,PLR_NOCOL)) == -1 
             { y1 -= 16; continue; }               
             
         //Left
         else if collision_point(x1-16,y1,PLRTILE,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1-16,y1,PLRTILE,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1-16,y1,PLRTILE)) == -1 
             { x1 -= 16; continue; }
         else if collision_point(x1-16,y1,PLR_NOCOL,false,true) && 
-        ds_list_find_index(pastTiles,collision_point(x1-16,y1,PLR_NOCOL,false,true)) == -1 
+        ds_list_find_index(pastTiles,instance_position(x1-16,y1,PLR_NOCOL)) == -1 
             { x1 -= 16; continue; } 
             
             
