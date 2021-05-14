@@ -127,6 +127,7 @@
         <sprite>sprites\spr_stoneGremlinJump</sprite>
       </sprites>
       <sprite>sprites\spr_hornedHapp</sprite>
+      <sprite>sprites\spr_hiveGrowth</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -225,7 +226,6 @@
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
-    <sprite>sprites\spr_hiveGrowth</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>

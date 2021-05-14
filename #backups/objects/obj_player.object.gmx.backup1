@@ -1,4 +1,4 @@
-// 2021-05-13 13:25:15
+// 2021-05-14 13:38:31
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -76,6 +76,8 @@ if tip_controls == false
 {
     scr_createTip(1.5,1.75,"controls");
 }
+
+scr_dropItem(ITEMID.acc_copperChestplate,0,ITEMTYPE.accessory,x,y,noone);
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
@@ -379,8 +381,8 @@ if hp < maxHp && keyboard_check_released(global.key_quick_heal) && room == rm_ze
 }
 
 #event collision:obj_ladder
-if !place_meeting(x,y-climbSpeed,OBSTA) && key_jump then y-=climbSpeed
-else if !place_meeting(x,y+climbSpeed,OBSTA) && key_down then y+=climbSpeed;
+if !place_meeting_fast(0,-climbSpeed,OBSTA) && key_jump then y-=climbSpeed
+else if !place_meeting_fast(0,climbSpeed,OBSTA) && key_down then y+=climbSpeed;
 
 platformCollide = false;
 
@@ -606,7 +608,7 @@ if armOffset == 0
 
 
 #event keyrelease:vk_numpad1
-instance_create(mouse_x,mouse_y,obj_gremlin);
+instance_create(mouse_x,mouse_y,obj_sphereKing);
 
 #event keyrelease:vk_numpad3
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);

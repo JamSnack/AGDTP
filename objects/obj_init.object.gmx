@@ -139,7 +139,8 @@ enum ITEMID
     acc_beehiveBackpack,
     cons_treeFruit,
     weapon_acornRifle,
-    item_sweetComb
+    item_sweetComb,
+    acc_copperChestplate
 }
 
 //Item Types

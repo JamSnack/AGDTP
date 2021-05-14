@@ -1,4 +1,4 @@
-// 2021-05-05 21:03:05
+// 2021-05-14 13:43:06
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -1657,10 +1657,11 @@ if cursorHoldItem == true && drawCursorItem == true
 //-------------------- Healthbars ---------------------------
 //#region
 var playerHp = obj_player.hp;
+var playerMaxHp = obj_player.maxHp;
 
 if playerHp > 0
-{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,playerHp,6); }
-draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
+{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,100*(playerHp/playerMaxHp),6); }
+draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
 
 //-Red Health vial
 draw_nineSliceBox(spr_ui_vial,viewWidth-110,9,viewWidth-10,16,0);

@@ -1,4 +1,4 @@
-// 2021-05-13 14:35:52
+// 2021-05-13 15:00:23
 #event create|Initialize the Pylon
 
 canActiveRegion = false;
@@ -64,6 +64,9 @@ if raid_boss == true
     accelRate += 0.01;
     spwnRate-=0.25;
 }
+
+//Prevent spawning inside tiles.
+while place_meeting_fast(0,0,OBSTA) y -= 16;
 
 image_xscale = scale;
 image_yscale = scale;

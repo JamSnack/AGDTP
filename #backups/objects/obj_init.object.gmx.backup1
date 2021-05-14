@@ -1,4 +1,4 @@
-// 2021-05-14 13:36:52
+// 2021-05-05 20:57:44
 #event create|Display Properties
 globalvar dev;
 dev = false; //Dev tool boolean.
@@ -113,8 +113,7 @@ enum ITEMID
     acc_beehiveBackpack,
     cons_treeFruit,
     weapon_acornRifle,
-    item_sweetComb,
-    acc_copperChestplate
+    item_sweetComb
 }
 
 //Item Types

@@ -1,4 +1,4 @@
-// 2021-05-13 13:25:40
+// 2021-05-14 13:44:50
 #event create|Initialize the player
 state = IDLE;
 hsp = 0; //current horizontal speed
@@ -606,7 +606,7 @@ if armOffset == 0
 
 
 #event keyrelease:vk_numpad1
-instance_create(mouse_x,mouse_y,obj_gremlin);
+instance_create(mouse_x,mouse_y,obj_sphereKing);
 
 #event keyrelease:vk_numpad3
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);

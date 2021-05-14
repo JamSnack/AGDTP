@@ -91,11 +91,11 @@ if raid_boss == true
     spwnRate-=0.25;
 }
 
-//Prevent spawning inside tiles.
-while place_meeting_fast(0,0,OBSTA) y -= 16;
-
 image_xscale = scale;
 image_yscale = scale;
+
+//Prevent spawning inside tiles.
+while place_meeting_fast(0,0,OBSTA) y -= 16;
 </string>
           </argument>
         </arguments>

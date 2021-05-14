@@ -1,4 +1,4 @@
-// 2021-05-05 21:01:13
+// 2021-05-14 13:42:38
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -1657,10 +1657,11 @@ if cursorHoldItem == true && drawCursorItem == true
 //-------------------- Healthbars ---------------------------
 //#region
 var playerHp = obj_player.hp;
+var playerMaxHp = obj_player.maxHp;
 
 if playerHp > 0
-{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,playerHp,6); }
-draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(obj_player.maxHp));
+{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,playerHp/playerMaxHp,6); }
+draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
 
 //-Red Health vial
 draw_nineSliceBox(spr_ui_vial,viewWidth-110,9,viewWidth-10,16,0);
@@ -1790,7 +1791,7 @@ else if keybindMenu_visible == true
     
     //-- quick heal
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+30);
-    draw_text(xx-32,yy+27,"Quick Heal: "+chr(global.key_interact));
+    draw_text(xx-32,yy+27,"Quick Heal: "+chr(global.key_quick_heal));
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
