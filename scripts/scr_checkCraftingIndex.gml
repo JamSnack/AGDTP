@@ -1,5 +1,5 @@
 ///scr_checkCraftingList(itemID);
-//Returns true if the item is on the list.
+//Returns true for an item if its blueprint is unlocked.
 
 var returnID = false;
 
@@ -17,6 +17,7 @@ switch argument0
     case ITEMID.tile_packedStone: { returnID = true; } break;
     case ITEMID.tile_battery: { returnID = true; } break;
     case ITEMID.weapon_acornRifle: { returnID = true; } break;
+    case ITEMID.acc_copperChestplate: { returnID = true; } break;
 }
 
 //NILMERG

@@ -1,5 +1,5 @@
-// 2021-01-25 13:32:09
-///scr_craftingToolTip(craftingTableSet,itemID);
+// 2021-01-25 13:32:19
+///scr_craftingToolTip(itemID);
 text[0] = "" //Item Name
 text[1] = ""; //Item Description
 

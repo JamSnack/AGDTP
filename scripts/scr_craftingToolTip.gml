@@ -19,4 +19,5 @@ switch argument0
     case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] = "Stab that stone and gather resources faster#than ever!"; text[2] = "Copper Ore x 20#Sweet Comb x 8" } break;
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] = "The striped boomerang."; text[2] = "Copper Ore x 15#Sweet Comb x 6" } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] = "Jump higher and hold more items!"; text[2] = "Satchel x 1#Sweet Comb x 5" } break;
+    case ITEMID.acc_copperChestplate: { text[0] = "Copper Chestplate"; text[1] = "Absorb more damage. +20 HP"; text[2] = "Copper Ore x 25" } break;
 }

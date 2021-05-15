@@ -1,6 +1,6 @@
-// 2021-01-26 14:35:35
+// 2021-05-15 12:10:19
 ///scr_checkCraftingList(itemID);
-//Returns true if the item is on the list.
+//Returns true for an item if its blueprint is unlocked.
 
 var returnID = false;
 
@@ -8,33 +8,29 @@ switch argument0
 {
     case ITEMID.tile_ladder: { returnID = true; } break;
     case ITEMID.tile_woodenStilt: { returnID = true; } break;
+    case ITEMID.weapon_greenSword: { returnID = true; } break;
+    case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
+    case ITEMID.tile_packedDirt: { returnID = true; } break;
+    case ITEMID.tile_copperTurret: { returnID = true; } break;
+    case ITEMID.cons_gremTalisman: { returnID = true; } break;
+    case ITEMID.tile_platform: { returnID = true; } break;
+    case ITEMID.cons_bomb: { returnID = true; } break;
+    case ITEMID.tile_packedStone: { returnID = true; } break;
+    case ITEMID.tile_battery: { returnID = true; } break;
+    case ITEMID.weapon_acornRifle: { returnID = true; } break;
+    case ITEMID.acc_copperChestplate: { returnID = true; } break;
 }
 
-if (instance_exists(obj_player) && instance_exists(obj_pie) && point_distance(obj_player.x,obj_player.y,obj_pie.x,obj_pie.y) <= 16*4) || room == rm_lobby //If 4 tiles or less away from the pie!
+//NILMERG
+if kingDied_1 == true
 {
     switch argument0
     {
-        case ITEMID.weapon_greenSword: { returnID = true; } break;
-        case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
-        case ITEMID.tile_packedDirt: { returnID = true; } break;
-        case ITEMID.tile_copperTurret: { returnID = true; } break;
-        case ITEMID.cons_gremTalisman: { returnID = true; } break;
-        case ITEMID.tile_platform: { returnID = true; } break;
-        case ITEMID.cons_bomb: { returnID = true; } break;
-        case ITEMID.tile_packedStone: { returnID = true; } break;
-        case ITEMID.tile_battery: { returnID = true; } break;
-        case ITEMID.weapon_acornRifle: { returnID = true; } break;
         case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
-    }
-    
-    //NILMERG
-    if kingDied_1 == true
-    {
-        switch argument0
-        {
-            case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
-        }
+        case ITEMID.acc_beehiveBackpack: { returnID = true; } break;
+        case ITEMID.weapon_beemerang: { returnID = true; } break;
     }
 }
+
 
 return returnID;

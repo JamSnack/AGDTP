@@ -66,6 +66,7 @@ if craft_filter_acc == false
     switch argument0
     {
         case ITEMID.acc_beehiveBackpack: { returnID = true; } break;
+        case ITEMID.acc_copperChestplate: { returnID = true; } break;
     }
 }
 

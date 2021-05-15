@@ -4,7 +4,7 @@ var matsAmt; // How much of the material to look for/consume.
 var itemID = argument0; //The ID of the item to craft.
 var amt_remove; //For material removing purposes.
 
-//ITEMS WITH AN AMOUNT OF '0' CANNOT BE USED AS A MATERIAL YET.
+//SET AMT OF ITEMS WITH AN AMT OF '0' TO '-1' IF USED AS A MATERIAL.
 
 switch itemID
 {
@@ -24,6 +24,7 @@ switch itemID
     case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.item_acorn; matsAmt[1] = 15; mats[2] = ITEMID.item_stick; matsAmt[2] = 100; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
     case ITEMID.weapon_beemerang: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 6; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
     case ITEMID.acc_beehiveBackpack: { mats[0] = ITEMID.acc_satchel; matsAmt[0] = -1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
+    case ITEMID.acc_copperChestplate: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 25; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
 }
 
 //Check the player's inventory.
