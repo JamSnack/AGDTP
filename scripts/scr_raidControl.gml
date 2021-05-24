@@ -193,7 +193,7 @@ else
 {
     switch region
     {
-        case "GRASSLANDS": { _music = snd_The_Grasslands; } break;
+        case "GRASSLANDS": { _music = choose(snd_The_Grasslands,snd_overworld_1); } break;
         case "COVE": { _music = snd_Salty_Paradise; } break;
     }
 }

@@ -1,14 +1,27 @@
-// 2020-10-17 17:17:14
-#event collision:TILE
-instance_destroy();
-
-#event collision:ENEMY
-with other 
-{   
-    scr_hurt(damage,DEF_HURT,true,4);
-    event_user(0);
-}
-instance_destroy();
-
+// 2021-05-24 13:20:02
 #event other_outside
 instance_destroy();
+
+#event step
+
+//Collisions
+
+if place_meeting_fast(0,0,TILE)
+{
+    instance_destroy();
+}
+
+//This is the same collision check used in place_meeting_fast. Here it is being used to return the ID of the enemy.
+var _enemy = collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,ENEMY,false,true);
+
+if instance_exists(_enemy)
+{
+    var _d = damage;
+    
+    with _enemy
+    {   
+        scr_hurt(_d,DEF_HURT,true,4);
+        event_user(0);
+    }
+    instance_destroy();
+}

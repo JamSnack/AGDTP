@@ -1,0 +1,57 @@
+// 2021-05-24 13:19:50
+#event create
+maxHp = 12;
+hp = maxHp;
+
+event_inherited();
+
+tileID = 12;
+type = 3;
+
+//Turret stuff
+target = 0;
+targetRange = 7*16; //7 Tiles
+fireRate = 0.75; //How many seconds are in-between shots.
+alarm[11] = 30;
+turretDirection = 0;
+ammoMax = 5;
+ammo = 0;
+
+#event alarm11|Attack/Target Enemy
+if instance_exists(ENEMY) && ammo > 0
+{
+    var nearestEnemy = instance_nearest(x,y,ENEMY);
+    
+    if distance_to_object(nearestEnemy) <= targetRange
+    {
+        target = nearestEnemy;
+        scr_turretBulletCreate(x,y,nearestEnemy,6,5,obj_turretBullet,spr_bullet);
+        turretDirection = point_direction(x,y,target.x,target.y);
+        ammo -= 1;
+        
+        //Maka sounds
+        scr_playSound(snd_turret_shoot,false,7,x,y,1);
+    }
+}
+
+if ammo < ammoMax && energy > 0
+{
+    energy -= 1;
+    ammo += 1;
+}
+
+alarm[11] = fireRate*room_speed;
+
+#event draw_end
+
+//Draw head
+draw_sprite_ext(spr_turretHead,0,x,y,1,1,turretDirection,c_white,1);
+
+//Draw Ammo
+if ammo != 0
+{
+    for(_am=0;_am<ammo;_am++)
+    {
+        draw_sprite(spr_ui_ammo,0,x-7+3*_am,y+8);
+    }
+}

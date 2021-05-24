@@ -1,0 +1,15 @@
+// 2021-05-24 12:35:34
+#event create
+distanceTraveled = 4; //Used to calculate "smear"
+x_previous = x;
+alarm[0] = 20;
+
+#event alarm0|Update bullet sprite
+distanceTraveled = abs(x_previous-x)/20;
+x_previous = x;
+
+alarm[0] = 20;
+
+#event draw
+//draw_self();
+draw_sprite_ext(spr_bullet,0,x,y,distanceTraveled,0.75,direction,c_white,1);

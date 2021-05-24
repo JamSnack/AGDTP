@@ -96,6 +96,8 @@ switch argument0
     case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "#A delectable little snack!#Heals 10 health points."; } break;
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "#A true marksman's humble beginning."; } break;
     case ITEMID.item_sweetComb: { text[0] = "Sweet Comb"; text[1] += "The prized treasure of the bees."; } break; 
+    case ITEMID.item_seashellMetal: { text[0] = "Seashell Metal"; text[1] += "A hard, lustrous seashell."; } break;
+    case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] += "'Yeah get 'em yeah'"; } break;  
 }
 
 //TAG TEXT

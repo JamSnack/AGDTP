@@ -142,11 +142,14 @@
         <sprite>sprites\spr_modBench</sprite>
         <sprite>sprites\spr_furnace</sprite>
         <sprite>sprites\spr_turretHead</sprite>
+        <sprite>sprites\spr_beeTurretHead</sprite>
+        <sprite>sprites\spr_beeTurretBase</sprite>
       </sprites>
       <sprite>sprites\spr_sapling</sprite>
       <sprite>sprites\spr_stoneTile</sprite>
       <sprite>sprites\spr_sandStoneTile</sprite>
       <sprite>sprites\spr_copperOre</sprite>
+      <sprite>sprites\spr_seashellMetal</sprite>
       <sprite>sprites\spr_essenceOre</sprite>
       <sprite>sprites\spr_essenceGlow</sprite>
       <sprite>sprites\spr_battery</sprite>
@@ -167,11 +170,13 @@
       <sprite>sprites\spr_projectile2</sprite>
       <sprite>sprites\spr_arrow</sprite>
       <sprite>sprites\spr_bullet</sprite>
+      <sprite>sprites\spr_beeBullet</sprite>
       <sprite>sprites\spr_rifleBullet</sprite>
       <sprite>sprites\spr_stinger</sprite>
     </sprites>
     <sprites name="Ui">
       <sprite>sprites\spr_ui_selectedBool</sprite>
+      <sprite>sprites\spr_bossDefeatedIcon</sprite>
       <sprite>sprites\spr_selectedSlot</sprite>
       <sprite>sprites\fnt_grem</sprite>
       <sprite>sprites\fnt_ui</sprite>
@@ -367,9 +372,17 @@
     <object>objects\obj_pie</object>
     <object>objects\obj_pieBetwixt</object>
     <object>objects\obj_lobbyPlatform</object>
-    <object>objects\obj_projectile</object>
-    <object>objects\obj_turretBullet</object>
-    <object>objects\obj_stinger</object>
+    <objects name="PROJECTILES">
+      <object>objects\BULLET</object>
+      <object>objects\obj_projectile</object>
+      <objects name="Enemy Projectiles">
+        <object>objects\obj_stinger</object>
+      </objects>
+      <objects name="Turret Projectiles">
+        <object>objects\obj_turretBullet</object>
+        <object>objects\obj_beeBullet</object>
+      </objects>
+    </objects>
     <objects name="Tiles">
       <object>objects\TILE</object>
       <object>objects\PLRTILE</object>
@@ -381,6 +394,7 @@
       <object>objects\obj_stone</object>
       <object>objects\obj_sandStone</object>
       <object>objects\obj_copperOre</object>
+      <object>objects\obj_seashellMetal</object>
       <object>objects\obj_essenceOre</object>
       <object>objects\obj_packedDirt</object>
       <object>objects\obj_packedStone</object>
@@ -394,11 +408,11 @@
       <object>objects\obj_nullLight</object>
       <object>objects\obj_chest</object>
       <object>objects\obj_copperTurret</object>
+      <object>objects\obj_beeTurret</object>
       <object>objects\obj_platform</object>
     </objects>
     <objects name="Parents">
       <object>objects\OBSTA</object>
-      <object>objects\BULLET</object>
       <object>objects\GREM_BLOCK</object>
       <object>objects\ANTI_TILE</object>
       <object>objects\INTERACT</object>

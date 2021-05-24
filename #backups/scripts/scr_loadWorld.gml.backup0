@@ -1,4 +1,4 @@
-// 2021-05-10 13:34:53
+// 2021-05-17 12:48:44
 /// scr_loadWorld(preset)
 ///scr_loadWorld(preset);
 randomize();
@@ -99,14 +99,14 @@ for (i=0;i<spawnAmt;i++)
             {
                 for (j=0;j<veinAmt;j++)
                 {
-                    while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
+                    while position_meeting(xInterval,yInterval,obj_seashellMetal) || yInterval <= oreHeight
                     { yInterval += choose(16,-16,0); xInterval += choose(16,-16); }
                     
                     //Replace tiles with Ore Tiles.
                     if position_meeting(xInterval,yInterval,TILE) 
                     {
                         with instance_position(xInterval,yInterval,TILE) instance_destroy();
-                        var t = instance_create(xInterval,yInterval,obj_copperOre);
+                        var t = instance_create(xInterval,yInterval,obj_seashellMetal);
                         
                         xInterval = xInterval_Original;
                         yInterval = yInterval_Original;

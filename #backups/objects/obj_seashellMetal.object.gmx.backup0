@@ -1,0 +1,12 @@
+// 2021-05-17 12:46:35
+#event create
+event_inherited();
+level = 1;
+maxHp = 8;
+hp = maxHp;
+
+tile_frag = part_stone_frag;
+
+item = ITEMID.item_seashellMetal;
+amt = 1;
+type = ITEMTYPE.def;

@@ -1,0 +1,13 @@
+// 2021-05-24 12:35:11
+#event create
+distanceTraveled = 4;
+x_previous = x;
+alarm[0] = 20;
+type = "BULLET"; //Normal copper turret bullet.
+
+#event alarm0|Update bullet sprite
+distanceTraveled = abs(x_previous-x)/20;
+x_previous = x;
+
+alarm[0] = 20;
+

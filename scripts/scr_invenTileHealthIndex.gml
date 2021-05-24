@@ -14,4 +14,5 @@ switch argument0
     case ITEMID.tile_woodenStilt: { return 10; } break;
     case ITEMID.item_acorn: { return 0; } break;
     case ITEMID.tile_battery: { return 15; } break;
+    case ITEMID.tile_beeTurret: { return 15; } break;
 }

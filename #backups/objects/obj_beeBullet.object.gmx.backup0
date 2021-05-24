@@ -1,0 +1,48 @@
+// 2021-05-24 13:36:26
+#event create
+distanceTraveled = 4; //Used to calculate "smear"
+x_previous = x;
+alarm[0] = 20;
+
+hAccel = 0;
+vAccel = 0;
+maxAccel = 3;
+accelRate = 0.5;
+
+#event alarm0|Update bullet sprite
+distanceTraveled = abs(x_previous-x)/20;
+x_previous = x;
+
+alarm[0] = 20;
+
+#event step
+event_inherited();
+
+if point_distance(x,y,ox,oy) > 16*2 && instance_exists(ENEMY)
+{
+    //Sphere behaviors
+    var _enemy = instance_nearest(x,y,ENEMY);
+    
+    image_angle = approach(image_angle,point_distance(x,y,_enemy.x,_enemy.y),(hAccel+vAccel)*3);
+
+    if _enemy != noone //if an enemy exists
+    { 
+        if distance_to_object(_enemy) <= 16*8
+        {
+            if speed != 0 then speed = approach(speed,0,1);
+        
+            //Direction
+            var dir = sign(_enemy.x-x);
+            var vdir = sign(_enemy.y-(y));
+            
+            //Horizontal Acceleration
+            hAccel = approach(hAccel,maxAccel*dir,accelRate);
+            
+            //Vertical Acceleration
+            vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        }
+    }
+}
+
+x += hAccel;
+y += vAccel;

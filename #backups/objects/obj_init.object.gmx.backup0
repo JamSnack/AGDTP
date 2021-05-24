@@ -1,4 +1,4 @@
-// 2021-05-14 13:36:52
+// 2021-05-17 12:46:18
 #event create|Display Properties
 globalvar dev;
 dev = false; //Dev tool boolean.
@@ -114,7 +114,8 @@ enum ITEMID
     cons_treeFruit,
     weapon_acornRifle,
     item_sweetComb,
-    acc_copperChestplate
+    acc_copperChestplate,
+    item_seashellMetal
 }
 
 //Item Types

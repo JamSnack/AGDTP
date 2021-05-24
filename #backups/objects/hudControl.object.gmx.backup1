@@ -1,4 +1,4 @@
-// 2021-05-14 13:42:38
+// 2021-05-17 11:49:05
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -1455,6 +1455,13 @@ if showSuperMenu == true
                     }
                 }
            }
+           
+           //------DIFFICULTY/BOSSES KILLED--------------
+           draw_text(_posX+12,_posY+177,"Badges: ")
+           if kingDied_1 == true
+           {
+               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+183);
+           }
         }
     }
     
@@ -1660,7 +1667,7 @@ var playerHp = obj_player.hp;
 var playerMaxHp = obj_player.maxHp;
 
 if playerHp > 0
-{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,playerHp/playerMaxHp,6); }
+{ draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,100*(playerHp/playerMaxHp),6); }
 draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
 
 //-Red Health vial

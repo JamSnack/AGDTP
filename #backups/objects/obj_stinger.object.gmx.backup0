@@ -1,0 +1,26 @@
+// 2021-05-24 13:20:01
+#event collision:obj_player
+instance_destroy();
+
+var d = dam;
+
+with other
+{
+    scr_hurt(d,DEF_HURT,true,3);
+}
+
+#event collision:TILE
+instance_destroy();
+
+#event collision:PLRTILE
+instance_destroy();
+
+var d = dam;
+
+with other
+{
+    scr_hurt(d,DEF_HURT,false,0);
+}
+
+#event other_outside
+instance_destroy();

@@ -1,11 +1,18 @@
-// 2020-10-15 16:34:50
+// 2021-05-24 12:50:24
 #event create|Initialize projectile
 localGrav = 0;
 deadProjectile = false;
+tags = noone;
+time = 0;
+origin_x = x;
+origin_y = y;
+canCollide = false;
 
 //Latent behaviors
 bBouncy = false;
+bHive = false;
 canBounce = true;
+canReverse = true;
 
 //- stab - init in script
 bStab = false;
@@ -16,18 +23,26 @@ armOffsetRate = 0;
 
 type = 0;
 
+//INITIALIZATION IS SHARED WITH scr_useWeapon.
+
 #event alarm0
 deadProjectile = false;
 
 #event alarm1|BEHAVIOR STUFF
-if canBounce == false then canBounce = true;
+if bBouncy == true then canBounce = true;
+
+if type == "BOOMERANG" && canReverse == true
+{
+    alarm[2] = room_speed*3;
+    canReverse = false;
+}
 
 #event alarm2|DESPAWN ALARM
 instance_destroy();
 
 #event step
 //--------Behavior Constants---------------
-image_angle = direction;
+if type != "BOOMERANG" then image_angle = direction;
 
 //--------------Behavior Characteristics---------------------------
 var lx = lengthdir_x(speed,direction);
@@ -35,17 +50,22 @@ var ly = lengthdir_y(speed,direction);
 
 // - Stab
 if bStab == true
-{
-    //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
-    var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
+{    
+    //Despawn and track the hitbox
+    if obj_player.armStabComplete == false && obj_player.dead == false
+    { 
+        //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+        var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
+        
+        //- prepare _dir for further processing...
+        if image_xscale == -1 then _dir = (_dir-180)*-1;
+        
+        direction = _dir;
     
-    //- prepare _dir for further processing...
-    if image_xscale == -1 then _dir = (_dir-180)*-1;
-    
-    direction = _dir;
-
-    x = obj_player.hitSyncX;
-    y = obj_player.hitSyncY;
+        x = obj_player.hitSyncX;
+        y = obj_player.hitSyncY;
+        alarm[2] = 4;
+    }
 }
 
 
@@ -94,55 +114,109 @@ if bBouncy == true
     }
 }
 
-
-//Sphere behaviors
-if type == "SPHERE"
+//TYPE BEHAVIORS:
+switch type
 {
-    var _enemy = instance_nearest(x,y,ENEMY);
-
-    if _enemy != noone //if an enemy exists
-    { 
-        if distance_to_object(_enemy) <= 16*8
+    case "SPHERE":
+    {
+        if time > 25
         {
-            if speed != 0 then speed = approach(speed,0,1);
+            //Sphere behaviors
+            var _enemy = instance_nearest(x,y,ENEMY);
         
-            //Direction
-            var dir = sign(_enemy.x-x);
-            var vdir = sign(_enemy.y-(y));
+            if _enemy != noone //if an enemy exists
+            { 
+                if distance_to_object(_enemy) <= 16*8
+                {
+                    if speed != 0 then speed = approach(speed,0,1);
+                
+                    //Direction
+                    var dir = sign(_enemy.x-x);
+                    var vdir = sign(_enemy.y-(y));
+                    
+                    //Horizontal Acceleration
+                    hAccel = approach(hAccel,maxAccel*dir,accelRate);
+                    
+                    //Vertical Acceleration
+                    vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+                }
+            }
+        }
+        
+        if place_meeting_fast(hAccel,0,OBSTA)
+        { hAccel=-hAccel; }
+                
+        if place_meeting_fast(0,vAccel,OBSTA)
+        { vAccel=-vAccel; }
+        
+        x += hAccel;
+        y += vAccel;
+    }
+    break;
+    
+    case "BOOMERANG":
+    {
+        if alarm[1] == -1 && canReverse == true
+        {
+            alarm[1] = room_speed*0.5;
+        }
+    
+        image_angle += 5*speed;
+        
+        if canReverse == false
+        {
+            speed = approach(speed,-oSpeed,0.5);
             
-            //Horizontal Acceleration
-            hAccel = approach(hAccel,maxAccel*dir,accelRate);
-            
-            //Vertical Acceleration
-            vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+            if point_distance(ox,oy,x,y) < 2
+            {
+                instance_destroy();
+            }
         }
     }
-    
-    if place_meeting(x+hAccel,y,OBSTA)
-    { hAccel=-hAccel; }
-            
-    if place_meeting(x,y+vAccel,OBSTA)
-    { vAccel=-vAccel; }
-    
-    x += hAccel;
-    y += vAccel;
+    break;
 }
 
 //Gravity
 if localGrav != 0 && !place_meeting(x,y+1,OBSTA)
 { vspeed += (localGrav); }
 
-#event collision:OBSTA
-if bBouncy == true then exit;
+//Time
+time += 1;
 
-if other.object_index != obj_nullLight
+//Collision
+if bBouncy == false && canCollide == true && !place_meeting_fast(0,0,obj_nullLight)
 {
-    //Kill these types of projectiles:
-    if (type == 1 || type == 2) then instance_destroy()
-    else if type == "SPHERE"
+    var col = place_meeting_fast(0,0,OBSTA);
+    
+    if col == true
     {
-        speed = 0;
+        switch type
+        {
+            case "SPHERE":
+            {
+                speed = 0;
+            }
+            break;
+            
+            case "BOOMERANG":
+            {
+                if canReverse == true
+                {
+                    if alarm[2] == -1 then alarm[2] = room_speed*3;
+                    canReverse = false;
+                }
+            }
+            break;
+            
+            default: instance_destroy();
+        }
     }
+}
+
+if canCollide == false
+{
+    //Turn on collision after the projectile has traveled for some pixels.
+    if distance_to_point(origin_x,origin_y) > 3 then canCollide = true;
 }
 
 #event collision:ENEMY
@@ -155,16 +229,35 @@ if other.canHurt == true
     
     with other 
     {
-        var dir = point_direction(x,y,other.x,other.y);
-        scr_hurt(d,DEF_HURT,true,k,dir); 
+        scr_hurt(d,DEF_HURT,true,k); 
         event_user(0); //register hit event for gremlin
     }
     
+    //TAGS
+    if bHive == true
+    {
+        var _p = instance_create(x,y,obj_projectile);
+        //-Apply projectile statistics
+        _p.speed = 1;
+        _p.friction = 0;
+        _p.type = 2; //Bullet
+        _p.sprite_index = spr_stinger;
+        _p.dmg = dmg;
+        _p.direction = irandom(359);
+        _p.image_angle = direction;
+        _p.knkAmt = 2;
+        _p.ox = x;
+        _p.oy = y;
+    }
     
     //Destroy the projectile
     if type == 1 || type == 2 then instance_destroy();
     else if type == "SPHERE"
-    { if alarm[2] == -1 then alarm[2] = room_speed*3; }
+    { if alarm[2] == -1 then alarm[2] = room_speed*8; }
+    else if type == "BOOMERANG"
+    {
+        if alarm[2] == -1 then alarm[2] = room_speed*3;
+    }
 }
 
 #event other_outside

@@ -1,4 +1,4 @@
-// 2021-05-14 13:43:06
+// 2021-05-17 11:49:36
 #event create
 globalvar maxInvenSlots,hudVisible;
 hudVisible = true;
@@ -1454,6 +1454,13 @@ if showSuperMenu == true
                         draw_sprite(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22);
                     }
                 }
+           }
+           
+           //------DIFFICULTY/BOSSES KILLED--------------
+           draw_text(_posX+12,_posY+178,"Badges: ")
+           if kingDied_1 == true
+           {
+               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+182);
            }
         }
     }
