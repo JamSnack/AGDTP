@@ -25,6 +25,7 @@ switch itemID
     case ITEMID.weapon_beemerang: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 6; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
     case ITEMID.acc_beehiveBackpack: { mats[0] = ITEMID.acc_satchel; matsAmt[0] = -1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
     case ITEMID.acc_copperChestplate: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 25; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
+    case ITEMID.tile_beeTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 5; itemAmt = 1; itemType = ITEMTYPE.playertile;} break;
 }
 
 //Check the player's inventory.

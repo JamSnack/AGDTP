@@ -1673,10 +1673,10 @@ if showSuperMenu == true
            }
            
            //------DIFFICULTY/BOSSES KILLED--------------
-           draw_text(_posX+12,_posY+177,"Badges: ")
+           draw_text(_posX+12,_posY+178,"Badges: ")
            if kingDied_1 == true
            {
-               draw_sprite(spr_bossDefeatedIcon,0,_posX+40,_posY+183);
+               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+181);
            }
         }
     }

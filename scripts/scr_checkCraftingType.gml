@@ -56,6 +56,7 @@ if craft_filter_plrtile == false
         case ITEMID.tile_platform: { returnID = true; } break;
         case ITEMID.tile_packedStone: { returnID = true; } break;
         case ITEMID.tile_battery: { returnID = true; } break;
+        case ITEMID.tile_beeTurret: { returnID = true; } break;
     }
 }
 

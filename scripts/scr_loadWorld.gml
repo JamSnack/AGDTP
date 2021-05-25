@@ -98,14 +98,14 @@ for (i=0;i<spawnAmt;i++)
             {
                 for (j=0;j<veinAmt;j++)
                 {
-                    while position_meeting(xInterval,yInterval,obj_seashellMetal) || yInterval <= oreHeight
+                    while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
                     { yInterval += choose(16,-16,0); xInterval += choose(16,-16); }
                     
                     //Replace tiles with Ore Tiles.
                     if position_meeting(xInterval,yInterval,TILE) 
                     {
                         with instance_position(xInterval,yInterval,TILE) instance_destroy();
-                        var t = instance_create(xInterval,yInterval,obj_seashellMetal);
+                        var t = instance_create(xInterval,yInterval,obj_copperOre);
                         
                         xInterval = xInterval_Original;
                         yInterval = yInterval_Original;
