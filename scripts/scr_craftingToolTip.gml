@@ -20,4 +20,5 @@ switch argument0
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] = "The striped boomerang."; text[2] = "Copper Ore x 15#Sweet Comb x 6" } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] = "Jump higher and hold more items!"; text[2] = "Satchel x 1#Sweet Comb x 5" } break;
     case ITEMID.acc_copperChestplate: { text[0] = "Copper Chestplate"; text[1] = "Absorb more damage. +20 HP"; text[2] = "Copper Ore x 25" } break;
+    case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] = "Attacks enemies with your very own home-grown#bee army!"; text[2] = "Copper Ore x 25" } break;
 }

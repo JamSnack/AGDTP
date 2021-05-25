@@ -59,7 +59,7 @@ event_inherited();
 
 //Local variables
 grass_state = "DIRT";
-growth_target = room_speed*8; //How many steps until fully grown.
+growth_target = room_speed*6; //How many steps until fully grown.
 growth = 0; //Grown amount
 split_life = 3; //How many lives are left in the split.
 

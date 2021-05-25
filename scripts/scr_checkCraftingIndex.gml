@@ -28,6 +28,7 @@ if kingDied_1 == true
         case ITEMID.pickaxe_stingerDrill: { returnID = true; } break;
         case ITEMID.acc_beehiveBackpack: { returnID = true; } break;
         case ITEMID.weapon_beemerang: { returnID = true; } break;
+        case ITEMID.tile_beeTurret: {returnID = true; } break;
     }
 }
 

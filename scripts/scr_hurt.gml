@@ -8,43 +8,54 @@ var knockAmt = argument3; // How much knockback to be applied.
 
 //Protect chests from abuse
 var other_parent = object_get_parent(other.object_index);
+var inst_parent = object_get_parent(object_index);
 
 if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
 
  //knockback conditions
-if object_get_parent(object_index) == TILE || object_get_parent(object_index) == PLRTILE  || object_get_parent(object_index) == PLT_1 || object_get_parent(object_index) == PLR_NOCOL
+if inst_parent == TILE || inst_parent == PLRTILE  || inst_parent == PLT_1 || inst_parent == PLR_NOCOL
     { knock = false; damage = round(damage/10)+1 }
 
 //DEATH
 if (hp-damage <= 0)
 {
     //Death to enemies
-    if other.object_index == obj_projectile && (object_get_parent(object_index) == GR_ENEMY || object_get_parent(object_index) == ENEMY)
+    if (inst_parent == GR_ENEMY || inst_parent == ENEMY)
     {
-        //ENEMY DEATH TAGS
-        var _ran = irandom(100);
-        var tagsUnloaded = other.tags;
-        
-        if ds_exists(tagsUnloaded,ds_type_list)
+        if other.object_index == obj_projectile
         {
-            for (i=0;i<ds_list_size(tagsUnloaded);i++)
+            dropItem = true;
+        
+            //ENEMY DEATH TAGS
+            var _ran = irandom(100);
+            var tagsUnloaded = other.tags;
+            
+            if ds_exists(tagsUnloaded,ds_type_list)
             {
-                var tag = tagsUnloaded[| i]
-                
-                //Grenade
-                if tag == "Grenade" 
-                { 
-                    //Tie chance to this in the future.
-                   var _gre = instance_create(x,y,obj_grenade);
-                   _gre.damage = damage/2;
+                for (i=0;i<ds_list_size(tagsUnloaded);i++)
+                {
+                    var tag = tagsUnloaded[| i]
+                    
+                    //Grenade
+                    if tag == "Grenade" 
+                    { 
+                        //Tie chance to this in the future.
+                       var _gre = instance_create(x,y,obj_grenade);
+                       _gre.damage = damage/2;
+                    }
                 }
             }
+            
+            instance_destroy();
+        }
+        else if other_parent == PLRTILE
+        {
+            dropItem = true;
+            instance_destroy();
         }
     }
-    
-    
     //Destroy tiles immediately
-    if (object_index == PLRTILE || object_index == TILE) && object_index != obj_pie
+    else if (inst_parent == PLRTILE || inst_parent == TILE) && object_index != obj_pie
     {
         itemDrop = false;
         instance_destroy();

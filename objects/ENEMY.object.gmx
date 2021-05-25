@@ -33,7 +33,7 @@ hspd = 0;
 vspd = 0;
 knock_resistance = 0.2;
 agility = 0.1;
-dropItem = true;
+dropItem = false;
 death_gib = part_gib;
 canDespawn = true;
 
@@ -159,9 +159,6 @@ if visible = false then visible = true;
             <kind>1</kind>
             <string>///Hit Event
 scr_playSound(snd_hit,false,4,x,y,0.8);
-
-//Death check
-if hp &lt;= 0 then instance_destroy();
 </string>
           </argument>
         </arguments>

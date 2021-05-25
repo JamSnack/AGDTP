@@ -69,6 +69,7 @@
     <sound>sound\snd_unequip</sound>
     <sound>sound\snd_equip</sound>
     <sound>sound\snd_turret_shoot</sound>
+    <sound>sound\snd_burn</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">
@@ -146,6 +147,7 @@
         <sprite>sprites\spr_railgunHead</sprite>
         <sprite>sprites\spr_beeTurretHead</sprite>
         <sprite>sprites\spr_beeTurretBase</sprite>
+        <sprite>sprites\spr_grillBlock</sprite>
       </sprites>
       <sprite>sprites\spr_sapling</sprite>
       <sprite>sprites\spr_stoneTile</sprite>
@@ -303,6 +305,8 @@
       <script>scripts\scr_checkCraftingIndex.gml</script>
       <script>scripts\scr_checkCraftingType.gml</script>
       <script>scripts\scr_craftItem.gml</script>
+      <script>scripts\scr_getRecipe.gml</script>
+      <script>scripts\scr_getRecipeDescription.gml</script>
     </scripts>
     <script>scripts\scr_raidControl.gml</script>
     <script>scripts\draw_nineSliceBox.gml</script>
@@ -388,34 +392,39 @@
       </objects>
     </objects>
     <objects name="Tiles">
-      <object>objects\TILE</object>
-      <object>objects\PLRTILE</object>
-      <object>objects\PLR_NOCOL</object>
-      <object>objects\PLT_1</object>
-      <object>objects\obj_dirt</object>
-      <object>objects\obj_sand</object>
-      <object>objects\obj_tree</object>
-      <object>objects\obj_stone</object>
-      <object>objects\obj_sandStone</object>
-      <object>objects\obj_copperOre</object>
-      <object>objects\obj_seashellMetal</object>
-      <object>objects\obj_essenceOre</object>
-      <object>objects\obj_packedDirt</object>
-      <object>objects\obj_packedStone</object>
-      <object>objects\obj_workbench</object>
-      <object>objects\obj_sapling</object>
-      <object>objects\obj_modBench</object>
-      <object>objects\obj_ladder</object>
-      <object>objects\obj_battery</object>
-      <object>objects\obj_woodenStilt</object>
       <object>objects\NOCOL</object>
-      <object>objects\obj_nullLight</object>
-      <object>objects\obj_chest</object>
-      <object>objects\obj_platform</object>
-      <objects name="Turrets">
-        <object>objects\obj_beeTurret</object>
-        <object>objects\obj_copperTurret</object>
-        <object>objects\obj_rebarRailgun</object>
+      <objects name="Tiles">
+        <object>objects\TILE</object>
+        <object>objects\obj_dirt</object>
+        <object>objects\obj_sand</object>
+        <object>objects\obj_tree</object>
+        <object>objects\obj_stone</object>
+        <object>objects\obj_sandStone</object>
+        <object>objects\obj_copperOre</object>
+        <object>objects\obj_seashellMetal</object>
+        <object>objects\obj_essenceOre</object>
+        <object>objects\obj_sapling</object>
+        <object>objects\obj_nullLight</object>
+        <object>objects\obj_chest</object>
+      </objects>
+      <objects name="Player Tiles">
+        <object>objects\PLR_NOCOL</object>
+        <object>objects\PLT_1</object>
+        <object>objects\PLRTILE</object>
+        <object>objects\obj_packedDirt</object>
+        <object>objects\obj_packedStone</object>
+        <object>objects\obj_workbench</object>
+        <object>objects\obj_modBench</object>
+        <object>objects\obj_ladder</object>
+        <object>objects\obj_battery</object>
+        <object>objects\obj_woodenStilt</object>
+        <object>objects\obj_platform</object>
+        <objects name="Defenses">
+          <object>objects\obj_beeTurret</object>
+          <object>objects\obj_copperTurret</object>
+          <object>objects\obj_rebarRailgun</object>
+          <object>objects\obj_grillBlock</object>
+        </objects>
       </objects>
     </objects>
     <objects name="Parents">

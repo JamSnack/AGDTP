@@ -143,7 +143,8 @@ enum ITEMID
     acc_copperChestplate,
     item_seashellMetal,
     tile_beeTurret,
-    tile_rebarRailgun
+    tile_rebarRailgun,
+    tile_grillBlock
 }
 
 //Item Types
