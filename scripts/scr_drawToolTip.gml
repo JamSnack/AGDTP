@@ -97,7 +97,8 @@ switch argument0
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "#A true marksman's humble beginning."; } break;
     case ITEMID.item_sweetComb: { text[0] = "Sweet Comb"; text[1] += "The prized treasure of the bees."; } break; 
     case ITEMID.item_seashellMetal: { text[0] = "Seashell Metal"; text[1] += "A hard, lustrous seashell."; } break;
-    case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] += "'Yeah get 'em yeah'"; } break;  
+    case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] += "'Yeah get 'em yeah'"; } break; 
+    case ITEMID.tile_rebarRailgun: { text[0] = "Rebar Railgun"; text[1] += "A powerful turret that pierces enemies."; } break; 
 }
 
 //TAG TEXT

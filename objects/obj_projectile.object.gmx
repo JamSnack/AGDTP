@@ -316,6 +316,12 @@ if bBouncy == false &amp;&amp; canCollide == true &amp;&amp; !place_meeting_fast
             }
             break;
             
+            case 0:
+            {
+                //DO NOTHING
+            }
+            break;
+            
             default: instance_destroy();
         }
     }

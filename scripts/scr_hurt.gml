@@ -51,9 +51,13 @@ if (hp-damage <= 0)
     }
 }
 
-if canHurt == false then exit; //Don't hurt unhurtable objects :)
-canHurt = false;
-alarm[hurtAlarm] = time;
+if time > 0
+{
+    if canHurt == false then exit; //Don't hurt unhurtable objects :)
+    canHurt = false;
+    alarm[hurtAlarm] = time;
+}
+
 hp -= damage;
 
 if knock == true && knockType != noone

@@ -136,12 +136,14 @@
         <sprite>sprites\spr_woodenPlatform</sprite>
         <sprite>sprites\spr_packedStone</sprite>
         <sprite>sprites\spr_turretBase</sprite>
+        <sprite>sprites\spr_railgunBase</sprite>
         <sprite>sprites\spr_platform</sprite>
         <sprite>sprites\spr_ladder</sprite>
         <sprite>sprites\spr_workbench</sprite>
         <sprite>sprites\spr_modBench</sprite>
         <sprite>sprites\spr_furnace</sprite>
         <sprite>sprites\spr_turretHead</sprite>
+        <sprite>sprites\spr_railgunHead</sprite>
         <sprite>sprites\spr_beeTurretHead</sprite>
         <sprite>sprites\spr_beeTurretBase</sprite>
       </sprites>
@@ -170,6 +172,7 @@
       <sprite>sprites\spr_projectile2</sprite>
       <sprite>sprites\spr_arrow</sprite>
       <sprite>sprites\spr_bullet</sprite>
+      <sprite>sprites\spr_railgunBullet</sprite>
       <sprite>sprites\spr_beeBullet</sprite>
       <sprite>sprites\spr_rifleBullet</sprite>
       <sprite>sprites\spr_stinger</sprite>
@@ -380,6 +383,7 @@
       </objects>
       <objects name="Turret Projectiles">
         <object>objects\obj_turretBullet</object>
+        <object>objects\obj_railgunBullet</object>
         <object>objects\obj_beeBullet</object>
       </objects>
     </objects>
@@ -407,9 +411,12 @@
       <object>objects\NOCOL</object>
       <object>objects\obj_nullLight</object>
       <object>objects\obj_chest</object>
-      <object>objects\obj_copperTurret</object>
-      <object>objects\obj_beeTurret</object>
       <object>objects\obj_platform</object>
+      <objects name="Turrets">
+        <object>objects\obj_beeTurret</object>
+        <object>objects\obj_copperTurret</object>
+        <object>objects\obj_rebarRailgun</object>
+      </objects>
     </objects>
     <objects name="Parents">
       <object>objects\OBSTA</object>
