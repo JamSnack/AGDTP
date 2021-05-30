@@ -34,7 +34,6 @@ maxHp = 12;
 hp = maxHp;
 image_speed = 15/60;
 state = WANDER;
-stunned = false;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.

@@ -32,7 +32,6 @@ canHurt = true;
 hp = 32;
 image_speed = 9/60;
 state = WANDER;
-stunned = false;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.

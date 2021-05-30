@@ -37,6 +37,10 @@ dropItem = false;
 death_gib = part_gib;
 canDespawn = true;
 
+shield_charges_max = 0;
+shield_charges = 0;
+charge_rate = 0;
+
 deathSound = snd_enemydie_monster;
 
 //Change some stats for a true boss fight;

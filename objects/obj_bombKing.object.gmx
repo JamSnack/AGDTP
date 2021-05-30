@@ -34,7 +34,6 @@ hp = 50+waveScale(25,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = MOVE;
-stunned = false;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.

@@ -33,7 +33,6 @@ maxHp = 70+(25*floor(wave/5));
 hp = maxHp;
 image_speed = 8/60;
 state = MOVE;
-stunned = false;
 scale = 1;
 
 vsp = 0;

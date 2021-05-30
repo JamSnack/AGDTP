@@ -39,6 +39,8 @@ if !isConnected(x,y) then instance_destroy();
 
 maxHp += maxHp*(tileLevel/50);
 hp = maxHp;
+
+shield_charges = 0;
 </string>
           </argument>
         </arguments>

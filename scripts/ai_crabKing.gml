@@ -85,7 +85,7 @@ if x_previous = xObjective //Do not stand on top of pie.
 
 //Fall check---------------------------------------------
 // -- platformCollide and not on a platform means potential fall conditions.
-if current_state != FALL && (!position_meeting(x,y+(sprite_height/2)+1,OBSTA) || platformCollide == false && !on_platform)
+if current_state != FALL && (!position_meeting(x,y+16,OBSTA) || platformCollide == false && !on_platform)
 {
     if !instance_exists(GREM_BLOCK) || (instance_exists(GREM_BLOCK) && !position_meeting(x,y+16,GREM_BLOCK))
     { state = FALL; }

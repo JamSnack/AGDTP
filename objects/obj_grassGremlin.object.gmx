@@ -32,7 +32,6 @@ maxHp = 16;
 hp = maxHp;
 image_speed = 12/60;
 state = WANDER;
-stunned = false;
 knock_resistance = 1;
 
 vsp = 0;

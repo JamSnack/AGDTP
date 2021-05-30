@@ -236,6 +236,9 @@
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
+    <sprite>sprites\spr_crabKing</sprite>
+    <sprite>sprites\spr_crab</sprite>
+    <sprite>sprites\spr_shield</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -292,6 +295,7 @@
     </scripts>
     <scripts name="Ai">
       <script>scripts\ai_gremlin.gml</script>
+      <script>scripts\ai_crab.gml</script>
       <script>scripts\ai_pylon.gml</script>
       <script>scripts\ai_shadowGremlin.gml</script>
       <script>scripts\ai_bombKing.gml</script>
@@ -447,6 +451,8 @@
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
+      <object>objects\obj_crab</object>
+      <object>objects\obj_crabKing</object>
       <object>objects\obj_stoneGremlin</object>
       <object>objects\obj_grassGremlin</object>
       <object>objects\obj_spherePylon</object>

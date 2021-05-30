@@ -33,6 +33,8 @@ hurtAlarm = 0;
 light_level = 255;
 level = 99;
 
+shield_charges = 0;
+
 if room == rm_tutorial then visible = false;
 </string>
           </argument>

@@ -31,6 +31,8 @@ var background_close = bkg_overworldHills_new;
 var foreground = bkg_overworldGrass;
 var background_cave = bkg_cave;
 
+var ore_type = obj_copperOre;
+
 
 switch region_type
 {
@@ -45,7 +47,8 @@ switch region_type
         dirt_tileset = obj_sand;
         stone_tileset = obj_sandStone;
         tree_bool = false;
-
+        ore_type = obj_seashellMetal;
+        
         var background_far = bkg_overworldSky_test;
         var background_close = bkg_dunesOG_new;
         var foreground = bkg_sand_foreground;
@@ -144,20 +147,20 @@ else if time == 44
         {
             switch _k
             {
-                //---------SPAWN COPPER ORE-----------
+                //---------SPAWN ORE-----------
                 
                 case 0:
                 {
                     for (j=0;j<veinAmt;j++)
                     {
-                        while position_meeting(xInterval,yInterval,obj_copperOre) || yInterval <= oreHeight
+                        while position_meeting(xInterval,yInterval,ore_type) || yInterval <= oreHeight
                         { yInterval += choose(16,-16,0); xInterval += choose(16,-16); }
                         
                         //Replace tiles with Ore Tiles.
                         if position_meeting(xInterval,yInterval,TILE) 
                         {
                             with instance_position(xInterval,yInterval,TILE) instance_destroy();
-                            var t = instance_create(xInterval,yInterval,obj_copperOre);
+                            var t = instance_create(xInterval,yInterval,ore_type);
                             
                             xInterval = xInterval_Original;
                             yInterval = yInterval_Original;

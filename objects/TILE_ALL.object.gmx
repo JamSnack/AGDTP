@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>tile_frag = part_dirt_frag;
+shield_charges = 0;
 </string>
           </argument>
         </arguments>

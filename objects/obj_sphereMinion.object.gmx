@@ -35,7 +35,6 @@ canHurt = true;
 hp = 5;
 image_speed = 10/60;
 state = MOVE;
-stunned = false;
 
 vsp = 0;
 atkBox = (32); //divided by 2 on calculation.

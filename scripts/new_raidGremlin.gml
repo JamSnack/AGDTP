@@ -6,8 +6,8 @@ var specialRaidID = argument4; //Whether or not to spawn gremlins under special 
 
 //Select type of mob to spawn: normal or special
 
-//- Reroll chance based on whether or not a flying unit is in the roster.
-if specialGremlins[0] == noone then specialChance = 0;
+//- Reroll chance based on whether or not a special unit is in the roster.
+if array_length_1d(specialGremlins) == 1 then specialChance = 0;
 
 var mobType;
 if gremNumber <= specialChance then mobType = "SPECIAL" else mobType = "NORMAL";
@@ -24,4 +24,7 @@ switch mobType
     break;
 }
 
-instance_create(argument0,argument1,i);
+if i != noone
+{
+    instance_create(argument0,argument1,i);
+}

@@ -18,7 +18,7 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 //------FORCED WAVES----------------
 if interm == true
 {
-    if wave+1 >= 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING";
+    if wave+1 >= 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING_NILMERG";
 }
 
 //----------------PRESET SETTINGS-------------------
@@ -76,8 +76,8 @@ switch presetSettings
             }
         }
         
-        //Build a new wave
-        with worldControl { event_user(1); }
+        //We need to construct a new wave
+        with worldControl event_user(1);
     }
     break;
     
@@ -115,10 +115,6 @@ switch presetSettings
                 }
                 break;
             }
-            break;
-            
-            //We need to construct a new wave based on the special wave.
-            with worldControl event_user(1);
         }
         //#endregion
         else
@@ -138,7 +134,7 @@ switch presetSettings
             }
         }
         
-        scr_hudMessage("The Gremlins are attacking!",0,5,0,c_yellow,0);
+        scr_hudMessage(choose("The Gremlins are attacking!","Here they come!","The Gremlins are invading!"),0,5,0,c_yellow,0);
     }
     break;
     
@@ -160,7 +156,7 @@ switch presetSettings
     }
     break;
     
-    case "KING":
+    case "KING_NILMERG":
     {
         //ONLY THE GRASSLANDS REGION EXISTS RIGHT NOW.
         //Get the region > spawn appropriate region king...
@@ -247,6 +243,10 @@ if interm == false
     
     wave += 1;
     scr_overMessage("Wave "+string(wave),0,6,c_white,0,0);
+    
+    //We need to construct a new wave
+    worldControl.special_raidID = special_raidID;
+    with worldControl event_user(1);
 }
 //#endregion
 
@@ -260,7 +260,6 @@ worldControl.spawnRate = spawnRate;
 worldControl.spawnChance = spawnChance;
 worldControl.maxGrem = maxGrem;
 worldControl.raidBoss = raidBoss;
-worldControl.special_raidID = special_raidID;
 
 //Buff that lead boss boy
 if instance_exists(bossID)

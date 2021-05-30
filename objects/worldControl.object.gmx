@@ -160,7 +160,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(50) &gt;= 49 &amp;&amp; nextRaid != "SPHERE"
+            if irandom(55) == 55 &amp;&amp; nextRaid != "SPHERE"
             {
                 instance_create(xx,yy,obj_spherePylon);
             }
@@ -419,7 +419,7 @@ else if interm == false
 
 //Locals
 var difficulty = wave + (kingDied_1*5);
-var build_target = waveScale(1,4,2,6)+floor(difficulty/wave); //Gremlin variety
+var build_target = waveScale(1,2,1,6); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
@@ -447,7 +447,7 @@ switch special_raidID
     default:
     {    
         //Build'a wave!
-        var last_ran = 0;
+        var last_ran = ds_list_create();
         var list_size = 5; //The size of the list of enemies we can choose from.
         
         while build_index &lt; build_target
@@ -455,27 +455,32 @@ switch special_raidID
             //Encourage diversity!
             var ran = irandom(list_size);
             
-            if ran == last_ran
-            {
-                //Note: irandom(last_ran) will naturally make enemies higher on the list less likely to spawn.
-                ran = irandom(last_ran);
-            }
+            if ds_list_find_index(last_ran,ran) != -1 { continue; }
             
             normal_array_size = array_length_1d(normalGremlins);
             special_array_size = array_length_1d(specialGremlins);
         
             //Add Gremlins to the list as the difficulty number increases.
-            switch ran
+            if build_index &lt;= 4
             {
-                case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
-                case 1: if difficulty &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
-                case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
-                case 4: if difficulty &gt;= 12 { normalGremlins[normal_array_size] = obj_stoneGremlin;} break;
-            }
+                //Reset possible random numbers for the next set of mobs.
+                if build_index == 4 
+                { 
+                    ds_list_destroy(last_ran);
+                    last_ran = ds_list_create(); 
+                }
             
-            //Add a region specific enemy!
-            if build_index &gt; 4
+                switch ran
+                {
+                    case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
+                    case 1: if difficulty &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                    case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                    case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                    case 4: if difficulty &gt;= 12 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
+                }
+            }
+            //Add region specific enemies if build_target is greater than 4.
+            else
             {
                 switch region
                 {
@@ -483,15 +488,18 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            default: { if difficulty &gt; 10 { normalGremlins[normal_array_size] = obj_sweetWorm; } } break;
-                            case 0: { if difficulty &gt; 20 { specialGremlins[special_array_size] = obj_hornedHapp; } } break;
+                            case 0: if difficulty &gt;= 20 { specialGremlins[special_array_size] = obj_hornedHapp; } break;
+                            default: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_sweetWorm; }
                         }
                     }
                     break;
                     
                     case "COVE":
                     {
-                        //Nothing to see here folks!
+                        switch ran
+                        {
+                            default: if difficulty &gt; 13 { specialGremlins[special_array_size] = obj_crab; }
+                        }
                     }
                     break;
                 }
@@ -500,7 +508,8 @@ switch special_raidID
             //Only increase the build_index number if a gremlin was successfully added to a list.
             if normal_array_size != array_length_1d(normalGremlins) || special_array_size != array_length_1d(specialGremlins)
             { 
-                build_index += 1;
+                ds_list_add(last_ran,ran);
+                build_index += 1;;
             }
         }
     }

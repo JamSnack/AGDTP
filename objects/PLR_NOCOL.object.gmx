@@ -33,6 +33,8 @@ tileID = noone;
 type = noone;
 
 knockType = noone;
+
+shield_charges = 0;
 </string>
           </argument>
         </arguments>
