@@ -172,7 +172,7 @@ if stateLock == false
     }
 }
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,spr_stoneGremlinJump,spr_stoneGremlinWalk,0.5,objective,-3.6,atkBox); }
+{ ai_gremlin(state,spr_gremlinIdle,spr_stoneGremlinJump,spr_stoneGremlinWalk,0.4,objective,-3.6,atkBox); }
 </string>
           </argument>
         </arguments>

@@ -536,7 +536,7 @@ if showSuperMenu == true
                         //Coral Cove region!
                         case 2:
                         {
-                            s_destination = "COVE"
+                            if kingDied_1 == true { s_destination = "COVE"} else r_shift = false;
                         }
                         break;
                     }
@@ -1631,13 +1631,21 @@ if showSuperMenu == true
             //-- draw region buttons
             for(_p=0;_p&lt;sprite_get_number(spr_ui_regions);_p++)
             {
-                draw_sprite(spr_ui_regions,_p,_posX+20+(_p*38),_posY+30);
+                var _subimage = _p;
+                
+                switch _p
+                {
+                    //Region requirements
+                    case 2: { if kingDied_1 == false then _subimage = 0; } break;
+                }
+            
+                draw_sprite(spr_ui_regions,_subimage,_posX+20+(_p*38),_posY+30);
             }
             
             //-- cost
             if region_shift == true
             {
-                var str = "Cost: ";
+                var str = "Essence Cost: ";
                 
                 switch region_type
                 {
@@ -1645,11 +1653,11 @@ if showSuperMenu == true
                     case "COVE": { draw_sprite(spr_ui_regionSelected,0,_posX+20+76,_posY+30); } break;
                 }
                 
-                draw_text(_posX+173,_posY+10,str+string(scr_getRegionCost(region_type)));
+                draw_text(_posX+153,_posY+10,str+string(scr_getRegionCost(region_type)));
             }
             else
             {
-                draw_text(_posX+173,_posY+10,"Cost: 0");
+                draw_text(_posX+153,_posY+10,"Essence Cost: 0");
                 draw_sprite(spr_ui_regionSelected,0,_posX+20,_posY+30);
             }
            

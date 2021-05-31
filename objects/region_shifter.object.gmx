@@ -80,7 +80,7 @@ animation_max = 1;
     xx = 0;
     yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
     
-    heightSeed = get_height_seed(15,"FLAT");
+    heightSeed = get_height_seed(15,"FLAT",1,10,1);
     heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
 }
 

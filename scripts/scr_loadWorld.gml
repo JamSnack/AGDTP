@@ -12,7 +12,7 @@ var sizeY = 30;
 var xx = 0;
 var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
 
-var heightSeed = get_height_seed(15,"FLAT");
+var heightSeed = get_height_seed(15,"FLAT", 1, 10,1);
 var heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
 
 //Apply presets

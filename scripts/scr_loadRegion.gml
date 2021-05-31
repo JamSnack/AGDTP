@@ -54,8 +54,8 @@ switch region_type
         var foreground = bkg_sand_foreground;
         var background_cave = bkg_cave;
         
-        heightSeed = get_height_seed(35,"HILL");
-        heightNegativeSeed = "100";
+        heightSeed = get_height_seed(35,"HILL", 8, 12,3);
+        heightNegativeSeed = "111111111000000111100";
     }
     break;
 }

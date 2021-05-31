@@ -83,7 +83,7 @@ if interm == false
 event_inherited();
 
 //Roll for Tag drops
-var r = irandom(300);
+var r = irandom(500);
 
 //-Bouncy Tag
 if r == 1 

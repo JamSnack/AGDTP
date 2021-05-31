@@ -56,7 +56,7 @@ canDespawn = false;
 spawn_alarm = 2;
 spawn_charges = 0;
 spawn_charges_max = 5;
-spawn_charge_rate = 3*room_speed; //How many charges per second
+spawn_charge_rate = 4*room_speed; //How many charges per second
 
 alarm[spawn_alarm] = spawn_charge_rate;
 
