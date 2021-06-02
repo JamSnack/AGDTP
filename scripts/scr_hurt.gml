@@ -25,10 +25,8 @@ if (hp-damage <= 0)
     {
         if (shield_charges <= 0 || other_index == obj_railgunBullet)
         {
-            if (other_index == obj_projectile || other_index == BULLET)
+            if other_index == obj_projectile
             {
-                dropItem = true;
-            
                 //ENEMY DEATH TAGS
                 var _ran = irandom(100);
                 var tagsUnloaded = other.tags;
@@ -48,14 +46,10 @@ if (hp-damage <= 0)
                         }
                     }
                 }
-                
-                instance_destroy();
             }
-            else if other_parent == PLRTILE
-            {
-                dropItem = true;
-                instance_destroy();
-            }
+            
+            dropItem = true;
+            instance_destroy();
         }
         else
         {
