@@ -102,6 +102,7 @@
       <sprite>sprites\spr_subLimeMachineGun</sprite>
       <sprite>sprites\spr_acornRifle</sprite>
       <sprite>sprites\spr_sphereLauncher</sprite>
+      <sprite>sprites\spr_waterGun</sprite>
     </sprites>
     <sprites name="Enemies">
       <sprite>sprites\spr_gremlinWalk</sprite>
@@ -177,6 +178,7 @@
       <sprite>sprites\spr_railgunBullet</sprite>
       <sprite>sprites\spr_beeBullet</sprite>
       <sprite>sprites\spr_rifleBullet</sprite>
+      <sprite>sprites\spr_waterBlast</sprite>
       <sprite>sprites\spr_stinger</sprite>
     </sprites>
     <sprites name="Ui">

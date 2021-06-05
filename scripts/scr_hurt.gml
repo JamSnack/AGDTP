@@ -124,12 +124,12 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
         {
             if place_meeting_fast(hForce,0,OBSTA)
             {
-                hForce = 0;
+               // hForce = 0;
             }
             
             if place_meeting_fast(0,vForce,OBSTA)
             {
-                vForce = 0;
+               // vForce = 0;
             }
         }
     }

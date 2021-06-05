@@ -22,6 +22,7 @@ switch argument0
     case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 55; proj_spd = 4; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 3; wep_Knock = 2; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
     case ITEMID.weapon_beemerang: { toolAnimation = "SHOOT"; tool_firerate = 50; proj_spd = 3; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_beemerang; wep_Dam = 4; wep_Knock = 3; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
     case ITEMID.weapon_acornRifle: { toolAnimation = "SHOOT"; tool_firerate = 70; proj_spd = 13; proj_dec = 0; tool_spr = spr_acornRifle; proj_spr = spr_rifleBullet; wep_Dam = 7; wep_Knock = 4; proj_type = 2; tool_snd = snd_rifle; } break;
+    case ITEMID.weapon_waterGun: { toolAnimation = "SHOOT"; tool_firerate = 20; proj_spd = 9; proj_dec = 0; tool_spr = spr_waterGun; proj_spr = spr_waterBlast; wep_Dam = 6; wep_Knock = 2; proj_type = 2; tool_snd = snd_rifle; } break;
 }
 
 //Apply tags
