@@ -106,8 +106,6 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-
-scr_dropItem(ITEMID.weapon_waterGun,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -948,7 +946,7 @@ scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_create(mouse_x,mouse_y,obj_crabKing);
+            <string>instance_create(mouse_x,mouse_y,obj_sandMenace);
 </string>
           </argument>
         </arguments>

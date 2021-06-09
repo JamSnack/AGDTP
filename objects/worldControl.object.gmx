@@ -501,6 +501,7 @@ switch special_raidID
                     {
                         switch ran
                         {
+                            case 0: if difficulty &gt;= 20 { normalGremlins[normal_array_size] = obj_sandMenace; } 
                             default: if difficulty &gt; 13 { specialGremlins[special_array_size] = obj_crab; }
                         }
                     }

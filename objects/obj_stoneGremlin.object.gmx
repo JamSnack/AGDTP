@@ -55,7 +55,7 @@ image_xscale = sign(target.x-x);
 
 event_inherited();
 
-knock_resistance = 2.5;
+knock_resistance = 2;
 mask_index = sprite_index;
 </string>
           </argument>

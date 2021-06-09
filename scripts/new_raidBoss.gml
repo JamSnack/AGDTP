@@ -22,6 +22,7 @@ while true
     
     if wave >= 10 && kingDied_1 == true && gremNumber >= (100-waveScale(10,5,0,60)) then bossGremlins[array_size] = obj_nilmerg;
     if wave >= 15 && gremNumber >= 90 then bossGremlins[array_size] = obj_sphereKing;
+    if region == "COVE" && wave >= 10 then bossGremlins[array_size] = obj_crabKing;
     
     
     var mobType = "NORMAL"; //Normal or Special boss.

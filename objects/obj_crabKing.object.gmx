@@ -28,7 +28,8 @@
             <string>///Initialize the Gremlin
 canActiveRegion = true;
 canHurt = true;
-hp = 225;
+maxHp = 225;
+hp = maxHp;
 image_speed = 12/60;
 state = WANDER;
 
@@ -44,6 +45,7 @@ if interm == false then target = obj_pie;
 objective = target;
 stateLockAlarm = 2;
 aggroRange = 16*2;
+scale = 1;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
@@ -62,7 +64,7 @@ shield_charges_max = 3;
 shield_charges = 0;
 shield_health_max = 10;
 shield_health = shield_health_max;
-charge_rate = 3*room_speed;
+charge_rate = 6*room_speed;
 shield_scale = (shield_health/shield_health_max)*2
 
 alarm[3] = 1;
