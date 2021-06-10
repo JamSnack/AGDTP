@@ -134,6 +134,7 @@
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
+        <sprite>sprites\spr_copperBlock</sprite>
         <sprite>sprites\spr_packedDirt</sprite>
         <sprite>sprites\spr_woodenStilt</sprite>
         <sprite>sprites\spr_woodenPlatform</sprite>
@@ -314,7 +315,6 @@
       <script>scripts\scr_checkCraftingType.gml</script>
       <script>scripts\scr_craftItem.gml</script>
       <script>scripts\scr_getRecipe.gml</script>
-      <script>scripts\scr_getRecipeDescription.gml</script>
     </scripts>
     <script>scripts\scr_raidControl.gml</script>
     <script>scripts\draw_nineSliceBox.gml</script>
@@ -421,6 +421,7 @@
         <object>objects\PLRTILE</object>
         <object>objects\obj_packedDirt</object>
         <object>objects\obj_packedStone</object>
+        <object>objects\obj_copperBlock</object>
         <object>objects\obj_workbench</object>
         <object>objects\obj_modBench</object>
         <object>objects\obj_ladder</object>

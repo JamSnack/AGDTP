@@ -17,4 +17,5 @@ switch argument0
     case ITEMID.tile_beeTurret: { return obj_beeTurret; } break;
     case ITEMID.tile_rebarRailgun: { return obj_rebarRailgun; } break;
     case ITEMID.tile_grillBlock: { return obj_grillBlock; } break;
+    case ITEMID.tile_copperBlock: { return obj_copperBlock; } break;
 }

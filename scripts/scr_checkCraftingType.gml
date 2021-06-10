@@ -21,6 +21,7 @@ if craft_filter_weapon == false
         case ITEMID.weapon_greenSword: { returnID = true; } break;
         case ITEMID.weapon_acornRifle: { returnID = true; } break;
         case ITEMID.weapon_beemerang: { returnID = true; } break;
+        case ITEMID.weapon_waterGun: { returnID = true; } break;
     }
 }
 
@@ -57,6 +58,9 @@ if craft_filter_plrtile == false
         case ITEMID.tile_packedStone: { returnID = true; } break;
         case ITEMID.tile_battery: { returnID = true; } break;
         case ITEMID.tile_beeTurret: { returnID = true; } break;
+        case ITEMID.tile_copperBlock: { returnID = true; } break;
+        case ITEMID.tile_grillBlock: { returnID = true; } break;
+        case ITEMID.tile_rebarRailgun: { returnID = true; } break;
     }
 }
 

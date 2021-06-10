@@ -111,7 +111,7 @@ enum ITEMID
     weapon_greenSword,
     weapon_starter,
     pickaxe_starter,
-    pickaxe_greenPickaxe,
+    pickaxe_greenPickaxe, //5
     tile_packedDirt,
     tile_workbench,
     item_stonePiece,
@@ -145,7 +145,8 @@ enum ITEMID
     tile_beeTurret,
     tile_rebarRailgun,
     tile_grillBlock,
-    weapon_waterGun
+    weapon_waterGun,
+    tile_copperBlock
 }
 
 //Item Types

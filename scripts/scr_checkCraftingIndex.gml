@@ -18,6 +18,7 @@ switch argument0
     case ITEMID.tile_battery: { returnID = true; } break;
     case ITEMID.weapon_acornRifle: { returnID = true; } break;
     case ITEMID.acc_copperChestplate: { returnID = true; } break;
+    case ITEMID.tile_copperBlock: { returnID = true; } break;
 }
 
 //NILMERG
@@ -29,6 +30,9 @@ if kingDied_1 == true
         case ITEMID.acc_beehiveBackpack: { returnID = true; } break;
         case ITEMID.weapon_beemerang: { returnID = true; } break;
         case ITEMID.tile_beeTurret: {returnID = true; } break;
+        case ITEMID.tile_grillBlock: { returnID = true; } break;
+        case ITEMID.weapon_waterGun: { returnID = true; } break;
+        case ITEMID.tile_rebarRailgun: { returnID = true; } break;
     }
 }
 
