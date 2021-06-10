@@ -8,28 +8,3 @@ itemID = argument0; //The ID of the item to craft.
 
 //UPDATE VARIABLES FOR TEXT USE
 scr_getRecipe(itemID);
-
-switch itemID
-{
-    case ITEMID.tile_ladder: { text[0] = "Ladder"; text[1] = "Place this and climb!"; text[2] = "Stick x 2"} break; //Workbench
-    case ITEMID.tile_woodenStilt: { text[0] = "Wooden Stilt"; text[1] = "Provides support for your structures."; text[2] = "Stick x 2"} break;
-    case ITEMID.weapon_greenSword: { text[0] = "Green Sword"; text[1] = "Damage: 6#Speed: 2"; text[2] = "Copper Ore x 12#Stick x 5"} break; //Green Sword
-    case ITEMID.pickaxe_greenPickaxe: { text[0] = "Green Pickaxe"; text[1] = "Tier: 0#Speed: 2"; text[2] = "Copper Ore x 12#Stick x 5" } break; //Green Pick
-    case ITEMID.tile_packedDirt: { text[0] = "Packed Dirt"; text[1] = "Health: 10"; text[2] = "Dirt Clump x 4" } break;
-    case ITEMID.tile_copperTurret: { text[0] = "Copper Turret"; text[1] = "Health: 5"; text[2] = "Copper Ore x 15#Stick x 5" } break;
-    case ITEMID.cons_gremTalisman: { text[0] = "Gremlin Talisman"; text[1] = "Consumable"; text[2] = "Synthetic Essence x 10" } break;
-    case ITEMID.tile_platform: { text[0] = "Platform"; text[1] = "Tile"; text[2] = "Stick x 2" } break;
-    case ITEMID.cons_bomb: { text[0] = "Token Bomb"; text[1] = "Consumable"; text[2] = "Stone Piece x 10#Synthetic Essence x 2#Copper Ore x 2" } break;
-    case ITEMID.tile_packedStone: { text[0] = "Packed Stone"; text[1] = "Health: 25"; text[2] = "Stone Piece x 4" } break;
-    case ITEMID.tile_battery: { text[0] = "Battery"; text[1] = "Use this to store energy for later use!"; text[2] = "Synthetic Essence x 5#Copper Ore x 5" } break;
-    case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] = "Slay your foes with the power of the forest."; text[2] = "Stick x 100#Copper Ore x 10#Acorn x 15" } break;
-    case ITEMID.pickaxe_stingerDrill: { text[0] = "Stinger Drill"; text[1] = "Stab that stone and gather resources faster#than ever!"; text[2] = "Copper Ore x 20#Sweet Comb x 8" } break;
-    case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] = "The striped boomerang."; text[2] = "Copper Ore x 15#Sweet Comb x 6" } break;
-    case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] = "Jump higher and hold more items!"; text[2] = "Satchel x 1#Sweet Comb x 5" } break;
-    case ITEMID.acc_copperChestplate: { text[0] = "Copper Chestplate"; text[1] = "Absorb more damage. +20 HP"; text[2] = "Copper Ore x 25" } break;
-    case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] = "Attacks enemies with your very own home-grown#bee army!"; } break;
-    case ITEMID.tile_grillBlock: { text[0] = "Grill Block"; text[1] = "Burns gremlins that touch this block.#1 energy per burn."; } break;
-    case ITEMID.tile_copperBlock: { text[0] = "Copper Block"; text[1] = "A strong block made of copper!"; } break;
-    case ITEMID.weapon_waterGun: { text[0] = "Water Gun"; text[1] = "Blasts gremlins with a shot of pressurized#water."; } break;
-    case ITEMID.tile_rebarRailgun: { text[0] = "Rebar Railgun"; text[1] = "Launches a fast projectile that pierces#enemies and shields."; } break;
-}

@@ -7,25 +7,33 @@ var swish = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4);
 
 //projectile types: '0' Slash. '1' Arrow. '2' Bullet
 
-switch argument0
+var item_id = argument0;
+
+
+// Apply weapon animation variables and projectile stats
+
+switch item_id
 {    
-    //Green Sword
-    case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; tool_firerate = 30; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; wep_Dam = 4; wep_Knock = 3.25; proj_type = 0; tool_snd = swish;} break;
-    
-    //Dull Sword
-    case ITEMID.weapon_starter: { toolAnimation = "STAB"; tool_firerate = 34; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; wep_Dam = 2; wep_Knock = 2.75; proj_type = 0; tool_snd = swish;} break;
-    
-    //Weak Bow
-    case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; wep_Dam = 3; wep_Knock = 1; proj_type = 1;} break;
-    
-    case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; tool_firerate = 12; proj_spd = 8; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; wep_Dam = 3; wep_Knock = 1.1; proj_type = 2; tool_snd = snd_machineGunSoft; } break;
-    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 55; proj_spd = 4; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; wep_Dam = 3; wep_Knock = 2; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
-    case ITEMID.weapon_beemerang: { toolAnimation = "SHOOT"; tool_firerate = 50; proj_spd = 3; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_beemerang; wep_Dam = 4; wep_Knock = 3; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
-    case ITEMID.weapon_acornRifle: { toolAnimation = "SHOOT"; tool_firerate = 70; proj_spd = 13; proj_dec = 0; tool_spr = spr_acornRifle; proj_spr = spr_rifleBullet; wep_Dam = 7; wep_Knock = 4; proj_type = 2; tool_snd = snd_rifle; } break;
-    case ITEMID.weapon_waterGun: { toolAnimation = "SHOOT"; tool_firerate = 20; proj_spd = 9; proj_dec = 0; tool_spr = spr_waterGun; proj_spr = spr_waterBlast; wep_Dam = 6; wep_Knock = 2; proj_type = 2; tool_snd = snd_rifle; } break;
+    case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
+    case ITEMID.weapon_starter: { toolAnimation = "STAB"; tool_firerate = 34; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
+    case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; tool_firerate = 35; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; proj_type = 1;} break; 
+    case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; tool_firerate = 12; proj_spd = 8; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; proj_type = 2; tool_snd = snd_machineGunSoft; } break;
+    case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; tool_firerate = 55; proj_spd = 4; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
+    case ITEMID.weapon_beemerang: { toolAnimation = "SHOOT"; tool_firerate = 50; proj_spd = 3; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_beemerang; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
+    case ITEMID.weapon_acornRifle: { toolAnimation = "SHOOT"; tool_firerate = 70; proj_spd = 13; proj_dec = 0; tool_spr = spr_acornRifle; proj_spr = spr_rifleBullet; proj_type = 2; tool_snd = snd_rifle; } break;
+    case ITEMID.weapon_waterGun: { toolAnimation = "SHOOT"; tool_firerate = 20; proj_spd = 9; proj_dec = 0; tool_spr = spr_waterGun; proj_spr = spr_waterBlast; proj_type = 2; tool_snd = snd_rifle; } break;
 }
 
-//Apply tags
+
+
+//Apply Weapon stats
+
+scr_getToolStats(item_id);
+
+
+
+//Apply Weapon tags
+
 if hudControl.selectedSlot != noone
 {
     var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
@@ -46,13 +54,13 @@ if hudControl.selectedSlot != noone
 }
 
 
-obj_player.toolFireRate = tool_firerate;
+obj_player.toolFireRate = toolFireRate;
 obj_player.projSpeed = proj_spd;
 obj_player.projDecay = proj_dec;
 obj_player.toolSprite = tool_spr;
 obj_player.projSprite = proj_spr;
-obj_player.weaponDamage = wep_Dam;
-obj_player.weaponKnockback = wep_Knock;
+obj_player.weaponDamage = weaponDamage;
+obj_player.weaponKnockback = weaponKnockback;
 obj_player.toolAnimation = toolAnimation;
 obj_player.proj_type = proj_type;
 obj_player.tool_snd = tool_snd;

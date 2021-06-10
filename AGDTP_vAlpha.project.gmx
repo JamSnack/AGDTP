@@ -269,6 +269,7 @@
       <script>scripts\scr_applyAccessory.gml</script>
       <script>scripts\scr_applyPickaxeStats.gml</script>
       <script>scripts\scr_applyWeaponStats.gml</script>
+      <script>scripts\scr_getToolStats.gml</script>
       <script>scripts\scr_useWeapon.gml</script>
       <script>scripts\scr_usePickaxe.gml</script>
       <script>scripts\scr_useConsumable.gml</script>
@@ -364,6 +365,7 @@
       <script>scripts\twitch_execute_command.gml</script>
     </scripts>
     <script>scripts\scr_convertToCompressedString.gml</script>
+    <script>scripts\scr_fitText.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

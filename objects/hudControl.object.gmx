@@ -202,7 +202,7 @@ if showSuperMenu == true &amp;&amp; ui_state == "CRAFT"
         
         for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
         {
-            if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
+            if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
             {
                 var size = 35; //The size of the distance between slots - the actual size of the slots.
                 var column = 7;
@@ -395,7 +395,7 @@ if keyboard_check_released(global.key_craft)
     //Calculate number of visible crafting icons to determine scroll limit.
     for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
     {
-        if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
+        if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
         {
             var size = 35; //The size of the distance between slots - the actual size of the slots.
             var column = 7;
@@ -1273,7 +1273,7 @@ if obj_player.dead == false &amp;&amp; showSuperMenu == true
         {   
             for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
             {
-                if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
+                if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
                 {
                     var size = 35; //The size of the distance between slots - the actual size of the slots.
                     var column = 7;
@@ -1285,7 +1285,7 @@ if obj_player.dead == false &amp;&amp; showSuperMenu == true
                     var y2 = _posY+25+(size*c)+craft_scroll;
                     
                     //If not on-screen then continue
-                    if (y1 &lt; _posY || y2 &gt; _posY+sprite_get_height(spr_ui_superMenuBackground)) 
+                    if (y1 &lt; _posY || y2 &gt; _posY+sprite_get_height(spr_ui_superMenuBackground)/2) 
                     { 
                         drawn_slots += 1;
                         continue; 
@@ -1312,7 +1312,7 @@ if obj_player.dead == false &amp;&amp; showSuperMenu == true
             
             craftTimer += 1;
             
-            if craftTimer &gt;= craftTimerMax &amp;&amp; scr_checkCraftingIndex(craftIndex) == true &amp;&amp; scr_checkCraftingType(craftIndex) == true
+            if craftTimer &gt;= craftTimerMax &amp;&amp; scr_checkCraftingIndex(craftIndex) == true &amp;&amp; scr_checkCraftingType(craftIndex) != false
             {
                 craftTimer = 1;
                 
@@ -1603,7 +1603,8 @@ if showSuperMenu == true
         //draw crafting buttons
         for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
         {
-            if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
+            
+            if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
             {
                 var size = 35; //The size of the distance between slots - the actual size of the slots.
                 var column = 7;
@@ -1631,9 +1632,13 @@ if showSuperMenu == true
                 //Draw crafting tooltip
                 if craftSelect != -1
                 {
-                    scr_craftingToolTip(craftSelect);
+                    scr_craftingToolTip(craftSelect); //initializes text and recipe variables and sets recipe varialbes
+                    scr_drawToolTip(craftSelect,scr_checkCraftingType(craftSelect),true); //initializes and sets text variables
+                    
+                    text[1] = scr_fitText(text[1],150);
+                    
                     draw_text_transformed(132,134,text[0],1.25,1.25,0);
-                    draw_text_transformed(133,155,text[1],1,1,0);
+                    draw_text_transformed(133,145,text[1],0.8,0.8,0);
                     draw_text_transformed(133,175,"Items Needed: ",1,1,0);
                     
                     //- Draw material sprites.
@@ -1911,7 +1916,7 @@ if invenX &gt; 5
     //Draw tooltip
     if selectedSlot != noone &amp;&amp; selectedSlot != "trashSlot"
     {
-        scr_drawToolTip(inventorySlotIcon[selectedSlot]);
+        scr_drawToolTip(inventorySlotIcon[selectedSlot],inventorySlotType[selectedSlot],false);
         var _text = text[0]+"##"+text[1]+"##"+text[2];
         draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
         /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
