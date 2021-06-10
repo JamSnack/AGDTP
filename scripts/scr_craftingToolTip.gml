@@ -2,7 +2,14 @@
 text[0] = "" //Item Name
 text[1] = ""; //Item Description
 
-switch argument0
+mats = 0; // What type of material to look for
+matsAmt = 0; // How much of the material to look for/consume.
+itemID = argument0; //The ID of the item to craft.
+
+//UPDATE VARIABLES FOR TEXT USE
+scr_getRecipe(itemID);
+
+switch itemID
 {
     case ITEMID.tile_ladder: { text[0] = "Ladder"; text[1] = "Place this and climb!"; text[2] = "Stick x 2"} break; //Workbench
     case ITEMID.tile_woodenStilt: { text[0] = "Wooden Stilt"; text[1] = "Provides support for your structures."; text[2] = "Stick x 2"} break;

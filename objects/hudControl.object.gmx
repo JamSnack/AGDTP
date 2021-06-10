@@ -358,6 +358,8 @@ if keyboard_check_released(global.key_craft)
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
     craft_scroll -= 10;
+    
+    if craft_scroll &lt; 0 then craft_scroll = 0;
 }
 </string>
           </argument>
@@ -383,7 +385,42 @@ if keyboard_check_released(global.key_craft)
             <kind>1</kind>
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
+    var _posX = viewWidth/2-120;
+    var _posY = viewHeight/2-105;
+    var drawn_crafting_slots = 0;
+    var menu_height = sprite_get_height(spr_ui_superMenuBackground);
+
     craft_scroll += 10;
+    
+    //Calculate number of visible crafting icons to determine scroll limit.
+    for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
+    {
+        if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) == true
+        {
+            var size = 35; //The size of the distance between slots - the actual size of the slots.
+            var column = 7;
+            var c = floor(drawn_crafting_slots/column);
+            
+            var x1 = _posX+10+(drawn_crafting_slots*size)-(c*size*column);
+            var x2 = _posX+30+(drawn_crafting_slots*size)-(c*size*column);
+            var y1 = _posY+5+(size*c)+craft_scroll;
+            var y2 = _posY+25+(size*c)+craft_scroll;
+            
+            //If not on-screen then continue
+            if (y1 &lt; _posY || y2 &gt; _posY+menu_height/2) 
+            { 
+                drawn_crafting_slots += 1;
+                continue; 
+            }
+
+            drawn_crafting_slots += 1;
+        }
+    }
+    
+    
+    var limit = floor(drawn_crafting_slots/7);
+    
+    if craft_scroll &gt; limit then craft_scroll = limit;
 }
 </string>
           </argument>
@@ -1523,6 +1560,7 @@ modCanConfirm = false;
 draw_set_color(c_white);
 var dispWidth = viewWidth;
 var dispHeight = viewHeight;
+var menu_height = sprite_get_height(spr_ui_superMenuBackground);
 
 var mx = device_mouse_x_to_gui(0);
 var my = device_mouse_y_to_gui(0);
@@ -1550,7 +1588,7 @@ if showSuperMenu == true
         //- draw filters
         var _ico_scale = 0.8;
         var _y_offset = 14;
-        var enabled_offset = 4;
+        var enabled_offset = 4;;
         
         draw_sprite_ext(spr_menuIcons,0,_posX+140,_posY-_y_offset+(enabled_offset*craft_filter_resources),_ico_scale,_ico_scale,0,c_white,1);
         draw_sprite_ext(spr_menuIcons,1,_posX+158,_posY-_y_offset+(enabled_offset*craft_filter_weapon),_ico_scale,_ico_scale,0,c_white,1);
@@ -1559,6 +1597,8 @@ if showSuperMenu == true
         draw_sprite_ext(spr_menuIcons,4,_posX+212,_posY-_y_offset+(enabled_offset*craft_filter_cons),_ico_scale,_ico_scale,0,c_white,1);
         draw_sprite_ext(spr_menuIcons,5,_posX+230,_posY-_y_offset+(enabled_offset*craft_filter_acc),_ico_scale,_ico_scale,0,c_white,1);
         
+        //Draw crafting recipe tooltip box
+        draw_nineSliceBox(spr_ui_9slice_small,_posX+8,_posY+menu_height/2,_posX+238,_posY+menu_height-27,0);
         
         //draw crafting buttons
         for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
@@ -1575,7 +1615,7 @@ if showSuperMenu == true
                 var y2 = _posY+25+(size*c)+craft_scroll;
                 
                 //If not on-screen then continue
-                if (y1 &lt; _posY || y2 &gt; _posY+sprite_get_height(spr_ui_superMenuBackground)) 
+                if (y1 &lt; _posY || y2 &gt; _posY+menu_height/2) 
                 { 
                     drawn_crafting_slots += 1;
                     continue; 
@@ -1592,9 +1632,25 @@ if showSuperMenu == true
                 if craftSelect != -1
                 {
                     scr_craftingToolTip(craftSelect);
-                    draw_text_transformed(130,134,text[0],1.25,1.25,0);
-                    draw_text_transformed(131,155,text[1],1,1,0);
-                    draw_text_transformed(131,175,"Items Needed: "+text[2],1,1,0);
+                    draw_text_transformed(132,134,text[0],1.25,1.25,0);
+                    draw_text_transformed(133,155,text[1],1,1,0);
+                    draw_text_transformed(133,175,"Items Needed: ",1,1,0);
+                    
+                    //- Draw material sprites.
+                    for(_i=0;_i&lt;array_length_1d(mats);_i++)
+                    {
+                        var column = floor(_i/3);
+                        var y_offset = _i*10;
+                        var x_offset = (column*32)+5
+                        var _scal = 0.5;
+                        var y_pos = 186;
+                        
+                        y_pos -= column*y_offset;
+                        
+                        
+                        draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
+                        if matsAmt[_i] &gt; 0 then draw_text(135+x_offset,y_pos+y_offset,"x"+string(matsAmt[_i]));
+                    }
                 }
                 
                 drawn_crafting_slots += 1;
