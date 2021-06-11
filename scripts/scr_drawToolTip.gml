@@ -104,7 +104,7 @@ else
     }
 }
 
-text[1]+="#";
+text[1]+="##";
 
 switch item_id
 {

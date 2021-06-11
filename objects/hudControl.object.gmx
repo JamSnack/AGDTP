@@ -1917,6 +1917,9 @@ if invenX &gt; 5
     if selectedSlot != noone &amp;&amp; selectedSlot != "trashSlot"
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot],inventorySlotType[selectedSlot],false);
+        
+        text[1] = scr_fitText(text[1],30);
+        
         var _text = text[0]+"##"+text[1]+"##"+text[2];
         draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
         /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
