@@ -127,8 +127,8 @@ switch item_id
     case 16: { text[0] = "Platform"; text[1] += "Useful for building."; } break;
     case 17: { text[0] = "Bomb"; text[1] += "Use this to quickly gather resources."; } break;
     case 18: { text[0] = "Packed Stone"; text[1] += "A reliable, easy-to-gather defense!"; } break;
-    case 19: { text[0] = "Sub-Lime Machine#Gun"; text[1] += "A reliable, high-firerate fruit!"; } break;
-    case ITEMID.item_modTag: { text[0] = "Mod Tag"; text[1] += "Modify your equipment with this tag.#Used in the tag menu."; } break;
+    case 19: { text[0] = "Sub-Lime Machine Gun"; text[1] += "A reliable, high-firerate fruit!"; } break;
+    case ITEMID.item_modTag: { text[0] = "Mod Tag"; text[1] += "Modify your equipment with this tag. Used in the tag menu."; } break;
     case ITEMID.tile_woodenStilt: { text[0] = "Wooden Stilt"; text[1] += "Used to connect pieces of your base, creating more elaborate defenses."; } break;
     case ITEMID.item_acorn: { text[0] = "Acorn"; text[1] += "Place this on dirt to grow a tree. Can also be placed on Packed Dirt."; } break;
     case ITEMID.weapon_sphereLauncher: { text[0] = "Sphere Launcher"; text[1] += "He who controls his spheres, controls his destiny."; } break;
@@ -137,7 +137,7 @@ switch item_id
     case ITEMID.weapon_beemerang: { text[0] = "Beemerang"; text[1] += "A home-bound friend."; } break;
     case ITEMID.acc_ultrablueStar: { text[0] = "Ultra-Blue Star"; text[1] += "Increases knockback resistance by 0.6#Knockback resistance: "+string(obj_player.knock_resistance); } break;
     case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "Increases inventory size by 4." } break;
-    case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Place within 8 tiles of the pie to charges over time. Energy is distributed when needed."; } break;
+    case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Place within 8 tiles of the pie to charge over time. Energy is distributed when needed."; } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "Increases inventory size by 2. Increase jump-height by 1 tile."; } break;
     case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "A delectable little snack! Heals 10 health points."; } break;
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "A true marksman's humble beginning."; } break;

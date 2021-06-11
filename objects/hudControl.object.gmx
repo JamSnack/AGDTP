@@ -1635,20 +1635,20 @@ if showSuperMenu == true
                     scr_craftingToolTip(craftSelect); //initializes text and recipe variables and sets recipe varialbes
                     scr_drawToolTip(craftSelect,scr_checkCraftingType(craftSelect),true); //initializes and sets text variables
                     
-                    text[1] = scr_fitText(text[1],150);
+                    text[1] = scr_fitText(text[1],58);
                     
                     draw_text_transformed(132,134,text[0],1.25,1.25,0);
                     draw_text_transformed(133,145,text[1],0.8,0.8,0);
-                    draw_text_transformed(133,175,"Items Needed: ",1,1,0);
+                    draw_text_transformed(133,185,"Items Needed: ",1,1,0);
                     
                     //- Draw material sprites.
                     for(_i=0;_i&lt;array_length_1d(mats);_i++)
                     {
-                        var column = floor(_i/3);
+                        var column = floor(_i/2);
                         var y_offset = _i*10;
                         var x_offset = (column*32)+5
                         var _scal = 0.5;
-                        var y_pos = 186;
+                        var y_pos = 196;
                         
                         y_pos -= column*y_offset;
                         

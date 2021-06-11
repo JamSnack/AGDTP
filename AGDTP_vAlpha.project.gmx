@@ -364,8 +364,10 @@
       <script>scripts\twitch_log.gml</script>
       <script>scripts\twitch_execute_command.gml</script>
     </scripts>
-    <script>scripts\scr_convertToCompressedString.gml</script>
-    <script>scripts\scr_fitText.gml</script>
+    <scripts name="Text">
+      <script>scripts\scr_fitText.gml</script>
+      <script>scripts\scr_convertToCompressedString.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
