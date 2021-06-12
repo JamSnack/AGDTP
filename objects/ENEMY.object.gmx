@@ -211,7 +211,7 @@ scr_playSound(snd_hit,false,4,x,y,0.8);
             <string>///Draw Raid Leader status
 if raid_boss == true
 {
-    draw_sprite(spr_red_arrow_down,image_index,x,y-sprite_height)
+    draw_sprite(spr_red_arrow_down,image_index,x,y-sprite_height/2)
 }
 </string>
           </argument>
