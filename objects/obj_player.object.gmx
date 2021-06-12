@@ -952,6 +952,12 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
             <kind>1</kind>
             <string>if dev != true then exit;
 instance_create(mouse_x,mouse_y,obj_sandMenace);
+
+/*if instance_exists(obj_hiveTotem)
+{
+x = obj_hiveTotem.x;
+y = obj_hiveTotem.y;
+}
 </string>
           </argument>
         </arguments>

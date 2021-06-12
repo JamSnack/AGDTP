@@ -135,6 +135,7 @@ for (i=0;i<spawnAmt;i++)
     }
 }
 
+
 //Spawn trees
 var spawnAmt = irandom_range(5,15);
 
@@ -220,6 +221,22 @@ for (i=0;i<spawnAmt;i++)
         }
     }
     
+}
+
+//Spawn Hive Totem!
+if region == "GRASSLANDS"
+{
+    var hive_x = floor(irandom_range(16,room_width-16)/16)*16;
+    var hive_y = floor(irandom_range(stoneLayer+16*8,room_height-16)/16)*16;
+    var shove = choose(1,-1);
+    
+    while (position_meeting(hive_x,hive_y,FLATLAND) || position_meeting(hive_x,hive_y,obj_nullLight)) { hive_x+=16*shove; }
+    
+    if position_meeting(hive_x,hive_y,OBSTA) { with instance_position(hive_x,hive_y,OBSTA) { instance_destroy(); } }
+    
+    instance_create(hive_x,hive_y,obj_hiveTotem);
+    
+    //print("HERE: "+string(hive_x)+","+string(hive_y));
 }
 
 

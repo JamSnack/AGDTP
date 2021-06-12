@@ -131,6 +131,8 @@
       </sprites>
       <sprite>sprites\spr_hornedHapp</sprite>
       <sprite>sprites\spr_hiveGrowth</sprite>
+      <sprite>sprites\spr_crabKing</sprite>
+      <sprite>sprites\spr_crab</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -158,7 +160,6 @@
       <sprite>sprites\spr_copperOre</sprite>
       <sprite>sprites\spr_seashellMetal</sprite>
       <sprite>sprites\spr_essenceOre</sprite>
-      <sprite>sprites\spr_essenceGlow</sprite>
       <sprite>sprites\spr_battery</sprite>
       <sprite>sprites\spr_stoneWall</sprite>
       <sprite>sprites\spr_treeTile</sprite>
@@ -171,6 +172,7 @@
       <sprite>sprites\spr_dirtTile</sprite>
       <sprite>sprites\spr_sandTile</sprite>
       <sprite>sprites\spr_flatlandTile</sprite>
+      <sprite>sprites\spr_hiveTotem</sprite>
     </sprites>
     <sprites name="Projectiles">
       <sprite>sprites\spr_projectile1</sprite>
@@ -241,8 +243,6 @@
     <sprite>sprites\spr_sparkle</sprite>
     <sprite>sprites\spr_sparkleTile</sprite>
     <sprite>sprites\spr_portal</sprite>
-    <sprite>sprites\spr_crabKing</sprite>
-    <sprite>sprites\spr_crab</sprite>
     <sprite>sprites\spr_shield</sprite>
   </sprites>
   <backgrounds name="background">
@@ -408,6 +408,7 @@
       <objects name="Tiles">
         <object>objects\TILE</object>
         <object>objects\obj_dirt</object>
+        <object>objects\obj_hiveTotem</object>
         <object>objects\obj_sand</object>
         <object>objects\obj_tree</object>
         <object>objects\obj_stone</object>

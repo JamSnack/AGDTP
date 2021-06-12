@@ -16,10 +16,10 @@ var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 
 
 //------FORCED WAVES----------------
-if interm == true
+/*if interm == true
 {
     if wave+1 >= 10 && kingDied_1 == false && region == "GRASSLANDS" then presetSettings = "KING_NILMERG";
-}
+}*/
 
 //----------------PRESET SETTINGS-------------------
 switch presetSettings

@@ -284,7 +284,7 @@ if view_zoom != view_zoom_buffer
 
 //-----------Light up underground tiles----------------
 //Updates every tile.
-if playerY &gt; stoneLayer-48 &amp;&amp; (player_distance_amt_x &gt; 15 || player_distance_amt_y &gt; 15)
+if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || player_distance_amt_y &gt; 15)
 {
     if instance_exists(TILE)
     {

@@ -33,6 +33,7 @@ knockType = noone;
 item = 0;
 amt = 0;
 type = 0;
+itemDrop = true;
 
 max_saturation = 80;
 light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
@@ -61,7 +62,7 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if insideView(x,y) == true &amp;&amp; !instance_exists(region_shifter)
+            <string>if insideView(x,y) == true &amp;&amp; !instance_exists(region_shifter) &amp;&amp; itemDrop == true
 {
     part_particles_create(particle_system,x,y,tile_frag,irandom_range(4,8));
     scr_dropItem(item,amt,type,x,y+4,noone);
@@ -94,7 +95,7 @@ event_inherited();
             <kind>1</kind>
             <string>///Update light_color
 light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
-alarm[1] = 20;
+alarm[1] = floor(80/fps)*5;
 </string>
           </argument>
         </arguments>

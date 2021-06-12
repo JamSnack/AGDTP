@@ -38,7 +38,7 @@ amt = 1;
 type = ITEMTYPE.def;
 
 light_level = 0;
-glow_index = irandom(sprite_get_number(spr_essenceGlow));
+glow_index = irandom(sprite_get_number(spr_sparkle));
 glow_x = random_range(x-sprite_width/2,x+sprite_width/2);
 glow_y = random_range(y-sprite_width/2,y+sprite_width/2);
 sparkle = false;

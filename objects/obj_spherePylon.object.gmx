@@ -94,7 +94,7 @@ image_speed = 20/60;
           <argument>
             <kind>1</kind>
             <string>///Special &amp; Inherits nothing.
-if interm == true &amp;&amp; insideView(x,y) == true
+if nextRaid == "RAID" &amp;&amp; interm == true &amp;&amp; insideView(x,y) == true
 {
     nextRaid = "SPHERE";
     scr_hudMessage("Tonight is going to be strange..",global.fnt_menu,20,0,c_purple,0);
