@@ -11,6 +11,8 @@ var special_raidID = noone;
 
 var musicTransitionTime = 1000; //2.5 seconds, 2500 milliseconds
 
+var difficulty = scr_getDifficulty();
+
 //Spawn Rate is: alarm[0] = room_speed/spawn_rate;
 //Spawn Chance is: if irandom(100) < spawnChance;
 
@@ -120,7 +122,7 @@ switch presetSettings
         else
         {
         
-            spawnRate = 1+(wave*0.5);
+            spawnRate = 0.5+(difficulty*0.25);
             spawnChance = 70+(wave*5);
             maxGrem = 10+(wave*2);
             maxRaidProgress = 20+(wave*5);
@@ -142,7 +144,7 @@ switch presetSettings
     {
         //---------- Sphere King Raid ---------
         specialRaid = true;
-        spawnRate = 1+(0.1*wave);
+        spawnRate = spawnRate = 0.5+(difficulty*0.25);
         spawnChance = 70+(wave*5);
         maxGrem = 10+(wave*2);
         maxRaidProgress = 15+(wave*3);
@@ -163,7 +165,7 @@ switch presetSettings
         
         //---------- Region King Raid ---------
         specialRaid = true;
-        spawnRate = 1+(0.1*wave);
+        spawnRate = spawnRate = 0.5+(difficulty*0.25);
         spawnChance = 70+(wave*5);
         maxGrem = 10+(wave*2);
         maxRaidProgress = 15+(wave*3);

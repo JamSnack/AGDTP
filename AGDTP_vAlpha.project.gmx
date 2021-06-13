@@ -56,6 +56,8 @@
     <sound>sound\snd_modificationSuccess</sound>
     <sound>sound\snd_rifle</sound>
     <sound>sound\snd_itemPickup</sound>
+    <sound>sound\snd_shield_deployed</sound>
+    <sound>sound\snd_shield_destroyed</sound>
     <sound>sound\snd_sphereLaunch</sound>
     <sounds name="Music">
       <sound>sound\snd_theStarsForever</sound>
@@ -368,6 +370,7 @@
       <script>scripts\scr_fitText.gml</script>
       <script>scripts\scr_convertToCompressedString.gml</script>
     </scripts>
+    <script>scripts\scr_getDifficulty.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

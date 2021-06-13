@@ -59,6 +59,7 @@ if (hp-damage <= 0)
             {
                 shield_charges -= 1;
                 shield_health = shield_health_max;
+                scr_playSound(snd_shield_destroyed,false,8,x,y,1);
             }
         }
     }
@@ -142,5 +143,6 @@ else
     {
         shield_charges -= 1;
         shield_health = shield_health_max;
+        scr_playSound(snd_shield_destroyed,false,8,x,y,1);
     }
 }

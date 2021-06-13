@@ -418,7 +418,7 @@ else if interm == false
             <string>///CONSTRUCT THE WAVE
 
 //Locals
-var difficulty = wave + (kingDied_1*5);
+var difficulty = scr_getDifficulty();
 var build_target = waveScale(1,2,1,6); //Gremlin variety
 var build_index = 0;
 
