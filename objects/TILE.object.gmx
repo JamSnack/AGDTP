@@ -35,6 +35,9 @@ amt = 0;
 type = 0;
 itemDrop = true;
 
+hit_sound = "DIRT";
+break_sound = snd_dirt_break;
+
 max_saturation = 80;
 light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
 alarm[1] = 10; //update light_color every frames.
@@ -69,6 +72,8 @@ event_inherited();
     
     //Update nearby player tiles.
     scr_updateConnections(x,y);
+    
+    scr_playSound(break_sound,false,8,x,y,1);
 }
 
 </string>

@@ -32,6 +32,7 @@ hp = maxHp;
 item = ITEMID.item_dirtClump;
 amt = 1;
 type = ITEMTYPE.def;
+hit_sound = "DIRT";
 </string>
           </argument>
         </arguments>

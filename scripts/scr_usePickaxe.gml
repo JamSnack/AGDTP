@@ -9,8 +9,11 @@ var col = collision_point(mouse_x,mouse_y,TILE,false,false);
 var plr_col = collision_point(mouse_x,mouse_y,PLRTILE,false,false);
 var no_col = collision_point(mouse_x,mouse_y,NOCOL,false,false);
 
+//TILES
 if instance_exists(col)
 {
+    var hit_sound = col.hit_sound;
+    
     //Ensure the tile reachable.
     if distance_to_object(col) <= pickRange*16 && collision_line(x,y,col.x,col.y,col,false,false)
     {
@@ -18,7 +21,7 @@ if instance_exists(col)
         //Damage the tile
         if col.level <= pl then col.hp -= (pd+(pl/2));
         
-        //Check for tile death otherwise heal.
+        //Check for tile death otherwise play sound & heal.
         if col.hp <= 0 
         {
             var cx = col.x;
@@ -27,7 +30,23 @@ if instance_exists(col)
             with col { instance_destroy(); }
             scr_tileUpdate(cx,cy);
             
-        } else col.alarm[0] = room_speed*5;
+        } 
+        else 
+        {
+            //TILE Hit Sounds
+            var _sound = snd_shield_deployed;
+        
+            switch hit_sound
+            {
+                case "DIRT": { _sound = choose(snd_dirtHit_1,snd_dirtHit_2,snd_dirtHit_3); } break;
+                case "STONE": { _sound = choose(snd_stoneHit_1,snd_stoneHit_2,snd_stoneHit_3); } break;
+            }
+            
+            audio_play_sound(_sound,8,false);
+            
+            //SET heal alarm
+            col.alarm[0] = room_speed*5;
+        }
     }
 }
 

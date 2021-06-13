@@ -35,6 +35,8 @@ amt = 1;
 type = ITEMTYPE.def;
 
 tile_frag = part_stone_frag;
+hit_sound = "STONE";
+break_sound = snd_stone_break
 </string>
           </argument>
         </arguments>

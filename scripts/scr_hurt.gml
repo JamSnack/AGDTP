@@ -13,9 +13,12 @@ var inst_parent = object_get_parent(object_index);
 
 if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
 
- //knockback conditions
+ //Tile conditions
 if inst_parent == TILE || inst_parent == PLRTILE  || inst_parent == PLT_1 || inst_parent == PLR_NOCOL
-    { knock = false; damage = round(damage/10)+1 }
+{ 
+    knock = false; 
+    damage = round(damage/10)+1;
+}
 
 //DEATH
 if (hp-damage <= 0)
@@ -78,7 +81,7 @@ if time > 0
     alarm[hurtAlarm] = time;
 }
 
-//This condition is to short circuit HURT TILES from checking for an undefined shield_charges variable.
+//-------DAMAGE------------
 if (shield_charges <= 0 || other_index == obj_railgunBullet)
 {
     hp -= damage;

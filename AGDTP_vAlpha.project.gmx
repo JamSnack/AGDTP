@@ -55,6 +55,18 @@
     <sound>sound\snd_inventoryClick</sound>
     <sound>sound\snd_modificationSuccess</sound>
     <sound>sound\snd_rifle</sound>
+    <sounds name="Stone">
+      <sound>sound\snd_stoneHit_1</sound>
+      <sound>sound\snd_stoneHit_2</sound>
+      <sound>sound\snd_stone_break</sound>
+      <sound>sound\snd_stoneHit_3</sound>
+    </sounds>
+    <sounds name="Dirt">
+      <sound>sound\snd_dirtHit_1</sound>
+      <sound>sound\snd_dirtHit_3</sound>
+      <sound>sound\snd_dirtHit_2</sound>
+      <sound>sound\snd_dirt_break</sound>
+    </sounds>
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_shield_deployed</sound>
     <sound>sound\snd_shield_destroyed</sound>
@@ -410,8 +422,8 @@
       <object>objects\NOCOL</object>
       <objects name="Tiles">
         <object>objects\TILE</object>
-        <object>objects\obj_dirt</object>
         <object>objects\obj_hiveTotem</object>
+        <object>objects\obj_dirt</object>
         <object>objects\obj_sand</object>
         <object>objects\obj_tree</object>
         <object>objects\obj_stone</object>
