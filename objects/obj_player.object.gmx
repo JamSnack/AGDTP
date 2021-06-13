@@ -677,10 +677,19 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
         var item = hudControl.inventorySlotIcon[slot];
         if item == 0 then exit;
         
-        //Play the tool's audio.
+        //-----SOUND------
         if tool_snd != noone &amp;&amp; toolReady == true &amp;&amp; (tool == 2 || tool == 1)
         {
-            audio_play_sound(tool_snd,5,false);
+            var snd = noone;
+        
+            switch tool_snd
+            {
+                case "SWISH": { snd = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4); } break;
+            
+                default: snd = tool_snd;
+            }
+        
+            audio_play_sound(snd,10,false);
         }
         
         

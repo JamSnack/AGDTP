@@ -1,11 +1,10 @@
 ///scr_applyPickaxeStats(pickaxe);
 //Update the player variables to accomodate the equipped weapon.
 var tool_firerate,tool_spr,pick_Dam,pick_range,pick_level,toolAnimation,tool_snd;
-var swish = choose(snd_swish1,snd_swish4);
 
 toolAnimation = "SWING";
 pick_range = 2;
-tool_snd = swish;
+tool_snd = "SWISH";
 
 //Apply animation and other variables
 var item_id = argument0;
