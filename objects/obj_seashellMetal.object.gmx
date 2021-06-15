@@ -35,6 +35,9 @@ tile_frag = part_stone_frag;
 item = ITEMID.item_seashellMetal;
 amt = 1;
 type = ITEMTYPE.def;
+
+hit_sound = "STONE";
+break_sound = snd_stone_break
 </string>
           </argument>
         </arguments>

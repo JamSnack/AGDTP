@@ -34,6 +34,13 @@ amt = 1;
 type = ITEMTYPE.def;
 itemDrop = false;
 
+hit_sound = "STONE";
+
+glow_index = irandom(sprite_get_number(spr_sparkleRed));
+glow_x = random_range(x-sprite_width/2,x+sprite_width/2);
+glow_y = random_range(y-sprite_width/2,y+sprite_width/2);
+sparkle = false;
+
 </string>
           </argument>
         </arguments>
@@ -62,6 +69,75 @@ if interm == true &amp;&amp; insideView(x,y) == true
     nextRaid = "KING_NILMERG"; 
     scr_hudMessage("The hum of distant wings fills you with dread...",global.fnt_menu,20,0,c_purple,0);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if glow_index  &gt;= sprite_get_number(spr_sparkle)
+{
+    glow_index = 0;
+    sparkle = false;
+    glow_x = random_range(x-sprite_width/2,x+sprite_width/2);
+    glow_y = random_range(y-sprite_width/2,y+sprite_width/2);
+}
+else
+{
+    if sparkle == true
+    {
+    glow_index += 0.5;
+    }
+    else if irandom(120) == 3
+    {
+        sparkle = true;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="73">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if sparkle == true &amp;&amp; light_level &lt;= 200
+{
+    draw_set_alpha(((255-light_level)/255)*1.25);
+    draw_sprite(spr_sparkleRed,glow_index,glow_x,glow_y);
+}
+
+draw_set_alpha(1);
 </string>
           </argument>
         </arguments>

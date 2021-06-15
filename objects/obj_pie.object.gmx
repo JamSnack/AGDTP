@@ -62,7 +62,11 @@ if room == rm_tutorial then visible = false;
 canHurt = true;
 
 //Hit check
-if hp &lt;= 0 { obj_player.g_over = true; gameOver = true; }
+if hp &lt;= 0 
+{ 
+    obj_player.g_over = true; 
+    gameOver = true; 
+}
 </string>
           </argument>
         </arguments>

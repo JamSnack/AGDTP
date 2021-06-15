@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,kingDied_1;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -37,6 +37,10 @@ raidProgress = 0; //How many more gremlins need to die before the raid is comple
 maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 energy = 0;
+
+
+//- boss checklist
+kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
 
 //local variable that needs to be set before scr_raidControl :)
 region_shift = false; //Whether or not to shift the region next intermission.
