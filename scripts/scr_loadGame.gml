@@ -145,13 +145,14 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     
     //---------------------Handle other data------------------------
     
-    var _list = _wrapper[? "KING"];
+    var _list = _wrapper[? "RECIPE"];
     
     if _list != undefined
     {
         for (var k=0;k<ds_list_size(_list);k++)
         {
-            kingDied_1 = _list[| 0];
+            recipe_copperOre = _list[| 0];
+            recipe_sweetComb = _list[| 1];
         }
     }
     

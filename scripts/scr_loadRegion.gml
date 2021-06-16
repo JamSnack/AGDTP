@@ -38,7 +38,7 @@ switch region_type
 {
     case "GRASSLANDS":
     {
-        if kingDied_1 == true && wave >= 5 then spawner_bool = true;
+        if kingDied_1 == true then spawner_bool = true;
     }
     break;
     

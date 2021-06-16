@@ -110,7 +110,7 @@ if _playerY &gt; stoneLayer-(16)
             <kind>1</kind>
             <string>///SAVE GAME
 var save_list = ds_list_create(); //Inventory data
-var king_list = ds_list_create(); //Region kings defeated
+var recipe_list = ds_list_create(); //Recipes unlocked
 var quest_list = ds_list_create(); //List containing quest progress
 var stat_list = ds_list_create(); //List containing player stats to save.
 var accessory_list = ds_list_create(); //List containing equipped accessories.
@@ -162,7 +162,8 @@ with hudControl
 }
 
 //Save other variables
-ds_list_add(king_list,kingDied_1);
+ds_list_add(recipe_list,recipe_copperOre);
+ds_list_add(recipe_list,recipe_sweetComb);
 ds_list_add(quest_list,mainQuest);
 ds_list_add(quest_list,tip_controls);
 
@@ -188,7 +189,7 @@ if ds_exists(accessories_equipped,ds_type_list)
 //Wrap the root List up in a map!
 var _wrapper = ds_map_create();
 ds_map_add_list(_wrapper,"INV",save_list);
-ds_map_add_list(_wrapper,"KING",king_list);
+ds_map_add_list(_wrapper,"RECIPE",recipe_list);
 ds_map_add_list(_wrapper,"QUEST",quest_list);
 ds_map_add_list(_wrapper,"STAT",stat_list);
 ds_map_add_list(_wrapper,"ACC",accessory_list);
@@ -338,7 +339,7 @@ if dev == true
             <string>if gameOver == true
 {
     event_user(0);
-    scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,rm_zero);
+    scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,rm_menu);
 }
 </string>
           </argument>

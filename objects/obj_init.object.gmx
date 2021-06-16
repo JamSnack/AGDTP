@@ -231,6 +231,11 @@ mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
 tileLevel = 0; //Percentage to increase a tile's maximum HP when placed.
 tileRegenRate = 0; //How fast a tile's HP is regenerated.
 
+//- recipes
+globalvar recipe_copperOre,recipe_sweetComb;
+recipe_copperOre = false;
+recipe_sweetComb = false;
+
 accessories_equipped = ds_list_create();
 
 //Surface

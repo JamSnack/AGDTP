@@ -114,7 +114,7 @@ print("transitioning...");
     transition_time = approach(transition_time,0,1/room_speed);
     if transition_time &lt;= 0 then instance_destroy();
     
-    if rm_goto == rm_lobby then scr_musicTransition(snd_theStarsForever,room_speed*20);
+    if rm_goto == rm_menu then scr_musicTransition(snd_theStarsForever,room_speed*20);
 }
 else transition_time = approach(transition_time,transition_length,1/room_speed);
 

@@ -7,22 +7,30 @@ switch argument0
 {
     case ITEMID.tile_ladder: { returnID = true; } break;
     case ITEMID.tile_woodenStilt: { returnID = true; } break;
-    case ITEMID.weapon_greenSword: { returnID = true; } break;
-    case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
     case ITEMID.tile_packedDirt: { returnID = true; } break;
-    case ITEMID.tile_copperTurret: { returnID = true; } break;
     case ITEMID.cons_gremTalisman: { returnID = true; } break;
     case ITEMID.tile_platform: { returnID = true; } break;
     case ITEMID.cons_bomb: { returnID = true; } break;
     case ITEMID.tile_packedStone: { returnID = true; } break;
-    case ITEMID.tile_battery: { returnID = true; } break;
     case ITEMID.weapon_acornRifle: { returnID = true; } break;
-    case ITEMID.acc_copperChestplate: { returnID = true; } break;
-    case ITEMID.tile_copperBlock: { returnID = true; } break;
 }
 
-//NILMERG
-if kingDied_1 == true
+//copper ore
+if recipe_copperOre == true
+{
+    switch argument0
+    {
+        case ITEMID.tile_battery: { returnID = true; } break;
+        case ITEMID.tile_copperTurret: { returnID = true; } break;
+        case ITEMID.acc_copperChestplate: { returnID = true; } break;
+        case ITEMID.tile_copperBlock: { returnID = true; } break;
+        case ITEMID.weapon_greenSword: { returnID = true; } break;
+        case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
+    }
+}
+
+//sweet comb
+if recipe_sweetComb == true
 {
     switch argument0
     {

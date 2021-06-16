@@ -71,6 +71,14 @@ if item != 0
                 }
             }
             
+            
+            //RECIPE UNLOCKS
+            switch item
+            {
+                case ITEMID.item_copperOre: { recipe_copperOre = true; } break;
+                case ITEMID.item_sweetComb: { recipe_sweetComb = true; } break;
+            }
+            
             scr_hudMessage(" acquired",global.fnt_Ui,3,invSlot,c_white,invAmt);
             return 1;
         }
