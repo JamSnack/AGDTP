@@ -100,42 +100,6 @@ canPickUp = true;
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="2">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Instance despawning.
-/*
-var world_Time = worldControl.world_Time;
-
-if time &gt; world_Time then instance_destroy();
-
-time = world_Time;
-
-###### 
-NOTE:
-WORLD TIME GETS RESET. THIS CODE GURANTEES ALL ITEM DROPS ARE DESTROYED TRANSITIONING FROM
-WAVE TO INTERMISSION.
-#####
-*/
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -153,13 +117,30 @@ WAVE TO INTERMISSION.
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Gravitate toward player
-if distance_to_object(obj_player) &lt;= 20 &amp;&amp; canPickUp == true 
+            <string>//PICKUP, GRAVITATION, &amp; ITEM COLLECTION
+if distance_to_object(obj_player) &lt;= 20
 {
-    var dir = point_direction(x,y,obj_player.x,obj_player.y);
-    motion_add(dir,1);
-    if image_angle != dir
-    { image_angle += lerp(image_angle,dir,0.1); image_angle = clamp(image_angle,0,dir);}
+
+    //item gravitation
+    if canPickUp == true 
+    {
+        var dir = point_direction(x,y,obj_player.x,obj_player.y);
+        motion_add(dir,1);
+        if image_angle != dir
+        { image_angle += lerp(image_angle,dir,0.1); image_angle = clamp(image_angle,0,dir);}
+    }
+    
+    //Player collision and item collection!
+    if place_meeting_fast(0,0,obj_player)
+    {
+        if scr_invenAddItem(image_index,amt,type,tags) != -1 
+        {
+            instance_destroy();
+            audio_play_sound(snd_itemPickup,10,false);
+        }
+        else 
+        {alarm[0] = room_speed*2; canPickUp = false;}
+    }
 }
 
 
@@ -224,35 +205,6 @@ switch state
     }
     break;
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_player">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if scr_invenAddItem(image_index,amt,type,tags) != -1 
-{
-    instance_destroy();
-    audio_play_sound(snd_itemPickup,10,false);
-}
-else 
-{alarm[0] = room_speed*2; canPickUp = false;}
 </string>
           </argument>
         </arguments>

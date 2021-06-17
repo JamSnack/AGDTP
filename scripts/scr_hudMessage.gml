@@ -23,7 +23,7 @@ for (i=0;i<instance_number(efct_hudMessage);i++)
 }
 
 var i = instance_create(0,0,efct_hudMessage);
-i.hudFont = hudFont;
+i.hudFont = global.fnt_Ui;//hudFont;
 i.alarm[0] = time*room_speed; //Time displayed in seconds.
 i.img = item;
 i.color = argument4;

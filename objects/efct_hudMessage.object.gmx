@@ -27,6 +27,15 @@
             <kind>1</kind>
             <string>position = instance_number(efct_hudMessage);
 amt = 0;
+
+//animation
+bkg_lum = 255;
+bkg_x = 0;
+bkg_color = make_colour_hsv(0,0,bkg_lum);
+message_length = 0;
+
+//Sprite scaling
+scale = 0.5;
 </string>
           </argument>
         </arguments>
@@ -78,6 +87,38 @@ amt = 0;
         </arguments>
       </action>
     </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if message_length == 0
+{
+    message_length = string_width(hudString+string(amt));
+} 
+else if bkg_x != message_length || bkg_lum != 0
+{
+    bkg_lum = approach(bkg_lum,20,255/(bkg_lum)*1.5);
+    bkg_color = make_colour_hsv(0,0,bkg_lum);
+    bkg_x = approach(bkg_x,message_length+16,message_length/(bkg_x+2)*2);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="7" enumb="10">
       <action>
         <libid>1</libid>
@@ -121,9 +162,14 @@ if position-1 != 0 then position -= 1;
           <argument>
             <kind>1</kind>
             <string>if room == rm_menu &amp;&amp; img != 0 then exit; //Do not display item notifications in the menu.
+
+var y_pos = 162+(12*position);
+
+draw_rectangle_colour(0,y_pos-4,bkg_x,y_pos+6,bkg_color,bkg_color,bkg_color,bkg_color,false);
+
 draw_set_font(hudFont);
 draw_set_color(color);
-draw_sprite_ext(spr_itemDrops,img,5,162+(12*position),0.75,0.75,0,c_white,1);
+draw_sprite_ext(spr_itemDrops,img,5,y_pos+2,scale,scale,0,c_white,1);
 draw_text(10,160+(12*position),hudString+string(amt));
 </string>
           </argument>
