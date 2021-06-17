@@ -99,7 +99,9 @@ event_inherited();
           <argument>
             <kind>1</kind>
             <string>///Update light_color
-light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
+var world_TimeMax = worldControl.world_TimeMax;
+var daylight_offset = world_Time-(world_TimeMax*0.4);
+light_color = make_colour_hsv(160,max(light_saturation+clamp(daylight_offset/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
 alarm[1] = floor(80/fps)*5;
 </string>
           </argument>
