@@ -393,7 +393,7 @@ if interm == true
     
     dayAlpha = clamp(dayAlpha,0,aMax);
 } 
-else if interm == false 
+else if interm == false &amp;&amp; gameOver == false
 {
     dayAlpha = aMax;
 }

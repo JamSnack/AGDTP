@@ -92,6 +92,8 @@ switch state
         //Attack the living player!
         if obj_player.dead == false then objective = obj_player;
         
+        xObjective = objective.x;
+        
         //Direction
         var dir = sign(objective.x-x);
         var vdir = sign((objective.y-16)-y);
@@ -109,7 +111,7 @@ switch state
         x+=hAccel;
         y+=vAccel;
         
-        if point_distance(xObjective,0,x_previous,0) <= 8
+        if point_distance(xObjective,0,x_previous,0) <= 16
         {
             state = "TRANSITION";
             transition_to = "WANDER";

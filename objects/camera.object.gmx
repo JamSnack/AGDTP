@@ -108,7 +108,66 @@ view_yview=round(clamp(view_yview,0,room_height-view_hview));
 
 //GameOver
 if instance_exists(gameControl)
-{ if gameOver == true then followThis = obj_pie; }
+{
+    if gameOver == true 
+    {
+        //Transition
+        followThis = obj_pie; 
+        
+        if background_index[0] != bkg_lobbySky
+        {
+            background_index[0] = bkg_lobbySky;
+            background_index[1] = bkg_lobbyStars1;
+            background_index[2] = bkg_lobbyStars2;
+            background_index[3] = bkg_lobbyStars3;
+            background_index[4] = bkg_white;
+        
+            background_visible[0] = true;
+            background_visible[1] = true;
+            background_visible[2] = true;
+            background_visible[3] = true;
+            background_visible[4] = true;
+            
+            background_alpha[0] = 1;
+            background_alpha[1] = 1;
+            background_alpha[2] = 1;
+            background_alpha[3] = 1;
+            background_alpha[4] = 1;
+            
+            background_htiled[0] = true;
+            background_htiled[1] = true;
+            background_htiled[2] = true;
+            background_htiled[3] = true;
+            background_htiled[4] = true;
+            
+            background_vtiled[0] = true;
+            background_vtiled[1] = true;
+            background_vtiled[2] = true;
+            background_vtiled[3] = true;
+            background_vtiled[4] = true;
+        }
+        
+        if background_alpha[4] != 0
+        {
+            background_alpha[4] = approach(background_alpha[4],0,0.01);
+        }
+        
+        //Background animations
+        
+        //- this variable will be used for the stars
+        cloudBkg_xOffset += 0.05;
+        
+        background_x[1] = view_xview/1.15 + cloudBkg_xOffset;
+        background_x[2] = view_xview/1.3 + cloudBkg_xOffset;
+        background_x[3] = view_xview/1.45 + cloudBkg_xOffset;
+        
+        background_y[1] = (-view_yview/5) + cloudBkg_xOffset/1.1;
+        background_y[2] = (-view_yview/5.15)-64 + cloudBkg_xOffset;
+        background_y[3] = (-view_yview/5.25)-64 + cloudBkg_xOffset;
+        
+        background_vspeed[4] = 0.05;
+    }
+}
 
 
 
@@ -116,7 +175,7 @@ if instance_exists(gameControl)
 //--Smaller the number the slower the background moves
 
 //Need to change this to account for other regions in the future ;p
-if room == rm_zero || room == rm_tutorial
+if room == rm_zero &amp;&amp; gameOver == false
 {
     cloudBkg_xOffset += 0.05;
     if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;

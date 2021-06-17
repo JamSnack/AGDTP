@@ -67,7 +67,7 @@ sparkle = false;
 if interm == true &amp;&amp; insideView(x,y) == true
 {
     nextRaid = "KING_NILMERG"; 
-    scr_hudMessage("The hum of distant wings fills you with dread...",global.fnt_menu,20,0,c_purple,0);
+    scr_hudMessage("I never liked bees anyway...",global.fnt_menu,20,0,c_purple,0);
 }
 </string>
           </argument>
