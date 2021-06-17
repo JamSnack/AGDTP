@@ -182,10 +182,12 @@ if room == rm_zero &amp;&amp; gameOver == false
     
     var _dayAlpha = worldControl.dayAlpha/0.6; // dayAlpha/[MAGIC NUMBER]: MN is the maximum dayAlpha value.
     var max_saturation = 80;
-    var light_color1 = make_colour_hsv(160,max(0+clamp(world_Time/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),255); //Increase saturation for cool 'nightime' effect.
-    var light_color2 = make_colour_hsv(160,max(0+clamp(world_Time/20-3*65,0,max_saturation-10),max_saturation-max_saturation*interm),235);
+    var world_TimeMax = worldControl.world_TimeMax;
+    var daylight_offset = world_Time-(world_TimeMax*0.7); //70% of world_TimeMax for use in offsetting the day/night cycle.
+    var light_color1 = make_colour_hsv(160,max(0+clamp(daylight_offset/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),255); //Increase saturation for cool 'nightime' effect.
+    var light_color2 = make_colour_hsv(160,max(0+clamp(daylight_offset/20-3*65,0,max_saturation-10),max_saturation-max_saturation*interm),235);
     
-    background_alpha[1] = _dayAlpha; //stars
+    background_alpha[1] = _dayAlpha; //night sky
     
     background_blend[2] = light_color2; //hill
     background_blend[3] = light_color1; //hill close
@@ -198,6 +200,7 @@ if room == rm_zero &amp;&amp; gameOver == false
     background_y[2] = (-view_yview/5.15)+85*4; //hill
     background_y[3] = (-view_yview/5.20)+95*3; //hill close
     background_y[4] = (-view_yview/5.25)-52; //foreground feature
+    
 } else if room == rm_lobby
 {
     //This variable will be used for the stars

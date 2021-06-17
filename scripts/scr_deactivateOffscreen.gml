@@ -2,7 +2,7 @@
 ///scr_deactivateOffscreen(inst);
 var inst = argument0;
 var outerBoundary = 4*16; //(10 tiles).
-var viewBuffer = 34; //3 tiles b/c the player needs to move 2 TILES to call this script
+var viewBuffer = 16*4;
 
 if instance_exists(inst)
 {

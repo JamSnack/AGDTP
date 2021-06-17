@@ -244,7 +244,7 @@ if interm == false
     }
     
     wave += 1;
-    scr_overMessage("Wave "+string(wave),0,6,c_white);
+    scr_overMessage("Raid "+string(wave),0,6,c_white);
     
     //We need to construct a new wave
     worldControl.special_raidID = special_raidID;

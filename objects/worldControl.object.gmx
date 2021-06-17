@@ -230,7 +230,7 @@ alarm[0] = 1;
 
 //- time control
 if interm == true 
-{ world_Time += 1; }
+{ world_Time += 10; }
 
 heal_Time += 1;
 
@@ -384,17 +384,22 @@ var aMax = 0.6;
 
 if interm == true
 {
-    //Alpha = equation to get the darkness of the day until til night
     if dayTransition == true
     {
         if dayAlpha &gt; 0 { dayAlpha -= 0.01; } else dayTransition = false;
     }
-    else dayAlpha = ((world_Time/world_TimeMax));
+    //dayAlpha = equation to get the darkness of the day until til night
+    else
+    {
+        var daylight_offset = world_TimeMax*0.7; //70% of world_TimeMax for use in offsetting the day/night cycle.
+        dayAlpha = (world_Time-daylight_offset)/(world_TimeMax-daylight_offset);
+    }
     
     dayAlpha = clamp(dayAlpha,0,aMax);
 } 
 else if interm == false &amp;&amp; gameOver == false
 {
+    //Makes the alpha drain a little faster during the day transition if set to 0.6;
     dayAlpha = aMax;
 }
 </string>
