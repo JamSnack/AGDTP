@@ -36,6 +36,8 @@ level = 99;
 shield_charges = 0;
 
 if room == rm_tutorial then visible = false;
+
+hit_sound = snd_shield_deployed;
 </string>
           </argument>
         </arguments>

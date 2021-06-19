@@ -3,15 +3,16 @@
 
 var returnID = false;
 
-/*
+
 //---------RESOURCES-------------
-if craft_filter_resources == false
+/*if craft_filter_resources == false
 {
     switch argument0
     {
+        case ITEMID.item_sweetComb: { returnID = ITEMTYPE.def; } break;
     }
 }*/
-
+//REMOVE SWEETCOMB FROM WEAPON AFTER MOUSE WHEEL STUFF IS FIXED
 
 //---------WEAPONS----------
 if craft_filter_weapon == false

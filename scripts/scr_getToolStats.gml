@@ -24,6 +24,25 @@ switch argument0
     case ITEMID.pickaxe_stingerDrill: { tool_firerate = 25; pick_Dam = 1; pick_level = 1; } break;
 }
 
+if hudControl.selectedSlot != noone
+{
+    var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
+    
+    if ds_exists(tagsUnloaded,ds_type_list)
+    {
+        for (_tool=0;_tool<ds_list_size(tagsUnloaded);_tool++)
+        {
+            var tag = tagsUnloaded[| _tool]
+            
+            //Tool Speed+
+            if tag == "Tool Speed+" 
+            { 
+                tool_firerate = clamp(tool_firerate-(tool_firerate*0.20),1,100);
+            }
+        }
+    }
+}
+
 toolFireRate = tool_firerate;
 weaponDamage = wep_Dam;
 weaponKnockback = wep_Knock;

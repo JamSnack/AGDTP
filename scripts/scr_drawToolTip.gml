@@ -162,10 +162,6 @@ switch item_id
     case ITEMID.weapon_waterGun: { text[0] = "Water Gun"; text[1] += "Blast your enemies with pults of high-pressure water blasts!"; } break;
 }
 
-//TAG TEXT
-var tagsUnloaded = "";
-if selectedSlot != noone { tagsUnloaded = inventorySlotTags[selectedSlot]; }
-
 //-TAG DESCRIPTIONS;
 /*
 ----------DESCRIPTION NOTATION------------
@@ -174,6 +170,10 @@ On enemy killed: effect
 Projectile effect: effect
 Stat Effect: effect
 */
+
+//TAG TEXT
+var tagsUnloaded = "";
+if selectedSlot != noone { tagsUnloaded = inventorySlotTags[selectedSlot]; }
 
 
 if ds_exists(tagsUnloaded,ds_type_list)

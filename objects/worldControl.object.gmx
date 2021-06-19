@@ -230,7 +230,7 @@ alarm[0] = 1;
 
 //- time control
 if interm == true 
-{ world_Time += 10; }
+{ world_Time += 1; }
 
 heal_Time += 1;
 

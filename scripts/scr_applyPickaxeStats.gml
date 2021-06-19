@@ -20,7 +20,7 @@ switch item_id
 scr_getToolStats(item_id);
 
 //Apply tags
-if hudControl.selectedSlot != noone
+/*if hudControl.selectedSlot != noone
 {
     var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
     
@@ -38,7 +38,7 @@ if hudControl.selectedSlot != noone
         }
     }
 }
-
+*/
 
 
 obj_player.toolFireRate = toolFireRate;

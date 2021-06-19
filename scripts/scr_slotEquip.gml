@@ -34,9 +34,9 @@ var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
 
 if ds_exists(tagsUnloaded,ds_type_list)
 {
-    for (i=0;i<ds_list_size(tagsUnloaded);i++)
+    for (_tag=0;_tag<ds_list_size(tagsUnloaded);_tag++)
     {
-        var tag = tagsUnloaded[| i]
+        var tag = tagsUnloaded[| _tag]
         
         //BRIGHT
         if tag == "Bright"
