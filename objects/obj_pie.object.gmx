@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>maxHp = 100;
+            <string>maxHp = 1;
 hp = maxHp;
 canHurt = true;
 hurtAlarm = 0;
@@ -147,7 +147,7 @@ if hp &lt; maxHp then draw_text(x-8,y-16,"HP: "+string(hp));
 
 if gameOver == true
 {
-    draw_text(x-100,y+10,"     The timeline has been destroyed.#Press 'Enter' to return to the place inbetween.");
+    draw_text(x-83,y+16,"Press 'Enter' to return to the menu.");
 }
 </string>
           </argument>

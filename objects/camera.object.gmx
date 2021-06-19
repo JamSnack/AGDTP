@@ -112,7 +112,12 @@ if instance_exists(gameControl)
     if gameOver == true 
     {
         //Transition
-        followThis = obj_pie; 
+        followThis = obj_pie;
+        
+        if !instance_exists(efct_overMessage)
+        {
+            scr_overMessage("Game Over",global.fnt_menu,60*room_speed,c_red);
+        }
         
         if background_index[0] != bkg_lobbySky
         {
