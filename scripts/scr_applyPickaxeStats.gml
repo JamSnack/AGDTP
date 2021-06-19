@@ -19,28 +19,6 @@ switch item_id
 //Apply stats
 scr_getToolStats(item_id);
 
-//Apply tags
-/*if hudControl.selectedSlot != noone
-{
-    var tagsUnloaded = hudControl.inventorySlotTags[hudControl.selectedSlot];
-    
-    if ds_exists(tagsUnloaded,ds_type_list)
-    {
-        for (i=0;i<ds_list_size(tagsUnloaded);i++)
-        {
-            var tag = tagsUnloaded[| i]
-            
-            //Tool Speed+
-            if tag == "Tool Speed+" 
-            { 
-                tool_firerate = clamp(tool_firerate-(tool_firerate*0.20),1,100);
-            }
-        }
-    }
-}
-*/
-
-
 obj_player.toolFireRate = toolFireRate;
 obj_player.toolSprite = tool_spr;
 obj_player.pickDamage = pick_damage;

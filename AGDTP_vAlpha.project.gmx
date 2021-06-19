@@ -107,6 +107,7 @@
     </sprites>
     <sprites name="Tools">
       <sprite>sprites\spr_sword</sprite>
+      <sprite>sprites\spr_seashellSpear</sprite>
       <sprite>sprites\spr_weakBow</sprite>
       <sprite>sprites\spr_pickaxe</sprite>
       <sprite>sprites\spr_pickaxeGreen</sprite>
@@ -331,6 +332,7 @@
       <script>scripts\scr_checkCraftingType.gml</script>
       <script>scripts\scr_craftItem.gml</script>
       <script>scripts\scr_getRecipe.gml</script>
+      <script>scripts\scr_unlockRecipe.gml</script>
     </scripts>
     <script>scripts\scr_raidControl.gml</script>
     <script>scripts\draw_nineSliceBox.gml</script>
@@ -384,7 +386,6 @@
       <script>scripts\scr_convertToCompressedString.gml</script>
     </scripts>
     <script>scripts\scr_getDifficulty.gml</script>
-    <script>scripts\scr_unlockRecipe.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

@@ -39,8 +39,16 @@ if recipe_sweetComb == true
         case ITEMID.weapon_beemerang: { returnID = true; } break;
         case ITEMID.tile_beeTurret: {returnID = true; } break;
         case ITEMID.tile_grillBlock: { returnID = true; } break;
+    }
+}
+
+if recipe_seashellMetal == true
+{
+    switch argument0
+    {
         case ITEMID.weapon_waterGun: { returnID = true; } break;
         case ITEMID.tile_rebarRailgun: { returnID = true; } break;
+        case ITEMID.weapon_seashellSpear: { returnID = true; } break;
     }
 }
 

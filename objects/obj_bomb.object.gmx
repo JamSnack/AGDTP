@@ -107,27 +107,9 @@ if fuse &lt;= 0 then instance_destroy();
             <kind>1</kind>
             <string>//Collision
 
-if place_meeting(x+hspeed,y,OBSTA)
-{
-    while !place_meeting(x+sign(hspeed),y,OBSTA)
-    {
-        x+=sign(hspeed)
-    }
-    
-    hspeed = -hspeed/2;
-}
+if place_meeting_fast(hspeed,vspeed,OBSTA) { instance_destroy(); }
 
-if place_meeting(x,y+vspeed,OBSTA)
-{
-    while !place_meeting(x,y+sign(vspeed),OBSTA)
-    {
-        y+=sign(vspeed)
-    }
-    
-    vspeed = -vspeed/2;
-}
-
-if !place_meeting(x,y+1,OBSTA)
+else if !place_meeting_fast(x,y+1,OBSTA)
 {
     vspeed += 0.2;
 } else friction = 0.1;

@@ -159,7 +159,9 @@ switch item_id
     case ITEMID.tile_rebarRailgun: { text[0] = "Rebar Railgun"; text[1] += "A powerful turret that pierces enemies."; } break;
     case ITEMID.tile_grillBlock: { text[0] = "Grill Block"; text[1] += "Heats up, hurting nearby enemies!"; } break;
     case ITEMID.tile_copperBlock: { text[0] = "Copper Block"; text[1] += "Truly a stalwart defense."; } break;
-    case ITEMID.weapon_waterGun: { text[0] = "Water Gun"; text[1] += "Blast your enemies with pults of high-pressure water blasts!"; } break;
+    case ITEMID.weapon_waterGun: { text[0] = "Water Gun"; text[1] += "Blast your enemies with high-pressure water blasts!"; } break;
+    case ITEMID.weapon_seashellSpear: { text[0] = "Seashell Spear"; text[1] += "WARNING: Extremely sharp."; } break;
+    case ITEMID.acc_copperChestplate: { text[0] = "Copper Chestplate"; text[1] += "Protects your body.#+20 Max HP."; } break;
 }
 
 //-TAG DESCRIPTIONS;

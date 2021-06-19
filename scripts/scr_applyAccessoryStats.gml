@@ -9,7 +9,6 @@ switch accessory
 {    
     case ITEMID.acc_satchel: { maxInvenSlots += 4*equip; } break;
     case ITEMID.acc_beehiveBackpack: { maxInvenSlots += 2*equip; } break;
-    case ITEMID.acc_copperChestplate: { maxInvenSlots -= 1*equip; } break;
 }
 
 //Acessories that affect stats

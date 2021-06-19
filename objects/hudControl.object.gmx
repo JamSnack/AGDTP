@@ -1654,7 +1654,7 @@ if showSuperMenu == true
                             y_pos -= column*y_offset;
                             
                             
-                            //draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
+                            draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
                             if matsAmt[_i] &gt; 0 then draw_text(135+x_offset,y_pos+y_offset,"x"+string(matsAmt[_i]));
                         }
                     }

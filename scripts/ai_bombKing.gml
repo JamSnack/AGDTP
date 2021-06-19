@@ -65,8 +65,16 @@ switch current_state
             if vAccel < maxAccel then vAccel += accelRate; 
         }
         
-        x += hAccel;
-        y += vAccel;
+        //---MOVEMENT AND COLLISION----
+        if !place_meeting_fast(hAccel,0,OBSTA)
+        {
+            x += hAccel;
+        }
+        
+        if !place_meeting_fast(0,vAccel,OBSTA)
+        {
+            y += vAccel;
+        }
         
         image_xscale = dir*scale;
         

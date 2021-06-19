@@ -6,6 +6,7 @@ switch argument0
 {
     case ITEMID.item_copperOre: { if recipe_copperOre == false { recipe_copperOre = true; notify_player = true; } } break;
     case ITEMID.item_sweetComb: { if recipe_sweetComb == false { recipe_sweetComb = true; notify_player = true; } } break;
+    case ITEMID.item_seashellMetal: { if recipe_seashellMetal == false { recipe_seashellMetal = true; notify_player = true; } } break;
 }
 
 if notify_player == true

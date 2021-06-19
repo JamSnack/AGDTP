@@ -164,6 +164,8 @@ with hudControl
 //Save other variables
 ds_list_add(recipe_list,recipe_copperOre);
 ds_list_add(recipe_list,recipe_sweetComb);
+ds_list_add(recipe_list,recipe_seashellMetal);
+
 ds_list_add(quest_list,mainQuest);
 ds_list_add(quest_list,tip_controls);
 

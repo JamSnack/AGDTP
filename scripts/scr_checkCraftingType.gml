@@ -23,6 +23,7 @@ if craft_filter_weapon == false
         case ITEMID.weapon_acornRifle: { returnID = ITEMTYPE.weapon; } break;
         case ITEMID.weapon_beemerang: { returnID = ITEMTYPE.weapon; } break;
         case ITEMID.weapon_waterGun: { returnID = ITEMTYPE.weapon; } break;
+        case ITEMID.weapon_seashellSpear: { returnID = ITEMTYPE.weapon; } break;
     }
 }
 
