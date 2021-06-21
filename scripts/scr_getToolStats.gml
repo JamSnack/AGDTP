@@ -23,6 +23,7 @@ switch argument0
     case 4: { tool_firerate = 40; pick_Dam = 1; pick_level = 0; } break;
     case 5: { tool_firerate = 35; pick_Dam = 1; pick_level = 0; } break;
     case ITEMID.pickaxe_stingerDrill: { tool_firerate = 25; pick_Dam = 1; pick_level = 1; } break;
+    case ITEMID.pickaxe_seashellPickaxe: { tool_firerate = 30; pick_Dam = 2; pick_level = 1; } break;
 }
 
 //NOTE: 'if hudControl.showSuperMenu == false' exists so that tagged items don't change the descriptions of craftable tools.

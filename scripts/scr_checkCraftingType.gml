@@ -34,6 +34,7 @@ if craft_filter_pickaxe == false
     {
         case ITEMID.pickaxe_greenPickaxe: { returnID = ITEMTYPE.pickaxe; } break;
         case ITEMID.pickaxe_stingerDrill: { returnID = ITEMTYPE.pickaxe; } break;
+        case ITEMID.pickaxe_seashellPickaxe: { returnID = ITEMTYPE.pickaxe; } break;
     }
 }
 

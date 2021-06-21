@@ -111,6 +111,7 @@
       <sprite>sprites\spr_weakBow</sprite>
       <sprite>sprites\spr_pickaxe</sprite>
       <sprite>sprites\spr_pickaxeGreen</sprite>
+      <sprite>sprites\spr_seashellPickaxe</sprite>
       <sprite>sprites\spr_swordGreen</sprite>
       <sprite>sprites\spr_stingerDrill</sprite>
       <sprite>sprites\spr_beemerang</sprite>

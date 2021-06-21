@@ -15,6 +15,7 @@ switch argument0
     case ITEMID.weapon_greenSword: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemAmt = 0; itemType = 1;} break;
     case ITEMID.pickaxe_greenPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 12; mats[1] = 9; matsAmt[1] = 5; itemAmt = 0; itemType = 2;} break;
     case ITEMID.pickaxe_stingerDrill: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 20; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 8; itemAmt = 0; itemType = 2;} break;
+    case ITEMID.pickaxe_seashellPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_seashellMetal; matsAmt[1] = 12; mats[2] = ITEMID.item_stick; matsAmt[2] = 5; itemAmt = 0; itemType = 2;} break;
     case ITEMID.tile_copperTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = 9; matsAmt[1] = 5; itemAmt = 1; itemType = 3; } break;
     case ITEMID.tile_ladder: { mats[0] = 9; matsAmt[0] = 2; itemID = 13; itemAmt = 1; itemType = 3; } break;
     case ITEMID.cons_gremTalisman: { mats[0] = ITEMID.item_gremEssence; matsAmt[0] = 10; itemAmt = 1; itemType = 4; } break;

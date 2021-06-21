@@ -14,6 +14,7 @@ switch item_id
     case 4: { tool_spr = spr_pickaxe; } break;
     case 5: { tool_spr = spr_pickaxeGreen; } break;
     case ITEMID.pickaxe_stingerDrill: { toolAnimation = "SHOOT"; tool_spr = spr_stingerDrill; } break;
+    case ITEMID.pickaxe_seashellPickaxe: { tool_spr = spr_seashellPickaxe; } break;
 }
 
 //Apply stats

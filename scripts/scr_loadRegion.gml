@@ -114,12 +114,14 @@ else if (time >= 4 && time <= 43 )
         //Create a column using the currently selected hight value.
         for (j=0;j<(heightIndex/16)+(sizeY);j++)
         {
+            var inst_y = yy+(16*j)-(heightIndex*heightDirection)+16;
+        
+            if xInterval > RAIDBOUND_Lower && xInterval < RAIDBOUND_Upper && inst_y < stoneLayer+(16*10)
+            { continue; }
+        
             if j > (heightIndex/16)+irandom_range(6,10) then tileType = stone_tileset else tileType = dirt_tileset;
-            var inst = instance_create(xInterval,yy+(16*j)-(heightIndex*heightDirection)+16,tileType);
+            var inst = instance_create(xInterval,inst_y,tileType);
             inst.visible = false; //optimize
-            
-            if inst.x > RAIDBOUND_Lower && inst.x < RAIDBOUND_Upper && inst.y < stoneLayer
-            { with inst instance_destroy(); }
         }
             
     }
