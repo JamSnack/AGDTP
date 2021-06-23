@@ -35,4 +35,5 @@ switch argument0
     case ITEMID.weapon_waterGun: { mats[0] = ITEMID.item_seashellMetal matsAmt[0] = 10; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
     case ITEMID.weapon_seashellSpear: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 15; mats[1] = ITEMID.item_stick; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
     case ITEMID.tile_rebarRailgun: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 15; mats[1] = 9; matsAmt[1] = 5; itemAmt = 1; itemType = 3; } break;
+    case ITEMID.weapon_sandySeadollar: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 20; mats[1] = ITEMID.item_dirtClump; matsAmt[1] = 50; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
 }

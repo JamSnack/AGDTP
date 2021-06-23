@@ -148,7 +148,8 @@ enum ITEMID
     weapon_waterGun,
     tile_copperBlock,
     weapon_seashellSpear,
-    pickaxe_seashellPickaxe
+    pickaxe_seashellPickaxe,
+    weapon_sandySeadollar
 }
 
 //Item Types
