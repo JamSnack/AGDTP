@@ -22,11 +22,14 @@ if objective.canHurt == true
     var _xx = x;
     var _yy = y;
     
+    //use a local variable to thread the value through WITH's reference limitations
+    var k_strength = knockback_strength;
+    
     if obj_player.canHurt == true && point_in_rectangle(obj_player.x,obj_player.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
         with obj_player  //Hurt the player.
         {
-            scr_hurt(other.damage,HURT_LONG,true,4.5);
+            scr_hurt(other.damage,HURT_LONG,true,k_strength);
             
             if state == "DIVE" then state = "WANDER";
         }
@@ -35,7 +38,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the nearest tile.
         {
-            scr_hurt(other.damage,HURT_LONG,true,4.5);
+            scr_hurt(other.damage,HURT_LONG,true,k_strength);
         }
     }
 }
@@ -45,85 +48,77 @@ if objective.canHurt == true
 
 switch state
 {    
-    case "TRANSITION":
-    {
-        //Transition animation
-        switch transition_to
-        {
-            case "DIVE":
-            {
-                if sprite_index != spr_nilmerg_transition
-                {
-                    sprite_index = spr_nilmerg_transition;
-                    image_index = 4;
-                }
-            }
-            break;
-            
-            case "WANDER":
-            {
-                if sprite_index != spr_nilmerg_transition
-                {
-                    sprite_index = spr_nilmerg_transition;
-                    image_index = 0;
-                    
-                    wander_pointX = choose(RAIDBOUND_Upper,RAIDBOUND_Lower);
-                }
-            }
-            break;
-            
-            case "HOVER":
-            {
-                if sprite_index != spr_nilmerg_transition
-                {
-                    sprite_index = spr_nilmerg_transition;
-                    image_index = 0;
-                }
-            }
-            break;
-        }
-    }
-    break;
-    
     case "DIVE":
     {
-        sprite_index = spr_nilmerg_move;
+        var dive_maxAccel = (maxAccel*3)-((dive_time-60)/60);
+        
+        knockback_strength = 2+dive_maxAccel;
         
         //Attack the living player!
         if obj_player.dead == false then objective = obj_player;
         
         xObjective = objective.x;
         
-        //Direction
-        var dir = sign(objective.x-x);
-        var vdir = sign((objective.y-16)-y);
-        
-        //Horizontal Acceleration
-        if dir == -1 //Objective is to the right
-        { if hAccel > -maxAccel then hAccel -= accelRate; }
-        else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate; }
-        
-        //Vertical Acceleration
-        vAccel = approach(vAccel,maxAccel*vdir,accelRate);
-        
-        image_xscale = dir*scale;
-        
-        x+=hAccel;
-        y+=vAccel;
-        
-        if point_distance(xObjective,0,x_previous,0) <= 16
+        //--Move & animate.--
+        if dive_time >= 60
         {
-            state = "TRANSITION";
-            transition_to = "WANDER";
-            objective = obj_pie;
+            target_image_index = 0;
+            x+=hAccel;
+            y+=vAccel;
+            
+            var drag = 0.18;
+            
+            hAccel = approach(hAccel,0,drag);
+            vAccel = approach(vAccel,0,drag);
         }
+        else
+        {
+            //Initialize the animation.
+            image_speed = 0;
+            target_image_index = 4;
+            image_angle = approach(image_angle,point_direction(x,y,xObjective,objective.y)-90,10);
+            
+            //Direction
+            var dir = sign(xObjective-x);
+            var vdir = sign((objective.y-16)-y);
+        
+            //Horizontal Acceleration
+            if dir == -1 //Objective is to the right
+            { hAccel = -dive_maxAccel; }
+            else if dir == 1 {  hAccel = dive_maxAccel; }
+        
+            //Vertical Acceleration
+            vAccel = dive_maxAccel*vdir;
+        }
+        
+        //Transition back to WANDER
+        if point_distance(xObjective,objective.y,x_previous,y) <= 8 || dive_time >= 180 || hAccel == 0
+        {
+            state = "WANDER";
+            objective = obj_pie;
+            dive_time = 0;
+            target_image_index = 0;
+            image_speed = animation_speed;
+            wander_pointY = max(room_height/2-(12*16),scr_getHighestBasePoint()-(5*16));
+        }
+        
+        dive_time += 1;
+        
+        //Animate
+        image_index = approach(image_index,target_image_index,1);
     }
     break;
     
     case "WANDER":
     {
-        sprite_index = spr_nilmerg_hover;
+        knockback_strength = 4.5;
+    
+        //----ANIMATION-----
+        //- Reset image angle
+        if image_angle != 0 { image_angle = approach(image_angle,0,6); }
+        image_speed = animation_speed;
         
+        //----MOVEMENT-----
         //Direction
         var dir = sign(wander_pointX-x);
         var vdir = sign(wander_pointY-y);
@@ -133,8 +128,6 @@ switch state
         
         //Vertical Acceleration
         vAccel = approach(vAccel,maxAccel*vdir,accelRate);
-        
-        image_xscale = dir*scale;
         
         //Slow down and stop at the target point!
         if point_distance(x,y,wander_pointX,wander_pointY) <= (vAccel+hAccel)*4
@@ -146,24 +139,26 @@ switch state
         x += hAccel;
         y += vAccel;
         
-        if point_distance(x,y,wander_pointX,wander_pointY) <= 8 && (vAccel+hAccel) <= 1
+        if point_distance(x,y,wander_pointX,wander_pointY) <= 8 && (vAccel+hAccel) <= 1 && image_angle == 0
         {
-            state = "TRANSITION";
-            transition_to = "HOVER";
+            state = "HOVER";
         }
     }
     break;
     
     case "HOVER":
     {
-        sprite_index = spr_nilmerg_hover;
-        image_xscale = sign(objective.x-x)*scale;
-        
+        knockback_strength = 4.5;
+    
+        //-----ANIMATION-------
+        image_angle = 0;
+        image_speed = animation_speed;
+    
         //Roll for an attack!
         var r = irandom(2);
-        // 0 = stinger;
-        // 1 = dive;
-        // 2 = minion;
+        // 0 = dive;
+        // 1 = projectile;
+        // 2 = minion summon;
         
         if stateLock == false
         {
@@ -171,9 +166,14 @@ switch state
             {
                 case 0:
                 {
-                    //Shoot a stinger!
-                    state = "TRANSITION";
-                    transition_to = "DIVE";
+                    //DIVE! GET HIM
+                    state = "DIVE";
+                    
+                    if shield_charges < shield_charges_max
+                    {
+                        shield_charges += 1;
+                        scr_playSound(snd_shield_deployed,false,8,x,y,1);
+                    }
                 }
                 break;
                 
@@ -193,16 +193,16 @@ switch state
                 {
                     //Spawn a minion!
                     repeat(1+waveScale(1,20,0,2))
-                    { instance_create(x,y,obj_beeMinion); }
+                    { instance_create(x,y,obj_crab); }
                 }
                 break;
             }
         }
         //If 'r' did not change our state.
-        if state != "TRANSITION" && stateLock == false
+        if state == "HOVER" && stateLock == false
         {
             stateLock = true;
-            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),60,attackCooldown*room_speed);
+            alarm[stateLockAlarm] = clamp((attackCooldown*room_speed)*(hp/maxHp),50,attackCooldown*room_speed);
         }
     }
     break;
@@ -231,8 +231,7 @@ else if tile_punch <= 0
 {
     stateLock = true;
     alarm[stateLockAlarm] = _stall;
-    state = "TRANSITION";
-    transition_to = "WANDER";
+    state = "WANDER";
     tile_punch = tile_punch_max;
 }
 

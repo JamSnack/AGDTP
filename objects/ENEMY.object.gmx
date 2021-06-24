@@ -57,6 +57,8 @@ if worldControl.raidBossID == id
 
 //Prevent spawning inside tiles.
 while place_meeting_fast(0,0,OBSTA) y -= 16;
+
+event_inherited();
 </string>
           </argument>
         </arguments>

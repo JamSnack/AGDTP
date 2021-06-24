@@ -32,15 +32,14 @@ canHurt = true;
 hp = 275+waveScale(20,5,0,-1);
 maxHp = hp;
 image_speed = 0;
-state = "TRANSITION";
+state = "WANDER";
 
 vsp = 0;
-atkBox = 32; //divided by 2 on calculation.
-damage = 8; //body damage.
+atkBox = sprite_width-10;
+damage = 16; //body damage.
 attackCooldown = 4; //How long until the boss rolls for another attack.
 
 hurtAlarm = 1;
-image_speed = 30/60;
 
 target = obj_pie; //objective priority.
 
@@ -55,13 +54,16 @@ maxAccel = 2;
 accelRate = 0.8;
 
 //Animation
+target_image_index = 0;
+animation_speed = 15/60;
 
 //Ai
 wander_pointX = room_width/2;
-wander_pointY = room_height/2-(12*16);
+wander_pointY = scr_getHighestBasePoint()-(5*16);
 transition_to = "WANDER";
 tile_punch_max = 8;
 tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
+dive_time = 0;
 
 
 //Other locals
@@ -80,10 +82,13 @@ knock_resistance = 1.2;
 
 deathSound = snd_enemydie_boss;
 
-if raid_boss == true
-{
-    maxAccel += 0.5;
-}
+shield_charges_max = 1;
+shield_charges = 0;
+shield_health_max = 24;
+shield_scale = 3;
+shield_health = shield_health_max;
+
+knockback_strength = 4.5;
 </string>
           </argument>
         </arguments>
@@ -225,6 +230,34 @@ ai_bliploAi(state,1,objective,-4,atkBox);
           <argument>
             <kind>1</kind>
             <string>if state == "TRANSITION" then state = transition_to;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+
+if shield_charges &gt; 0
+{
+    draw_sprite_ext(spr_shield,image_index,x,y,shield_scale,shield_scale,0,c_white,1);
+}
 </string>
           </argument>
         </arguments>

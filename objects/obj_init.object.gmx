@@ -92,6 +92,14 @@ global.key_inven = ord("I");
 global.key_craft = ord("C");
 global.key_interact = ord("E");
 global.key_quick_heal = ord("G");
+global.key_1 = ord("1");
+global.key_2 = ord("2");
+global.key_3 = ord("3");
+global.key_4 = ord("4");
+global.key_5 = ord("5");
+global.key_6 = ord("6");
+global.key_7 = ord("7");
+
 
 
 

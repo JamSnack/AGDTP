@@ -52,6 +52,8 @@ type = 0;
 //INITIALIZATION IS SHARED WITH scr_useWeapon.
 
 image_speed = 30/60;
+
+event_inherited();
 </string>
           </argument>
         </arguments>

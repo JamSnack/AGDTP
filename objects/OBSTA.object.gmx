@@ -26,7 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0;
-if place_meeting(x,y-1,OBSTA) image_index = 1;
 
 //Take from the TILE_ALL create event.
 event_inherited();

@@ -36,6 +36,7 @@ knockPoint_x = 0;
 knockPoint_y = 0;
 climbSpeed = 1;
 platformCollide = true;
+deactivate_method = 0;
 
 image_speed = 10/60;
 mask_index = spr_playerIdle;
@@ -962,7 +963,7 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-instance_create(mouse_x,mouse_y,obj_crab);
+instance_create(mouse_x,mouse_y,obj_bliplo);
 
 /*if instance_exists(obj_hiveTotem)
 {

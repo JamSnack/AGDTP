@@ -320,7 +320,7 @@ if keyboard_check_released(global.key_inven)
     invOpen = !invOpen;
 }
 
-if keyboard_check_released(global.key_craft)
+else if keyboard_check_released(global.key_craft)
 {
     ///Toggle crafting menu
     showSuperMenu = !showSuperMenu;
@@ -332,6 +332,42 @@ if keyboard_check_released(global.key_craft)
     //init mod bench
     event_user(0);
 }
+else if (keyboard_check_released(global.key_1))
+{
+    last_hotkey = 0;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_2))
+{
+    last_hotkey = 1;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_3))
+{
+    last_hotkey = 2;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_4))
+{
+    last_hotkey = 3;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_5))
+{
+    last_hotkey = 4;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_6))
+{
+    last_hotkey = 5;
+    event_user(1);
+}
+else if (keyboard_check_released(global.key_7))
+{
+    last_hotkey = 6;
+    event_user(1);
+}
+
 </string>
           </argument>
         </arguments>
@@ -1436,7 +1472,7 @@ if invOpen == true
           <argument>
             <kind>1</kind>
             <string>///Place blocks
-if room == rm_lobby then exit;
+if room == rm_lobby || (settingsMenu == true || keybindMenu_visible == true) then exit;
 
 var xx = round(mouse_x/16)*16;
 var yy = round(mouse_y/16)*16;
@@ -1498,6 +1534,40 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
         }
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="11">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Hotkey event
+if room == rm_menu || (settingsMenu == true || keybindMenu_visible == true) then exit;
+
+if obj_player.toolReady == true
+{
+    selectedSlot = last_hotkey;
+    scr_slotEquip(last_hotkey);
+    
+    //Reset building
+    lastPlaceX = 0;
+    lastPlaceY = -16;
+} else equipQueue = last_hotkey;
 </string>
           </argument>
         </arguments>
@@ -2271,238 +2341,6 @@ if interm == false
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="55">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 7
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 6;
-    scr_slotEquip(6);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 6;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="54">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 6
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 5;
-    scr_slotEquip(5);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 5;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="53">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 5
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 4;
-    scr_slotEquip(4);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-    
-} else equipQueue = 4;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="52">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 4
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 3;
-    scr_slotEquip(3);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 3;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="51">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 3
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 2;
-    scr_slotEquip(2);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 2;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="50">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 2
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 1;
-    scr_slotEquip(1);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 1;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="10" enumb="49">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Select slot 1
-if room == rm_menu then exit;
-if obj_player.toolReady == true
-{
-    selectedSlot = 0;
-    scr_slotEquip(0);
-    
-    //Reset building
-    lastPlaceX = 0;
-    lastPlaceY = -16;
-} else equipQueue = 0;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="10" enumb="27">
       <action>
         <libid>1</libid>
@@ -2538,15 +2376,23 @@ if settingsMenu == true
     with PAUSE
     {
         //Clone game world
-        var p = instance_create(x,y,obj_pausedObject);
-        p.sprite_index = sprite_index;
-        p.image_index = image_index;
+        if visible == true
+        {
+            var p = instance_create(x,y,obj_pausedObject);
+            p.sprite_index = sprite_index;
+            p.image_index = image_index;
+            p.image_xscale = image_xscale;
+            p.image_yscale = image_yscale;
+            p.image_angle = image_angle;
+        }
         
         //Deactivate the instance
         deactivate_method = "PAUSE";
         
         instance_deactivate_object(id);
     }
+    
+    print("Paused instances: "+string(instance_number(obj_pausedObject)));
 }
 else
 {
@@ -2570,6 +2416,8 @@ else
             instance_deactivate_object(id);
         }
     }
+    
+    print("Paused instances: "+string(instance_number(obj_pausedObject)));
 }
 </string>
           </argument>
