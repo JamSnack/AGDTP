@@ -470,6 +470,7 @@
       <object>objects\GR_ENEMY</object>
       <object>objects\FLATLAND</object>
       <object>objects\TILE_ALL</object>
+      <object>objects\PAUSE</object>
     </objects>
     <objects name="effects">
       <object>objects\efct_hudMessage</object>
@@ -509,6 +510,7 @@
     <object>objects\obj_timeGuy</object>
     <object>objects\obj_tadGremlin</object>
     <object>objects\obj_tutorialDirt</object>
+    <object>objects\obj_pausedObject</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>
