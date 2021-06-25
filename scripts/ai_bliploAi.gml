@@ -58,6 +58,7 @@ switch state
         if obj_player.dead == false then objective = obj_player;
         
         xObjective = objective.x;
+        yObjective = objective.y;
         
         //--Move & animate.--
         if dive_time >= 60
@@ -76,16 +77,18 @@ switch state
             //Initialize the animation.
             image_speed = 0;
             target_image_index = 4;
-            image_angle = approach(image_angle,point_direction(x,y,xObjective,objective.y)-90,10);
+            image_angle = approach(image_angle,point_direction(x,y,xObjective,yObjective)-90,10);
             
             //Direction
             var dir = sign(xObjective-x);
-            var vdir = sign((objective.y-16)-y);
+            var vdir = sign((yObjective-16)-y);
         
             //Horizontal Acceleration
+            var len_dir = point_direction(x,y,xObjective,yObjective);
+            
             if dir == -1 //Objective is to the right
-            { hAccel = -dive_maxAccel; }
-            else if dir == 1 {  hAccel = dive_maxAccel; }
+            { hAccel = max(-dive_maxAccel,-lengthdir_x((xObjective-x),len_dir)); }
+            else if dir == 1 {  hAccel = min(dive_maxAccel,lengthdir_x((xObjective-x),len_dir)); }
         
             //Vertical Acceleration
             vAccel = dive_maxAccel*vdir;
@@ -99,7 +102,7 @@ switch state
             dive_time = 0;
             target_image_index = 0;
             image_speed = animation_speed;
-            wander_pointY = max(room_height/2-(12*16),scr_getHighestBasePoint()-(5*16));
+            wander_pointY = min(room_height/2-(12*16),scr_getHighestBasePoint()-(5*16));
         }
         
         dive_time += 1;
@@ -155,7 +158,7 @@ switch state
         image_speed = animation_speed;
     
         //Roll for an attack!
-        var r = irandom(2);
+        var r = irandom(1);
         // 0 = dive;
         // 1 = projectile;
         // 2 = minion summon;
@@ -179,13 +182,35 @@ switch state
                 
                 case 1:
                 {
-                    //Attack the player!
-                    var stinger = instance_create(x,y,obj_stinger);
-                    var _dir = point_direction(x,y,obj_player.x,obj_player.y);
-                    stinger.direction = _dir;
-                    stinger.speed = 6;
-                    stinger.dam = damage/2;
-                    stinger.image_angle = _dir;
+                
+                    //Projectile amounts
+                    var hp_percent = hp/maxHp;
+                    var proj_amt = 3;
+                    
+                    if hp_percent <= 0.20
+                    {
+                        proj_amt = 9;
+                    }          
+                    else if hp_percent <= 0.50
+                    
+                    {
+                        proj_amt = 7;
+                    }
+                    else if hp_percent <= 0.75
+                    {
+                        proj_amt = 5;
+                    }
+                
+                    //Spawn the attack
+                    for(_proj=1;_proj<=proj_amt;_proj++)
+                    {
+                        var stinger = instance_create(x,y,obj_coralSpike);
+                        var _dir = -(180/(proj_amt+1))*_proj;
+                        stinger.direction = _dir;
+                        stinger.speed = 5;
+                        stinger.dam = damage/2;
+                        stinger.image_angle = _dir;
+                    }
                 }
                 break;
                 

@@ -59,7 +59,7 @@ animation_speed = 15/60;
 
 //Ai
 wander_pointX = room_width/2;
-wander_pointY = scr_getHighestBasePoint()-(5*16);
+wander_pointY = min(room_height/2-(12*16),scr_getHighestBasePoint()-(5*16));
 transition_to = "WANDER";
 tile_punch_max = 8;
 tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
