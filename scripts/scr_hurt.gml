@@ -118,23 +118,23 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
             other_vspeed = lengthdir_y(knockAmt,_direction);
         }
         
-        hForce += knockAmt*sign(other_hspeed);
-        vForce += knockAmt*sign(other_vspeed);
+        //Add knockback if the object's knockback resistance isn't greater than force!
         
-        vForce = approach(vForce,0,knock_resistance);
-        hForce = approach(hForce,0,knock_resistance);
+        //- horizontal knockback
+        var h_amt = knockAmt*sign(other_hspeed);
         
-        if knockType == "LAND"
+        if knock_resistance < abs(h_amt)
         {
-            if place_meeting_fast(hForce,0,OBSTA)
-            {
-               // hForce = 0;
-            }
-            
-            if place_meeting_fast(0,vForce,OBSTA)
-            {
-               // vForce = 0;
-            }
+            hForce += h_amt;
+        }
+        
+        //- vertical knockback
+        var v_amt = knockAmt*sign(other_vspeed);
+        
+        if knock_resistance < abs(v_amt)
+        {
+            if knockType == "LAND" then v_amt = -abs(v_amt);
+            vForce += v_amt;
         }
     }
 }

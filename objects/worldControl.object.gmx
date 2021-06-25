@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize world variables
+event_inherited();
 globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,kingDied_1;
 grav = 0.350;
 maxGrav = 5;

@@ -44,7 +44,7 @@ if interm == false then target = obj_pie;
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 16*2;
+aggroRange = 16*6;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
@@ -55,7 +55,7 @@ image_xscale = sign(target.x-x);
 
 event_inherited();
 
-knock_resistance = 0.4;
+knock_resistance = 0.1;
 mask_index = sprite_index;
 </string>
           </argument>
@@ -83,7 +83,7 @@ mask_index = sprite_index;
 stateLock = false;
 
 objective = target;
-state = MOVE;
+state = WANDER;
 image_index = sign(objective.x-x);
 </string>
           </argument>
@@ -172,7 +172,7 @@ if stateLock == false
     }
 }
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,0.8,objective,-4,atkBox); }
+{ ai_gremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,0.8,objective,-4.2,atkBox); }
 </string>
           </argument>
         </arguments>

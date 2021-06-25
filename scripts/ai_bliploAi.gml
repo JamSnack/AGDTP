@@ -55,7 +55,7 @@ switch state
         knockback_strength = 2+dive_maxAccel;
         
         //Attack the living player!
-        if obj_player.dead == false then objective = obj_player;
+        if obj_player.dead == false && insideView(x,y) then objective = obj_player;
         
         xObjective = objective.x;
         yObjective = objective.y;
@@ -158,7 +158,7 @@ switch state
         image_speed = animation_speed;
     
         //Roll for an attack!
-        var r = irandom(1);
+        var r = irandom(2);
         // 0 = dive;
         // 1 = projectile;
         // 2 = minion summon;

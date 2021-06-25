@@ -29,7 +29,8 @@
 canActiveRegion = false;
 
 canHurt = true;
-hp = 150;
+maxHp = 120;
+hp = maxHp;
 image_speed = 0;
 state = WANDER;
 

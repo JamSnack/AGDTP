@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_speed = 0;
+            <string>deactivate_method = 0;
+image_speed = 0;
 </string>
           </argument>
         </arguments>

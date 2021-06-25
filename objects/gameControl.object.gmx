@@ -46,6 +46,8 @@ if dev == true
 //Local variables
 canExit = false;
 //currentTrack = 0; //Overworld theme 1;
+
+event_inherited();
 </string>
           </argument>
         </arguments>

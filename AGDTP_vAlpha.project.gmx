@@ -186,10 +186,12 @@
       <sprite>sprites\spr_chest</sprite>
       <sprite>sprites\spr_lobbyPlatform</sprite>
       <sprite>sprites\spr_nullLight</sprite>
+      <sprite>sprites\spr_blackTile</sprite>
       <sprite>sprites\spr_dirtTile</sprite>
       <sprite>sprites\spr_sandTile</sprite>
       <sprite>sprites\spr_flatlandTile</sprite>
       <sprite>sprites\spr_hiveTotem</sprite>
+      <sprite>sprites\spr_squidTotem</sprite>
     </sprites>
     <sprites name="Projectiles">
       <sprite>sprites\spr_projectile1</sprite>
@@ -434,6 +436,7 @@
       <objects name="Tiles">
         <object>objects\TILE</object>
         <object>objects\obj_hiveTotem</object>
+        <object>objects\obj_squidTotem</object>
         <object>objects\obj_dirt</object>
         <object>objects\obj_sand</object>
         <object>objects\obj_tree</object>

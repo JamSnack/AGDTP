@@ -19,6 +19,7 @@ var spr_height = sprite_height;
 //Init platform
 var platformCollide;
 var on_platform = place_meeting_fast(0,1,obj_platform);
+var on_ground = place_meeting_fast(0,1,OBSTA);
 
 if (yObjective < y-16 && point_distance(x,y,xObjective,y) < 16*5)
 { platformCollide = false }
@@ -85,7 +86,7 @@ if x_previous = xObjective //Do not stand on top of pie.
 
 //Fall check---------------------------------------------
 // -- platformCollide and not on a platform means potential fall conditions.
-if current_state != FALL && (!position_meeting(x,y+(sprite_height/2)+1,OBSTA) || platformCollide == false && !on_platform)
+if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && !on_platform)
 {
     if !instance_exists(GREM_BLOCK) || (instance_exists(GREM_BLOCK) && !position_meeting(x,y+16,GREM_BLOCK))
     { state = FALL; }
@@ -137,7 +138,7 @@ if vForce == 0 && hForce == 0
                 
                 x += hspd;
             }
-            else if collision_point(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin,false,true)
+            else if canSeeObjective && collision_point(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin,false,true)
             {
                 //Use arbitrary values to decide which Gremlin moves.
                 var _gr = instance_place(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin);
@@ -148,10 +149,18 @@ if vForce == 0 && hForce == 0
                     hspd = 0;
                 } else { state = WANDER; alarm[stateLockAlarm] = 5; stateLock = true; }
             }
-            else if vsp == 0
+            else if on_ground && !canSeeObjective && vsp == 0 && (!place_meeting_fast(hspd,8,OBSTA) || !place_meeting_fast(hspd,-18,OBSTA))
             {
                 //Jump
                 vsp = jump_speed;
+            }
+            else if vsp == 0
+            {
+                image_xscale = -image_xscale;
+                state = WANDER; 
+                alarm[stateLockAlarm] = 30; 
+                stateLock = true;
+                hspd = 0;
             }
         }
         break;
@@ -163,16 +172,16 @@ if vForce == 0 && hForce == 0
             if (!canSeeObjective || stateLock == true)
             {
                 //Turn around at RAIDBOUNDS
-                if interm == false && stateLock == false
+                if interm == false && stateLock == false && (x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) && y < stoneLayer-4*16
                 {
                     if x+hspd < RAIDBOUND_Lower
                     {
-                        image_xscale = 1;
+                        image_xscale = scale;
                         stateLock = true;
                         alarm[stateLockAlarm] = 30;
                     } else if x+hspd > RAIDBOUND_Upper
                     {
-                        image_xscale = -1;
+                        image_xscale = -scale;
                         stateLock = true;
                         alarm[stateLockAlarm] = 30;
                     }
@@ -186,23 +195,19 @@ if vForce == 0 && hForce == 0
                 hspd = approach(hspd,approach_speed,agility);
                 var obsta_in_front = place_meeting_fast(hspd,0,OBSTA);
                 
-                if hspd != 0 && !obsta_in_front
+                if !obsta_in_front
                 {
                     x += hspd;
                 }
                 
                 //- Jump Conditions -
                 //- If tile in front or gap in front
-                if (obsta_in_front || !place_meeting_fast(hspd,8,OBSTA))
+                else if vsp == 0 && on_ground
                 {
                     //Jump if vsp = 0 else turn around.
-                    if vsp == 0
-                    { 
-                        vsp = jump_speed; 
-                    } 
-                    else { image_xscale = -image_xscale; hspd = 0; }
-                }
-            } else state = MOVE;
+                    vsp = jump_speed;
+                } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0;}
+            } else if canSeeObjective then state = MOVE;
         }
         break;
     }
@@ -250,7 +255,7 @@ if vForce == 0 && hForce == 0
                 }
             }
             
-            if on_platform { vsp = 0; vForce = 0; }
+            if on_platform { vsp = 0; }
         }
         
         //-------Gremlin Blocks
@@ -264,9 +269,6 @@ if vForce == 0 && hForce == 0
                     y = y + vdir;
                 }
                 vsp = 0;
-                state = WANDER;
-                
-                exit;
             }
         }
         
@@ -279,11 +281,8 @@ if vForce == 0 && hForce == 0
                 y = y + vdir;
             }
             vsp = 0;
-            state = MOVE;
-            
-            exit;
         }
-        
+
         y = y + vsp;
         
         var dir = image_xscale;
@@ -307,25 +306,27 @@ if vForce == 0 && hForce == 0
         if sprite_index != jump_sprite then sprite_index = jump_sprite;
         
         if vdir == -1 then image_index = 0 else image_index = 1;
+        
+        if vsp == 0 then state = WANDER;
     }
     
     //Jump Check ------------------------------------------
-    if vsp == 0 && current_state != FALL && ((collision_point(x,y+1+spr_height/2,OBSTA,false,true) && collision_point(x+(spr_width/2),y,OBSTA,false,false)) || on_platform)
+    /*if vsp == 0 && current_state != FALL && ((collision_point(x,y+1+spr_height/2,OBSTA,false,true) && collision_point(x+(spr_width/2),y,OBSTA,false,false)) || on_platform)
     {
         if ((!collision_point(x+((spr_width/2)*(spd))*image_xscale,y+1,OBSTA,true,false) || _x == x_previous))
         {
             vsp = jump_speed;
             platformCollide = false;
         }
-    }
+    }*/
 }
 
 //Knockback Collision ---------------------------------------------
 
-else if ( hForce != 0 || vForce != 0 )
+else
 {
-    hspd = 0;
-    vsp = 0;
+    //hspd = 0;
+    //vsp = 0;
     
     sprite_index = jump_sprite;
     image_index = 1;
@@ -357,7 +358,7 @@ else if ( hForce != 0 || vForce != 0 )
     x+=(hForce);
     y+=(vForce);
     
-    if collision_point(x,y+spr_height+1,OBSTA,false,true)
+    if collision_point(x,y+(spr_height/2)+1,OBSTA,false,true)
     {
        hForce = approach(hForce,0,knock_resistance);
     }

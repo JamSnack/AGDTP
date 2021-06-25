@@ -60,7 +60,7 @@ knock_resistance = 3;
 mask_index = sprite_index;
 
 agility = 0.05;
-shield_charges_max = 3;
+shield_charges_max = 2;
 shield_charges = 0;
 shield_health_max = 10;
 shield_health = shield_health_max;

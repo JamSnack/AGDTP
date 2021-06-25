@@ -32,6 +32,7 @@ var foreground = bkg_overworldGrass;
 var background_cave = bkg_cave;
 
 var ore_type = obj_copperOre;
+var totem_type = obj_hiveTotem;
 
 
 switch region_type
@@ -48,11 +49,12 @@ switch region_type
         stone_tileset = obj_sandStone;
         tree_bool = false;
         ore_type = obj_seashellMetal;
+        totem_type = obj_squidTotem;
         
-        var background_far = bkg_overworldSky_test;
-        var background_close = bkg_dunesOG_new;
-        var foreground = bkg_sand_foreground;
-        var background_cave = bkg_cave;
+        background_far = bkg_overworldSky_test;
+        background_close = bkg_dunesOG_new;
+        foreground = bkg_sand_foreground;
+        background_cave = bkg_cave;
         
         heightSeed = get_height_seed(35,"HILL", 8, 12,3);
         heightNegativeSeed = "111111111000000111100";
@@ -321,20 +323,17 @@ else if time == 46
 else if time == 47
 {
     //Place totems
-    if region == "GRASSLANDS"
-    {
-        var hive_x = floor(irandom_range(16,room_width-16)/16)*16;
-        var hive_y = floor(irandom_range(stoneLayer+16*8,room_height-16)/16)*16;
-        var shove = choose(1,-1);
-        
-        while (position_meeting(hive_x,hive_y,FLATLAND) || position_meeting(hive_x,hive_y,obj_nullLight)) { hive_x+=16*shove; }
-        
-        if position_meeting(hive_x,hive_y,OBSTA) { with instance_position(hive_x,hive_y,OBSTA) { instance_destroy(); } }
-        
-        instance_create(hive_x,hive_y,obj_hiveTotem);
+    var hive_x = floor(irandom_range(16,room_width-16)/16)*16;
+    var hive_y = floor(irandom_range(stoneLayer+16*8,room_height-16)/16)*16;
+    var shove = choose(1,-1);
+    
+    while (position_meeting(hive_x,hive_y,FLATLAND) || position_meeting(hive_x,hive_y,obj_nullLight)) { hive_x+=16*shove; }
+    
+    if position_meeting(hive_x,hive_y,OBSTA) { with instance_position(hive_x,hive_y,OBSTA) { instance_destroy(); } }
+    
+    instance_create(hive_x,hive_y,totem_type);
         
         //print("HERE: "+string(hive_x)+","+string(hive_y));
-    }
 
     //Border layer
     for(i=0;i<sizeX*2+20;i++)

@@ -121,10 +121,9 @@ var r = irandom(99); //0 to 99
 scr_spawnEssence(5,45,15);
 
 //Drop items
-if r &lt;= 50 then scr_dropTag("Hive",1)
-else if r &gt;= 20 &amp;&amp; r &lt;= 35 then scr_dropItem(ITEMID.weapon_beemerang,0,ITEMTYPE.weapon,x,y,noone);
+if r &lt;= 8 then scr_dropTag("Hive",1)
 
-scr_dropItem(ITEMID.item_sweetComb,1+irandom(2+waveScale(1,5,0,10)),0,x,y,noone);
+scr_dropItem(ITEMID.item_sweetComb,1+irandom(4+waveScale(1,5,0,10)),0,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -227,6 +226,29 @@ ai_nilmergAi(state,1,objective,-4,atkBox);
           <argument>
             <kind>1</kind>
             <string>if state == "TRANSITION" then state = transition_to;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///IGNORE INHERITED EVENT!
 </string>
           </argument>
         </arguments>

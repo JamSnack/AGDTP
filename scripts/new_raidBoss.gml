@@ -20,8 +20,7 @@ while true
     
     var array_size = array_length_1d(bossGremlins);
     
-    if wave >= 10 && kingDied_1 == true && gremNumber >= (100-waveScale(10,5,0,60)) then bossGremlins[array_size] = obj_nilmerg;
-    if wave >= 15 && gremNumber >= 90 then bossGremlins[array_size] = obj_sphereKing;
+    if wave >= 15 && gremNumber >= 80 then bossGremlins[array_size] = obj_sphereKing;
     if region == "COVE" && wave >= 10 then bossGremlins[array_size] = obj_crabKing;
     
     

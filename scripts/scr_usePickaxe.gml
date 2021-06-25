@@ -57,19 +57,12 @@ if instance_exists(plr_col)
     //Ensure the tile reachable.
     if distance_to_object(plr_col) <= pickRange*16 && collision_line(x,y,plr_col.x,plr_col.y,plr_col,false,false)
     {        
-        //Damage the tile
-        plr_col.hp -= plr_col.maxHp;
+        //Kill the player tile.
+        var cx = plr_col.x;
+        var cy = plr_col.y;
     
-        //Check for tile death otherwise heal.
-        if plr_col.hp <= 0
-        {
-            var cx = plr_col.x;
-            var cy = plr_col.y;
-        
-            with plr_col { instance_destroy(); }
-            scr_tileUpdate(cx,cy);
-            
-        } else plr_col.alarm[0] = room_speed*5;
+        with plr_col { instance_destroy(); }
+        scr_tileUpdate(cx,cy);
     }
 }
 

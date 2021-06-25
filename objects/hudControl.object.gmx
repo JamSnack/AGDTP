@@ -1089,25 +1089,11 @@ if settingsMenu = true
     }
     
     //- Exit button
-    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+50)
+    else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+63)
     {
-        if room == rm_lobby then scr_roomTransition("WARP","Come back soon!",global.fnt_menu,c_white,rm_menu);
-        else if interm == true
+        if interm == true
         {
-            //Warp out of the FLATLANDS
-            if instance_exists(ENEMY)
-            {
-                for(_z=0;_z&lt;instance_number(ENEMY)-1;_z++)
-                {
-                    var _grem = instance_find(ENEMY,_z);
-                    
-                    if _grem.y &lt; stoneLayer-32 &amp;&amp; _grem.x &gt; RAIDBOUND_Lower &amp;&amp; _grem.x &lt; RAIDBOUND_Upper
-                    {
-                        scr_hudMessage("The Flatlands must be clear of Gremlins before warping.",global.fnt_Ui,4,0,c_yellow,0);
-                        break;
-                    } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
-                }
-            } else scr_roomTransition("WARP","Warping to: The Flatlands",global.fnt_menu,c_white,rm_lobby);
+            scr_roomTransition("WARP",choose("Come back soon!","Loading...","Good Game"),global.fnt_menu,c_white,rm_menu);
         }
         
         //Save the game
@@ -2089,7 +2075,7 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 
 //-------------------- Healthbars ---------------------------
 //#region
-if settingsMenu == false &amp;&amp; keybindMenu_visible == false
+if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; instance_exists(obj_player)
 {
     var playerHp = obj_player.hp;
     var playerMaxHp = obj_player.maxHp;
@@ -2127,8 +2113,9 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false
             //All possible boss objects.
             case obj_bombKing: { bossName = "The Bomb King" } break;
             case obj_sphereKing: {bossName = "The Sphere King"} break;
-            case obj_nilmerg: {bossName = "Nilmerg, the Grem-Bee"} break;
+            case obj_nilmerg: {bossName = "Nilmerg the Gremlin Bee"} break;
             case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
+            case obj_bliplo: {bossName = "Bliplo the Crustaceous"} break;
         }
         
         if boss != noone
@@ -2181,8 +2168,8 @@ if settingsMenu == true
     draw_text(xx-32,yy-3,"Change Keybinds");
     
     //Draw save and exit button
-    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
-    draw_text(xx-15,yy+45,"Leave");
+    draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+63,0);
+    draw_text(xx-15,yy+45,"Exit to# Menu");
     
 }
 else if keybindMenu_visible == true
@@ -2281,7 +2268,7 @@ if interm == false
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (settingsMenu == false &amp;&amp; keybindMenu_visible == false) &amp;&amp; (room == rm_zero || room == rm_tutorial)
+            <string>if (settingsMenu == false &amp;&amp; keybindMenu_visible == false) &amp;&amp; (room == rm_zero || room == rm_tutorial) &amp;&amp; instance_exists(obj_player)
 {    
     //Building indicator
     var xx = round(mouse_x/16)*16;
@@ -2362,39 +2349,19 @@ if interm == false
 if room == rm_menu then exit;
 
 //Settings menu
-if invOpen == false &amp;&amp; showSuperMenu == false
-{ settingsMenu = !settingsMenu; }
-
-//Close other menus
-if invOpen == true then invOpen = false;
-if showSuperMenu == true then showSuperMenu = false;
-if keybindMenu_visible = true then keybindMenu_visible = false;
-
-//Pause the game
-if settingsMenu == true
+if settingsMenu == false
 {
-    with PAUSE
-    {
-        //Clone game world
-        if visible == true
-        {
-            var p = instance_create(x,y,obj_pausedObject);
-            p.sprite_index = sprite_index;
-            p.image_index = image_index;
-            p.image_xscale = image_xscale;
-            p.image_yscale = image_yscale;
-            p.image_angle = image_angle;
-        }
-        
-        //Deactivate the instance
-        deactivate_method = "PAUSE";
-        
-        instance_deactivate_object(id);
-    }
+    if invOpen == false &amp;&amp; showSuperMenu == false
+    { settingsMenu = true; }
     
-    print("Paused instances: "+string(instance_number(obj_pausedObject)));
+    //Close other menus
+    if invOpen == true then invOpen = false;
+    if showSuperMenu == true then showSuperMenu = false;
+    if keybindMenu_visible = true then keybindMenu_visible = false;
 }
-else
+
+//If settings menu is open AND the game has been paused: delete paused objects and unpause the game.
+if settingsMenu == true &amp;&amp; instance_exists(obj_pausedObject)
 {
     //Destroy the cloned world
     if instance_exists(obj_pausedObject)
@@ -2415,6 +2382,40 @@ else
         {
             instance_deactivate_object(id);
         }
+    }
+    
+    print("Paused instances: "+string(instance_number(obj_pausedObject)));
+    settingsMenu = false;
+}
+
+//If the settings menu var is true but the game isn't paused, pause the game and keep the menu open.
+else if settingsMenu == true
+{
+    with PAUSE
+    {
+        //Clone game world
+        if visible == true
+        {
+            var p = instance_create(x,y,obj_pausedObject);
+            p.sprite_index = sprite_index;
+            p.image_index = image_index;
+            p.image_xscale = image_xscale;
+            p.image_yscale = image_yscale;
+            p.image_angle = image_angle;
+            
+            if object_get_parent(object_index) == TILE
+            {
+                if light_level &lt; 255// &amp;&amp; y &gt; stoneLayer
+                {
+                    p.sprite_index = spr_blackTile;
+                }
+            }
+        }
+        
+        //Deactivate the instance
+        deactivate_method = "PAUSE";
+        
+        instance_deactivate_object(id);
     }
     
     print("Paused instances: "+string(instance_number(obj_pausedObject)));

@@ -28,7 +28,7 @@
             <string>///Initialize the Gremlin
 canActiveRegion = true;
 canHurt = true;
-maxHp = 16;
+maxHp = 24;
 hp = maxHp;
 image_speed = 12/60;
 state = WANDER;
@@ -44,7 +44,7 @@ if interm == false then target = obj_pie;
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 16*2;
+aggroRange = 16*3;
 
 stateLock = true;
 alarm[stateLockAlarm] = 20;
@@ -56,7 +56,7 @@ image_xscale = sign(target.x-x);
 event_inherited();
 
 //Local variables
-knock_resistance = 0.4;
+knock_resistance = 0.2;
 grass_state = "DIRT";
 growth_target = room_speed*6; //How many steps until fully grown.
 growth = 0; //Grown amount

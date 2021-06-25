@@ -158,10 +158,17 @@ switch presetSettings
     }
     break;
     
-    case "KING_NILMERG":
+    case "KING":
     {
-        //ONLY THE GRASSLANDS REGION EXISTS RIGHT NOW.
         //Get the region > spawn appropriate region king...
+        var region_boss = obj_nilmerg;
+        var text = "null";
+        
+        switch region
+        {
+            case "GRASSLANDS": { region_boss = obj_nilmerg; _text = "Nilmerg will destroy you!"; } break;
+            case "COVE": { region_boss = obj_bliplo; _text = "Bliplo is angry."; } break;
+        }   
         
         //---------- Region King Raid ---------
         specialRaid = true;
@@ -173,9 +180,9 @@ switch presetSettings
         interm = false;
         
         raidBoss = true;
-        bossID = new_raidBoss(obj_nilmerg);
+        bossID = new_raidBoss(region_boss);
         
-        if kingDied_1 == false then scr_hudMessage("Nilmerg will destroy you!",0,20,0,c_yellow,0);
+        scr_hudMessage(_text,0,20,0,c_yellow,0);
     }
     break;
 }
@@ -191,7 +198,7 @@ else
 {
     switch region
     {
-        case "GRASSLANDS": { _music = choose(snd_The_Grasslands,snd_overworld_1); } break;
+        case "GRASSLANDS": { _music = snd_The_Grasslands; } break;
         case "COVE": { _music = snd_Salty_Paradise; } break;
     }
 }
@@ -202,7 +209,7 @@ if instance_exists(bossID)
     
     switch _boss
     {
-        case obj_sphereKing: { _music = snd_Triple_King; } break;
+        case obj_bliplo: { _music = snd_Triple_King; } break;
         case obj_nilmerg: { _music = snd_FlightoftheRegionKing; } break;
     }
 }

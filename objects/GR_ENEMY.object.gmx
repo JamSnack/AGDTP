@@ -68,9 +68,14 @@ if interm == false
 
     if visible == true
     {
-        if x &lt;= RAIDBOUND_Upper &amp;&amp; x &gt;= RAIDBOUND_Lower &amp;&amp; y &lt; stoneLayer &amp;&amp;
-        !(raidProgress == maxRaidProgress-1 &amp;&amp; raidBoss == true)
-        { raidProgress += 1; with worldControl event_user(0); }
+        if x &lt;= RAIDBOUND_Upper &amp;&amp; x &gt;= RAIDBOUND_Lower &amp;&amp; y &lt; stoneLayer &amp;&amp; !(raidProgress == maxRaidProgress-1 &amp;&amp; raidBoss == true)
+        {
+            if object_index != obj_grassGremlin || (object_index == obj_grassGremlin &amp;&amp; split_life == 3)
+            {
+                raidProgress += 1; 
+                with worldControl event_user(0); 
+            }
+        }
     }
     
     if worldControl.raidBossID == id
@@ -83,7 +88,7 @@ if interm == false
 event_inherited();
 
 //Roll for Tag drops
-var r = irandom(500);
+var r = irandom(700);
 
 //-Bouncy Tag
 if r == 1 

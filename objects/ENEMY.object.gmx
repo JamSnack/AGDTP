@@ -43,6 +43,8 @@ charge_rate = 0;
 
 deathSound = snd_enemydie_monster;
 
+scale = 1;
+
 //Change some stats for a true boss fight;
 if worldControl.raidBossID == id
 {
