@@ -34,7 +34,7 @@ tool_buffer = noone; //The last tool the player held before switching to buildin
 knockBack = false;
 knockPoint_x = 0;
 knockPoint_y = 0;
-climbSpeed = 1;
+climbSpeed = 2;
 platformCollide = true;
 deactivate_method = 0;
 
@@ -258,8 +258,24 @@ if dead = false &amp;&amp; g_over == false
     var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
     //Ladder Logic
-    if vsp != 0 &amp;&amp; place_meeting_fast(0,0,obj_ladder)
-    { vsp = 0; }
+    if place_meeting_fast(0,0,obj_ladder)
+    {
+        //Stop falling
+        if vsp != 0 { vsp = 0; }
+        
+        //-Climb the ladder
+        if !place_meeting_fast(0,-climbSpeed,OBSTA) &amp;&amp; key_jump 
+        {
+            y-=climbSpeed;
+        }
+        else if !place_meeting_fast(0,climbSpeed,OBSTA) &amp;&amp; key_down 
+        {
+            y+=climbSpeed;
+        }
+        
+        //Don't collide with platforms
+        platformCollide = false;
+    }
     
     
     //--Collision with ground; else platform
@@ -509,32 +525,6 @@ if hp &lt; maxHp &amp;&amp; keyboard_check_released(global.key_quick_heal) &amp;
         }
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_ladder">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if !place_meeting_fast(0,-climbSpeed,OBSTA) &amp;&amp; key_jump then y-=climbSpeed
-else if !place_meeting_fast(0,climbSpeed,OBSTA) &amp;&amp; key_down then y+=climbSpeed;
-
-platformCollide = false;
 </string>
           </argument>
         </arguments>

@@ -1853,14 +1853,14 @@ if showSuperMenu == true
             draw_sprite(spr_ui_regionShiftBool,region_shift,_posX+12,_posY+13);
             
             //-- draw region buttons
-            for(_p=0;_p&lt;sprite_get_number(spr_ui_regions);_p++)
+            for(_p=0;_p&lt;sprite_get_number(spr_ui_regions)-1;_p++)
             {
                 var _subimage = _p;
                 
                 switch _p
                 {
                     //Region requirements
-                    case 2: { if kingDied_1 == false then _subimage = 0; } break;
+                    case 2: { if kingDied_1 == false then _subimage = 3; } break;
                 }
             
                 draw_sprite(spr_ui_regions,_subimage,_posX+20+(_p*38),_posY+30);
@@ -2465,7 +2465,14 @@ else if settingsMenu == true
             p.image_yscale = image_yscale;
             p.image_angle = image_angle;
             
-            if object_get_parent(object_index) == TILE
+            //-Special cases-
+            if object_index == obj_chest then p.visible = false;
+            else if object_index == obj_tree &amp;&amp; canopy == true
+            {
+                p.canopy = true;
+            }
+            
+            if object_get_parent(object_index) == TILE || object_index == obj_nullLight
             {
                 if light_level &lt; 255// &amp;&amp; y &gt; stoneLayer
                 {
