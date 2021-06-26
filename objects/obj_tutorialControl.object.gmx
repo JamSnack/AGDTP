@@ -157,7 +157,7 @@ if task_settings_completed == true &amp;&amp; task_super_menu_completed == true 
           <argument>
             <kind>1</kind>
             <string>draw_set_color(c_white);
-draw_set_font(global.fnt_Ui);
+draw_set_font(global.fnt_menu);
 
 if task_inventory_completed == false
 {

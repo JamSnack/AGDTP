@@ -333,68 +333,53 @@ if bBouncy == false &amp;&amp; canCollide == true &amp;&amp; !place_meeting_fast
 
 if canCollide == false
 {
-    //Turn on collision after the projectile has traveled for some pixels.
+    //Turn on collision with tiles after the projectile has traveled for some pixels.
     if distance_to_point(origin_x,origin_y) &gt; 3 then canCollide = true;
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="ENEMY">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if other.canHurt == true
-{ 
-    var k = knkAmt;
-    var d = dmg;
 
-    //friction += 0.05;
-    
-    with other 
+//-----------ENEMY COLLISION--------------------
+var enemy_col = collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,ENEMY,false,true);
+
+if enemy_col != noone
+{
+    if enemy_col.canHurt == true
     {
-        scr_hurt(d,DEF_HURT,true,k); 
-        event_user(0); //register hit event for gremlin
-    }
+        var k = knkAmt;
+        var d = dmg;
     
-    //TAGS
-    if bHive == true
-    {
-        var _p = instance_create(x,y,obj_projectile);
-        //-Apply projectile statistics
-        _p.speed = 1;
-        _p.friction = 0;
-        _p.type = 2; //Bullet
-        _p.sprite_index = spr_stinger;
-        _p.dmg = dmg;
-        _p.direction = irandom(359);
-        _p.image_angle = direction;
-        _p.knkAmt = 2;
-        _p.ox = x;
-        _p.oy = y;
-    }
-    
-    //Destroy the projectile
-    if type == 1 || type == 2 then instance_destroy();
-    else if type == "SPHERE"
-    { if alarm[2] == -1 then alarm[2] = room_speed*8; }
-    else if type == "BOOMERANG"
-    {
-        if alarm[2] == -1 then alarm[2] = room_speed*3;
+        //friction += 0.05;
+        
+        with enemy_col 
+        {
+            scr_hurt(d,DEF_HURT,true,k); 
+            event_user(0); //register hit event for gremlin
+        }
+        
+        //TAGS
+        if bHive == true
+        {
+            var _p = instance_create(x,y,obj_projectile);
+            //-Apply projectile statistics
+            _p.speed = 1;
+            _p.friction = 0;
+            _p.type = 2; //Bullet
+            _p.sprite_index = spr_stinger;
+            _p.dmg = dmg/2;
+            _p.direction = irandom(359);
+            _p.image_angle = direction;
+            _p.knkAmt = 2;
+            _p.ox = x;
+            _p.oy = y;
+        }
+        
+        //Destroy the projectile
+        if type == 1 || type == 2 then instance_destroy();
+        else if type == "SPHERE"
+        { if alarm[2] == -1 then alarm[2] = room_speed*8; }
+        else if type == "BOOMERANG"
+        {
+            if alarm[2] == -1 then alarm[2] = room_speed*3;
+        }
     }
 }
 </string>

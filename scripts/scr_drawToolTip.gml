@@ -199,9 +199,9 @@ if ds_exists(tagsUnloaded,ds_type_list)
             {
             //Increases projectile speed
                 case "Bouncy": { text_buffer += "Projectile Effect: Projectiles will bounce off of hard surfaces."; } break;
-                case "Hive": {text_buffer += "On Projectile Hit: Spawns a stinger that deals#half the tool's damage."; } break;
+                case "Hive": {text_buffer += "On Projectile Hit: Spawns a stinger that deals half the tool's damage."; } break;
                 case "Tool Speed+": {text_buffer = "Stat Effect: Decreases a tool's cooldown by 20%."} break;
-                case "Grenade": {text_buffer += "On Enemy Killed: Spawns an explosion, dealing half#of the tool's damage to gremlins within a#3 1/2 tile radius."} break;
+                case "Grenade": {text_buffer += "On Enemy Killed: Spawns an explosion, dealing half of the tool's damage to gremlins within a 3.5 tile radius."} break;
                 case "Bright": { text_buffer += "Stat Effect: Increases the player's brightness when held."; } break;
             }
         }
@@ -216,6 +216,7 @@ if ds_exists(tagsUnloaded,ds_type_list)
         }
         
         //Apply description
+        text_buffer = scr_fitText(text_buffer,30);
         text[2] += text_buffer+"#";
     }
 }

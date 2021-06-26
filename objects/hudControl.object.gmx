@@ -290,8 +290,67 @@ else if maxInvenSlots &lt; array_size
     }
 }
 
+
+//-----------KEY INTERACTION----------------
+if input_wait == false &amp;&amp; (settingsMenu == false &amp;&amp; keybindMenu_visible == false)
+{
+    if keyboard_check_released(global.key_inven)
+    {
+        //- Toggle Inventory Visibility.
+        invOpen = !invOpen;
+    }
+    
+    else if keyboard_check_released(global.key_craft)
+    {
+        ///Toggle crafting menu
+        showSuperMenu = !showSuperMenu;
+        
+        if instance_exists(gameControl)
+        { if currentTask == 1 then currentTask = 2; }
+        
+            
+        //init mod bench
+        event_user(0);
+    }
+    else if (keyboard_check_released(global.key_1))
+    {
+        last_hotkey = 0;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_2))
+    {
+        last_hotkey = 1;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_3))
+    {
+        last_hotkey = 2;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_4))
+    {
+        last_hotkey = 3;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_5))
+    {
+        last_hotkey = 4;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_6))
+    {
+        last_hotkey = 5;
+        event_user(1);
+    }
+    else if (keyboard_check_released(global.key_7))
+    {
+        last_hotkey = 6;
+        event_user(1);
+    }
+}
+
 //--------------KEYBINDING-----------------
-if input_wait == true &amp;&amp; keyboard_key != 0
+else if input_wait == true &amp;&amp; keyboard_key != 0
 {
     if global.key_jump == noone
     { global.key_jump = keyboard_key; }
@@ -311,63 +370,6 @@ if input_wait == true &amp;&amp; keyboard_key != 0
     { global.key_quick_heal = keyboard_key; }
     
     input_wait = false;
-}
-
-
-//-----------KEY INTERACTION----------------
-
-if keyboard_check_released(global.key_inven)
-{
-    //- Toggle Inventory Visibility.
-    invOpen = !invOpen;
-}
-
-else if keyboard_check_released(global.key_craft)
-{
-    ///Toggle crafting menu
-    showSuperMenu = !showSuperMenu;
-    
-    if instance_exists(gameControl)
-    { if currentTask == 1 then currentTask = 2; }
-    
-        
-    //init mod bench
-    event_user(0);
-}
-else if (keyboard_check_released(global.key_1))
-{
-    last_hotkey = 0;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_2))
-{
-    last_hotkey = 1;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_3))
-{
-    last_hotkey = 2;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_4))
-{
-    last_hotkey = 3;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_5))
-{
-    last_hotkey = 4;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_6))
-{
-    last_hotkey = 5;
-    event_user(1);
-}
-else if (keyboard_check_released(global.key_7))
-{
-    last_hotkey = 6;
-    event_user(1);
 }
 
 </string>
@@ -395,7 +397,7 @@ else if (keyboard_check_released(global.key_7))
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
     //----------MOVE THE SLOTS DOWN------
-    craft_scroll += 10;
+    craft_scroll += 5;
 
     
     //----------SCROLL LIMIT--------
@@ -440,7 +442,7 @@ else if (keyboard_check_released(global.key_7))
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
     //----------MOVE THE SLOTS UP------
-    craft_scroll -= 10;
+    craft_scroll -= 5;
 
     
     //----------SCROLL LIMIT--------
@@ -2016,10 +2018,9 @@ if invenX &gt; 5
         text[1] = scr_fitText(text[1],30);
         
         var _text = text[0]+"##"+text[1]+"##"+text[2];
+        
+        draw_set_font(global.fnt_menu);
         draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
-        /*draw_text_transformed(6,2+(16*floor(maxInvenSlots/7)),text[0],1.25,1.25,0);
-        draw_text_transformed(6,21+(16*floor(maxInvenSlots/7)),text[1],1,1,0);
-        draw_text_transformed(6,51+(16*floor(maxInvenSlots/7)),text[2],0.8,0.8,0);*/
     }
     
     //- Draw Trash Slot
@@ -2128,6 +2129,8 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 //#region
 if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; instance_exists(obj_player)
 {
+    draw_set_font(global.fnt_menu);
+
     var playerHp = obj_player.hp;
     var playerMaxHp = obj_player.maxHp;
     
@@ -2194,6 +2197,8 @@ if settingsMenu == true
 {
     var xx = display_get_gui_width()/2;
     var yy = display_get_gui_height()/2;
+    
+    draw_text(xx-26,yy-80,"Game Paused");
 
     //Draw background
     draw_nineSliceBox(spr_ui_9slice,(xx)-50,(yy)-65,(xx)+50,(yy)+65,0);
@@ -2277,7 +2282,7 @@ else if keybindMenu_visible == true
 }
 
 //------------------Quests/Task List--------------------------
-if room == rm_tutorial
+/*if room == rm_tutorial
 {
     if showTaskList == true
     {
@@ -2290,13 +2295,14 @@ if room == rm_tutorial
         if (str_length &gt; viewWidth/2) then str_length = viewWidth/2;
         draw_text_transformed(x+viewWidth/2-str_length,y+30,str,1.25,1.25,0);
     }
-}
+}*/
 //#endregion
 
 //-------------------Wave Progress Meter----------------------
 //#region
 if interm == false
 {
+    draw_set_font(global.fnt_menu);
     draw_text(10,dispHeight-13,"Raid Progress: ");
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
