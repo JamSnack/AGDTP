@@ -121,6 +121,7 @@ musicToggled = true; // Music is on!
 keybindMenu_visible = false; //SHOW YA KEYBINDS BIFF
 input_wait = false; //Whether or not to wait for an input.
 music_drag = false;
+vsyncToggled = true;
 
 //Place Tiles
 lastPlaceX = noone;
@@ -1080,6 +1081,13 @@ if settingsMenu = true
     {
         keybindMenu_visible = true;
         settingsMenu = false;
+    }
+    
+    //Vsync
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+30-hbox,xx-40+hbox,yy+30+hbox)
+    {
+        vsyncToggled = !vsyncToggled;
+        display_reset(0,vsyncToggled);
     }
     
     //- Exit button
@@ -2202,6 +2210,10 @@ if settingsMenu == true
     //keybind setting
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+20);
     draw_text(xx-32,yy+17,"Change Keybinds");
+    
+    //vsync toggle
+    draw_sprite(spr_ui_selectedBool,vsyncToggled,xx-40,yy+30);
+    draw_text(xx-32,yy+27,"Toggle Vsync");
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+63,0);
