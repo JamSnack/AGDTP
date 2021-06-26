@@ -15,7 +15,7 @@ if num == 0 then return str;
 
 if num >= 1000
 {
-    if num >= 1000000000000000 //One Quad
+    /*if num >= 1000000000000000 //One Quad
     {
         if num_str_length == 13
         {
@@ -92,44 +92,38 @@ if num >= 1000
         if num_str_length == 7
         {
             str += string_char_at(num_str,1);
-            str += "."+string_char_at(num_str,2);
         }
         else if num_str_length == 8
         {
             str += string_char_at(num_str,1);
             str += string_char_at(num_str,2);
-            str += "."+string_char_at(num_str,3);
         }
         else if num_str_length == 9
         {
             str += string_char_at(num_str,1);
             str += string_char_at(num_str,2);
             str += string_char_at(num_str,3);
-            str += "."+string_char_at(num_str,4);
         }
         
         str += "M";
-    }
+    }*/
     
-    else if num >= 1000 //One thousand
+    if num >= 1000 //One thousand
     {
         if num_str_length == 4
         {
             str += string_char_at(num_str,1);
-            str += "."+string_char_at(num_str,2);
         }
         else if num_str_length == 5
         {
             str += string_char_at(num_str,1);
             str += string_char_at(num_str,2);
-            str += "."+string_char_at(num_str,3);
         }
         else if num_str_length == 6
         {
             str += string_char_at(num_str,1);
             str += string_char_at(num_str,2);
             str += string_char_at(num_str,3);
-            str += "."+string_char_at(num_str,4);
         }
         
         str += "K";

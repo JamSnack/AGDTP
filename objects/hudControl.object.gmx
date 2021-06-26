@@ -2004,7 +2004,7 @@ if invenX &gt; 5
                 str += "k";
             }
             
-            draw_text_transformed(x2-9,y2+47.5,str,0.6,0.6,0);
+            draw_text_transformed(x2-9,y2+47.5,str,0.5,0.5,0);
         }
     }
     
@@ -2083,7 +2083,15 @@ if invenX &lt;= 5
         //Draw hotbar item amount (numbers)
         draw_set_font(global.fnt_Ui);
         
-        draw_text_transformed(x2-9,y2+47.5,scr_convertToCompressedString(inv_amt),0.6,0.6,0);
+        if inv_amt != 0
+        {
+            if inv_amt &gt; 999
+            {
+                inv_amt = scr_convertToCompressedString(inv_amt);
+            }
+            
+            draw_text_transformed(x2-9,y2+47.5,string(inv_amt),0.5,0.5,0);
+        }
     }
 }
 //#endregion

@@ -152,7 +152,7 @@ if gameOver == true
 {
     draw_text(x-83,y+16,"Press 'Enter' to return to the menu.");
 }
-else if world_Time &lt; 450
+else if wave == 0 &amp;&amp; world_Time &lt; 450
 {
     draw_text(x-33,y-16,"Protect the pie!");
     draw_sprite(spr_red_arrow_down,world_Time/4,x-0.5,y-6);
