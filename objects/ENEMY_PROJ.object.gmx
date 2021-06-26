@@ -42,6 +42,19 @@ if obj_player.dead == false &amp;&amp; place_meeting_fast(0,0,obj_player)
 //---TILE COLLISION--------
 else if instance_exists(TILE) &amp;&amp; place_meeting_fast(0,0,TILE)
 {
+    var tile = instance_nearest(x,y,TILE)
+    {
+        if tile.object_index == obj_pie
+        {
+            var d = dam;
+    
+            with tile
+            {
+                scr_hurt(d,DEF_HURT,false,0);
+            }
+        }
+    }
+
     instance_destroy();
 }
 

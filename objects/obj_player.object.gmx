@@ -129,7 +129,7 @@ while place_meeting(x,y,PLRTILE) y-=16;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Reset animations that need it
+            <string>///Reset animations &amp; tool ready
 armIndex = spr_armIdle;
 toolReady = true; 
 armAngle = 0;
@@ -508,21 +508,35 @@ if keyboard_check_released(global.key_interact)
 }
 
 //-----QUICK HEAL KEY----------
-if hp &lt; maxHp &amp;&amp; keyboard_check_released(global.key_quick_heal) &amp;&amp; room == rm_zero
+if keyboard_check_released(global.key_quick_heal)
 {
-    var heal_list = array_create(1);
-    heal_list[0] = ITEMID.cons_treeFruit;
-    
-    //Quickly heal by searching for the first healing item in the inventory and eating it!
-    for(i=0;i&lt;array_length_1d(heal_list);i++)
+    if hp &lt; maxHp
     {
-        //Find the item's 
-        var heal_slot = scr_findInvenItem(heal_list[i]);
+        //List of items to look for.
+        var heal_list = array_create(1);
+        heal_list[0] = ITEMID.cons_treeFruit;
         
-        if heal_slot != noone
+        //Quickly heal by searching for the first healing item in the inventory and eating it!
+        var loop_size = array_length_1d(heal_list);
+        
+        for(i=0;i&lt;loop_size;i++)
         {
-            scr_useConsumable(hudControl.inventorySlotIcon[heal_slot]);
+            //Find the item's 
+            var heal_slot = scr_findInvenItem(heal_list[i]);
+            
+            if heal_slot != noone
+            {
+                scr_useConsumable(hudControl.inventorySlotIcon[heal_slot]);
+            }
+            else if i == loop_size-1
+            {
+                audio_play_sound(snd_invalid,12,false);
+            }
         }
+    }
+    else if hp &gt;= maxHp
+    {
+        audio_play_sound(snd_invalid,12,false);
     }
 }
 </string>
@@ -781,6 +795,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                 //Consumable
                 if toolReady == true &amp;&amp; room == rm_zero
                 {
+                    toolReady = false;
                     scr_useConsumable(hudControl.inventorySlotIcon[slot]);
                 }
             }

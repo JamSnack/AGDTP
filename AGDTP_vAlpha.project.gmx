@@ -46,6 +46,7 @@
     <sound>sound\snd_enemydie_monster</sound>
     <sound>sound\snd_hit</sound>
     <sound>sound\snd_shoot</sound>
+    <sound>sound\snd_invalid</sound>
     <sound>sound\snd_machineGunSoft</sound>
     <sound>sound\snd_swish1</sound>
     <sound>sound\snd_swish2</sound>
