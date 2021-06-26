@@ -107,8 +107,6 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-
-scr_dropItem(ITEMID.weapon_sandySeadollar,0,ITEMTYPE.weapon,x,y,noone);
 </string>
           </argument>
         </arguments>

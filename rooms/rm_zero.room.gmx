@@ -57,6 +57,7 @@
     <instance objName="FLATLAND" x="1240" y="872" name="inst_66D0C072" locked="0" code="" scaleX="164" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="FLATLAND" x="-32" y="1544" name="inst_7458D9EF" locked="0" code="" scaleX="1" scaleY="70" colour="4294967295" rotation="0"/>
     <instance objName="FLATLAND" x="2552" y="1464" name="inst_A34EAE85" locked="0" code="" scaleX="1" scaleY="70" colour="4294967295" rotation="0"/>
+    <instance objName="obj_tutorialControl" x="96" y="0" name="inst_1F1B5105" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
