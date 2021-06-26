@@ -112,7 +112,7 @@ knockback_strength = 4.5;
           <argument>
             <kind>1</kind>
             <string>//Call this region king death check before event_inherited();
-if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;
+if region == "COVE" &amp;&amp; kingDied_2 == false &amp;&amp; worldControl.raidBossID == id then kingDied_2 = true;
 
 event_inherited();
 

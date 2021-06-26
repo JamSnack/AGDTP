@@ -116,6 +116,7 @@ var recipe_list = ds_list_create(); //Recipes unlocked
 var quest_list = ds_list_create(); //List containing quest progress
 var stat_list = ds_list_create(); //List containing player stats to save.
 var accessory_list = ds_list_create(); //List containing equipped accessories.
+var settings_list = ds_list_create(); //List of settings to save.
 
 
 //Save the inventory;
@@ -188,6 +189,29 @@ if ds_exists(accessories_equipped,ds_type_list)
         ds_list_add(accessory_list,accessories_equipped[| _q]);
     }
 }
+//--Save settings--
+//- save keybinds
+ds_list_add(settings_list,global.key_jump);
+ds_list_add(settings_list,global.key_left);
+ds_list_add(settings_list,global.key_right);
+ds_list_add(settings_list,global.key_down);
+ds_list_add(settings_list,global.key_inven);
+ds_list_add(settings_list,global.key_craft);
+ds_list_add(settings_list,global.key_interact);
+ds_list_add(settings_list,global.key_quick_heal);
+ds_list_add(settings_list,global.key_1);
+ds_list_add(settings_list,global.key_2);
+ds_list_add(settings_list,global.key_3);
+ds_list_add(settings_list,global.key_4);
+ds_list_add(settings_list,global.key_5);
+ds_list_add(settings_list,global.key_6);
+ds_list_add(settings_list,global.key_7);
+
+//- save other settings
+ds_list_add(settings_list,music_volume);
+
+
+
 
 //Game maker prefers to start with a ds_map.
 //Wrap the root List up in a map!
@@ -197,6 +221,7 @@ ds_map_add_list(_wrapper,"RECIPE",recipe_list);
 ds_map_add_list(_wrapper,"QUEST",quest_list);
 ds_map_add_list(_wrapper,"STAT",stat_list);
 ds_map_add_list(_wrapper,"ACC",accessory_list);
+ds_map_add_list(_wrapper,"SETTINGS",settings_list);
 
 //Save to a string
 var str = json_encode(_wrapper);

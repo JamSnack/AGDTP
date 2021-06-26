@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Initialize world variables
 event_inherited();
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,kingDied_1;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,kingDied_1,kingDied_2;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -41,7 +41,8 @@ energy = 0;
 
 
 //- boss checklist
-kingDied_1 = false; //Whether or not Nilmerg has been defeated once.
+kingDied_1 = false; //Whether or not Nilmerg has been defeated.
+kingDied_2 = false; //Whether or not Bliplo has been defeated.
 
 //local variable that needs to be set before scr_raidControl :)
 region_shift = false; //Whether or not to shift the region next intermission.
@@ -486,10 +487,10 @@ switch special_raidID
                 switch ran
                 {
                     case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
-                    case 1: if difficulty &gt;= 4 { normalGremlins[normal_array_size] = obj_drillin; } break;
+                    case 1: if difficulty &gt;= 5 { normalGremlins[normal_array_size] = obj_drillin; } break;
                     case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
                     case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
-                    case 4: if difficulty &gt;= 12 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
+                    case 4: if difficulty &gt;= 14 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
                 }
             }
             //Add region specific enemies if build_target is greater than 4.
@@ -501,8 +502,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            case 0: if difficulty &gt;= 20 { specialGremlins[special_array_size] = obj_hornedHapp; } break;
-                            default: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_sweetWorm; }
+                            case 0: if difficulty &gt;= 15 { specialGremlins[special_array_size] = obj_hornedHapp; } break;
+                            default: if difficulty &gt;= 7 { normalGremlins[normal_array_size] = obj_sweetWorm; }
                         }
                     }
                     break;
@@ -511,8 +512,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            case 0: if difficulty &gt;= 20 { normalGremlins[normal_array_size] = obj_sandMenace; } 
-                            default: if difficulty &gt; 13 { specialGremlins[special_array_size] = obj_crab; }
+                            case 0: if difficulty &gt;= 16 { normalGremlins[normal_array_size] = obj_sandMenace; } 
+                            default: if difficulty &gt; 12 { specialGremlins[special_array_size] = obj_crab; }
                         }
                     }
                     break;

@@ -1795,6 +1795,15 @@ if showSuperMenu == true
             var y2 = (_posY)+size+yOff;
             
             draw_set_font(global.fnt_Ui);
+            var _text = "Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag to create a new, modified tool!"
+            _text = scr_fitText(_text,45);
+            
+            draw_text(_posX+10,_posY+10,_text);
+            
+            //Slot labels
+            draw_text(x1+3,y1-10,"Mod Tag");
+            draw_text(x1+53,y1-10,"Tool");
+            draw_text(x1+113,y1-10,"Result");
             
             //Tag and Equipment Slots respectively
             draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
@@ -1887,9 +1896,15 @@ if showSuperMenu == true
            
            //------DIFFICULTY/BOSSES KILLED--------------
            draw_text(_posX+12,_posY+178,"Badges: ")
+           
            if kingDied_1 == true
            {
-               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+181);
+               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+182);
+           }
+           
+           if kingDied_2 == true
+           {
+               draw_sprite(spr_bossDefeatedIcon,1,_posX+60,_posY+182);
            }
         }
     }

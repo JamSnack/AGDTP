@@ -176,6 +176,28 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         tileLevel = _list[| 3];
     }
     
+    //-------Handle Settings----------
+    var _list = _wrapper[? "SETTINGS"];
+    
+    if _list != undefined
+    {
+        global.key_jump = _list[| 0];
+        global.key_left = _list[| 1];
+        global.key_right = _list[| 2];
+        global.key_down = _list[| 3];
+        global.key_inven = _list[| 4];
+        global.key_craft = _list[| 5];
+        global.key_interact = _list[| 6];
+        global.key_quick_heal = _list[| 7];
+        global.key_1 = _list[| 8];
+        global.key_2 = _list[| 9];
+        global.key_3 = _list[| 10];
+        global.key_4 = _list[| 11];
+        global.key_5 = _list[| 12];
+        global.key_6 = _list[| 13];
+        global.key_7 = _list[| 14];
+    }
+    
     ds_map_destroy(_wrapper);
     print("Game Loaded");
 } 
