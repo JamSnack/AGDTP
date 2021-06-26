@@ -162,12 +162,12 @@ switch presetSettings
     {
         //Get the region > spawn appropriate region king...
         var region_boss = obj_nilmerg;
-        var text = "null";
+        var _text = "null";
         
         switch region
         {
             case "GRASSLANDS": { region_boss = obj_nilmerg; _text = "Nilmerg will destroy you!"; } break;
-            case "COVE": { region_boss = obj_bliplo; _text = "Bliplo is angry."; } break;
+            case "COVE": { region_boss = obj_bliplo; _text = "Bliplo is angry!"; } break;
         }   
         
         //---------- Region King Raid ---------

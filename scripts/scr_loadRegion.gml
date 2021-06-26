@@ -373,6 +373,7 @@ else if time == 70
     //Cleanup (again)
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
     
+    worldControl.alarm[0] = 1;
     instance_destroy();
 }
 

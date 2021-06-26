@@ -120,6 +120,7 @@ showBackground = true;
 musicToggled = true; // Music is on!
 keybindMenu_visible = false; //SHOW YA KEYBINDS BIFF
 input_wait = false; //Whether or not to wait for an input.
+music_drag = false;
 
 //Place Tiles
 lastPlaceX = noone;
@@ -1074,15 +1075,8 @@ if settingsMenu = true
         background_visible[5] = showBackground;
     }
     
-    //- Toggle music
-    else if point_in_rectangle(mx,my,xx-40-hbox,yy-10-hbox,xx-40+hbox,yy-10+hbox)
-    {
-        musicToggled = !musicToggled;
-        audio_sound_gain(music,musicToggled,0);
-    }
-    
     //Keybinds
-    else if point_in_rectangle(mx,my,xx-40-hbox,yy-hbox,xx-40+hbox,yy+hbox)
+    else if point_in_rectangle(mx,my,xx-40-hbox,yy+20-hbox,xx-40+hbox,yy+20+hbox)
     {
         keybindMenu_visible = true;
         settingsMenu = false;
@@ -1099,6 +1093,10 @@ if settingsMenu = true
         //Save the game
         with gameControl event_user(0);
     }
+    
+    //UPDATE MUSIC VOLUME - SLIDER LOGIC IN Left Button EVENT!
+    audio_sound_gain(music,musicToggled*music_volume,0);
+    music_drag = false;
 }
 else if keybindMenu_visible == true
 {
@@ -1277,7 +1275,7 @@ if invOpen == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///SUPERMENU INTERACTION
+            <string>///UI &amp; SETTINGS INTERACTION
 if room == rm_menu then exit;
 
 if showSuperMenu == true &amp;&amp; obj_player.dead == false
@@ -1347,7 +1345,29 @@ if showSuperMenu == true &amp;&amp; obj_player.dead == false
         } else if ui_state != "MOD" { craftIndex = -1; }
     } else { craftIndex = -1; }
 }
+else if settingsMenu = true
+{   
+//NOTE: This bit of settings menu logic controls things that aren't simple toggles. Hence the left button event and not left button down.
 
+    var xx = display_get_gui_width()/2;
+    var yy = display_get_gui_height()/2;
+    var mx = device_mouse_x_to_gui(0);
+    var my = device_mouse_y_to_gui(0);
+    var hbox = 4;
+
+    //- Music volume
+    if point_in_rectangle(mx,my,xx-30,yy-2-hbox,xx+30,yy+2+hbox) || music_drag == true
+    {
+        music_drag = true;
+    
+        var point_1 = xx-30;
+        var point_2 = xx+30;
+        
+        music_volume = clamp((mx-point_1)/(point_2-point_1),0,1);
+        
+        //AUDIO CHANGE FUNCTION IS IN Left Button Released!!!
+    }
+}
 
 </string>
           </argument>
@@ -2160,12 +2180,13 @@ if settingsMenu == true
     draw_text(xx-32,yy-23,"Toggle Background");
     
     //toggle music setting
-    draw_sprite(spr_ui_selectedBool,musicToggled,xx-40,yy-10);
-    draw_text(xx-32,yy-13,"Toggle Music");
+    draw_nineSliceBox(spr_ui_button,xx-30,yy,xx+30,yy,0);
+    draw_sprite(spr_ui_selectedBool,1,(xx-30)+(60*(music_volume/1)),yy+4);
+    draw_text(xx-32,yy-13,"Music Volume: "+string(music_volume));
     
     //keybind setting
-    draw_sprite(spr_ui_selectedBool,1,xx-40,yy);
-    draw_text(xx-32,yy-3,"Change Keybinds");
+    draw_sprite(spr_ui_selectedBool,1,xx-40,yy+20);
+    draw_text(xx-32,yy+17,"Change Keybinds");
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+63,0);

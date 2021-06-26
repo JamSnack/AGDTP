@@ -69,6 +69,7 @@
     </sounds>
     <sound>sound\snd_itemPickup</sound>
     <sound>sound\snd_shield_deployed</sound>
+    <sound>sound\snd_game_over</sound>
     <sound>sound\snd_shield_destroyed</sound>
     <sound>sound\snd_sphereLaunch</sound>
     <sounds name="Music">

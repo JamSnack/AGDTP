@@ -73,6 +73,9 @@ animation_max = 1;
             <kind>1</kind>
             <string>if time == 0
 {
+    //Ensure that world control does not mess with deactivation/activation
+    worldControl.alarm[0] = -1;
+
     //- Declare variables
     sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
     sizeY = 30;
