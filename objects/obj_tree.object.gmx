@@ -113,7 +113,7 @@ if !place_meeting(x,y+16,OBSTA) &amp;&amp; !place_meeting(x,y+16,obj_tree)
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>

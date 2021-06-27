@@ -182,6 +182,7 @@ if distance_to_object(obj_player) &lt;= aggroRange
     if  spawn_charges &gt; 0 &amp;&amp; alarm[spawn_alarm] &lt;= 2
     {
         spawn_charges -= 1;
+        alarm[spawn_alarm] = 10;
         
         instance_create(x,y-4,obj_sweetWorm);
     }
