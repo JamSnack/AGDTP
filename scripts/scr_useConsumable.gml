@@ -56,11 +56,7 @@ switch item
     
         obj_player.hp = approach(_hp,_maxHp,10);
         
-        armIndex = spr_armSwing;
-        armAngleGoal = 51;
-        armAngle = 50; //Out a bit
-        armAngleRate = 0;
-        toolSprite = spr_itemDrops;
+        audio_play_sound(snd_heal,8,false);
         alarm[2] = 45;
         scr_popMessage("10",global.fnt_Ui,3,c_green,x,y);
     }

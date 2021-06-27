@@ -92,6 +92,7 @@
     <sound>sound\snd_equip</sound>
     <sound>sound\snd_turret_shoot</sound>
     <sound>sound\snd_burn</sound>
+    <sound>sound\snd_heal</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">

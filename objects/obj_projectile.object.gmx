@@ -255,11 +255,14 @@ switch type
             }
         }
         
-        if place_meeting_fast(hAccel,0,OBSTA)
-        { hAccel=-hAccel; }
-                
-        if place_meeting_fast(0,vAccel,OBSTA)
-        { vAccel=-vAccel; }
+        if bBouncy == true
+        {
+            if place_meeting_fast(hAccel,0,OBSTA)
+            { hAccel=-hAccel; }
+                    
+            if place_meeting_fast(0,vAccel,OBSTA)
+            { vAccel=-vAccel; }
+        } else if place_meeting_fast(hAccel,vAccel,OBSTA) { instance_destroy(); }
         
         x += hAccel;
         y += vAccel;

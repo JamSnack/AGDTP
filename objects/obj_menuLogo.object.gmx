@@ -32,7 +32,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "vDemo 1.0";
+text = "Summer Demo v1.0";
 
 playButton_active = false;
 deleteButton_active = false;
