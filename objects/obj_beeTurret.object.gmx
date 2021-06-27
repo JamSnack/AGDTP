@@ -76,7 +76,7 @@ if instance_exists(ENEMY)
         ammo -= 1;
         
         //Maka sounds
-        scr_playSound(snd_sphereLaunch,false,7,x,y,1.2);
+        scr_playSound(snd_sphereLaunch,false,7,x,y,1.2,true);
     }
 }
 

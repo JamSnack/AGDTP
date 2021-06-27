@@ -76,7 +76,7 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
         ammo -= 1;
         
         //Maka sounds
-        scr_playSound(snd_rifle,false,7,x,y,1.4);
+        scr_playSound(snd_rifle,false,7,x,y,1.4,true);
     }
     
     alarm[11] = fireRate*room_speed;

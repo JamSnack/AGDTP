@@ -125,11 +125,11 @@ var r = irandom(4);
 if r == 1
 {
     scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
-    scr_playSound(snd_rareItem,false,11,x,y,1);
+    scr_playSound(snd_rareItem,false,11,x,y,1,false);
 } else if r &gt; 2
 {
     scr_dropTag("Tool Speed+",1);
-    scr_playSound(snd_rareItem,false,11,x,y,1);
+    scr_playSound(snd_rareItem,false,11,x,y,1,false);
 }
 
 scr_spawnEssence(1,60,5+floor(wave/3));

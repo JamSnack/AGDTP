@@ -766,7 +766,7 @@ else if showSuperMenu == true &amp;&amp; ui_state == "MOD"
             
             event_user(0); //Reset the mod bench.
             
-            scr_playSound(snd_modificationSuccess,false,10,obj_player.x,obj_player.y,1);
+            scr_playSound(snd_modificationSuccess,false,10,obj_player.x,obj_player.y,1,false);
         } 
         else 
         {
@@ -1542,6 +1542,15 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                             if _amt == 0 then selectedSlot = noone;
                             lastPlaceX = xx;
                             lastPlaceY = yy;
+                            
+                            //Sound
+                            if position_meeting(xx,yy+16,FLATLAND)
+                            {
+                                scr_playSound(snd_dirt_break,false,8,xx,yy,1,true);
+                            }
+                            else scr_playSound(snd_stone_break,false,8,xx,yy,1,true);
+                            
+                            
                             break;
                         }
                     }
@@ -1946,7 +1955,7 @@ if showSuperMenu == true
 
 //Draw Inventory -----------------------------------------
 //#region
-if invenX &gt; 5
+if invenX &gt; 5 &amp;&amp; instance_exists(obj_player)
 {
     //Inventory background
     //draw_set_alpha(0.9);

@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 120+waveScale(10,5,0,-1);
+hp = 125+waveScale(10,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "TRANSITION";
@@ -86,6 +86,8 @@ if raid_boss == true
 {
     maxAccel += 0.5;
 }
+
+canDespawn = false;
 </string>
           </argument>
         </arguments>

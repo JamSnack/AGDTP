@@ -94,7 +94,7 @@ alarm[3] = 1;
 if shield_charges &lt; shield_charges_max
 {
     shield_charges += 1;
-    scr_playSound(snd_shield_deployed,false,8,x,y,1);
+    scr_playSound(snd_shield_deployed,false,8,x,y,1,true);
 }
 
 alarm[3] = charge_rate;

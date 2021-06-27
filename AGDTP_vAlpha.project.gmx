@@ -53,7 +53,13 @@
     <sound>sound\snd_swish3</sound>
     <sound>sound\snd_swish4</sound>
     <sound>sound\snd_rareItem</sound>
+    <sound>sound\snd_player_hurt</sound>
     <sound>sound\snd_inventoryClick</sound>
+    <sound>sound\snd_explosion</sound>
+    <sound>sound\snd_bliplo_spawn</sound>
+    <sound>sound\snd_enemy_shoot</sound>
+    <sound>sound\snd_bliplo_death</sound>
+    <sound>sound\snd_bliplo_prepare</sound>
     <sound>sound\snd_modificationSuccess</sound>
     <sound>sound\snd_rifle</sound>
     <sounds name="Stone">
@@ -426,6 +432,7 @@
         <object>objects\obj_stinger</object>
         <object>objects\obj_coralSpike</object>
         <object>objects\ENEMY_PROJ</object>
+        <object>objects\obj_crabDrop</object>
       </objects>
       <objects name="Turret Projectiles">
         <object>objects\obj_turretBullet</object>

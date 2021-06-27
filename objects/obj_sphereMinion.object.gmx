@@ -68,6 +68,10 @@ knockType = "FLY";
 deathSound = snd_enemydie_ghost;
 knock_resistance = 0.3;
 parentKing = noone;
+
+scale = 0.25;
+image_xscale = scale;
+image_yscale = scale;
 </string>
           </argument>
         </arguments>

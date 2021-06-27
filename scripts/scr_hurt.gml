@@ -13,6 +13,13 @@ var inst_parent = object_get_parent(object_index);
 
 if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
 
+//player sound
+if object_index == obj_player && !sound_exists(snd_player_hurt)
+{
+    audio_play_sound(snd_player_hurt,12,false);
+    audio_sound_pitch(snd_player_hurt,choose(0.8,1,1.2));
+}
+
  //Tile conditions
 if inst_parent == TILE || inst_parent == PLRTILE  || inst_parent == PLT_1 || inst_parent == PLR_NOCOL
 { 
@@ -62,7 +69,7 @@ if (hp-damage <= 0)
             {
                 shield_charges -= 1;
                 shield_health = shield_health_max;
-                scr_playSound(snd_shield_destroyed,false,8,x,y,1);
+                scr_playSound(snd_shield_destroyed,false,8,x,y,1,true);
             }
         }
     }
@@ -146,6 +153,6 @@ else
     {
         shield_charges -= 1;
         shield_health = shield_health_max;
-        scr_playSound(snd_shield_destroyed,false,8,x,y,1);
+        scr_playSound(snd_shield_destroyed,false,8,x,y,1,true);
     }
 }

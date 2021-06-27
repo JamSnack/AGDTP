@@ -9,7 +9,7 @@ var jump_speed = argument6;
 var atkBox = (argument7)/2;
 
 //Boss stuff.
-var bombRing = collision_circle(x,y,atkBox/2,PLRTILE,false,true);
+var bombRing = collision_circle(x,y,b_atkBox/2,PLRTILE,false,true);
 
 var x_previous = round(xprevious);
 var _x = round(x);
@@ -31,10 +31,11 @@ if objective.canHurt == true && bombRing == noone
             scr_hurt(d,HURT_LONG,true,8);
         }
     }
-} else if bombRing != noone
+} else if bombRing != noone && alarm[3] == -1
 {
+    print("alarm activate");
     state = WANDER;
-    if alarm[3] == -1 then alarm[3] = room_speed;
+    alarm[3] = room_speed;
 }
 
 

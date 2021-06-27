@@ -73,7 +73,7 @@ event_inherited();
     //Update nearby player tiles.
     scr_updateConnections(x,y);
     
-    scr_playSound(break_sound,false,8,x,y,1);
+    scr_playSound(break_sound,false,8,x,y,1,true);
 }
 
 </string>

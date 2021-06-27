@@ -71,6 +71,8 @@ if itemDrop == true &amp;&amp; hp == maxHp then scr_dropItem(tileID,1,type,x,y,n
 //ACTION MUST BE DELAYED A FRAME. ALARM USAGE IS NECESSARY.
 scr_updateConnections(x,y);
 scr_tileUpdate(x,y);
+
+scr_playSound(snd_stone_break,false,8,x,y,1,true);
 </string>
           </argument>
         </arguments>

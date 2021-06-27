@@ -128,7 +128,7 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
 if scr_invenAddItem(ITEMID.item_gremEssence,amt,type,tags) != -1 
 {
     instance_destroy();
-    scr_playSound(snd_itemPickup,false,10,obj_player.x,obj_player.y,1);
+    audio_play_sound(snd_itemPickup,10,false);
 }
 else 
 {alarm[0] = room_speed*2; canPickUp = false;}

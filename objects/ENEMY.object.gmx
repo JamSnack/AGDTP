@@ -86,7 +86,7 @@ event_inherited();
             <string>///Destroy Audio Emitter
 if deathSound != noone &amp;&amp; insideView(x,y) == true 
 {
-    scr_playSound(deathSound,false,8,x,y,1);
+    scr_playSound(deathSound,false,8,x,y,1,true);
     
     part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
 }
@@ -166,7 +166,7 @@ if visible = false then visible = true;
           <argument>
             <kind>1</kind>
             <string>///Hit Event
-scr_playSound(snd_hit,false,4,x,y,0.8);
+scr_playSound(snd_hit,false,4,x,y,0.8,true);
 </string>
           </argument>
         </arguments>

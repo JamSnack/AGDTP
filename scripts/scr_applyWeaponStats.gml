@@ -16,7 +16,7 @@ switch item_id
 {    
     case ITEMID.weapon_greenSword: { toolAnimation = "STAB"; proj_spd = 3.5; proj_dec = 35; tool_spr = spr_swordGreen; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
     case ITEMID.weapon_starter: { toolAnimation = "STAB"; proj_spd = 3.5; proj_dec = 40; tool_spr = spr_sword; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
-    case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; proj_type = 1;} break; 
+    case ITEMID.weapon_weakBow: { toolAnimation = "SHOOT"; proj_spd = 8; proj_dec = 0; tool_spr = spr_weakBow; proj_spr = spr_arrow; proj_type = 1; tool_snd = snd_enemy_shoot;} break; 
     case ITEMID.weapon_subLimeMachineGun: { toolAnimation = "SHOOT"; proj_spd = 8; proj_dec = 0; tool_spr = spr_subLimeMachineGun; proj_spr = spr_bullet; proj_type = 2; tool_snd = snd_machineGunSoft; } break;
     case ITEMID.weapon_sphereLauncher: { toolAnimation = "SHOOT"; proj_spd = 4; proj_dec = 0; tool_spr = spr_sphereLauncher; proj_spr = spr_sphere; proj_type = "SPHERE"; tool_snd = snd_sphereLaunch;} break;
     case ITEMID.weapon_beemerang: { toolAnimation = "SHOOT"; proj_spd = 3; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_beemerang; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;

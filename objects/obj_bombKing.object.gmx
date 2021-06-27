@@ -36,10 +36,10 @@ image_speed = 0;
 state = MOVE;
 
 vsp = 0;
-atkBox = 32; //divided by 2 on calculation.
-b_atkBox = 16*7; //Range for bomb attack.
+atkBox = 32;
+b_atkBox = 16*3; //Range for bomb attack.
 damage = 5; //Attack damage.
-b_damage = 40; //Bomb damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
+b_damage = 24; //Bomb damage. (DAMAGE DONE TO TILES IS DIVIDED BY 6)
 attackCooldown = 4; //How long until the bombKing can launch another attack.
 
 hurtAlarm = 1;
@@ -115,7 +115,7 @@ if r &lt;= 25 then scr_dropItem(ITEMID.cons_bomb,choose(1,2,3),4,x,y-4,noone);
 else if r &gt;= 85
 {
     scr_dropTag("Grenade",1);
-    scr_playSound(snd_rareItem,false,11,x,y,1);
+    scr_playSound(snd_rareItem,false,11,x,y,1,false);
 } 
 
 if r &gt;= 95 || r &lt;= 15
@@ -147,12 +147,15 @@ scr_dropItem(ITEMID.item_copperOre,irandom_range(3,5+waveScale(1,5,1,10)),ITEMTY
           <argument>
             <kind>1</kind>
             <string>///Bomb Ring Attack
-var bombRing = collision_circle(x,y,atkBox/2,PLRTILE,false,true);
+print("Alarm trigger");
+
+var bombRing = collision_circle(x,y,b_atkBox,PLRTILE,false,true);
 
 if bombRing == noone
 {
     state = MOVE;
     alarm[3] = -1;
+    print("state change");
 } else if bombRing != noone
 {
     var _exp = instance_create(x,y,obj_explosion);
@@ -161,6 +164,7 @@ if bombRing == noone
     _exp.damage = b_damage;
     
     alarm[3] = attackCooldown*room_speed;
+    print("Explode!");
 }
 </string>
           </argument>

@@ -171,7 +171,6 @@ switch state
             {
                 case 0:
                 {
-                    //Shoot a stinger!
                     state = "TRANSITION";
                     transition_to = "DIVE";
                 }
@@ -186,6 +185,8 @@ switch state
                     stinger.speed = 6;
                     stinger.dam = damage/2;
                     stinger.image_angle = _dir;
+                    
+                    scr_playSound(snd_enemy_shoot,false,12,x,y,1,true);
                 }
                 break;
                 

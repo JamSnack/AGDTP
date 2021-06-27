@@ -92,6 +92,11 @@ switch state
         
             //Vertical Acceleration
             vAccel = dive_maxAccel*vdir;
+            
+            if dive_time == 59
+            {
+                scr_playSound(snd_bliplo_prepare,false,12,x,y,1,true);
+            }
         }
         
         //Transition back to WANDER
@@ -175,13 +180,14 @@ switch state
                     if shield_charges < shield_charges_max
                     {
                         shield_charges += 1;
-                        scr_playSound(snd_shield_deployed,false,8,x,y,1);
+                        scr_playSound(snd_shield_deployed,false,8,x,y,1,true);
                     }
                 }
                 break;
                 
                 case 1:
                 {
+                    scr_playSound(snd_enemy_shoot,false,12,x,y,1,true);
                 
                     //Projectile amounts
                     var hp_percent = hp/maxHp;
@@ -216,9 +222,11 @@ switch state
                 
                 case 2:
                 {
+                    scr_playSound(snd_bliplo_spawn,false,12,x,y,1,true);
+                
                     //Spawn a minion!
                     repeat(1+waveScale(1,20,0,2))
-                    { instance_create(x,y,obj_crab); }
+                    { instance_create(x,y,obj_crabDrop); }
                 }
                 break;
             }

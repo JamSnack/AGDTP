@@ -60,4 +60,4 @@ switch upgrade
 //If the script finishes, then the upgrade was a success.
 with gameControl event_user(0); //save the game
 scr_hudMessage("Upgrade successful!",global.fnt_Ui,5,0,c_green,0);
-scr_playSound(snd_modificationSuccess,false,8,obj_player.x,obj_player.y,1);
+scr_playSound(snd_modificationSuccess,false,8,obj_player.x,obj_player.y,1,false);
