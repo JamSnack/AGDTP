@@ -34,7 +34,7 @@ if objective.canHurt == true && bombRing == noone
 } else if bombRing != noone
 {
     state = WANDER;
-    if alarm_get(3) == -1 then alarm[3] = room_speed;
+    if alarm[3] == -1 then alarm[3] = room_speed;
 }
 
 

@@ -35,7 +35,7 @@ state = WANDER;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-damage = 5; //Attack damage.
+damage = 7; //Attack damage.
 
 hurtAlarm = 1;
 
@@ -56,7 +56,7 @@ image_xscale = sign(target.x-x);
 event_inherited();
 
 //Local variables
-knock_resistance = 0.2;
+knock_resistance = 0.25;
 grass_state = "DIRT";
 growth_target = room_speed*6; //How many steps until fully grown.
 growth = 0; //Grown amount

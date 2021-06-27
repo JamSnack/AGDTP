@@ -39,7 +39,7 @@ targetRange = 7*16; //7 Tiles
 fireRate = 0.75; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
-ammoMax = 5;
+ammoMax = 4;
 ammo = 0;
 </string>
           </argument>
@@ -80,9 +80,9 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
     }
 }
 
-if ammo &lt; ammoMax &amp;&amp; energy &gt; 0
+if ammo &lt; ammoMax &amp;&amp; energy &gt; 1
 {
-    energy -= 1;
+    energy -= 2;
     ammo += 1;
 }
 

@@ -30,14 +30,14 @@ canActiveRegion = true;
 scale = 1;
 
 canHurt = true;
-maxHp = 24;
+maxHp = 30;
 hp = maxHp;
 image_speed = 0;
 state = WANDER;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-damage = 6; //Attack damage.
+damage = 7; //Attack damage.
 
 hurtAlarm = 1;
 friction = DEF_FRIC;

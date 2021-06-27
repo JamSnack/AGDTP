@@ -107,22 +107,12 @@ if opened == false
         var tag = ITEMID.item_modTag;
         var _t = noone;
         
-        var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bomb,);
-        
-        var ran = irandom(50);
-        if ran == 1 then itemSelector = tag;
+        var itemSelector = choose(copper,copper,copper,stick,stick,stick,bow,bomb);
         
         var amt=0;
         var type=0;
         if itemSelector = bow then type = 1;
         else if itemSelector = bomb { type = 4; amt = 1; };
-        else if itemSelector = tag
-        {
-            amt = 1;
-            _t = ds_list_create();
-            ds_list_add(_t,"Bright");
-            scr_playSound(snd_rareItem,false,8,x,y,1);
-        }
         
         if itemSelector = copper then amt = cAmt else if itemSelector = stick then amt = sAmt;
         

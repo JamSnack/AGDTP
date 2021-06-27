@@ -17,7 +17,7 @@ if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == E
 if inst_parent == TILE || inst_parent == PLRTILE  || inst_parent == PLT_1 || inst_parent == PLR_NOCOL
 { 
     knock = false; 
-    damage = round(damage/10)+1;
+    damage = floor(damage/6)+1;
 }
 
 //DEATH

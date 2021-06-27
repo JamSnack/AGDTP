@@ -430,7 +430,7 @@ else if interm == false &amp;&amp; gameOver == false
 
 //Locals
 var difficulty = scr_getDifficulty();
-var build_target = waveScale(1,2,1,6); //Gremlin variety
+var build_target = waveScale(1,2,1,6)+floor(difficulty/4); //Gremlin variety
 var build_index = 0;
 
 //Initialize gremlin lists.
@@ -489,8 +489,8 @@ switch special_raidID
                     case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
                     case 1: if difficulty &gt;= 5 { normalGremlins[normal_array_size] = obj_drillin; } break;
                     case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                    case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
-                    case 4: if difficulty &gt;= 14 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
+                    case 3: if difficulty &gt;= 7 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                    case 4: if difficulty &gt;= 10 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
                 }
             }
             //Add region specific enemies if build_target is greater than 4.
@@ -512,8 +512,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            case 0: if difficulty &gt;= 16 { normalGremlins[normal_array_size] = obj_sandMenace; } 
-                            default: if difficulty &gt; 12 { specialGremlins[special_array_size] = obj_crab; }
+                            case 0: if difficulty &gt;= 9 { normalGremlins[normal_array_size] = obj_sandMenace; } 
+                            default: if difficulty &gt; 7 { specialGremlins[special_array_size] = obj_crab; }
                         }
                     }
                     break;
