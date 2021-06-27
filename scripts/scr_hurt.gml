@@ -14,7 +14,7 @@ var inst_parent = object_get_parent(object_index);
 if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
 
 //player sound
-if object_index == obj_player && !sound_exists(snd_player_hurt)
+if object_index == obj_player
 {
     audio_play_sound(snd_player_hurt,12,false);
     audio_sound_pitch(snd_player_hurt,choose(0.8,1,1.2));
