@@ -35,6 +35,7 @@ type = noone;
 knockType = noone;
 
 shield_charges = 0;
+event_inherited();
 </string>
           </argument>
         </arguments>
@@ -57,7 +58,9 @@ shield_charges = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(tileID,1,type,x,y,noone);
+            <string>event_inherited();
+
+scr_dropItem(tileID,1,type,x,y,noone);
 scr_updateConnections(x,y);
 </string>
           </argument>

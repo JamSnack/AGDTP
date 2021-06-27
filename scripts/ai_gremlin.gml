@@ -220,7 +220,15 @@ if vForce == 0 && hForce == 0
         if position_meeting(x,y+spr_height,GREM_BLOCK)
         {
             while place_meeting_fast(0,0,GREM_BLOCK)
-            { y-=1; }
+            { 
+                y-=1; 
+                
+                if y < 0
+                {
+                    print("break");
+                    break;
+                }
+            }
         }
         
     

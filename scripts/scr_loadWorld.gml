@@ -240,10 +240,16 @@ if region == "GRASSLANDS"
 }
 
 
-//Border layer
+//Bottom border layer
 for(i=0;i<sizeX*2+20;i++)
 {
-    instance_create(xx+(i*16),yy+32*sizeY,OBSTA);
+    var _x = xx+(i*16);
+    var _y = yy+16*sizeY;
+
+    if !collision_point(_x,_y-2,TILE_ALL,false,true)
+    {
+        instance_create(_x,_y,obj_stone);
+    }
 }
 
 //Place Pie

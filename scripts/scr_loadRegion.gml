@@ -89,13 +89,33 @@ if time == 1
 
 else if time == 2
 {
-    if instance_exists(PLRTILE) then with PLRTILE { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) { instance_destroy(); } }
+    if instance_exists(PLRTILE)
+    { 
+        with PLRTILE 
+        {
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) 
+            { 
+                itemDrop = false;
+                instance_destroy(); 
+            } 
+        }
+    }
     if instance_exists(obj_nullLight) then with obj_nullLight { instance_destroy(); }
 }
 
 else if time == 3
 {
-    if instance_exists(NOCOL) then with NOCOL { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
+    if instance_exists(NOCOL) 
+    { 
+        with NOCOL 
+        { 
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) 
+            { 
+                itemDrop = false;
+                instance_destroy(); 
+            }
+        }
+    }
     if instance_exists(obj_itemDrop) then with obj_itemDrop { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
 }
 
@@ -335,10 +355,16 @@ else if time == 47
         
         //print("HERE: "+string(hive_x)+","+string(hive_y));
 
-    //Border layer
+    //bottom Border layer
     for(i=0;i<sizeX*2+20;i++)
     {
-        instance_create(xx+(i*16),yy+32*sizeY,OBSTA);
+        var _x = xx+(i*16);
+        var _y = yy+16*sizeY;
+    
+        if !collision_point(_x,_y-2,TILE_ALL,false,true)
+        {
+            instance_create(_x,_y,obj_stone);
+        }
     }
     
     //Place Pie

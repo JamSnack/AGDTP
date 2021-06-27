@@ -1,5 +1,7 @@
 /// place_meeting_fast(x_offset, y_offset, obj)
-var x_offset = argument0, y_offset = argument1, obj = argument2;
+var x_offset = argument0
+var y_offset = argument1
+var obj = argument2;
 
 //This should be an optimized place_meeting function.
 x_offset += sign(x_offset);

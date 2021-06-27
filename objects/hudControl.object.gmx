@@ -1095,13 +1095,10 @@ if settingsMenu = true
     //- Exit button
     else if point_in_rectangle(mx,my,xx-20,yy+40,xx+20,yy+63)
     {
-        if interm == true
-        {
-            scr_roomTransition("WARP",choose("Come back soon!","Loading...","Good Game"),global.fnt_menu,c_white,rm_menu);
-        }
-        
         //Save the game
-        with gameControl event_user(0);
+        scr_saveGame();
+    
+        scr_roomTransition("WARP",choose("Come back soon!","Loading...","Good Game"),global.fnt_menu,c_white,rm_menu);
     }
     
     //UPDATE MUSIC VOLUME - SLIDER LOGIC IN Left Button EVENT!

@@ -469,14 +469,15 @@ switch special_raidID
             //Encourage diversity!
             var ran = irandom(list_size);
             
-            if ds_list_find_index(last_ran,ran) != -1 { continue; }
-            
             normal_array_size = array_length_1d(normalGremlins);
             special_array_size = array_length_1d(specialGremlins);
         
             //Add Gremlins to the list as the difficulty number increases.
             if build_index &lt;= 3
             {
+                //Ensure that we select new creatures.
+                if ds_list_find_index(last_ran,ran) != -1 { continue; }
+            
                 //Reset possible random numbers for the next set of mobs.
                 if build_index == 3 
                 { 
@@ -496,6 +497,7 @@ switch special_raidID
             //Add region specific enemies if build_target is greater than 4.
             else
             {
+            
                 switch region
                 {
                     case "GRASSLANDS":
