@@ -134,7 +134,7 @@ switch item_id
     case 11: { text[0] = "Weak Bow"; text[1] += "Shoot arrows at far enemies."; } break;
     case 12: { text[0] = "Copper Turret"; text[1] += "A turret that converts energy into bullets and automatically attacks Gremlins."; } break;
     case 13: { text[0] = "Ladder"; text[1] += "Latter or ladder?"; } break;
-    case 14: { text[0] = "Gremlin Talisman"; text[1] += "Consume this to skip a wave."; } break;
+    case 14: { text[0] = "Gremlin Talisman"; text[1] += "Consume to turn the day into night."; } break;
     case 15: { text[0] = "Synthetic Essence"; text[1] += "The core material of the Gremlin menace! I bet it can be used for all sorts of things!"; } break;
     case 16: { text[0] = "Platform"; text[1] += "Useful for building."; } break;
     case 17: { text[0] = "Bomb"; text[1] += "Use this to quickly gather resources."; } break;

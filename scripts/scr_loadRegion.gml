@@ -62,14 +62,6 @@ switch region_type
     break;
 }
 
-
-//APPLY BACKGROUNDS
-background_index[0] = bkg_overworldSky;
-background_index[1] = bkg_overworldNightSky;
-background_index[2] = background_far;
-background_index[3] = background_close;
-background_index[4] = foreground;
-
 //FlatLands definition
 var _flatX = 32;
 var _flatY = 20;
@@ -262,7 +254,7 @@ else if time == 45
     //Spawners!
     if spawner_bool == true
     {
-        var spawnAmt = irandom_range(0,3);
+        var spawnAmt = choose(1,2);
         
         for (i=0;i<spawnAmt;i++)
         {
@@ -387,6 +379,13 @@ else if (time >= 48 && time <= 63) // 16 steps
         } 
         else break;
     }
+    
+    //APPLY BACKGROUNDS
+    background_index[0] = bkg_overworldSky;
+    background_index[1] = bkg_overworldNightSky;
+    background_index[2] = background_far;
+    background_index[3] = background_close;
+    background_index[4] = foreground;
 }
 else if time == 64 then with NOCOL event_user(1);
 else if time == 65 

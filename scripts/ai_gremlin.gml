@@ -213,25 +213,21 @@ if vForce == 0 && hForce == 0
     }
     
     // Grem Block check ----------------------------
-    if gremBlockCol == true && interm == false
-    {
-        var flatLandsY = (room_height/2)-(16*3);
+    var flatLandsY = (room_height/2)-(16*3);
         
-        if position_meeting(x,y+spr_height,GREM_BLOCK)
-        {
-            while place_meeting_fast(0,0,GREM_BLOCK)
-            { 
-                y-=1; 
-                
-                if y < 0
-                {
-                    print("break");
-                    break;
-                }
+    if gremBlockCol == true && interm == false && position_meeting(x,y+spr_height,GREM_BLOCK)
+    {
+        while place_meeting_fast(0,0,GREM_BLOCK)
+        { 
+            y-=1; 
+            
+            if y < 0
+            {
+                print("FOREVER LOOP BREAK");
+                break;
             }
         }
         
-    
         if position_meeting(x,y-6,GREM_BLOCK) then gremBlockCol = false;
     }
     
@@ -267,22 +263,21 @@ if vForce == 0 && hForce == 0
         }
         
         //-------Gremlin Blocks
-        if instance_exists(GREM_BLOCK) && gremBlockCol == true
+        if instance_exists(GREM_BLOCK) && gremBlockCol == true && (place_meeting_fast(0,vsp,GREM_BLOCK))
         {
-            if (place_meeting_fast(0,vsp,GREM_BLOCK))
+            //move as close as we can
+            while (!place_meeting_fast(0,vdir,GREM_BLOCK))  && vsp != 0
             {
-                //move as close as we can
-                while (!place_meeting_fast(0,vdir,GREM_BLOCK))  && vsp != 0
-                {
-                    y = y + vdir;
-                }
-                vsp = 0;
+                y = y + vdir;
             }
+            vsp = 0;
         }
         
         //-----Normal Obstacles
-        if (place_meeting_fast(0,vsp,OBSTA))
+        else if (place_meeting_fast(0,vsp,OBSTA))
         {
+            var vdir = sign(vsp);
+        
             //move as close as we can
             while (!place_meeting_fast(0,vdir,OBSTA))
             {

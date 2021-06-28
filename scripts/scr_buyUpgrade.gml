@@ -1,4 +1,7 @@
 ///scr_buyUpgrade(UpgradeName);
+/*
+DISABLE THE SCRIPT
+
 var upgrade = argument0; //The name of the upgrade.
 var essence = scr_getInvenItemAmt(ITEMID.item_gremEssence);
 

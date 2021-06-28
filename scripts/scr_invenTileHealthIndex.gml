@@ -16,6 +16,6 @@ switch argument0
     case ITEMID.tile_battery: { return 15; } break;
     case ITEMID.tile_beeTurret: { return 15; } break;
     case ITEMID.tile_rebarRailgun: { return 15; } break;
-    case ITEMID.tile_grillBlock: { return 25; } break;
+    case ITEMID.tile_grillBlock: { return 50; } break;
     case ITEMID.tile_copperBlock: { return 60; } break;
 }

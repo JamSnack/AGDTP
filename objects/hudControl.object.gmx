@@ -103,6 +103,8 @@ trashSlotAmt = 0;
 trashSlotType = 0;
 trashSlotTags = noone; //Each slot has '2' tag slots.
 
+last_hotkey = 0;
+
 
 for (i=0;i&lt;maxInvenSlots;i++)
 {
@@ -397,7 +399,7 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
     //----------MOVE THE SLOTS DOWN------
-    craft_scroll += 5;
+    craft_scroll -= 5;
 
     
     //----------SCROLL LIMIT--------
@@ -416,6 +418,19 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
     var limit = floor(total_slots/7)*24;
     
     if craft_scroll &gt; limit then craft_scroll = limit;
+}
+else
+{
+    //Scroll wheel hotkey equip
+
+    if selectedSlot != noone &amp;&amp; last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
+    {
+        last_hotkey += 1;
+        
+        if last_hotkey &gt; 6 then last_hotkey = 0;
+        
+        event_user(1);
+    }
 }
 </string>
           </argument>
@@ -442,7 +457,7 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
             <string>if ui_state == "CRAFT" &amp;&amp; showSuperMenu == true
 {
     //----------MOVE THE SLOTS UP------
-    craft_scroll -= 5;
+    craft_scroll += 5;
 
     
     //----------SCROLL LIMIT--------
@@ -461,6 +476,19 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
     var limit = -floor(total_slots/7)*24;
     
     if craft_scroll &lt; limit then craft_scroll = limit;
+}
+else
+{
+    //Scroll wheel hotkey equip
+
+    if selectedSlot != noone &amp;&amp; last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
+    {
+        last_hotkey -= 1;
+        
+        if last_hotkey &lt; 0 then last_hotkey = 6;
+        
+        event_user(1);
+    }
 }
 </string>
           </argument>
@@ -615,26 +643,32 @@ if showSuperMenu == true
         if point_in_rectangle(dx,dy,_posX+140-8,_posY-_y_offset+(enabled_offset*craft_filter_resources)-8,_posX+140+(8),_posY-_y_offset+(enabled_offset*craft_filter_resources)+(8))
         {
             craft_filter_resources = !craft_filter_resources;
+            craft_scroll = 0;
         }
         else if point_in_rectangle(dx,dy,_posX+158-8,_posY-_y_offset+(enabled_offset*craft_filter_weapon)-8,_posX+158+(8),_posY-_y_offset+(enabled_offset*craft_filter_weapon)+(8))
         {
             craft_filter_weapon = !craft_filter_weapon;
+            craft_scroll = 0;
         }
         else if point_in_rectangle(dx,dy,_posX+176-8,_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)-8,_posX+176+(8),_posY-_y_offset+(enabled_offset*craft_filter_pickaxe)+(8))
         {
             craft_filter_pickaxe = !craft_filter_pickaxe;
+            craft_scroll = 0;
         }
         else if point_in_rectangle(dx,dy,_posX+194-8,_posY-_y_offset+(enabled_offset*craft_filter_plrtile)-8,_posX+194+(8),_posY-_y_offset+(enabled_offset*craft_filter_plrtile)+(8))
         {
             craft_filter_plrtile = !craft_filter_plrtile;
+            craft_scroll = 0;
         }
         else if point_in_rectangle(dx,dy,_posX+212-8,_posY-_y_offset+(enabled_offset*craft_filter_cons)-8,_posX+212+(8),_posY-_y_offset+(enabled_offset*craft_filter_cons)+(8))
         {
             craft_filter_cons = !craft_filter_cons;
+            craft_scroll = 0;
         }
         else if point_in_rectangle(dx,dy,_posX+230-8,_posY-_y_offset+(enabled_offset*craft_filter_acc)-8,_posX+230+(8),_posY-_y_offset+(enabled_offset*craft_filter_acc)+(8))
         {
             craft_filter_acc = !craft_filter_acc;
+            craft_scroll = 0;
         }
     }
     //Region Shifting
@@ -1524,7 +1558,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     var _amt = inventorySlotAmt[selectedSlot];
                     
                     //Single place
-                    if !position_meeting(xx,yy,OBSTA) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
+                    if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
                     &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*3 //3 tiles worth of distance.
                     &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
@@ -1665,6 +1699,15 @@ if showSuperMenu == true
     
     //Draw background
     draw_sprite(spr_ui_superMenuBackground,0,_posX,_posY);
+    
+    if craft_scroll &gt; 0
+    {
+        draw_sprite(spr_white_arrow_small,1,_posX+260,_posY+10);
+    }
+    else if craft_scroll &lt; 0
+    {
+        draw_sprite(spr_white_arrow_small,0,_posX+260,_posY+10);
+    }
 
     //Draw menu content
     switch ui_state
@@ -1689,6 +1732,10 @@ if showSuperMenu == true
             //Draw crafting recipe tooltip box
             draw_nineSliceBox(spr_ui_9slice_small,_posX+8,_posY+menu_height/2,_posX+238,_posY+menu_height-27,0);
             
+            //Recipe scroll instructions
+            draw_set_font(global.fnt_menu);
+            draw_text(_posX-10,_posY+menu_height+10,"Use the scroll wheel to scroll through multiple recipes");
+            draw_set_font(global.fnt_Ui);
             //draw crafting buttons
             var drawn_slots = 0;
             
@@ -2251,36 +2298,36 @@ else if keybindMenu_visible == true
     //-Movement keys
     //-- jump
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy-40);
-    draw_text(xx-32,yy-43,"Jump: "+chr(global.key_jump));
+    draw_text(xx-32,yy-43,"Jump: "+scr_get_character(global.key_jump));
 
     //-- left
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy-30);
-    draw_text(xx-32,yy-33,"Move Left: "+chr(global.key_left));
+    draw_text(xx-32,yy-33,"Move Left: "+scr_get_character(global.key_left));
     
     //-- right
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy-20);
-    draw_text(xx-32,yy-23,"Move Right: "+chr(global.key_right));
+    draw_text(xx-32,yy-23,"Move Right: "+scr_get_character(global.key_right));
     
     //-- down
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy-10);
-    draw_text(xx-32,yy-13,"Move Down: "+chr(global.key_down));
+    draw_text(xx-32,yy-13,"Move Down: "+scr_get_character(global.key_down));
     
     //- Ui keys
     //-- Inventory
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy);
-    draw_text(xx-32,yy-3,"Open Inventory: "+chr(global.key_inven));
+    draw_text(xx-32,yy-3,"Open Inventory: "+scr_get_character(global.key_inven));
     
     //-- Crafting Menu
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+10);
-    draw_text(xx-32,yy+7,"Crafting Menu: "+chr(global.key_craft));
+    draw_text(xx-32,yy+7,"Crafting Menu: "+scr_get_character(global.key_craft));
     
     //-- Interact
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+20);
-    draw_text(xx-32,yy+17,"Interact: "+chr(global.key_interact));
+    draw_text(xx-32,yy+17,"Interact: "+scr_get_character(global.key_interact));
     
     //-- quick heal
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+30);
-    draw_text(xx-32,yy+27,"Quick Heal: "+chr(global.key_quick_heal));
+    draw_text(xx-32,yy+27,"Quick Heal: "+scr_get_character(global.key_quick_heal));
     
     //Draw save and exit button
     draw_nineSliceBox(spr_ui_button,xx-20,yy+40,xx+20,yy+50,0);
@@ -2352,11 +2399,12 @@ if interm == false
             
             draw_set_alpha(0.5);
         
-            if !position_meeting(xx,yy,OBSTA) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL)) &amp;&amp;
-            !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) &amp;&amp; 
-            !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true) &amp;&amp;
-            !position_meeting(xx,yy+1,obj_pie) &amp;&amp;
-            (isConnected(xx,yy) || isGrounded(xx,yy))
+            if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
+            &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*3 //3 tiles worth of distance.
+            &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
+            &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
+            &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
+            &amp;&amp; !position_meeting(xx,yy+2,obj_pie)
             { draw_set_color(c_green) } else draw_set_color(c_red);
             
             draw_set_blend_mode(bm_add);
@@ -2470,6 +2518,7 @@ else if settingsMenu == true
             p.image_xscale = image_xscale;
             p.image_yscale = image_yscale;
             p.image_angle = image_angle;
+            p.depth = depth;
             
             //-Special cases-
             if object_index == obj_chest then p.visible = false;

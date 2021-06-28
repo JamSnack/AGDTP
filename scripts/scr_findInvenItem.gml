@@ -2,13 +2,13 @@
 //Returns the slot id of a given item..
 var item = argument0;
 
-for(i=0;i<maxInvenSlots;i++)
+for(inven_slot=0;inven_slot<maxInvenSlots;inven_slot++)
 {
-    if hudControl.inventorySlotIcon[i] == item
+    if hudControl.inventorySlotIcon[inven_slot] == item
     {
-        return i;
+        return inven_slot;
     }
     
     //Fail case
-    else if i == maxInvenSlots-1 then return noone;
+    else if inven_slot == maxInvenSlots-1 then return noone;
 }

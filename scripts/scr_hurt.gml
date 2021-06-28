@@ -16,8 +16,13 @@ if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == E
 //player sound
 if object_index == obj_player
 {
+    if audio_exists(snd_player_hurt)
+    {
+        audio_stop_sound(snd_player_hurt);
+    }
+
     audio_play_sound(snd_player_hurt,12,false);
-    audio_sound_pitch(snd_player_hurt,choose(0.8,1,1.2));
+    audio_sound_pitch(snd_player_hurt,choose(0.9,1,1.1));
 }
 
  //Tile conditions

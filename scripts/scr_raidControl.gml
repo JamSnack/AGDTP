@@ -60,7 +60,7 @@ switch presetSettings
             
             if scr_getInvenItemAmt(ITEMID.item_gremEssence) < _cost
             {
-                scr_hudMessage(string(_cost)+" essence is required#to shift regions!",global.fnt_Ui,5,0,c_red,0);
+                scr_hudMessage("Region shift failed.",global.fnt_Ui,5,0,c_red,0);
             }
             else
             {

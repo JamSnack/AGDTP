@@ -12,5 +12,5 @@ audio_play_sound_at(soundID,xx,yy,0,0,16*6,1,loop,priority);
 
 if dynamic_pitch == true
 {
-    audio_sound_pitch(soundID,choose(0.9,1,1.2));
+    audio_sound_pitch(soundID,choose(0.9,1,1.1));
 }

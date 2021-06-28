@@ -247,6 +247,7 @@
       <sprite>sprites\spr_ui_regionSelected</sprite>
       <sprite>sprites\spr_ui_regions</sprite>
       <sprite>sprites\spr_red_arrow_down</sprite>
+      <sprite>sprites\spr_white_arrow_small</sprite>
     </sprites>
     <sprites name="Particles">
       <sprite>sprites\spr_tile_frag_dirt</sprite>
@@ -405,6 +406,7 @@
     <script>scripts\scr_getDifficulty.gml</script>
     <script>scripts\scr_getHighestBasePoint.gml</script>
     <script>scripts\scr_saveGame.gml</script>
+    <script>scripts\scr_get_character.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
@@ -533,6 +535,7 @@
     <object>objects\obj_tadGremlin</object>
     <object>objects\obj_tutorialDirt</object>
     <object>objects\obj_pausedObject</object>
+    <object>objects\obj_collisionGremlin</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>

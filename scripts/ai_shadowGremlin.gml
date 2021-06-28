@@ -33,7 +33,7 @@ if objective.canHurt == true
         
         state = WANDER;
         stateLock = true;
-        alarm[stateLockAlarm] = 30;
+        if alarm[stateLockAlarm] == -1 then alarm[stateLockAlarm] = 30;
     } 
     else if instance_exists(PLR_NOCOL) && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
     {
@@ -41,10 +41,6 @@ if objective.canHurt == true
         {
             scr_hurt(other.damage,HURT_LONG,true,3);
         }
-    
-        state = WANDER;
-        stateLock = true;
-        alarm[stateLockAlarm] = 30;
     }
 }
 

@@ -43,6 +43,7 @@ light_color = make_colour_hsv(160,max(light_saturation+clamp(world_Time/20-3*65,
 alarm[1] = 10; //update light_color every frames.
 
 event_inherited();
+level = 0;
 </string>
           </argument>
         </arguments>
