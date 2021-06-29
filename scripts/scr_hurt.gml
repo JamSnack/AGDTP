@@ -21,7 +21,7 @@ if object_index == obj_player
         audio_stop_sound(snd_player_hurt);
     }
 
-    audio_play_sound(snd_player_hurt,12,false);
+    audio_play_sound(snd_player_hurt,9,false);
     audio_sound_pitch(snd_player_hurt,choose(0.9,1,1.1));
 }
 

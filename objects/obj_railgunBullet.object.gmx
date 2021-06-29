@@ -25,12 +25,89 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>distanceTraveled = 4; //Used to calculate "smear"
-x_previous = x;
-alarm[0] = 20;
+            <string>alarm[0] = 6; //Destroy alarm
 
 pierce_list = ds_list_create();
-pierce_max = 4;
+
+target = noone;
+tx = x;
+ty = y;
+scale = 2;
+
+//Delayed attack init
+initialized = false;
+alarm[1] = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Delayed initialization to let scr_createprojectile catch up
+if instance_exists(ENEMY)
+{
+    var xx = x;
+    var yy = y;
+    var longest_dist = 0;
+    var targ = noone;
+
+    with ENEMY
+    {
+        var dist = point_distance(x,y,xx,yy);
+        
+        if dist &gt; longest_dist &amp;&amp; dist &lt;= 16*7
+        {
+            longest_dist = dist;
+            targ = id;
+        }
+    }
+    
+    //If we failed to find a target
+    target = targ;
+    
+    if target == noone
+    {
+        instance_destroy();
+    }
+    else
+    {
+    
+        tx = target.x;
+        ty = target.y;
+        
+        if instance_exists(target)
+        {
+            ds_list_add(pierce_list,target);
+        
+            //Damage
+            var _d = damage;
+            
+            with target
+            {   
+                scr_hurt(_d,1,true,3.5);
+                event_user(0);
+            }
+        }
+    }
+}
+
+initialized = true;
 </string>
           </argument>
         </arguments>
@@ -53,11 +130,8 @@ pierce_max = 4;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update bullet sprite
-distanceTraveled = abs(x_previous-x)/20;
-x_previous = x;
-
-alarm[0] = 20;
+            <string>///Destroy after a few frames
+instance_destroy();
 </string>
           </argument>
         </arguments>
@@ -80,22 +154,15 @@ alarm[0] = 20;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-//Collisions
-
-if place_meeting_fast(0,0,TILE)
-{
-    instance_destroy();
-}
+            <string>if initialized == false then exit;
 
 //This is the same collision check used in place_meeting_fast. Here it is being used to return the ID of the enemy.
-var _enemy = collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,ENEMY,false,true);
+var _enemy = collision_line(x,y,tx,ty,ENEMY,false,true);
 
 if instance_exists(_enemy)
 {
     if ds_list_find_index(pierce_list,_enemy) == -1
     {
-        pierce_max -= 1;
         ds_list_add(pierce_list,_enemy);
         
         //Damage
@@ -103,14 +170,21 @@ if instance_exists(_enemy)
         
         with _enemy
         {   
-            scr_hurt(_d,1,true,4);
+            scr_hurt(_d,1,true,3.5);
             event_user(0);
         }
-        
-        if pierce_max &lt;= 0 then instance_destroy();
     }
 }
 
+//Death check
+if scale &lt;= 0
+{
+    instance_destroy();
+}
+else 
+{
+    scale -= 2/5; //2/5 = numerator (scale in the create event) divided by denominator (alarm[0] in the create event. -1 for init alarm)
+}
 </string>
           </argument>
         </arguments>
@@ -134,7 +208,11 @@ if instance_exists(_enemy)
           <argument>
             <kind>1</kind>
             <string>//draw_self();
-draw_sprite_ext(spr_railgunBullet,0,x,y,distanceTraveled,0.75,direction,c_white,1);
+if initialized == true
+{
+    draw_set_color(c_white);
+    draw_line_width(x,y,tx,ty,scale*2);
+}
 </string>
           </argument>
         </arguments>

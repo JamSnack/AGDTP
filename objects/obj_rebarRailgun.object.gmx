@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>maxHp = 15;
+            <string>maxHp = 25;
 hp = maxHp;
 
 event_inherited();
@@ -39,7 +39,7 @@ targetRange = 7*16; //7 Tiles
 fireRate = 3; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
-ammoMax = 1;
+ammoMax = 3;
 ammo = 0;
 </string>
           </argument>
@@ -71,8 +71,8 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
     if distance_to_object(nearestEnemy) &lt;= targetRange
     {
         target = nearestEnemy;
-        scr_turretBulletCreate(x,y,nearestEnemy,16,8,obj_railgunBullet,spr_railgunBullet);
-        turretDirection = point_direction(x,y,target.x,target.y);
+        scr_turretBulletCreate(x,y,nearestEnemy,0,8,obj_railgunBullet,spr_railgunBullet);
+        turretDirection = scr_predictedDirection(x,y,target.x,target.y,target.hspd,target.vsp);
         ammo -= 1;
         
         //Maka sounds
