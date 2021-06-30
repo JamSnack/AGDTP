@@ -76,6 +76,7 @@
     <sound>sound\snd_turret_shoot</sound>
     <sound>sound\snd_burn</sound>
     <sound>sound\snd_heal</sound>
+    <sound>sound\snd_achievement_unlocked</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">
