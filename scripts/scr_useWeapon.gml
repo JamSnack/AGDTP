@@ -65,7 +65,7 @@ with proj
         accelRate = 0.3;
         speed = 0;
         
-        alarm[2] = room_speed*5;
+        alarm[2] = room_speed*4;
     }
     
     

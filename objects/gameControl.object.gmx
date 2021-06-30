@@ -146,10 +146,6 @@ if dev == true
 {
     if interm == false 
     { draw_text(10,20,"Wave "+string(wave)); }
-    else
-    {
-        draw_text(10,20,"Next Wave: "+string(wave+1)); 
-    }
 }
 </string>
           </argument>

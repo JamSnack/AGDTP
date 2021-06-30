@@ -85,30 +85,41 @@ else if time == 2
     { 
         with PLRTILE 
         {
-            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) 
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper && y < stoneLayer-48) 
             { 
                 itemDrop = false;
                 instance_destroy(); 
             } 
         }
     }
+    
+    if instance_exists(NOCOL) 
+    { 
+        with NOCOL 
+        { 
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper && y < stoneLayer-48) 
+            { 
+                itemDrop = false;
+                instance_destroy();
+            }
+        }
+    }
+    
     if instance_exists(obj_nullLight) then with obj_nullLight { instance_destroy(); }
 }
 
 else if time == 3
 {
-    if instance_exists(NOCOL) 
-    { 
-        with NOCOL 
+    if instance_exists(obj_itemDrop) 
+    {
+        with obj_itemDrop 
         { 
-            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) 
-            { 
-                itemDrop = false;
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper && y < stoneLayer-48) 
+            {    
                 instance_destroy(); 
             }
         }
     }
-    if instance_exists(obj_itemDrop) then with obj_itemDrop { if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper) then instance_destroy(); }
 }
 
 else if (time >= 4 && time <= 43 )
@@ -396,7 +407,7 @@ else if time == 65
 else if time == 70
 {
     //Cleanup (again)
-    if instance_exists(obj_itemDrop) then with obj_itemDrop { if insideView(x,y) == false then instance_destroy(); }
+    if instance_exists(obj_itemDrop) then with obj_itemDrop { instance_destroy(); }
     
     worldControl.alarm[0] = 1;
     instance_destroy();

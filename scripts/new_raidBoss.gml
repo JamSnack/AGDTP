@@ -6,6 +6,7 @@ var desired_boss = argument0;
 //instance_create a gremlin based on wave number.
 var _repeat = 0;
 var gremNumber = irandom(100); //The number used to generate the gremlin out of 100%
+var difficulty = scr_getDifficulty();
 
 if gremNumber >= (100-waveScale(5,wave,1,100)) then _repeat = waveScale(1,10,1,5);
 
@@ -20,8 +21,8 @@ while true
     
     var array_size = array_length_1d(bossGremlins);
     
-    if wave >= 15 && gremNumber >= 80 then bossGremlins[array_size] = obj_sphereKing;
-    if region == "COVE" && wave >= 10 then bossGremlins[array_size] = obj_crabKing;
+    if difficulty >= 15 && gremNumber >= 80 then bossGremlins[array_size] = obj_sphereKing;
+    if region == "COVE" && difficulty >= 8 then bossGremlins[array_size] = obj_crabKing;
     
     
     var mobType = "NORMAL"; //Normal or Special boss.

@@ -35,7 +35,7 @@ state = WANDER;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-damage = 5; //Attack damage.
+damage = 3+waveScale(1,5,0,2); //Attack damage.
 
 hurtAlarm = 1;
 

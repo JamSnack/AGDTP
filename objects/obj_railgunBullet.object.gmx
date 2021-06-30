@@ -37,6 +37,7 @@ scale = 2;
 //Delayed attack init
 initialized = false;
 alarm[1] = 1;
+knock_amt = 4;
 </string>
           </argument>
         </arguments>
@@ -83,6 +84,7 @@ if instance_exists(ENEMY)
     
     if target == noone
     {
+        energy += 2; //Return lost energy
         instance_destroy();
     }
     else

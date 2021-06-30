@@ -156,7 +156,7 @@ switch item_id
     case ITEMID.item_sweetComb: { text[0] = "Sweet Comb"; text[1] += "The prized treasure of the bees."; } break; 
     case ITEMID.item_seashellMetal: { text[0] = "Seashell Metal"; text[1] += "A hard, lustrous seashell."; } break;
     case ITEMID.tile_beeTurret: { text[0] = "Bee Hive Turret"; text[1] += "'Yeah get 'em yeah'"; } break; 
-    case ITEMID.tile_rebarRailgun: { text[0] = "Rebar Railgun"; text[1] += "A powerful turret that pierces enemies."; } break;
+    case ITEMID.tile_rebarRailgun: { text[0] = "Rebar Railgun"; text[1] += "Fires a burst of lasers that pierce enemies and shields."; } break;
     case ITEMID.tile_grillBlock: { text[0] = "Grill Block"; text[1] += "Heats up, hurting nearby enemies!"; } break;
     case ITEMID.tile_copperBlock: { text[0] = "Copper Block"; text[1] += "Truly a stalwart defense."; } break;
     case ITEMID.weapon_waterGun: { text[0] = "Water Gun"; text[1] += "Blast your enemies with high-pressure water blasts!"; } break;

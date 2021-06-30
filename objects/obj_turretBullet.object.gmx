@@ -28,6 +28,7 @@
             <string>distanceTraveled = 4; //Used to calculate "smear"
 x_previous = x;
 alarm[0] = 20;
+knock_amt = 4;
 </string>
           </argument>
         </arguments>

@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 275+waveScale(20,5,0,-1);
+hp = 300+waveScale(20,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "WANDER";

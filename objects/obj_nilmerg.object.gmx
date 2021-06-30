@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 125+waveScale(10,5,0,-1);
+hp = 150+waveScale(10,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "TRANSITION";
@@ -78,7 +78,7 @@ image_xscale = scale;
 image_yscale = scale;
 alarm[3] = -1;
 knockType = "FLY";
-knock_resistance = 1;
+knock_resistance = 2;
 
 deathSound = snd_enemydie_boss;
 

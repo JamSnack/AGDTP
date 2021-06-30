@@ -89,8 +89,8 @@ switch state
     {
         sprite_index = spr_nilmerg_move;
         
-        //Attack the living player!
-        if obj_player.dead == false then objective = obj_player;
+        //Attack the living, visible player!
+        if obj_player.dead == false && !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true) then objective = obj_player;
         
         xObjective = objective.x;
         

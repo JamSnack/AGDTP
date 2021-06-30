@@ -2223,6 +2223,7 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; inst
             case obj_nilmerg: {bossName = "Nilmerg the Gremlin Bee"} break;
             case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
             case obj_bliplo: {bossName = "Bliplo the Crustaceous"} break;
+            case obj_crabKing: {bossName = "Crab Elite"} break;
         }
         
         if boss != noone
@@ -2356,9 +2357,16 @@ else if keybindMenu_visible == true
 if interm == false
 {
     draw_set_font(global.fnt_menu);
-    draw_text(10,dispHeight-13,"Raid Progress: ");
+    draw_text(10,dispHeight-13,"Wave Progress: "+string(floor(raidProgress/2))+"/"+string(floor(maxRaidProgress/2)));
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
+}
+else if instance_exists(worldControl)
+{
+    draw_set_font(global.fnt_menu);
+    draw_text(10,dispHeight-13,"Next Wave: "+string(wave+1));
+    draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
+    draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(world_Time/worldControl.world_TimeMax)*dispWidth,dispHeight-2);
 }
 //#endregion
 </string>

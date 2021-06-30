@@ -62,7 +62,7 @@ raidBossID = noone; //The instance ID of the boss.
 nextRaid = "RAID"; //The next raid's type.
 specialRaid = false; //Bool telling whether or not a special raid is in progress.
 special_raidID = noone; //The ID of the raid
-world_TimeMax = room_speed*(3*60);
+world_TimeMax = room_speed*(5*60);
 dayTransition = false; //Whether or not to transition into day;
 dayAlpha = 0;
 deactivation_enabled = true;
@@ -489,9 +489,9 @@ switch special_raidID
                 {
                     case 0: normalGremlins[normal_array_size] = obj_gremlin; break;
                     case 1: if difficulty &gt;= 5 { normalGremlins[normal_array_size] = obj_drillin; } break;
-                    case 2: if difficulty &gt;= 2 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
-                    case 3: if difficulty &gt;= 7 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
-                    case 4: if difficulty &gt;= 10 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
+                    case 2: if difficulty &gt;= 3 { normalGremlins[normal_array_size] = obj_shadowGremlin; } break;
+                    case 3: if difficulty &gt;= 10 { normalGremlins[normal_array_size] = obj_grassGremlin;} break;
+                    case 4: if difficulty &gt;= 15 { specialGremlins[special_array_size] = obj_stoneGremlin;} break;
                 }
             }
             //Add region specific enemies if build_target is greater than 4.
@@ -505,7 +505,7 @@ switch special_raidID
                         switch ran
                         {
                             case 0: if difficulty &gt;= 15 { specialGremlins[special_array_size] = obj_hornedHapp; } break;
-                            default: if difficulty &gt;= 7 { normalGremlins[normal_array_size] = obj_sweetWorm; }
+                            default: if difficulty &gt;= 12 { normalGremlins[normal_array_size] = obj_sweetWorm; }
                         }
                     }
                     break;
@@ -514,8 +514,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            case 0: if difficulty &gt;= 9 { normalGremlins[normal_array_size] = obj_sandMenace; } 
-                            default: if difficulty &gt; 7 { specialGremlins[special_array_size] = obj_crab; }
+                            case 0: if difficulty &gt;= 15 { normalGremlins[normal_array_size] = obj_sandMenace; } 
+                            default: if difficulty &gt; 12 { specialGremlins[special_array_size] = obj_crab; }
                         }
                     }
                     break;

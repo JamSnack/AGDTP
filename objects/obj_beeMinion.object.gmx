@@ -90,11 +90,6 @@ if dropItem != true then exit;
 var c = irandom(100);
 
 if c &lt;= 12 then scr_spawnEssence(1,10,2); //~10% chance
-if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 
-{
-    scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
-    scr_playSound(snd_rareItem,false,8,x,y,1,false);
-}
 </string>
           </argument>
         </arguments>

@@ -37,9 +37,18 @@ switch presetSettings
         raidBoss = false;
         raidProgress = 0;
         
-        //- return to daylight.
-        worldControl.dayTransition = true;
-        world_Time = 0;
+        //- Return to intermission.
+        with worldControl
+        {
+            dayTransition = true;
+            world_Time = 0;
+            world_TimeMax -= 10;
+            
+            if world_TimeMax < 300 then world_TimeMax = 300;
+            
+            //We need to construct a new wave
+            event_user(1);
+        }
         
         //Save the game.
         with gameControl event_user(0);
@@ -77,9 +86,6 @@ switch presetSettings
                 scr_invenRemoveItem(ITEMID.item_gremEssence,_cost,ITEMTYPE.def,false,-1,noone);
             }
         }
-        
-        //We need to construct a new wave
-        with worldControl event_user(1);
     }
     break;
     
@@ -251,7 +257,7 @@ if interm == false
     }
     
     wave += 1;
-    scr_overMessage("Raid "+string(wave),0,6,c_white);
+    scr_overMessage("Wave "+string(wave),0,6,c_white);
     
     //We need to construct a new wave
     worldControl.special_raidID = special_raidID;

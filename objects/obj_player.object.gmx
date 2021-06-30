@@ -170,6 +170,8 @@ if g_over == false
     while place_meeting(x,y,OBSTA) y-=16;
     hp = maxHp;
     dead = false;
+    hForce = 0;
+    vForce = 0;
 }
 </string>
           </argument>
@@ -244,7 +246,7 @@ if dead = false &amp;&amp; g_over == false
     var hdir = sign(hsp+hForce) //Horizontal Direction
     
     if hdir != 0 then image_xscale = hdir;
-    if hsp+hForce != 0 &amp;&amp; (place_meeting_fast(hsp+hForce,0,OBSTA))
+    if (place_meeting_fast(hsp+hForce,0,OBSTA))
     {
         //move as close as we can
         while (!place_meeting_fast(hdir,0,OBSTA))
@@ -253,7 +255,7 @@ if dead = false &amp;&amp; g_over == false
         hForce = 0;
     }
     
-    x = x +hsp+hForce;
+    x = x+hsp+hForce;
     hForce = approach(hForce,0,knock_resistance);
     
     //Vertical Movement
@@ -980,12 +982,12 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-instance_create(mouse_x,mouse_y,obj_gremlin);
+//instance_create(mouse_x,mouse_y,obj_drillin);
 
-/*if instance_exists(obj_hiveTotem)
+if instance_exists(worldControl.raidBossID)
 {
-x = obj_hiveTotem.x;
-y = obj_hiveTotem.y;
+worldControl.raidBossID.x = -16;
+worldControl.raidBossID.y = -16;
 }
 </string>
           </argument>

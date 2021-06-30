@@ -106,20 +106,8 @@ mask_index = spr_hornedHapp;
 
 if dropItem != true then exit;
 
-var c = irandom(100);
+if c &lt;= 10 then scr_spawnEssence(3,10,5);//~10% chance
 
-if c &lt;= 10 then scr_spawnEssence(1,10,1);//~10% chance
-if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 &amp;&amp; insideView(x,y) == true
-{
-    scr_dropItem(ITEMID.weapon_subLimeMachineGun,0,ITEMTYPE.weapon ,x,y-4,noone); //~1% chance
-    scr_playSound(snd_rareItem,false,8,x,y,1,false);
-}
-
-if raid_boss == true
-{
-    if c &gt;= 80
-    { scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone); }
-}
 </string>
           </argument>
         </arguments>

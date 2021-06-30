@@ -189,7 +189,14 @@ scr_playSound(snd_hit,false,4,x,y,0.8,true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy();
+            <string>if worldControl.raidBossID == id
+{
+    x = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); 
+    y = (room_height/2)-(16*5);
+        
+    while place_meeting_fast(0,0,OBSTA) { if y-16 &lt; 0 then break else y-=16; }
+}
+else instance_destroy();
 </string>
           </argument>
         </arguments>

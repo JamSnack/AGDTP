@@ -14,7 +14,7 @@ var inst_parent = object_get_parent(object_index);
 if (object_index == obj_chest && ( other_parent == GR_ENEMY || other_parent == ENEMY )) then exit;
 
 //player sound
-if object_index == obj_player
+if object_index == obj_player && obj_player.dead == false
 {
     if audio_exists(snd_player_hurt)
     {
@@ -137,6 +137,20 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
         
         if knock_resistance < abs(h_amt)
         {
+            //Initial knock_resistance calculation:
+            if h_amt < 0
+            {
+                h_amt += knock_resistance;
+                
+                if h_amt > 0 then h_amt = 0;
+            }
+            else if h_amt > 0
+            {
+                h_amt -= knock_resistance;
+                
+                if h_amt < 0 then h_amt = 0;
+            }
+            
             hForce += h_amt;
         }
         
@@ -146,6 +160,21 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
         if knock_resistance < abs(v_amt)
         {
             if knockType == "LAND" then v_amt = -abs(v_amt);
+            
+            //Initial knock_resistance calculation:
+            if v_amt < 0
+            {
+                v_amt += knock_resistance;
+                
+                if v_amt > 0 then v_amt = 0;
+            }
+            else if v_amt > 0
+            {
+                v_amt -= knock_resistance;
+                
+                if v_amt < 0 then v_amt = 0;
+            }
+            
             vForce += v_amt;
         }
     }

@@ -80,6 +80,9 @@ switch current_state
         { if vAccel > -maxAccel then vAccel -= accelRate; }
         else if vdir == 1 { if vAccel < maxAccel then vAccel += accelRate; }
         
+        if y+vAccel > room_height-8 then vAccel = -vAccel;
+        if x+hAccel > room_width || x+hAccel < 0 then hAccel = -hAccel;
+        
         x += hAccel;
         y += vAccel;
         
@@ -89,7 +92,10 @@ switch current_state
     
     case WANDER:
     {
-        
+        if y+vAccel > room_height-8 then vAccel = -vAccel;
+        if x+hAccel > room_width || x+hAccel < 0 then hAccel = -hAccel;
+    
+    
         x += hAccel;
         y += vAccel;
         if stateLock == false then state = MOVE;
@@ -115,6 +121,9 @@ switch current_state
         //-Vertical
         if vAccel <= maxAccelFall then
         { vAccel += accelRate; }
+        
+        if y+vAccel > room_height-8 then vAccel = -vAccel;
+        if x+hAccel > room_width || x+hAccel < 0 then hAccel = -hAccel;
         
         //Move
         x += hAccel;
@@ -147,6 +156,9 @@ if ( hForce != 0 || vForce != 0 )
         vAccel += vForce;
         vForce = 0;
     }
+    
+    if y+vForce > room_height-8 then vForce = -vForce;
+    if x+hForce > room_width || x+hForce < 0 then hForce = -hForce;
     
     x+=hForce;
     y+=vForce;

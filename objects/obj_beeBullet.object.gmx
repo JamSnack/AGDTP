@@ -33,6 +33,7 @@ hAccel = 0;
 vAccel = 0;
 maxAccel = 3;
 accelRate = 0.5;
+knock_amt = 3;
 </string>
           </argument>
         </arguments>

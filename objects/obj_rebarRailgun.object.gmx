@@ -36,11 +36,17 @@ type = 3;
 //Turret stuff
 target = 0;
 targetRange = 7*16; //7 Tiles
-fireRate = 3; //How many seconds are in-between shots.
+fireRate = 1; //How many seconds are in-between shots.
+
+//Firerate values to control a burst of bullets.
+fr_fast = 0.2;
+fr_slow = 6;
+
 alarm[11] = 30;
 turretDirection = 0;
 ammoMax = 3;
 ammo = 0;
+cooled_down = true;
 </string>
           </argument>
         </arguments>
@@ -63,9 +69,35 @@ ammo = 0;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>///Cooldown Reset
+cooled_down = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///Attack/Target Enemy
-if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
+if cooled_down == true &amp;&amp; instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 {
+    cooled_down = false;
+
     var nearestEnemy = instance_nearest(x,y,ENEMY);
     
     if distance_to_object(nearestEnemy) &lt;= targetRange
@@ -79,11 +111,9 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
         scr_playSound(snd_rifle,false,7,x,y,1.4,true);
     }
     
+    if ammo &gt; 0 then fireRate = fr_fast else fireRate = fr_slow;
+    
     alarm[11] = fireRate*room_speed;
-}
-else
-{
-    alarm[11] = 1;
 }
 
 if ammo &lt; ammoMax &amp;&amp; energy &gt; 2

@@ -147,7 +147,7 @@ if vForce == 0 && hForce == 0
                 {
                     sprite_index = idle_sprite;
                     hspd = 0;
-                } else { state = WANDER; alarm[stateLockAlarm] = 5; stateLock = true; }
+                } else { state = WANDER; alarm[stateLockAlarm] = 30; stateLock = true; }
             }
             else if on_ground && !canSeeObjective && vsp == 0 && (!place_meeting_fast(hspd,8,OBSTA) || !place_meeting_fast(hspd,-18,OBSTA))
             {
@@ -156,7 +156,6 @@ if vForce == 0 && hForce == 0
             }
             else if vsp == 0
             {
-                image_xscale = -image_xscale;
                 state = WANDER; 
                 alarm[stateLockAlarm] = 30; 
                 stateLock = true;
@@ -206,7 +205,7 @@ if vForce == 0 && hForce == 0
                 {
                     //Jump if vsp = 0 else turn around.
                     vsp = jump_speed;
-                } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0;}
+                } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0; }
             } else if canSeeObjective then state = MOVE;
         }
         break;
