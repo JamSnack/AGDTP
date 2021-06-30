@@ -32,7 +32,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "Summer Demo v1.0";
+text = "Summer Demo v1.1: Beach Scorpion Under the Sun";
 
 playButton_active = false;
 deleteButton_active = false;
@@ -103,7 +103,8 @@ if playButton_active == false
 {
     if point_in_rectangle(dx,dy,x-60,y+60,x+60,y+115)
     {
-      playButton_active = true;  
+        audio_play_sound(snd_inventoryClick,1,false);
+        playButton_active = true;  
     } 
     
 } else if !point_in_rectangle(dx,dy,x-60,y+60,x+60,y+115) then playButton_active = false;
@@ -113,7 +114,8 @@ if deleteButton_active == false
 {
     if point_in_rectangle(dx,dy,x-60,y+135,x+60,y+160)
     {
-      deleteButton_active = true;
+        audio_play_sound(snd_inventoryClick,1,false);
+        deleteButton_active = true;
     }
     
 } else if !point_in_rectangle(dx,dy,x-60,y+135,x+60,y+160) 
@@ -121,6 +123,10 @@ if deleteButton_active == false
     deleteButton_active = false;
     dConfirm = false;
 }
+
+//Backgrounds
+background_x[1] += 0.1;
+background_x[3] += 0.4;
 
 //SCALE TO SCREEN SIZE
 /*while x+sprite_width &gt; view_xview+view_wview

@@ -3,5 +3,11 @@ WASD - Movement
 I - Inventory
 C - Crafting
 E - interact (with chests)
-Scroll Wheel - Zoom
+Scroll Wheel - Scroll through hotkey items
 Esc - Options Menu
+
+- WINDOW OPTIONS - 
+f1 - Small Screen
+f2 - Medium Screen
+f3 - Large Screen
+f4 - Full Screen

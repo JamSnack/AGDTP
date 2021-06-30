@@ -21,23 +21,6 @@
       </ConfigOptions>
       <filename>AGDTPControls.txt</filename>
     </datafile>
-    <datafile>
-      <name>help.txt</name>
-      <exists>-1</exists>
-      <size>1110</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>help.txt</filename>
-    </datafile>
   </datafiles>
   <NewExtensions/>
   <sounds name="sound">
