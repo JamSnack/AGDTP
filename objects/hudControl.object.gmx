@@ -104,6 +104,7 @@ trashSlotType = 0;
 trashSlotTags = noone; //Each slot has '2' tag slots.
 
 last_hotkey = 0;
+hotkey_select = 0;
 
 
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -224,8 +225,8 @@ if showSuperMenu == true &amp;&amp; ui_state == "CRAFT"
                 }
                 
                 //Get Crafting ID of slot
-                if point_in_rectangle(dx,dy,x1,y1,x2,y2)
-                { craftSelect = i; }
+                if point_in_rectangle(dx,dy,x1,y1,x2,y2) &amp;&amp; i != craftSelect
+                { craftSelect = i; audio_play_sound(snd_inventoryClick,1,false); }
                 
                 drawn_slots += 1;
             }
@@ -428,13 +429,13 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
 else
 {
     //Scroll wheel hotkey equip
-
-    if selectedSlot != noone &amp;&amp; last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
+    if hotkey_select &gt;= 0 &amp;&amp; hotkey_select &lt;= 6
     {
-        last_hotkey += 1;
+        hotkey_select += 1;
         
-        if last_hotkey &gt; 6 then last_hotkey = 0;
+        if hotkey_select &gt; 6 then hotkey_select = 0;
         
+        last_hotkey = hotkey_select
         event_user(1);
     }
 }
@@ -487,12 +488,14 @@ else
 {
     //Scroll wheel hotkey equip
 
-    if selectedSlot != noone &amp;&amp; last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
+    if hotkey_select &gt;= 0 &amp;&amp; hotkey_select &lt;= 6
     {
-        last_hotkey -= 1;
+        hotkey_select -= 1;
         
-        if last_hotkey &lt; 0 then last_hotkey = 6;
+        if hotkey_select &lt; 0 then hotkey_select = 6;
         
+
+        last_hotkey = hotkey_select
         event_user(1);
     }
 }
