@@ -300,6 +300,12 @@ if input_wait == false &amp;&amp; (settingsMenu == false &amp;&amp; keybindMenu_
     {
         //- Toggle Inventory Visibility.
         invOpen = !invOpen;
+        
+        if invOpen == false &amp;&amp; selectedSlot != noone
+        {
+            last_hotkey = selectedSlot;
+            event_user(1);
+        }
     }
     
     else if keyboard_check_released(global.key_craft)
@@ -604,7 +610,9 @@ if showSuperMenu == true
     _modOn = 0;
     _upgradeOn = 0;
     _waveOn = 0;
-    offset = 4;
+    offset = -4;
+    
+    var menu_width = 280;
     
     if ui_state == "CRAFT" then _craftOn = offset;
     else if ui_state == "MOD" then _modOn = offset;
@@ -612,24 +620,21 @@ if showSuperMenu == true
     else if ui_state == "WAVE" then _waveOn = offset;
     
     //Menu buttons
-    if invOpen == false
+    if point_in_rectangle(dx,dy,_posX-15+_craftOn-10+menu_width,_posY+10-10,_posX-15+_craftOn+10+menu_width,_posY+10+10)
     {
-        if point_in_rectangle(dx,dy,_posX-15+_craftOn-10,_posY+10-10,_posX-15+_craftOn+10,_posY+10+10)
-        {
-            ui_state = "CRAFT";
-        }
-        else if point_in_rectangle(dx,dy,_posX-15+_modOn-10,_posY+35-10,_posX-15+_modOn+10,_posY+35+10)
-        {
-            ui_state = "MOD";
-        }
-        else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
-        {
-            ui_state = "UPGRADE";
-        }
-        else if point_in_rectangle(dx,dy,_posX-15+_waveOn-10,_posY+85-10,_posX-15+_waveOn+10,_posY+85+10)
-        {
-            ui_state = "WAVE";
-        }
+        ui_state = "CRAFT";
+    }
+    else if point_in_rectangle(dx,dy,_posX-15+_modOn-10+menu_width,_posY+35-10,_posX-15+_modOn+10+menu_width,_posY+35+10)
+    {
+        ui_state = "MOD";
+    }
+   /* else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
+    {
+        ui_state = "UPGRADE";
+    }*/
+    else if point_in_rectangle(dx,dy,_posX-15+_waveOn-10+menu_width,_posY+60-10,_posX-15+_waveOn+10+menu_width,_posY+60+10)
+    {
+        ui_state = "WAVE";
     }
     
     //Crafting Menu Filters
@@ -1559,7 +1564,7 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     
                     //Single place
                     if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
-                    &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*3 //3 tiles worth of distance.
+                    &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*4 //3 tiles worth of distance.
                     &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)
@@ -1699,15 +1704,6 @@ if showSuperMenu == true
     
     //Draw background
     draw_sprite(spr_ui_superMenuBackground,0,_posX,_posY);
-    
-    if craft_scroll &gt; 0
-    {
-        draw_sprite(spr_white_arrow_small,1,_posX+260,_posY+10);
-    }
-    else if craft_scroll &lt; 0
-    {
-        draw_sprite(spr_white_arrow_small,0,_posX+260,_posY+10);
-    }
 
     //Draw menu content
     switch ui_state
@@ -1717,6 +1713,15 @@ if showSuperMenu == true
             //-----------------Crafting Menu---------------------------------------
             //#region
         
+            if craft_scroll &gt; 0
+            {
+                draw_sprite(spr_white_arrow_small,1,_posX-10,_posY+10);
+            }
+            else if craft_scroll &lt; 0
+            {
+                draw_sprite(spr_white_arrow_small,0,_posX-10,_posY+10);
+            }
+            
             //- draw filters
             var _ico_scale = 0.8;
             var _y_offset = 14;
@@ -1804,7 +1809,7 @@ if showSuperMenu == true
         }
         break;
     
-        case "UPGRADE":
+        /*case "UPGRADE":
         {
     //-----------------Upgrade Menu-----------------------------
     //#region
@@ -1844,7 +1849,7 @@ if showSuperMenu == true
         draw_text(3*_posX+4-string_width(str_essence),_posY+186,str_essence);
         
         }
-        break;
+        break;*/
         
         case "MOD":
         {
@@ -1975,25 +1980,24 @@ if showSuperMenu == true
     //-----------------Draw Ui state buttons--------
     //Drawing them underneath the menu for overlapping effect.
     
-    if invOpen == false
-    {
-        var _craftOn, _modOn, _upgradeOn, _waveOn, offset;
-        _craftOn = 0;
-        _modOn = 0;
-        _upgradeOn = 0;
-        _waveOn = 0;
-        offset = 4;
-        
-        if ui_state == "CRAFT" then _craftOn = offset;
-        else if ui_state == "MOD" then _modOn = offset;
-        else if ui_state == "UPGRADE" then _upgradeOn = offset;
-        else if ui_state == "WAVE" then _waveOn = offset;
-        
-        draw_sprite(spr_menuIcons,6,_posX-15+_craftOn,_posY+10); //Crafting menu
-        draw_sprite(spr_menuIcons,7,_posX-15+_modOn,_posY+35); //Mod menu
-        draw_sprite(spr_menuIcons,8,_posX-15+_upgradeOn,_posY+60); //Upgrade menu
-        draw_sprite(spr_menuIcons,9,_posX-15+_waveOn,_posY+85); //Wave menu
-    }
+    var _craftOn, _modOn, _upgradeOn, _waveOn, offset;
+    _craftOn = 0;
+    _modOn = 0;
+    _upgradeOn = 0;
+    _waveOn = 0;
+    offset = -4;
+    
+    var menu_width = 280;
+    
+    if ui_state == "CRAFT" then _craftOn = offset;
+    else if ui_state == "MOD" then _modOn = offset;
+    else if ui_state == "UPGRADE" then _upgradeOn = offset;
+    else if ui_state == "WAVE" then _waveOn = offset;
+    
+    draw_sprite(spr_menuIcons,6,_posX-15+_craftOn+menu_width,_posY+10); //Crafting menu
+    draw_sprite(spr_menuIcons,7,_posX-15+_modOn+menu_width,_posY+35); //Mod menu
+    //draw_sprite(spr_menuIcons,8,_posX-15+_upgradeOn,_posY+60); //Upgrade menu
+    draw_sprite(spr_menuIcons,9,_posX-15+_waveOn+menu_width,_posY+60); //Wave menu
 
 }
 
@@ -2399,7 +2403,7 @@ else if instance_exists(worldControl)
     
     var mouse_distance_to_player = point_distance(xx,yy,obj_player.x,obj_player.y);
     
-    if selectedSlot != noone &amp;&amp; mouse_distance_to_player &lt; 3*16
+    if selectedSlot != noone &amp;&amp; mouse_distance_to_player &lt; 4*16
     {
         if inventorySlotType[selectedSlot] == 3
         {
@@ -2408,7 +2412,7 @@ else if instance_exists(worldControl)
             draw_set_alpha(0.5);
         
             if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
-            &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*3 //3 tiles worth of distance.
+            &amp;&amp; mouse_distance_to_player &lt;= 16*4 //3 tiles worth of distance.
             &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
             &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
             &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)

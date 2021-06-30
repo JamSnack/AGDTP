@@ -260,6 +260,7 @@
     <sprite>sprites\spr_portalBlock</sprite>
     <sprite>sprites\spr_menuGremlin</sprite>
     <sprite>sprites\hbox_sword</sprite>
+    <sprite>sprites\hbox_swing</sprite>
     <sprite>sprites\spr_pie</sprite>
     <sprite>sprites\spr_itemDrops</sprite>
     <sprite>sprites\spr_workbenchCraftableItems</sprite>

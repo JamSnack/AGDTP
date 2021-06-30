@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>
-maxHp = 12;
+maxHp = scr_invenTileHealthIndex(ITEMID.tile_platform);
 hp = maxHp;
 
 event_inherited();
@@ -55,7 +55,10 @@ canHit = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(16,1,3,x,y+4,noone);
+            <string>if itemDrop == false then exit;
+event_inherited();
+
+scr_dropItem(16,1,3,x,y+4,noone);
 scr_updateConnections(x,y);
 </string>
           </argument>

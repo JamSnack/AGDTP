@@ -59,8 +59,8 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_updateConnections(x,y);
-event_inherited();
+            <string>event_inherited();
+scr_updateConnections(x,y);
 
 scr_dropItem(tileID,1,type,x,y,noone);
 </string>

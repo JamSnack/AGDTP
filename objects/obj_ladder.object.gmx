@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>event_inherited();
 level = 0;
-maxHp = 10;
+maxHp = scr_invenTileHealthIndex(ITEMID.tile_ladder);
 hp = maxHp;
 
 bench = false;
@@ -57,8 +57,9 @@ type = 3;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if itemDrop == false then print("false") else print("true");
+            <string>if itemDrop == false then exit;
 event_inherited();
+
 </string>
           </argument>
         </arguments>

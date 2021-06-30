@@ -88,3 +88,26 @@ if instance_exists(no_col)
         } else no_col.alarm[0] = room_speed*5;
     }
 }
+
+//Create weak sword projectile
+var proj = instance_create(x,y-6,obj_projectile);
+var tf = toolFireRate;
+
+with proj
+{    
+    //-Apply projectile statistics
+    speed = tf;
+    friction = 0;
+    type = 0;
+    sprite_index = hbox_swing;
+    dmg = 1;
+    direction = point_direction(x,0,mouse_x,0);
+    image_angle = direction;
+    knkAmt = 3;
+    ox = x;
+    oy = y;
+    oSpeed = speed;
+    bSwing = true;
+    
+    visible = dev;
+}

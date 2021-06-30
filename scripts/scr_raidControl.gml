@@ -119,7 +119,6 @@ switch presetSettings
                     }
                     
                     scr_hudMessage("Special Raid incoming!",0,20,0,c_yellow,0);
-                    scr_overMessage("!!The Shadow Gremlins are swarming!!",global.fnt_menu,5,c_yellow);
                 }
                 break;
             }

@@ -47,6 +47,8 @@ armOffset = 0; //Used for thrusting the arm forward or backward!
 armOffsetGoal = 0;
 armOffsetRate = 0;
 
+bSwing = false;
+
 type = 0;
 
 //INITIALIZATION IS SHARED WITH scr_useWeapon.
@@ -164,7 +166,7 @@ var ly = lengthdir_y(speed,direction);
 if bStab == true
 {    
     //Despawn and track the hitbox
-    if obj_player.armStabComplete == false &amp;&amp; obj_player.dead == false
+    if (obj_player.armStabComplete == false) &amp;&amp; obj_player.dead == false
     { 
         //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
         var _dir = point_direction(obj_player.x,obj_player.y,mouse_x,mouse_y);
@@ -177,6 +179,18 @@ if bStab == true
         x = obj_player.hitSyncX;
         y = obj_player.hitSyncY;
         alarm[2] = 4;
+    }
+}
+else if bSwing == true
+{
+    if obj_player.armAngle &lt; -40
+    {
+        instance_destroy();
+    }
+    else
+    {
+        x = obj_player.x;
+        y = obj_player.y;
     }
 }
 

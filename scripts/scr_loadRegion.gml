@@ -75,7 +75,18 @@ var worldLandTotal = ((sizeX*sizeY)*2)+flatLandTotal;
 
 if time == 1
 {
-    //- Reactivate everything, then destroy it.
+    if instance_exists(NOCOL) 
+    { 
+        with NOCOL 
+        { 
+            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper && y < stoneLayer-48) 
+            { 
+                itemDrop = false;
+                instance_destroy();
+            }
+        }
+    }
+
     if instance_exists(TILE) then with TILE { if object_index != obj_pie then instance_destroy(); }
 }
 
@@ -93,23 +104,12 @@ else if time == 2
         }
     }
     
-    if instance_exists(NOCOL) 
-    { 
-        with NOCOL 
-        { 
-            if !(x > RAIDBOUND_Lower && x < RAIDBOUND_Upper && y < stoneLayer-48) 
-            { 
-                itemDrop = false;
-                instance_destroy();
-            }
-        }
-    }
-    
     if instance_exists(obj_nullLight) then with obj_nullLight { instance_destroy(); }
 }
 
 else if time == 3
 {
+    //Extra cleanup
     if instance_exists(obj_itemDrop) 
     {
         with obj_itemDrop 

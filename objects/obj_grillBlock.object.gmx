@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>maxHp = 50;
+            <string>maxHp = scr_invenTileHealthIndex(ITEMID.tile_grillBlock);
 hp = maxHp;
 event_inherited();
 
