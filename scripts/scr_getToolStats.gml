@@ -16,7 +16,7 @@ switch argument0
     case ITEMID.weapon_sphereLauncher: {tool_firerate = 55; wep_Dam = 3; wep_Knock = 2; } break;
     case ITEMID.weapon_beemerang: { tool_firerate = 50; wep_Dam = 4; wep_Knock = 2; } break;
     case ITEMID.weapon_sandySeadollar: { tool_firerate = 30; wep_Dam = 5; wep_Knock = 1.5; } break;
-    case ITEMID.weapon_acornRifle: { tool_firerate = 70; wep_Dam = 7; wep_Knock = 4; } break;
+    case ITEMID.weapon_acornRifle: { tool_firerate = 70; wep_Dam = 7; wep_Knock = 3.2; } break;
     case ITEMID.weapon_waterGun: { tool_firerate = 20; wep_Dam = 6; wep_Knock = 2;} break;
     case ITEMID.weapon_seashellSpear: { tool_firerate = 34; wep_Dam = 7; wep_Knock = 3.75; } break;
     

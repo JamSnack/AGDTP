@@ -104,7 +104,6 @@ trashSlotType = 0;
 trashSlotTags = noone; //Each slot has '2' tag slots.
 
 last_hotkey = 0;
-hotkey_select = 0;
 
 
 for (i=0;i&lt;maxInvenSlots;i++)
@@ -429,13 +428,11 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
 else
 {
     //Scroll wheel hotkey equip
-    if hotkey_select &gt;= 0 &amp;&amp; hotkey_select &lt;= 6
+    if last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
     {
-        hotkey_select += 1;
+        last_hotkey += 1;
         
-        if hotkey_select &gt; 6 then hotkey_select = 0;
-        
-        last_hotkey = hotkey_select
+        if last_hotkey &gt; 6 then last_hotkey = 0;
         event_user(1);
     }
 }
@@ -488,14 +485,11 @@ else
 {
     //Scroll wheel hotkey equip
 
-    if hotkey_select &gt;= 0 &amp;&amp; hotkey_select &lt;= 6
+    if last_hotkey &gt;= 0 &amp;&amp; last_hotkey &lt;= 6
     {
-        hotkey_select -= 1;
+        last_hotkey -= 1;
         
-        if hotkey_select &lt; 0 then hotkey_select = 6;
-        
-
-        last_hotkey = hotkey_select
+        if last_hotkey &lt; 0 then last_hotkey = 6;
         event_user(1);
     }
 }

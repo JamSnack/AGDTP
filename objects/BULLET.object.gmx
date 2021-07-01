@@ -62,10 +62,11 @@ var _enemy = collision_rectangle(bbox_left,bbox_top,bbox_right,bbox_bottom,ENEMY
 if instance_exists(_enemy)
 {
     var _d = damage;
+    var _k = knock_amt;
     
     with _enemy
     {   
-        scr_hurt(_d,0,true,knock_amt);
+        scr_hurt(_d,0,true,_k);
         event_user(0);
     }
     instance_destroy();

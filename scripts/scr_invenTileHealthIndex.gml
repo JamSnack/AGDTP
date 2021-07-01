@@ -5,6 +5,7 @@
 switch argument0
 {
     case ITEMID.tile_packedDirt: { return 12; } break;
+    case ITEMID.tile_packedStone: { return 20; } break;
     case ITEMID.tile_copperTurret: { return 15; } break;
     case ITEMID.tile_ladder: { return 15; } break;
     case ITEMID.tile_platform: { return 15; } break;
