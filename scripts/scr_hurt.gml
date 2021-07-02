@@ -98,6 +98,8 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
 {
     hp -= damage;
     
+    //-- Disable despawn
+    if inst_parent == GR_ENEMY { canDespawn = false; }
     
     //--Display damage number--
     var c;

@@ -32,13 +32,13 @@ image_yscale = scale;
 
 canActiveRegion = false;
 canHurt = true;
-hp = 5;
+hp = 10;
 image_speed = 10/60;
 state = MOVE;
 
 vsp = 0;
 atkBox = (32); //divided by 2 on calculation.
-damage = 4; //Attack damage.
+damage = 6; //Attack damage.
 
 hurtAlarm = 1;
 

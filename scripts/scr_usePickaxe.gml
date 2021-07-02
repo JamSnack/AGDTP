@@ -66,11 +66,11 @@ if instance_exists(plr_col)
     }
 }
 
-//-----------INTERACTABLES------------------
+//-----------NO-COLLIDABLES------------------
 if instance_exists(no_col)
 {
     //Ensure the tile reachable.
-    if distance_to_object(no_col) <= pickRange*16 && collision_line(x,y,no_col.x,no_col.y,no_col,false,false)
+    if no_col.canHit == true && distance_to_object(no_col) <= pickRange*16 && collision_line(x,y,no_col.x,no_col.y,no_col,false,false)
     {
         //Damage the tile
         if collision_point(mouse_x,mouse_y,PLR_NOCOL,false,false) then no_col.hp -= no_col.maxHp

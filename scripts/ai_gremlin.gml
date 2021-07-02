@@ -16,22 +16,33 @@ var yObjective = objective.y;
 var spr_width = sprite_width;
 var spr_height = sprite_height;
 
-//Init platform
-var platformCollide;
-var on_platform = place_meeting_fast(0,1,obj_platform);
 var on_ground = place_meeting_fast(0,1,OBSTA);
 
-if (yObjective < y-16 && point_distance(x,y,xObjective,y) < 16*5)
+//Check for objective line of sight.
+if instance_exists(objective)
+{ var canSeeObjective = !collision_line(x,y,xObjective,yObjective,OBSTA,true,false); } 
+
+
+//--Init platform--
+var platformCollide; //Whether or not to collide with platforms at all.
+var on_platform; //Whether or not the gremlin is on a platform.
+
+if place_meeting_fast(0,1,obj_platform)
+{
+    if instance_nearest(x,y+1,obj_platform).y > y+spr_height/2
+    {
+        on_platform = true;
+    }
+    else on_platform = false;
+} else on_platform = false;
+
+if (yObjective > y && canSeeObjective)
 { platformCollide = false }
 else
 platformCollide = true;
 
 //----Despawn Check-----------
 if position_meeting(x,y,OBSTA) then instance_destroy();
-
-//Check for objective line of sight.
-if instance_exists(objective)
-{ var canSeeObjective = !collision_line(x,y,xObjective,yObjective,OBSTA,true,false); } 
 
 //Attack Check --------------------------------------------
 if objective.canHurt == true
@@ -85,14 +96,15 @@ if x_previous = xObjective //Do not stand on top of pie.
 }
 
 //Fall check---------------------------------------------
-// -- platformCollide and not on a platform means potential fall conditions.
-if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && !on_platform)
+// -- platformCollide = false and on a platform means we should fall through the platform.
+if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && on_platform)
 {
-    if !instance_exists(GREM_BLOCK) || (instance_exists(GREM_BLOCK) && !position_meeting(x,y+16,GREM_BLOCK))
-    { state = FALL; }
-    
-    else if ceil(yObjective) > y && on_platform
+    if on_platform && (yObjective > y+spr_height/2 && canSeeObjective)
     { platformCollide = false; state = FALL; }
+    else if !on_platform
+    {
+        state = FALL;
+    }
 }
 
 
@@ -124,6 +136,14 @@ if vForce == 0 && hForce == 0
             hspd = approach(hspd,approach_speed,agility);
             var obsta_in_front = place_meeting_fast(hspd,0,OBSTA);
             
+            //---Jump check---
+            if (on_ground || on_platform) && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA))
+            {
+                vsp = jump_speed;
+            }
+            
+            
+            //--- Movement and state logic ---
             if !obsta_in_front
             {
                 if dir != 0
@@ -149,15 +169,10 @@ if vForce == 0 && hForce == 0
                     hspd = 0;
                 } else { state = WANDER; alarm[stateLockAlarm] = 30; stateLock = true; }
             }
-            else if on_ground && !canSeeObjective && vsp == 0 && (!place_meeting_fast(hspd,8,OBSTA) || !place_meeting_fast(hspd,-18,OBSTA))
-            {
-                //Jump
-                vsp = jump_speed;
-            }
-            else if vsp == 0
+            else
             {
                 state = WANDER; 
-                alarm[stateLockAlarm] = 30; 
+                alarm[stateLockAlarm] = 40; 
                 stateLock = true;
                 hspd = 0;
             }
@@ -187,25 +202,25 @@ if vForce == 0 && hForce == 0
                 }
                 
                 
-                //- Wander forward
+                //-----Wander forward
                 //NOTE: the var, dir, is objective based. Wandering has no objective.
                 //a "maximum speed to approach toward" is required for accurate collision checks. Use before flipping xscale, hspd tends to lag behind this value.
                 var approach_speed = (spd)*image_xscale;
                 hspd = approach(hspd,approach_speed,agility);
                 var obsta_in_front = place_meeting_fast(hspd,0,OBSTA);
                 
+                //--Jump Conditions
+                //- If tile in front or gap in front
+                if (on_ground || on_platform) && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA))
+                {
+                    vsp = jump_speed;
+                } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0; }
+                
+                
                 if !obsta_in_front
                 {
                     x += hspd;
                 }
-                
-                //- Jump Conditions -
-                //- If tile in front or gap in front
-                else if vsp == 0 && on_ground
-                {
-                    //Jump if vsp = 0 else turn around.
-                    vsp = jump_speed;
-                } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0; }
             } else if canSeeObjective then state = MOVE;
         }
         break;
@@ -213,7 +228,7 @@ if vForce == 0 && hForce == 0
     
     // Grem Block check ----------------------------
     var flatLandsY = (room_height/2)-(16*3);
-        
+      /*  
     if gremBlockCol == true && interm == false && position_meeting(x,y+spr_height,GREM_BLOCK)
     {
         while place_meeting_fast(0,0,GREM_BLOCK)
@@ -228,7 +243,7 @@ if vForce == 0 && hForce == 0
         }
         
         if position_meeting(x,y-6,GREM_BLOCK) then gremBlockCol = false;
-    }
+    }*/
     
     //Handle vertical movement states------------------------------------------
     if vsp != 0 || state = FALL
@@ -238,30 +253,26 @@ if vForce == 0 && hForce == 0
         
         var vdir = sign(vsp); //up = -1, down = 1.
     
-        //--Platform Logic
+        //--------Platforms
         
-        if platformCollide = true
+        if platformCollide = true && vsp > 0
         {
-            var true_vsp = vsp+vForce;
-            var colRect = collision_rectangle(x-4,y+true_vsp,x+4,y+15+true_vsp,obj_platform,true,true);
+            var true_vsp = vsp+vForce; //vForce is always 0 at this point but i'm too lazy to remove it here.
+            var colRect = collision_line(x-4,y+spr_height/2+vsp,x+4,y+spr_height/2+vsp,obj_platform,false,true);
         
-            if true_vsp > 0
+            if  colRect != noone && y+spr_height/2 < colRect.y
             {     
-                if colRect
-                {
-                    //Snap gremlin
-                    // - value adjusted for platform center.
-                    var platY = (colRect.y)-8
-                    if y < platY && point_distance(x,y+16,x,platY) < 2 then y = (platY)-16;
-                    
-                    vsp = 0;
-                }
+                //Snap gremlin
+                // - value adjusted to simulate platform center on (8,0), not (8,8).
+                var platY = (colRect.y)-8
+                if y < platY && point_distance(x,y+16,x,platY) < 4 then y = (platY)-1;
+                
+                vsp = 0;
             }
-            
-            if on_platform { vsp = 0; }
         }
         
         //-------Gremlin Blocks
+        /*
         if instance_exists(GREM_BLOCK) && gremBlockCol == true && (place_meeting_fast(0,vsp,GREM_BLOCK))
         {
             //move as close as we can
@@ -271,9 +282,9 @@ if vForce == 0 && hForce == 0
             }
             vsp = 0;
         }
-        
+        */
         //-----Normal Obstacles
-        else if (place_meeting_fast(0,vsp,OBSTA))
+        if (place_meeting_fast(0,vsp,OBSTA))
         {
             var vdir = sign(vsp);
         

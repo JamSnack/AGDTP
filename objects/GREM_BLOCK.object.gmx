@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-9</depth>
   <persistent>0</persistent>
-  <parentName>PAUSE</parentName>
+  <parentName>obj_platform</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -27,6 +27,11 @@
             <kind>1</kind>
             <string>event_inherited();
 image_speed = 0;
+
+level = 99;
+canHit = false;
+canHurt = false;
+itemDrop = false;
 </string>
           </argument>
         </arguments>

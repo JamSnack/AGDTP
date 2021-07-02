@@ -55,7 +55,7 @@ if item != ITEMID.nil
             var hudSize = 0;
             
             if ds_exists(hudTags,ds_type_list) && hudTags != noone
-            { hudSize = ds_list_size(hudTags); } else print("New item?");
+            { hudSize = ds_list_size(hudTags); }// else print("New item?");
             
             // 0 = 0 means we are removing an ingredient item with no previous tags.
             if tagsSize == hudSize

@@ -65,11 +65,11 @@ death_gib = part_nullGib;
 
 if raid_boss = true
 {
-    scale = 3;
+    scale = 2;
     maxAccel -= 0.5;
-    knock_resistance += 0.25;
+    knock_resistance += 1.2;
     deathSound = snd_enemydie_boss;
-    maxHp = 50+waveScale(10,5,0,125);
+    maxHp = 80+waveScale(10,5,0,125);
     hp = maxHp;
     //print("SHADOW GREMLIN BOSS: "+string(id));
 }

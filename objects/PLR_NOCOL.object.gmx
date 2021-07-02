@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0;
+canHit = true;
 canHurt = true;
 hurtAlarm = 1;
 

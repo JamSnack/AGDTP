@@ -8,7 +8,10 @@ var _repeat = 0;
 var gremNumber = irandom(100); //The number used to generate the gremlin out of 100%
 var difficulty = scr_getDifficulty();
 
-if gremNumber >= (100-waveScale(5,wave,1,100)) then _repeat = waveScale(1,10,1,5);
+if gremNumber >= (100-waveScale(5,wave,1,100)) then _repeat = waveScale(1,10,0,5);
+
+//Disable multi-bosses on special raids.
+if specialRaid == true then _repeat = 0;
 
 
 while true
@@ -21,7 +24,7 @@ while true
     
     var array_size = array_length_1d(bossGremlins);
     
-    if difficulty >= 15 && gremNumber >= 80 then bossGremlins[array_size] = obj_sphereKing;
+    if difficulty >= 15 && gremNumber >= 70 then bossGremlins[array_size] = obj_sphereKing;
     if region == "COVE" && difficulty >= 8 then bossGremlins[array_size] = obj_crabKing;
     
     

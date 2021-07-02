@@ -58,7 +58,7 @@ switch item
         
         audio_play_sound(snd_heal,8,false);
         alarm[2] = 45;
-        scr_popMessage("10",global.fnt_Ui,3,c_green,x,y);
+        scr_popMessage("+10",global.fnt_menu,1,c_green,x-4,y);
     }
     break;
 }

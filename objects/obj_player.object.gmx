@@ -220,9 +220,24 @@ canHurt = true;
             <string>///Movement and Death Check
 if dead = false &amp;&amp; g_over == false
 {
+    //Other variables
     var spr_height = sprite_get_height(spr_playerIdle)/2;
     var spr_width = sprite_get_width(spr_playerIdle)/2;
 
+    //--- init platform variables ---
+    var platformCollide; //Whether or not to collide with platforms at all.
+    var on_platform; //Whether or not the gremlin is on a platform.
+
+    if place_meeting_fast(0,2,obj_platform)
+    {
+        if instance_nearest(x,y+sprite_height/2,obj_platform).y &gt; y+7
+        {
+            on_platform = true;
+        }
+        else on_platform = false;
+    } else on_platform = false;
+    
+    //--- init movement ---
     if knockBack == false
     {
         key_right = keyboard_check(global.key_right);
@@ -234,13 +249,15 @@ if dead = false &amp;&amp; g_over == false
     hsp = (key_right - key_left) * hsp_walk;
     if vsp &lt; maxGrav then vsp = vsp + grav;
     
-    //Jump check
-    if  key_jump &amp;&amp; ((collision_point(x-3,y+spr_height+1,OBSTA,false,true) || collision_point(x+2,y+spr_height+1,OBSTA,false,true)) || (collision_point(x,y+spr_height+1,obj_platform,true,true)))
+    //jump check
+    if  key_jump &amp;&amp; vsp &gt;= 0 &amp;&amp; ((collision_point(x-3,y+spr_height+1,OBSTA,false,true) || collision_point(x+2,y+spr_height+1,OBSTA,false,true)) || on_platform)
     {
         vsp = vsp_jump;
     }
     
-    //Horizontal Movement
+    
+    
+    //------Horizontal Movement---------
     var hdir = sign(hsp+hForce) //Horizontal Direction
     
     if hdir != 0 then image_xscale = hdir;
@@ -256,10 +273,14 @@ if dead = false &amp;&amp; g_over == false
     x = x+hsp+hForce;
     hForce = approach(hForce,0,knock_resistance);
     
-    //Vertical Movement
-    var hdir = sign(vsp+vForce); //up = -1, down = 1.
     
-    //Ladder Logic
+    
+    
+    //------Vertical Movement---------
+    var vdir = sign(vsp+vForce); //up = -1, down = 1.
+    var true_vsp = vsp+vForce;
+    
+    //-- Ladder Logic --
     if place_meeting_fast(0,0,obj_ladder)
     {
         //Stop falling
@@ -280,38 +301,33 @@ if dead = false &amp;&amp; g_over == false
     }
     
     
-    //--Collision with ground; else platform
-    if (vsp+vForce &gt;= 0 &amp;&amp; (position_meeting(x-3,y+spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y+spr_height+vsp+vForce+1,OBSTA))) || (vsp+vForce &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+vsp+vForce+1,OBSTA) || position_meeting(x+3,y-spr_height+vsp+vForce+1,OBSTA)))
+    //-- Collision with ground; else platform --
+    //Complex Condition note: We have two complex coniditions, one is run when moving upward and checks corresponding points; two is run when moving downward and does the same.
+    if true_vsp != 0 &amp;&amp; ((true_vsp &gt; 0 &amp;&amp; (position_meeting(x-3,y+spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y+spr_height+true_vsp+1,OBSTA))) || (true_vsp &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y-spr_height+true_vsp+1,OBSTA))))
     {
+        // Correct the while loop iterator in-case values are less than 1
+        if true_vsp != 0 &amp;&amp; (true_vsp &lt; 1 || true_vsp &gt; -1)
+        {
+            vdir = true_vsp;
+        }
+    
         //move as close as we can
-        while (!place_meeting_fast(0,hdir,OBSTA))
-        { y = y+hdir; }
+        while (!place_meeting_fast(0,vdir+1,OBSTA))
+        { y += vdir; }
         vsp = 0;
         vForce = 0;
     }
-    //---------PLATFORM COLLISION
-    else if !key_down &amp;&amp; instance_exists(obj_platform)
+    //-- PLATFORM COLLISION -- 
+    else if !key_down &amp;&amp; instance_exists(obj_platform) &amp;&amp; vsp+vForce &gt; 0// &amp;&amp; platform_collide == true
     {
-        var _plat = instance_place(x,y+vsp+vForce,obj_platform);
+        
+        var _plat = collision_line(x-3,y+spr_height+true_vsp+1,x+3,y+spr_height+true_vsp+1,obj_platform,false,true);
                 
-        if _plat != noone &amp;&amp; vsp+vForce &gt; 0 &amp;&amp; y+spr_height &lt; _plat.y
-        {
-            while(!place_meeting_fast(0,sign(vsp+vForce),_plat))
-            {
-                y += sign(vsp+vForce);
-            }
-            
-            if collision_point(0,spr_height+vsp+vForce,_plat,true,true)
-            {
-                //Check for cases w/ overlapping hitboxes
-                while(place_meeting_fast(0,0,_plat))
-                {
-                    y -= 1;
-                }
-            }
-            
+        if _plat != noone &amp;&amp; y+spr_height &lt; _plat.y-7
+        {            
             vForce = 0;
             vsp = 0;
+            y = _plat.y-9-spr_height;
         }
     }
 
@@ -545,12 +561,14 @@ if keyboard_check_released(global.key_quick_heal)
             else if i == loop_size-1
             {
                 audio_play_sound(snd_invalid,12,false);
+                scr_popMessage("No healing items",global.fnt_menu,1,c_red,x-8,y);
             }
         }
     }
     else if hp &gt;= maxHp
     {
         audio_play_sound(snd_invalid,12,false);
+        scr_popMessage("HP full",global.fnt_menu,1,c_red,x-8,y);
     }
 }
 </string>
@@ -905,6 +923,23 @@ if toolReady == false
 if armOffset == 0
 { draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,image_alpha); }
 
+
+//PLATFORM DEBUGGING
+/*
+var on_platform; //Whether or not the gremlin is on a platform.
+
+if place_meeting_fast(0,1,obj_platform)
+{
+    if instance_nearest(x,y+1,obj_platform).y &gt; y+7
+    {
+        on_platform = true;
+    }
+    else on_platform = false;
+} else on_platform = false;
+
+draw_text(x,y+10,string(on_platform));
+var spr_height = sprite_height/2;
+draw_rectangle(x-3,y+spr_height-2,x+3,y+spr_height+2,false);
 </string>
           </argument>
         </arguments>
@@ -980,8 +1015,8 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-//instance_create(mouse_x,mouse_y,obj_drillin);
-
+instance_create(mouse_x,mouse_y,obj_gremlin);
+/*
 if instance_exists(worldControl.raidBossID)
 {
 worldControl.raidBossID.x = -16;

@@ -120,7 +120,6 @@ var null_light;
 
 if light_level/255 == 0 then null_light = 1 else { null_light = light_level/255; null_light = 1 - null_light; }
 
-
 draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,null_light);
 
 if light_level &gt;= 255 &amp;&amp; sprite_index == spr_nullLight then instance_destroy();

@@ -33,6 +33,7 @@ event_inherited();
 bench = false;
 canHit = true;
 tileID = ITEMID.tile_platform;
+type = ITEMTYPE.playertile;
 </string>
           </argument>
         </arguments>
