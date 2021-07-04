@@ -97,6 +97,7 @@ ds_list_add(settings_list,global.key_7);
 
 //- save other settings
 ds_list_add(settings_list,music_volume);
+ds_list_add(settings_list,vsyncToggled);
 
 
 

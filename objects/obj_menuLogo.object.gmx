@@ -32,7 +32,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "Summer Demo v1.1";
+text = "Summer Demo v1.1: Discord Demo :)";
 
 playButton_active = false;
 deleteButton_active = false;

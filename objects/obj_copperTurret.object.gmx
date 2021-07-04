@@ -36,7 +36,9 @@ type = 3;
 //Turret stuff
 target = 0;
 targetRange = 7*16; //7 Tiles
-fireRate = 0.75; //How many seconds are in-between shots.
+fr_fast = 0.75;
+fr_slow = 3;
+fireRate = fr_fast; //How many seconds are in-between shots.
 alarm[11] = 30;
 turretDirection = 0;
 ammoMax = 4;
@@ -66,6 +68,7 @@ ammo = 0;
             <string>///Attack/Target Enemy
 if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 {
+    fireRate = fr_fast;
     var nearestEnemy = instance_nearest(x,y,ENEMY);
     
     if distance_to_object(nearestEnemy) &lt;= targetRange
@@ -83,6 +86,11 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 
 if ammo &lt; ammoMax &amp;&amp; energy &gt; 1
 {
+    if ammo == 0
+    {
+        fireRate = fr_slow; //How many seconds are in-between shots.
+    }
+
     energy -= 2;
     ammo += 1;
 }

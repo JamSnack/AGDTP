@@ -2,7 +2,7 @@
 ///scr_deactivateOffscreen(inst);
 var inst = argument0;
 var outerBoundary = 4*16; //(10 tiles).
-var viewBuffer = 16*4;
+var viewBuffer = 16*2;
 
 if instance_exists(inst)
 {

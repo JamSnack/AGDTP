@@ -196,6 +196,9 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         global.key_5 = _list[| 12];
         global.key_6 = _list[| 13];
         global.key_7 = _list[| 14];
+        
+        music_volume = _list[| 15];
+        vsyncToggled = _list[| 16];
     }
     
     ds_map_destroy(_wrapper);

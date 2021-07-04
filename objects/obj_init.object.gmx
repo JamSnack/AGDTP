@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>-1</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>CONTROL</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -105,7 +105,7 @@ global.key_7 = ord("7");
 
 
 //Other globals
-globalvar tutorialComplete,music,tip_controls,tip_tools,music_volume,sfx_volume;
+globalvar tutorialComplete,music,tip_controls,tip_tools,music_volume,sfx_volume,vsyncToggled;
 tutorialComplete = false;
 tip_controls = false; //Whether or not the control tip has been displayed.
 tip_tools = false; //Whether or not the "tools tutorial" tips has been displayed.
@@ -113,6 +113,7 @@ music_volume = 0.4;
 music = audio_play_sound(snd_theStarsForever,10,true);
 audio_sound_gain(snd_theStarsForever,music_volume,0);
 sfx_volume = 0.4;
+vsyncToggled = true;
 
 //Item IDs
 enum ITEMID

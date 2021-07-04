@@ -5,8 +5,9 @@ var treeHeight = irandom_range(4,7);
 var xInterval = argument0;
 var yInterval = argument1;
 
-for (j=0;j<treeHeight;j++)
+for (_tree=0;_tree<treeHeight;_tree++)
 {      
+    print(_tree);
     //Place tree tiles using previously used xInterval variable.
     if position_meeting(xInterval,yInterval,OBSTA) { break; }
     while position_meeting(xInterval,yInterval,obj_tree) { yInterval -= 16; }
@@ -14,22 +15,22 @@ for (j=0;j<treeHeight;j++)
     //(y+16) because the trees spawn one tile above the ground
     var t = instance_create(xInterval,yInterval,obj_tree);
     
-    if j == treeHeight-1 
+    
+    //--- Update the tree tiles locally b/c using ev_user 1 will kill out of bounds trees.
+    if _tree == treeHeight-1 
     {
+        t.image_index = 2;
         t.canopy = true;
         scr_tileUpdate(xInterval,yInterval);
     }
-    
-    //--- Update the tree tiles locally b/c using ev_user 1 will kill out of bounds trees.
-    if place_meeting(x,y-16,obj_tree) && !place_meeting(x,y+16,obj_tree)
+    else if _tree == 0
     {
         //Bottom piece
-        image_index = 3;
-    } else if place_meeting(x,y+16,obj_tree) && place_meeting(x,y-16,obj_tree)
+        t.image_index = 0;
+    } else if _tree < treeHeight-1 && _tree > 0
     {
         //Center
-        image_index = 1;
-        if canopy = true then canopy = false;
+        t.image_index = 1;
     }
     
 }

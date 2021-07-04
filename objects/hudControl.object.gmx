@@ -123,7 +123,6 @@ musicToggled = true; // Music is on!
 keybindMenu_visible = false; //SHOW YA KEYBINDS BIFF
 input_wait = false; //Whether or not to wait for an input.
 music_drag = false;
-vsyncToggled = true;
 
 //Place Tiles
 lastPlaceX = noone;

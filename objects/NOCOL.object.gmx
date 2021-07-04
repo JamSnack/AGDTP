@@ -27,6 +27,7 @@
             <kind>1</kind>
             <string>image_speed = 0;
 itemDrop = true;
+canHit = true;
 </string>
           </argument>
         </arguments>

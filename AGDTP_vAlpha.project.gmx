@@ -368,6 +368,7 @@
     <script>scripts\approach.gml</script>
     <script>scripts\waveScale.gml</script>
     <script>scripts\insideView.gml</script>
+    <script>scripts\scr_tileVisibleCheck.gml</script>
     <script>scripts\scr_spawnEssence.gml</script>
     <script>scripts\scr_createTip.gml</script>
     <script>scripts\scr_buyUpgrade.gml</script>
@@ -480,6 +481,8 @@
       <object>objects\FLATLAND</object>
       <object>objects\TILE_ALL</object>
       <object>objects\PAUSE</object>
+      <object>objects\CONTROL</object>
+      <object>objects\EFFECT</object>
     </objects>
     <objects name="effects">
       <object>objects\efct_hudMessage</object>
