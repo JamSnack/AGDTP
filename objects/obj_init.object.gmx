@@ -360,6 +360,11 @@ alarm[1]=1;
 window_set_size(display_get_width(),display_get_width());
 alarm[0]=1;
 alarm[1]=1;
+
+if window_get_fullscreen() == true
+{
+    window_set_fullscreen(false);
+}
 </string>
           </argument>
         </arguments>
@@ -387,6 +392,11 @@ alarm[1]=1;
 window_set_size(ideal_width*zoom,ideal_height*zoom);
 alarm[0]=1;
 alarm[1]=1;
+
+if window_get_fullscreen() == true
+{
+    window_set_fullscreen(false);
+}
 </string>
           </argument>
         </arguments>
@@ -413,6 +423,11 @@ alarm[1]=1;
 window_set_size(ideal_width*zoom,ideal_height*zoom);
 alarm[0]=1;
 alarm[1]=1;
+
+if window_get_fullscreen() == true
+{
+    window_set_fullscreen(false);
+}
 </string>
           </argument>
         </arguments>

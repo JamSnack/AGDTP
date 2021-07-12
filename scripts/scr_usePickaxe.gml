@@ -19,7 +19,14 @@ if instance_exists(col)
     {
     
         //Damage the tile
-        if col.level <= pl then col.hp -= (pd+(pl/2));
+        if col.level <= pl
+        { 
+            col.hp -= (pd+(pl/2));
+        }
+        else if col.object_index != obj_pie
+        {
+           scr_popMessage("Tier "+string(col.level)+" required.",global.fnt_menu,1,c_red,x-6,y); 
+        }
         
         //Check for tile death otherwise play sound & heal.
         if col.hp <= 0 

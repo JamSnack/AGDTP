@@ -232,6 +232,7 @@
       <sprite>sprites\spr_ui_regions</sprite>
       <sprite>sprites\spr_red_arrow_down</sprite>
       <sprite>sprites\spr_white_arrow_small</sprite>
+      <sprite>sprites\spr_ui_region_shift</sprite>
     </sprites>
     <sprites name="Particles">
       <sprite>sprites\spr_tile_frag_dirt</sprite>

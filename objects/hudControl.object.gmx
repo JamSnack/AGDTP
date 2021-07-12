@@ -2352,7 +2352,7 @@ else if keybindMenu_visible == true
 }*/
 //#endregion
 
-//-------------------Wave Progress Meter----------------------
+//-------------------Wave Progress Meter and Other Icons----------------------
 //#region
 if interm == false
 {
@@ -2367,6 +2367,11 @@ else if instance_exists(worldControl)
     draw_text(10,dispHeight-13,"Next Wave: "+string(wave+1));
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(world_Time/worldControl.world_TimeMax)*dispWidth,dispHeight-2);
+    
+    //Region shifting icon
+
+    var region_shift = worldControl.region_shift;
+    if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,120,6) };
 }
 //#endregion
 </string>

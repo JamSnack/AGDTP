@@ -193,8 +193,20 @@ switch state
                 case 2:
                 {
                     //Spawn a minion!
-                    repeat(1+waveScale(1,20,0,2))
-                    { instance_create(x,y,obj_beeMinion); }
+                    var variance = 0;
+                    var rep_amt = 1;
+                    
+                    if hp <= maxHp*0.40
+                    {
+                        rep_amt = 2;
+                    }
+                    
+                    
+                    repeat(rep_amt)
+                    { 
+                        instance_create(x-variance,y+variance,obj_beeMinion);
+                        variance += 10;
+                    }
                 }
                 break;
             }
