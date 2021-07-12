@@ -167,6 +167,12 @@ switch state
         
         if stateLock == false
         {
+            if last_move == r
+            {
+                r+=1;
+                if r > 2 then r = 0;
+            }
+        
             switch r
             {
                 case 0:
@@ -210,6 +216,8 @@ switch state
                 }
                 break;
             }
+            
+            last_move = r;
         }
         //If 'r' did not change our state.
         if state != "TRANSITION" && stateLock == false

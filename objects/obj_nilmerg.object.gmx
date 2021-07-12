@@ -33,6 +33,7 @@ hp = 150+waveScale(10,5,0,-1);
 maxHp = hp;
 image_speed = 0;
 state = "TRANSITION";
+last_move = noone;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
