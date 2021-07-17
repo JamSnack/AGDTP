@@ -176,7 +176,7 @@ if drawText == true &amp;&amp; str != ""
             <string>//Draw the transition
 shader_set(sh_transition);
 shader_set_uniform_f(uni_time,transition_time/transition_length);
-draw_sprite_tiled_ext(type, subImage, 0, 0,0.25,0.25,c_white,1);
+draw_sprite_tiled_ext(roomTransition_1,subImage,0,0,1,1,c_white,1);
 shader_reset();
 </string>
           </argument>

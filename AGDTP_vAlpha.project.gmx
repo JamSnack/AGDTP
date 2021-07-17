@@ -222,6 +222,7 @@
       <sprite>sprites\spr_ui_bossHealthBar</sprite>
       <sprite>sprites\spr_ui_bossHealth</sprite>
       <sprite>sprites\roomTransition_1</sprite>
+      <sprite>sprites\roomTransition_2</sprite>
       <sprite>sprites\fnt_ui_new</sprite>
       <sprite>sprites\spr_ui_vial</sprite>
       <sprite>sprites\spr_ui_electricity</sprite>
