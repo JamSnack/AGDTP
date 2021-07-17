@@ -185,7 +185,7 @@ if invOpen == true
 else { if invenX &gt;= -10 then invenX += (0-invenX)*0.2; }
     
 //Fire equipment queue
-if equipQueue != noone &amp;&amp; obj_player.toolReady == true
+if equipQueue != noone &amp;&amp; instance_exists(obj_player) &amp;&amp; obj_player.toolReady == true
 {
     scr_slotEquip(equipQueue);
     equipQueue = noone;

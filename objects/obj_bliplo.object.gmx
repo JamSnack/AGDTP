@@ -91,6 +91,8 @@ shield_health = shield_health_max;
 knockback_strength = 4.5;
 
 canDespawn = false;
+
+last_move = 0;
 </string>
           </argument>
         </arguments>

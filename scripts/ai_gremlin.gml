@@ -203,7 +203,7 @@ if vForce == 0 && hForce == 0
                 
                 
                 //-----Wander forward
-                //NOTE: the var, dir, is objective based. Wandering has no objective.
+                //NOTE: the local variable, dir, is objective based. Wandering has no objective.
                 //a "maximum speed to approach toward" is required for accurate collision checks. Use before flipping xscale, hspd tends to lag behind this value.
                 var approach_speed = (spd)*image_xscale;
                 hspd = approach(hspd,approach_speed,agility);

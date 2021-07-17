@@ -266,6 +266,6 @@ if instance_exists(obj_itemDrop) then with obj_itemDrop instance_destroy();
 //Spawn the player object.
 instance_create(obj_pie.x,obj_pie.y-16*2,obj_player);
 
-//Load game
-scr_loadGame();
+//Game loaded in obj_menuLogo Glob Left Released event
+//scr_loadGame();
 
