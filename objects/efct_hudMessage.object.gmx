@@ -140,7 +140,7 @@ else if bkg_x != message_length || bkg_lum != 0
             <kind>1</kind>
             <string>///Update 'position' varaible.
 var new_position = position-1;
-if position-1 != 0 then position -= 1;
+if new_position != 0 then position -= 1;
 </string>
           </argument>
         </arguments>

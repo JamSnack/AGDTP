@@ -225,6 +225,7 @@
       <sprite>sprites\roomTransition_2</sprite>
       <sprite>sprites\fnt_ui_new</sprite>
       <sprite>sprites\spr_ui_vial</sprite>
+      <sprite>sprites\spr_ui_vial_nineSlice</sprite>
       <sprite>sprites\spr_ui_electricity</sprite>
       <sprite>sprites\spr_ui_tips</sprite>
       <sprite>sprites\spr_ui_regionShiftBool</sprite>

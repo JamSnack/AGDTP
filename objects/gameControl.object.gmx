@@ -45,6 +45,9 @@ if dev == true
 
 //Local variables
 canExit = false;
+frame_skip_max = 60; //How many frames of lag need to happen before a frame skip is executed.
+frame_skip = 0; //Once this value reaches its maximum, a frame will be skipped and it will be set back to 0.
+
 //currentTrack = 0; //Overworld theme 1;
 
 event_inherited();
@@ -70,8 +73,23 @@ event_inherited();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Background control
-if !instance_exists(obj_player) || hudControl.showBackground == false then exit;
+            <string>///Background and frame skip control
+frame_skip += 60-fps;
+
+if frame_skip &gt; frame_skip_max
+{
+    frame_skip = 0;
+    draw_enable_drawevent(false);
+}
+else
+{
+    draw_enable_drawevent(true);
+}
+
+//print("Frame_Skip: "+string(frame_skip));
+
+
+if !instance_exists(obj_player) || performance_mode == true then exit;
 
 var backgroundAlpha;
 var _playerY = obj_player.y;
@@ -87,6 +105,8 @@ if _playerY &gt; stoneLayer-(16)
     background_visible[5] = true;
     
 } else { backgroundAlpha = 0; background_alpha[5] = backgroundAlpha; background_visible[5] = false;}
+
+
 
 </string>
           </argument>

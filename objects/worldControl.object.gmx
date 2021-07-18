@@ -74,7 +74,7 @@ if room == rm_zero
     scr_raidControl("INTERM",0,0,0,0); //Preset setting, other arguments not required.
     plr_xBuffer = 0;
     plr_yBuffer = 0;
-    alarm[0] = 2;
+    alarm[0] = 0;
     alarm[1] = 120;
 }
 else if room == rm_tutorial
@@ -229,6 +229,7 @@ alarm[1] = room_speed/spawnRate;
             <string>///Deactivation/Chunking and World Time
 alarm[0] = 1;
 //if deactivation_enabled == false then exit;
+if !instance_exists(obj_player) then exit;
 
 //- time control
 if interm == true 
@@ -306,19 +307,23 @@ if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || pla
 {
     if instance_exists(TILE)
     {
+        var daylight_offset = world_Time-(world_TimeMax*0.4);
+    
         with TILE
         {
-            if insideView(x,y) == false then continue;
+            var dist = point_distance(x,y,playerX,playerY);
+            if dist &gt; (playerLight)+16*4 then continue;
         
             if light_level &lt; 255
             {
-                var dist = point_distance(x,y,playerX,playerY);
                 var light_dist = floor(255+(playerLight)-dist*3);
                 
                 if dist &lt; (playerLight)+32
                 { light_level = 255;}
                 else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
                 else light_level = 0;
+               
+                light_color = make_colour_hsv(160,max(light_saturation+clamp(daylight_offset/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
             }
         }
     }

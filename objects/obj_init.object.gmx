@@ -105,7 +105,7 @@ global.key_7 = ord("7");
 
 
 //Other globals
-globalvar tutorialComplete,music,tip_controls,tip_tools,music_volume,sfx_volume,vsyncToggled;
+globalvar tutorialComplete,music,tip_controls,tip_tools,music_volume,sfx_volume,vsyncToggled,performance_mode;
 tutorialComplete = false;
 tip_controls = false; //Whether or not the control tip has been displayed.
 tip_tools = false; //Whether or not the "tools tutorial" tips has been displayed.
@@ -114,6 +114,8 @@ music = audio_play_sound(snd_theStarsForever,10,true);
 audio_sound_gain(snd_theStarsForever,music_volume,0);
 sfx_volume = 0.4;
 vsyncToggled = true;
+performance_mode = false; //THE FUTURE IS NOW! AGDTP RUNNING ON Average American Home 1.1 GHz CPU PCs IS A REALITY!
+
 
 //Item IDs
 enum ITEMID

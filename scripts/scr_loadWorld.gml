@@ -1,32 +1,17 @@
 /// scr_loadWorld(preset)
 ///scr_loadWorld(preset);
-randomize();
-var preset = argument0;
-
-/*-------- Presets:
--- "TUTORIAL"
-*/
-var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
-var sizeY = 30;
-
-var xx = 0;
-var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
-
-var heightSeed = get_height_seed(15,"FLAT", 1, 10,1);
-var heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
-
-//Apply presets
-if preset == "TUTORIAL"
-{
-    heightSeed = "554334567776554";
-    heightNegativeSeed = "111111111000000111100";
-}
 
 
 //FlatLands and RAIDBOUND definition
 var _flatX = 32;
 var _flatY = 20;
 var flatLandTotal = _flatX*_flatY;
+
+var xx = 0;
+var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
+
+var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
+var sizeY = 30;
 
 for(i=0;i<floor(flatLandTotal);i++)
 {
@@ -38,6 +23,27 @@ for(i=0;i<floor(flatLandTotal);i++)
     
     //Spawn flatland blocks.
     instance_create(xx+(16*sizeX)+(16*i)-(column*16*_flatX),yy+(16*column),FLATLAND);
+}
+
+
+var i = instance_create(0,0,region_shifter);
+i.next_region = "GRASSLANDS";
+
+/* FUCK YOU CODE! GET BLASTED!
+randomize();
+var preset = argument0;
+
+-------- Presets:
+-- "TUTORIAL"
+
+var heightSeed = get_height_seed(15,"FLAT", 1, 10,1);
+var heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.
+
+//Apply presets
+if preset == "TUTORIAL"
+{
+    heightSeed = "554334567776554";
+    heightNegativeSeed = "111111111000000111100";
 }
 
 
@@ -254,7 +260,7 @@ for(i=0;i<sizeX*2+20;i++)
 
 //Place Pie
 instance_create((sizeX*16)+((_flatX*16)/2),yy-15,obj_pie);
-
+*/
 //Update tiles
 with TILE event_user(1);
 with NOCOL event_user(1);
@@ -263,8 +269,7 @@ with FLATLAND event_user(1);
 //Cleanup
 if instance_exists(obj_itemDrop) then with obj_itemDrop instance_destroy();
 
-//Spawn the player object.
-instance_create(obj_pie.x,obj_pie.y-16*2,obj_player);
+
 
 //Game loaded in obj_menuLogo Glob Left Released event
 //scr_loadGame();

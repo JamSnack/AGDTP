@@ -26,7 +26,7 @@ var tree_bool = true;
 var spawner_bool = false;
 var spawner_type = obj_hiveGrowth;
 
-var background_far = bkg_overworldHillsFurther_new;
+var background_far = bkg_overworldSky_test;
 var background_close = bkg_overworldHills_new;
 var foreground = bkg_overworldGrass;
 var background_cave = bkg_cave;
@@ -39,7 +39,7 @@ switch region_type
 {
     case "GRASSLANDS":
     {
-        spawner_bool = true;
+        if wave != 0 then spawner_bool = true;
     }
     break;
     
@@ -62,11 +62,13 @@ switch region_type
     break;
 }
 
-//FlatLands definition
+//Init some variables I guess :)
 var _flatX = 32;
 var _flatY = 20;
 var flatLandTotal = _flatX*_flatY;
 
+var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
+var sizeY = 30;
 
 //Total amount of positions to iterate through.
 var worldLandTotal = ((sizeX*sizeY)*2)+flatLandTotal;
@@ -372,6 +374,9 @@ else if time == 47
     
     //Place Pie
     if !instance_exists(obj_pie) then instance_create((sizeX*16)+((_flatX*16)/2),yy-16,obj_pie);
+    
+    //Spawn the player object.
+    if !instance_exists(obj_player) then instance_create(obj_pie.x,obj_pie.y-16*2,obj_player);
 }
 //Update tiles
 else if (time >= 48 && time <= 63) // 16 steps
