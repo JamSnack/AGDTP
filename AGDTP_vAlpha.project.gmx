@@ -88,14 +88,25 @@
       <sprite>sprites\spr_tadGremlin</sprite>
     </sprites>
     <sprites name="player">
-      <sprite>sprites\spr_playerIdle</sprite>
-      <sprite>sprites\spr_playerWalk</sprite>
-      <sprite>sprites\spr_playerJump</sprite>
-      <sprites name="Arms">
-        <sprite>sprites\spr_armIdle</sprite>
-        <sprite>sprites\spr_armWalk</sprite>
-        <sprite>sprites\spr_armSwing</sprite>
-        <sprite>sprites\spr_armJump</sprite>
+      <sprites name="Barry">
+        <sprite>sprites\spr_playerIdle</sprite>
+        <sprite>sprites\spr_playerWalk</sprite>
+        <sprite>sprites\spr_playerJump</sprite>
+        <sprites name="Arms">
+          <sprite>sprites\spr_armIdle</sprite>
+          <sprite>sprites\spr_armWalk</sprite>
+          <sprite>sprites\spr_armSwing</sprite>
+          <sprite>sprites\spr_armJump</sprite>
+        </sprites>
+      </sprites>
+      <sprites name="Tad">
+        <sprite>sprites\spr_tadJump</sprite>
+        <sprite>sprites\spr_tadIdle</sprite>
+        <sprite>sprites\spr_tadWalk</sprite>
+        <sprite>sprites\spr_arm_tadWalk</sprite>
+        <sprite>sprites\spr_arm_tadIdle</sprite>
+        <sprite>sprites\spr_arm_tadSwing</sprite>
+        <sprite>sprites\spr_arm_tadJump</sprite>
       </sprites>
     </sprites>
     <sprites name="Tools">
@@ -397,6 +408,7 @@
     <script>scripts\scr_saveGame.gml</script>
     <script>scripts\scr_get_character.gml</script>
     <script>scripts\scr_predictedDirection.gml</script>
+    <script>scripts\scr_swapPlayerSkin.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

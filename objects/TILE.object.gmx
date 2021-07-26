@@ -99,11 +99,13 @@ level = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if visible == false &amp;&amp; scr_tileVisibleCheck(x,y) 
+            <string>var vis_check = scr_tileVisibleCheck(x,y)
+
+if visible == false &amp;&amp; vis_check
 {
     visible = true;
 }
-else if visible == true &amp;&amp; !scr_tileVisibleCheck(x,y)
+else if visible == true &amp;&amp; !vis_check
 {
     visible = false;
 }

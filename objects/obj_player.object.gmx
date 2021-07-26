@@ -38,6 +38,7 @@ climbSpeed = 2;
 platformCollide = true;
 deactivate_method = 0;
 
+//Sprite stuff
 image_speed = 10/60;
 mask_index = spr_playerIdle;
 armIndex = spr_armIdle;
@@ -53,6 +54,8 @@ toolAnimation = "SWING";
 knockType = "LAND";
 hForce = 0;
 vForce = 0;
+
+scr_swapPlayerSkin("BARRY");
 
 //Initialize Player Stats
 maxHp = 100; //Maximum health
@@ -221,8 +224,8 @@ canHurt = true;
 if dead = false &amp;&amp; g_over == false
 {
     //Other variables
-    var spr_height = sprite_get_height(spr_playerIdle)/2;
-    var spr_width = sprite_get_width(spr_playerIdle)/2;
+    var spr_height = sprite_get_height(sprite_idle)/2;
+    var spr_width = sprite_get_width(sprite_idle)/2;
 
     //--- init platform variables ---
     var platformCollide; //Whether or not to collide with platforms at all.
@@ -337,8 +340,8 @@ if dead = false &amp;&amp; g_over == false
     //Jump sprites
     if vsp != 0 &amp;&amp; !place_meeting_fast(0,1,OBSTA)
     {
-        if sprite_index != spr_playerJump then sprite_index = spr_playerJump;
-        if armIndex != spr_armJump &amp;&amp; armAngle == 0 then armIndex = spr_armJump;
+        if sprite_index != sprite_jump then sprite_index = sprite_jump;
+        if armIndex != sprite_arm_jump &amp;&amp; armAngle == 0 then armIndex = sprite_arm_jump;
         if y &gt; yprevious then image_index = 1 else image_index = 0;
         armFrame = image_index;
         platformCollide = false;
@@ -356,8 +359,8 @@ if dead = false &amp;&amp; g_over == false
     {
         case IDLE:
         {
-            if sprite_index != spr_playerIdle &amp;&amp; vsp == 0 then sprite_index = spr_playerIdle;
-            if armIndex != spr_armIdle &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = spr_armIdle;
+            if sprite_index != sprite_idle &amp;&amp; vsp == 0 then sprite_index = sprite_idle;
+            if armIndex != sprite_arm_idle &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_idle;
             if image_speed != 10/60 then image_speed = 10/60;
             
             if hsp != 0 then state = MOVE;
@@ -366,8 +369,8 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != spr_playerWalk &amp;&amp; (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = spr_playerWalk;
-            if armIndex != spr_armWalk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = spr_armWalk;
+            if sprite_index != sprite_walk &amp;&amp; (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = sprite_walk;
+            if armIndex != sprite_arm_walk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_walk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
             if hsp == 0 then state = IDLE;
@@ -391,7 +394,7 @@ if dead = false &amp;&amp; g_over == false
             
             if armAngle &lt;= armAngleGoal 
             { 
-                armIndex = spr_armIdle;
+                armIndex = sprite_arm_idle;
                 toolReady = true; 
                 armAngle = 0; 
             }
@@ -441,7 +444,7 @@ if dead = false &amp;&amp; g_over == false
         //Aim towards the mouse!
         var _dir = point_direction(x,y,mouse_x,mouse_y);
         image_xscale = sign(mouse_x-x);
-        armIndex = spr_armSwing; //Still a straight arm.
+        armIndex = sprite_arm_swing; //Still a straight arm.
         if image_xscale == 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
     }
     
@@ -745,7 +748,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                     {
                         case "SWING":
                         {
-                            armIndex = spr_armSwing;
+                            armIndex = sprite_arm_swing;
                             armAngleGoal = -60; //Down somewhat
                             armAngle = 90; //Straight up
                             armAngleRate = (180/toolFireRate)+1;
@@ -759,7 +762,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                             
                             image_xscale = sign(mouse_x-x);
                         
-                            armIndex = spr_armSwing; //Still a straight arm.
+                            armIndex = sprite_arm_swing; //Still a straight arm.
                             if image_xscale = 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
                             
                             toolReady = false;
@@ -774,7 +777,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                             
                             image_xscale = sign(mouse_x-x);
                         
-                            armIndex = spr_armSwing; //Still a straight arm.
+                            armIndex = sprite_arm_swing; //Still a straight arm.
                             if image_xscale = 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
                             toolReady = false;
                             alarm[2] = toolFireRate;
@@ -801,7 +804,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                     {
                         case "SWING":
                         {
-                            armIndex = spr_armSwing;
+                            armIndex = sprite_arm_swing;
                             armAngleGoal = -60; //Down somewhat
                             armAngle = 90; //Straight up
                             armAngleRate = (180/toolFireRate)+1; //180 is a number larger than the goal. This calculation will always result in an angle rate that is fast enough to finish the animation.
@@ -811,7 +814,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                         case "SHOOT":
                         {
                             //Aiming done in the step event.
-                            armIndex = spr_armSwing; //Still a straight arm.
+                            armIndex = sprite_arm_swing; //Still a straight arm.
                             alarm[2] = toolFireRate;
                         }
                         break;
@@ -842,7 +845,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                     
                     toolReady = false;
                     toolAnimation = "SWING";
-                    armIndex = spr_armSwing;
+                    armIndex = sprite_arm_swing;
                     armAngleGoal = 71;
                     armAngle = 70; //Straight up
                     armAngleRate = 0;

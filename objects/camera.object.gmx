@@ -95,16 +95,16 @@ if instance_exists(followThis)
 }
 
 //Update view based on zoom
-view_wview=round(obj_init.ideal_width/view_zoom);
-view_hview=round(obj_init.ideal_height/view_zoom);
+view_wview[0] = round(obj_init.ideal_width/view_zoom);
+view_hview[0] = round(obj_init.ideal_height/view_zoom);
 
 //Center on camera
-view_xview=round(x-view_wview/2-10);
-view_yview=round(y-view_hview/2-10);
+view_xview[0] = round(x-(view_wview[0]/2)-10);
+view_yview[0] = round(y-(view_hview[0]/2)-10);
 
 //clamp to room
-view_xview=round(clamp(view_xview,0,room_width-view_wview));
-view_yview=round(clamp(view_yview,0,room_height-view_hview));
+view_xview[0] = round(clamp(view_xview[0],0,room_width-view_wview[0]));
+view_yview[0] = round(clamp(view_yview[0],0,room_height-view_hview[0]));
 
 //GameOver
 if instance_exists(gameControl)

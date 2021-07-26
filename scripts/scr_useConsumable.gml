@@ -5,7 +5,7 @@ var item = argument0;
 
 /*
 toolReady = false;
-armIndex = spr_armSwing;
+armIndex = sprite_arm_swing;
 armAngleGoal = 71;
 armAngle = 70; //Straight up
 armAngleRate = 0;
@@ -19,7 +19,7 @@ switch item
     // Gremlin Talisman
     case 14:
     {   
-        armIndex = spr_armSwing;
+        armIndex = sprite_arm_swing;
         armAngleGoal = 71;
         armAngle = 70; //Straight up
         armAngleRate = 0;
@@ -40,7 +40,7 @@ switch item
         bomb.speed = 6;
         bomb.direction = point_direction(x,y,mouse_x,mouse_y);
     
-        armIndex = spr_armSwing;
+        armIndex = sprite_arm_swing;
         armAngleGoal = 51;
         armAngle = 50; //Out a bit
         armAngleRate = 0;

@@ -253,8 +253,9 @@ if view_zoom != view_zoom_buffer
     view_zoom = view_zoom_buffer;
     
     //-Deactivation and Reactivation updates every eight tiles.
-    if (player_distance_amt_x &gt; 16*2 || player_distance_amt_y &gt; 16*2)
+    if (player_distance_amt_x &gt; 16*10 || player_distance_amt_y &gt; 16*10)
     {
+    
        /* SAVING PROGRESS ON THIS CULLING METHOD INCASE IT ENDS UP BEING FASTER
        instance_deactivate_all(true);
         
@@ -269,9 +270,9 @@ if view_zoom != view_zoom_buffer
         
             
         //-Activate everything inside the camera view.
-        var outerBoundary = 10*16; //-"offscreen" boundary distance from view.
+        var outerBoundary = 14*16; //-"offscreen" boundary distance from view.
         var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
-        instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,450+2*(outerBoundary),450+2*(outerBoundary),true);
+        instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_wview[0]+outerBoundary*2,view_hview[0]+outerBoundary*2,true);
         
         //Keep saplings active.
         if instance_exists(obj_sapling)

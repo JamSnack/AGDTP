@@ -45,7 +45,7 @@ if dev == true
 
 //Local variables
 canExit = false;
-frame_skip_max = 60; //How many frames of lag need to happen before a frame skip is executed.
+frame_skip_max = 45; //How many frames of lag need to happen before a frame skip is executed.
 frame_skip = 0; //Once this value reaches its maximum, a frame will be skipped and it will be set back to 0.
 
 //currentTrack = 0; //Overworld theme 1;
