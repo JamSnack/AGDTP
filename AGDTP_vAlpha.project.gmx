@@ -297,6 +297,11 @@
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
+    <scripts name="Misc">
+      <script>scripts\approach.gml</script>
+      <script>scripts\insideView.gml</script>
+      <script>scripts\print.gml</script>
+    </scripts>
     <scripts name="Tools">
       <script>scripts\scr_applyAccessory.gml</script>
       <script>scripts\scr_applyPickaxeStats.gml</script>
@@ -308,15 +313,6 @@
       <script>scripts\scr_getSlotCost.gml</script>
       <script>scripts\scr_applyAccessoryStats.gml</script>
     </scripts>
-    <script>scripts\print.gml</script>
-    <script>scripts\scr_canPlace.gml</script>
-    <script>scripts\scr_tileUpdate.gml</script>
-    <script>scripts\scr_playerTileUpdate.gml</script>
-    <script>scripts\scr_noCollisionTileUpdate.gml</script>
-    <script>scripts\scr_loadWorld.gml</script>
-    <script>scripts\scr_loadRegion.gml</script>
-    <script>scripts\scr_activateGame.gml</script>
-    <script>scripts\scr_deactivateOffscreen.gml</script>
     <scripts name="Inventory">
       <script>scripts\scr_invenAddItem.gml</script>
       <script>scripts\scr_invenRemoveItem.gml</script>
@@ -351,43 +347,25 @@
       <script>scripts\scr_getRecipe.gml</script>
       <script>scripts\scr_unlockRecipe.gml</script>
     </scripts>
-    <script>scripts\scr_raidControl.gml</script>
-    <script>scripts\draw_nineSliceBox.gml</script>
-    <script>scripts\scr_hudMessage.gml</script>
-    <script>scripts\scr_popMessage.gml</script>
-    <script>scripts\scr_overMessage.gml</script>
-    <script>scripts\get_height_seed.gml</script>
-    <script>scripts\get_height_negativeSeed.gml</script>
-    <script>scripts\new_raidGremlin.gml</script>
-    <script>scripts\new_raidBoss.gml</script>
-    <script>scripts\scr_getTaskText.gml</script>
-    <script>scripts\scr_getTask.gml</script>
-    <script>scripts\scr_turretBulletCreate.gml</script>
-    <script>scripts\scr_saveString.gml</script>
-    <script>scripts\scr_loadJson.gml</script>
-    <script>scripts\isGrounded.gml</script>
-    <script>scripts\scr_updateConnections.gml</script>
-    <script>scripts\isConnected.gml</script>
-    <script>scripts\inChunk.gml</script>
-    <script>scripts\outerTile.gml</script>
-    <script>scripts\scr_adjacentChunkTile.gml</script>
-    <script>scripts\scr_groundedConnectionCheck.gml</script>
-    <script>scripts\scr_roomTransition.gml</script>
-    <script>scripts\scr_loadGame.gml</script>
-    <script>scripts\scr_popUiCreate.gml</script>
-    <script>scripts\scr_deconstructBase.gml</script>
-    <script>scripts\scr_musicTransition.gml</script>
-    <script>scripts\scr_playSound.gml</script>
-    <script>scripts\scr_treeCreate.gml</script>
-    <script>scripts\approach.gml</script>
-    <script>scripts\waveScale.gml</script>
-    <script>scripts\insideView.gml</script>
-    <script>scripts\scr_tileVisibleCheck.gml</script>
-    <script>scripts\scr_spawnEssence.gml</script>
-    <script>scripts\scr_createTip.gml</script>
-    <script>scripts\scr_buyUpgrade.gml</script>
-    <script>scripts\scr_autoTile.gml</script>
-    <script>scripts\scr_getRegionCost.gml</script>
+    <scripts name="Game Control">
+      <script>scripts\scr_saveGame.gml</script>
+      <script>scripts\scr_loadGame.gml</script>
+      <script>scripts\scr_loadRegion.gml</script>
+      <script>scripts\scr_loadWorld.gml</script>
+      <script>scripts\scr_deactivateOffscreen.gml</script>
+      <script>scripts\scr_tileUpdate.gml</script>
+      <script>scripts\scr_raidControl.gml</script>
+      <script>scripts\get_height_seed.gml</script>
+      <script>scripts\get_height_negativeSeed.gml</script>
+      <script>scripts\new_raidGremlin.gml</script>
+      <script>scripts\new_raidBoss.gml</script>
+      <script>scripts\scr_loadJson.gml</script>
+      <script>scripts\scr_getDifficulty.gml</script>
+      <script>scripts\scr_getRegionCost.gml</script>
+      <script>scripts\waveScale.gml</script>
+      <script>scripts\scr_treeCreate.gml</script>
+      <script>scripts\scr_saveString.gml</script>
+    </scripts>
     <scripts name="Twitch Integration">
       <script>scripts\twitch_chat_say.gml</script>
       <script>scripts\twitch_chat_disconnect.gml</script>
@@ -399,14 +377,37 @@
       <script>scripts\twitch_log.gml</script>
       <script>scripts\twitch_execute_command.gml</script>
     </scripts>
-    <scripts name="Text">
+    <scripts name="Drawing">
       <script>scripts\scr_fitText.gml</script>
       <script>scripts\scr_convertToCompressedString.gml</script>
+      <script>scripts\draw_nineSliceBox.gml</script>
+      <script>scripts\scr_get_character.gml</script>
     </scripts>
-    <script>scripts\scr_getDifficulty.gml</script>
+    <scripts name="Effects">
+      <script>scripts\scr_hudMessage.gml</script>
+      <script>scripts\scr_popMessage.gml</script>
+      <script>scripts\scr_overMessage.gml</script>
+      <script>scripts\scr_popUiCreate.gml</script>
+      <script>scripts\scr_createTip.gml</script>
+    </scripts>
+    <scripts name="Tiles">
+      <script>scripts\isGrounded.gml</script>
+      <script>scripts\isConnected.gml</script>
+      <script>scripts\scr_autoTile.gml</script>
+      <script>scripts\scr_deconstructBase.gml</script>
+      <script>scripts\scr_turretBulletCreate.gml</script>
+      <script>scripts\scr_updateConnections.gml</script>
+      <script>scripts\scr_groundedConnectionCheck.gml</script>
+      <script>scripts\scr_tileVisibleCheck.gml</script>
+    </scripts>
+    <script>scripts\scr_getTaskText.gml</script>
+    <script>scripts\scr_getTask.gml</script>
+    <script>scripts\scr_roomTransition.gml</script>
+    <script>scripts\scr_musicTransition.gml</script>
+    <script>scripts\scr_playSound.gml</script>
+    <script>scripts\scr_spawnEssence.gml</script>
+    <script>scripts\scr_buyUpgrade.gml</script>
     <script>scripts\scr_getHighestBasePoint.gml</script>
-    <script>scripts\scr_saveGame.gml</script>
-    <script>scripts\scr_get_character.gml</script>
     <script>scripts\scr_predictedDirection.gml</script>
     <script>scripts\scr_swapPlayerSkin.gml</script>
   </scripts>

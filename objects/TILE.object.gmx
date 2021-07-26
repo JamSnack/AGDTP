@@ -99,18 +99,26 @@ level = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var vis_check = scr_tileVisibleCheck(x,y)
+            <string>///Update visibility and lighting
+var vis_check = scr_tileVisibleCheck(x,y)
 
 if visible == false &amp;&amp; vis_check
 {
     visible = true;
 }
-else if visible == true &amp;&amp; !vis_check
+else if visible == true
 {
-    visible = false;
+    if !vis_check { visible = false; }
+    
+    if performance_mode == false
+    {
+        var daylight_offset = world_Time-(worldControl.world_TimeMax*0.4);
+    
+        light_color = make_colour_hsv(160,max(light_saturation+clamp(daylight_offset/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level);
+    }
 }
 
-alarm[2] = floor(120/(fps))*10;;
+alarm[2] = floor(120/(fps))*5;;
 </string>
           </argument>
         </arguments>
