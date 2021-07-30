@@ -197,7 +197,7 @@ var _music = snd_The_Grasslands;
 
 if interm == false
 {
-    _music = snd_wave_1; 
+    _music = snd_wave_1;
 }
 else
 {

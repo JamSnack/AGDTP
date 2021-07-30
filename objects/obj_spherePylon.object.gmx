@@ -30,7 +30,7 @@ if nextRaid == "SPHERE" then instance_destroy();
 
 canActiveRegion = false;
 canHurt = true;
-maxHp = 30;
+maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
 image_speed = 0;
 state = WANDER;

@@ -28,7 +28,7 @@
             <string>///Initialize the Gremlin
 canActiveRegion = true;
 canHurt = true;
-maxHp = 225;
+maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
 image_speed = 12/60;
 state = WANDER;

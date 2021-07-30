@@ -26,7 +26,7 @@ var tree_bool = true;
 var spawner_bool = false;
 var spawner_type = obj_hiveGrowth;
 
-var background_far = bkg_overworldSky_test;
+var background_far = bkg_overworld_ocean;
 var background_close = bkg_overworldHills_new;
 var foreground = bkg_overworldGrass;
 var background_cave = bkg_cave;
@@ -51,7 +51,7 @@ switch region_type
         ore_type = obj_seashellMetal;
         totem_type = obj_squidTotem;
         
-        background_far = bkg_overworldSky_test;
+        background_far = bkg_overworld_ocean;
         background_close = bkg_dunesOG_new;
         foreground = bkg_sand_foreground;
         background_cave = bkg_cave;

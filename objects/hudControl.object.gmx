@@ -65,6 +65,7 @@ ui_state = "CRAFT"; // No ui is visible
 
 //Wave Menu
 enemySprites = ds_list_create();
+cursor_information = "";
 
 //Crafting Menu
 craftIndex = -1; //The CRAFTING ID of the item to craft
@@ -191,48 +192,85 @@ if equipQueue != noone &amp;&amp; instance_exists(obj_player) &amp;&amp; obj_pla
     equipQueue = noone;
 }
 
-//--------Crafting tooltip--------------
-if showSuperMenu == true &amp;&amp; ui_state == "CRAFT"
+//---Cursor information---
+var enemy_on_cursor = false;
+
+if instance_exists(ENEMY)
+{
+    var size = 2;
+    var _e = collision_circle(mouse_x,mouse_y,size,ENEMY,false,true);
+    
+    if _e
+    {
+        cursor_information = string(_e.hp)+"/"+string(scr_enemyHpIndex(_e.object_index));
+        enemy_on_cursor = true;
+        
+    } else cursor_information = "";
+    
+} else cursor_information = "";
+
+//--------SUPER MENU---------
+if showSuperMenu == true 
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
     var dx = device_mouse_x_to_gui(0);
     var dy = device_mouse_y_to_gui(0);
-    
-    if point_in_rectangle(dx,dy,_posX,_posY,250+_posX,200+_posY)
-    {   
-        var drawn_slots = 0;
+
+    //--Crafting tool tip-------
+    if ui_state == "CRAFT"
+    {
         
-        for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
-        {
-            if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
+        if point_in_rectangle(dx,dy,_posX,_posY,250+_posX,200+_posY)
+        {   
+            var drawn_slots = 0;
+            
+            for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
             {
-                var size = 35; //The size of the distance between slots - the actual size of the slots.
-                var column = 7;
-                var c = floor(drawn_slots/column);
-                
-                var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
-                var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
-                var y1 = _posY+5+(size*c)+craft_scroll;
-                var y2 = _posY+25+(size*c)+craft_scroll;
-                
-                if (y1 &lt; _posY || y2 &gt; _posY+sprite_get_height(spr_ui_superMenuBackground)) 
-                { 
+                if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
+                {
+                    var size = 35; //The size of the distance between slots - the actual size of the slots.
+                    var column = 7;
+                    var c = floor(drawn_slots/column);
+                    
+                    var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
+                    var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
+                    var y1 = _posY+5+(size*c)+craft_scroll;
+                    var y2 = _posY+25+(size*c)+craft_scroll;
+                    
+                    if (y1 &lt; _posY || y2 &gt; _posY+sprite_get_height(spr_ui_superMenuBackground)) 
+                    { 
+                        drawn_slots += 1;
+                        continue; 
+                    }
+                    
+                    //Get Crafting ID of slot
+                    if point_in_rectangle(dx,dy,x1,y1,x2,y2) &amp;&amp; i != craftSelect
+                    { craftSelect = i; audio_play_sound(snd_inventoryClick,1,false); }
+                    
                     drawn_slots += 1;
-                    continue; 
                 }
                 
-                //Get Crafting ID of slot
-                if point_in_rectangle(dx,dy,x1,y1,x2,y2) &amp;&amp; i != craftSelect
-                { craftSelect = i; audio_play_sound(snd_inventoryClick,1,false); }
-                
-                drawn_slots += 1;
+                //reset draw_crafting_slots
+                if i == sprite_get_number(spr_itemDrops)-1 then drawn_slots = 0;
             }
-            
-            //reset draw_crafting_slots
-            if i == sprite_get_number(spr_itemDrops)-1 then drawn_slots = 0;
         }
     }
+    //ENEMY INFORMATION
+    else if ui_state == "WAVE"
+    {
+        for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
+        {
+            var _sprite = enemySprites[| _p];
+            
+            
+            if sprite_exists(_sprite) &amp;&amp; point_in_rectangle(dx,dy,_posX+20+(_p*22),_posY+105+14,_posX+40+(_p*22),_posY+105+34)
+            {
+                cursor_information = scr_getEnemyInfo(_sprite);
+                break;
+            } else cursor_information = "";
+        }
+    } else cursor_information = "";
 }
 
 //---------Update inventory size if needed----------
@@ -378,7 +416,6 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
     
     input_wait = false;
 }
-
 </string>
           </argument>
         </arguments>
@@ -1949,18 +1986,27 @@ if showSuperMenu == true
            {
                 for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
                 {
-                    var _sprite = enemySprites[| _p];
+                    var _sprite = object_get_sprite(enemySprites[| _p]);
                     
                     if sprite_exists(_sprite)
                     {
+                        var scale = 1;
+                        var _sprite_width = sprite_get_width(_sprite);
+                        var _sprite_height = sprite_get_height(_sprite);
+                        
+                        while sprite_get_width(_sprite)/scale &gt; 20 || sprite_get_height(_sprite)/scale &gt; 20
+                        {
+                            scale += 0.2;
+                        }
+                        
                         draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
-                        draw_sprite(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22);
+                        draw_sprite_ext(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22,1/scale,1/scale,0,c_white,1);
                     }
                 }
            }
            
            //------DIFFICULTY/BOSSES KILLED--------------
-           draw_text(_posX+12,_posY+178,"Badges: ")
+           draw_text(_posX+12,_posY+178,"Bosses: ")
            
            if kingDied_1 == true
            {
@@ -2376,6 +2422,13 @@ else if instance_exists(worldControl)
     var region_shift = worldControl.region_shift;
     if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,120,6) };
 }
+
+//---Display Enemy Information---
+if cursor_information != ""
+{
+    draw_set_font(global.fnt_menu);
+    draw_text(mx-string_width(cursor_information)/2,my+10,cursor_information);
+}
 //#endregion
 </string>
           </argument>
@@ -2518,6 +2571,8 @@ if settingsMenu == true &amp;&amp; instance_exists(obj_pausedObject)
     
     print("Paused instances: "+string(instance_number(obj_pausedObject)));
     settingsMenu = false;
+    
+    worldControl.plr_xBuffer = 0;
 }
 
 //If the settings menu var is true but the game isn't paused, pause the game and keep the menu open.

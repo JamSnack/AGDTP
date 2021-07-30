@@ -270,6 +270,7 @@ if view_zoom != view_zoom_buffer
         
             
         //-Activate everything inside the camera view.
+        //NOTE: outerBoundary for activation and deactivation must be synched when changing one of these values. OTHERWISE YOU MIGHT FUCK IT UP FOR A FEW UPDATES :)
         var outerBoundary = 16*16; //-"offscreen" boundary distance from view.
         var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
         
@@ -556,42 +557,6 @@ switch special_raidID
     }
 }
 
-//Hud Control information sprites!
-hudControl.enemySprites = ds_list_create();
-
-var enemySprites = hudControl.enemySprites;
-    
-//- Populate the array with normal gremlins!
-for (_a=0;_a&lt;normal_array_size;_a++)
-{
-    var _sprite = object_get_sprite(normalGremlins[_a]);
-    
-    if sprite_exists(_sprite)
-    {
-        //If the enemy sprite is not apart of our list, then add it.
-        if ds_list_find_index(enemySprites,_sprite) == -1
-        {
-            ds_list_add(enemySprites,_sprite);
-        }
-    }
-}
-
-//- Populate the array with special gremlins!
-for (_a=0;_a&lt;special_array_size;_a++)
-{
-    var _sprite = object_get_sprite(specialGremlins[_a]);
-    
-    if sprite_exists(_sprite)
-    {
-        //If the enemy sprite is not apart of our list, then add it.
-        if ds_list_find_index(enemySprites,_sprite) == -1
-        {
-            ds_list_add(enemySprites,_sprite);
-        }
-    }
-}
-
-ds_list_copy(hudControl.enemySprites,enemySprites);
 
 </string>
           </argument>

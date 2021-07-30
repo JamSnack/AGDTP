@@ -292,6 +292,7 @@
     <background>background\bkg_lobbyStars2</background>
     <background>background\bkg_lobbyStars3</background>
     <background>background\bkg_overworldSky_test</background>
+    <background>background\bkg_overworld_ocean</background>
     <background>background\bkg_grass_plains</background>
     <background>background\bkg_white</background>
   </backgrounds>
@@ -410,6 +411,8 @@
     <script>scripts\scr_getHighestBasePoint.gml</script>
     <script>scripts\scr_predictedDirection.gml</script>
     <script>scripts\scr_swapPlayerSkin.gml</script>
+    <script>scripts\scr_getEnemyInfo.gml</script>
+    <script>scripts\scr_enemyHpIndex.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

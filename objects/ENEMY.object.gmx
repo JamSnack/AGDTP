@@ -61,6 +61,18 @@ if worldControl.raidBossID == id
 while place_meeting_fast(0,0,OBSTA) y -= 16;
 
 event_inherited();
+
+//---Wave Menu enemy sprites----
+//Hud Control information sprites!
+if !ds_exists(hudControl.enemySprites,ds_type_list) { hudControl.enemySprites = ds_list_create(); }
+var enemySprites = hudControl.enemySprites;
+
+//If the enemy sprite is not apart of our list, then add it.
+if ds_list_find_index(enemySprites,object_index) == -1
+{
+    ds_list_add(enemySprites,object_index);
+}
+
 </string>
           </argument>
         </arguments>
@@ -89,6 +101,15 @@ if deathSound != noone &amp;&amp; insideView(x,y) == true
     scr_playSound(deathSound,false,8,x,y,1,true);
     
     part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
+}
+
+//--Remove dead enemies from Wave menu enemy list!
+var enemySprites = hudControl.enemySprites;
+
+if ds_exists(enemySprites,ds_type_list) &amp;&amp; instance_number(object_index) == 1
+{
+    var pos = ds_list_find_index(enemySprites,object_index);
+    ds_list_delete(enemySprites,pos);
 }
 </string>
           </argument>

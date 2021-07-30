@@ -32,7 +32,8 @@ image_yscale = scale;
 
 canActiveRegion = false;
 canHurt = true;
-hp = 10;
+maxHp = scr_enemyHpIndex(object_index);
+hp = maxHp;
 image_speed = 10/60;
 state = MOVE;
 

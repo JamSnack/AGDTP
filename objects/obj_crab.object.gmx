@@ -29,7 +29,8 @@
 
 canActiveRegion = true;
 canHurt = true;
-hp = 16;
+maxHp = scr_enemyHpIndex(object_index);
+hp = maxHp;
 state = WANDER;
 image_speed = 0;
 
@@ -56,7 +57,7 @@ image_xscale = sign(target.x-x);
 event_inherited();
 
 knock_resistance = 1;
-agility = 0.1;
+agility = 0.08;
 
 agility = 0.1;
 shield_charges_max = 1;

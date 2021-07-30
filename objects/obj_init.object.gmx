@@ -31,7 +31,7 @@ dev = false; //Dev tool boolean.
 
 ideal_width=0;
 ideal_height=247;
-zoom=1;
+zoom=0.8;
 max_zoom=1;
 display_width=display_get_width();
 display_height=display_get_height();
