@@ -4,8 +4,6 @@ var equip = 0; //Whether to equip (1, add stats) or dequip (-1, decrease stats);
 var slot_cost = 0;
 var accessory = argument0;
 
-if !ds_exists(accessories_equipped,ds_type_list) then accessories_equipped = ds_list_create();
-
 //Check to see if the accessory has already been equipped
 var list_size = ds_list_size(accessories_equipped);
 
@@ -34,6 +32,19 @@ if equip != 0
     
     if equip == 1
     {
+        //Do not equip please >:)
+        if !ds_exists(accessories_equipped,ds_type_list)
+        {
+            accessories_equipped = ds_list_create();
+        }
+        else
+        {
+            if ds_list_size(accessories_equipped) > 0
+            {
+                scr_hudMessage("No more slots",global.fnt_Ui,3,0,c_red,0);
+                exit;
+            }
+        }
     
         var slots_available = 0;
         

@@ -1,7 +1,7 @@
 ///scr_hurt(damage,time,knockback,knockAmt);
 if gameOver == true then exit;
 
-var damage = argument0; //Damage dealt
+var damage = floor(argument0); //Damage dealt
 var time = argument1; //Time until it can be hurt again.
 var knock = argument2; //Whether or not to apply knockback.
 var knockAmt = argument3; // How much knockback to be applied.

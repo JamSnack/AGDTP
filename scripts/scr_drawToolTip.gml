@@ -203,6 +203,7 @@ if ds_exists(tagsUnloaded,ds_type_list)
                 case "Tool Speed+": {text_buffer = "Stat Effect: Decreases a tool's cooldown by 20%."} break;
                 case "Grenade": {text_buffer += "On Enemy Killed: Spawns an explosion, dealing half of the tool's damage to gremlins within a 3.5 tile radius."} break;
                 case "Bright": { text_buffer += "Stat Effect: Increases the player's brightness when held."; } break;
+                case "Split": { text_buffer += "On Tile Hit: Splits your projectile into two weaker ones."; } break;
             }
         }
         else

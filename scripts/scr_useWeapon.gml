@@ -81,6 +81,7 @@ with proj
                 //Increases projectile speed
                 case "Bouncy": { bBouncy = true; canBounce = true; } break;
                 case "Hive": {bHive = true;} break;
+                case "Split": {bSplit = true;} break;
             }
         }
     }

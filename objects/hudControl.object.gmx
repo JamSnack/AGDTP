@@ -1425,6 +1425,7 @@ if showSuperMenu == true &amp;&amp; obj_player.dead == false
         } else if ui_state != "MOD" { craftIndex = -1; }
     } else { craftIndex = -1; }
 }
+//NardNuts
 else if settingsMenu = true
 {   
 //NOTE: This bit of settings menu logic controls things that aren't simple toggles. Hence the left button event and not left button down.

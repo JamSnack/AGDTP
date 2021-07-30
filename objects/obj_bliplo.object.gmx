@@ -123,6 +123,10 @@ event_inherited();
 if dropItem != true then exit;
 
 var r = irandom(99); //0 to 99
+if r &gt;= 84
+{
+    scr_dropTag("Split",1);
+}
 
 //Drop essence
 scr_spawnEssence(9,45,17);

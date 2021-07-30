@@ -37,6 +37,7 @@ canCollide = false;
 //Latent behaviors
 bBouncy = false;
 bHive = false;
+bSplit = false;
 canBounce = true;
 canReverse = true;
 
@@ -194,52 +195,6 @@ else if bSwing == true
     }
 }
 
-
-// - Bouncy
-if bBouncy == true
-{
-    if canBounce == true
-    {    
-        //Bounce the projectile
-        
-        if instance_exists(OBSTA)
-        {
-            //X collisions
-            if collision_circle(x+hspeed,y,1,OBSTA,false,true)
-            { 
-                repeat(20)
-                { 
-                    if !place_meeting(x+sign(hspeed),y,OBSTA)
-                    { x+=sign(hspeed); }
-                    else break;
-                }
-                
-                hspeed = -hspeed; 
-            }
-            
-            
-            //Y collisions
-            if collision_circle(x,y+vspeed,1,OBSTA,false,true)
-            { 
-                repeat(20)
-                { 
-                    if !place_meeting(x,y+sign(vspeed),OBSTA)
-                    { y+=sign(vspeed); }
-                    else break;
-                }
-                
-                vspeed = -vspeed;
-            }
-            
-            canBounce = false;
-            alarm[1] = 1;
-            
-            //Despawn soon!
-            if alarm[2] == -1 { alarm[2] = room_speed*4; }
-        }
-    }
-}
-
 //TYPE BEHAVIORS:
 switch type
 {
@@ -312,13 +267,43 @@ if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
 //Time
 time += 1;
 
-//Collision
-if bBouncy == false &amp;&amp; canCollide == true &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)
+//Collisions based on projectile type
+if canCollide == true &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)
 {
     var col = place_meeting_fast(0,0,OBSTA);
     
     if col == true
     {
+        //ON TILE COLLISIONS TAGS
+        if bSplit == true
+        {
+            var i = 0;
+        
+            repeat(2)
+            {
+                var _p = instance_copy(false);
+                
+                if instance_exists(_p)
+                {
+                    //-Apply projectile statistics
+                    _p.dmg = dmg;
+                    _p.direction = direction+(45-i*90); //first proj has angle 45, next has -45
+                    _p.image_angle = direction;
+                    _p.ox = x;
+                    _p.oy = y;
+                    _p.image_xscale = image_xscale-0.1;
+                    _p.image_yscale = image_yscale-0.1;
+                    _p.bSplit = false;
+                    
+                    bSplit = false;
+                    i+=1;
+                    
+                    if i == 2 then instance_destroy();
+                }
+            }
+        }
+    
+        //----Collide with things - for real--!
         switch type
         {
             case "SPHERE":
@@ -339,11 +324,61 @@ if bBouncy == false &amp;&amp; canCollide == true &amp;&amp; !place_meeting_fast
             
             case 0:
             {
-                //DO NOTHING
+                //Do nothing
             }
             break;
             
-            default: instance_destroy();
+            default:
+            {   
+                // - Bouncy
+                if bBouncy == true
+                {
+                    if canBounce == true
+                    {    
+                        //Bounce the projectile
+                        
+                        if instance_exists(OBSTA)
+                        {
+                            //X collisions
+                            if collision_circle(x+hspeed,y,1,OBSTA,false,true)
+                            { 
+                                repeat(20)
+                                { 
+                                    if !place_meeting(x+sign(hspeed),y,OBSTA)
+                                    { x+=sign(hspeed); }
+                                    else break;
+                                }
+                                
+                                hspeed = -hspeed; 
+                            }
+                            
+                            
+                            //Y collisions
+                            if collision_circle(x,y+vspeed,1,OBSTA,false,true)
+                            { 
+                                repeat(20)
+                                { 
+                                    if !place_meeting(x,y+sign(vspeed),OBSTA)
+                                    { y+=sign(vspeed); }
+                                    else break;
+                                }
+                                
+                                vspeed = -vspeed;
+                            }
+                            
+                            canBounce = false;
+                            alarm[1] = 1;
+                            
+                            //Despawn soon!
+                            if alarm[2] == -1 { alarm[2] = room_speed*4; }
+                        }
+                    }
+                }
+                else
+                {
+                    instance_destroy();
+                }
+            }
         }
     }
 }
@@ -387,6 +422,34 @@ if enemy_col != noone
             _p.knkAmt = 2;
             _p.ox = x;
             _p.oy = y;
+        }
+        
+        if bSplit == true
+        {
+            var i = 0;
+        
+            repeat(2)
+            {
+                var _p = instance_copy(false);
+                
+                if instance_exists(_p)
+                {
+                    //-Apply projectile statistics
+                    _p.dmg = dmg/3;
+                    _p.direction = direction+(45-i*90); //first proj has angle 45, next has -45
+                    _p.image_angle = direction;
+                    _p.ox = x;
+                    _p.oy = y;
+                    _p.image_xscale = image_xscale-0.1;
+                    _p.image_yscale = image_yscale-0.1;
+                    _p.bSplit = false;
+                    
+                    bSplit = false;
+                    i+=1;
+                    
+                    if i == 2 then instance_destroy();
+                }
+            }
         }
         
         //Destroy the projectile

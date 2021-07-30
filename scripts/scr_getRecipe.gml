@@ -27,7 +27,7 @@ switch argument0
     case ITEMID.tile_battery: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_gremEssence; matsAmt[1] = 5; itemAmt = 1; itemType = 3;} break;
     case ITEMID.weapon_acornRifle: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 6; mats[1] = ITEMID.item_acorn; matsAmt[1] = 8; mats[2] = ITEMID.item_stick; matsAmt[2] = 36; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
     case ITEMID.weapon_beemerang: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 6; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
-    case ITEMID.acc_beehiveBackpack: { mats[0] = ITEMID.acc_satchel; matsAmt[0] = -1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
+    case ITEMID.acc_beehiveBackpack: { mats[0] = ITEMID.item_sweetComb; matsAmt[0] = 15; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
     case ITEMID.acc_copperChestplate: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 20; itemAmt = 0; itemType = ITEMTYPE.accessory;} break;
     case ITEMID.tile_beeTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 2; itemAmt = 1; itemType = ITEMTYPE.playertile;} break;
     case ITEMID.tile_grillBlock: { mats[0] = ITEMID.tile_battery matsAmt[0] = 1; mats[1] = ITEMID.tile_copperBlock; matsAmt[1] = 1; itemAmt = 1; itemType = ITEMTYPE.playertile; } break;
