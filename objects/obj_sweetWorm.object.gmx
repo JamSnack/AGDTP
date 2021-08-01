@@ -48,7 +48,7 @@ stateLockAlarm = 2;
 aggroRange = 16*3; //3 tiles
 hAccel = 0;
 vAccel = 0;
-maxAccel = 3;
+maxAccel = 2.5;
 maxAccelFall = 5;
 accelRate = 0.2;
 xBuffer = x;
@@ -57,6 +57,7 @@ yBuffer = y;
 stateLock = true;
 alarm[stateLockAlarm] = 20;
 
+spawn_weight = 2;
 event_inherited();
 knockType = "LAND";
 

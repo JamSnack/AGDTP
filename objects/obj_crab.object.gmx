@@ -54,6 +54,7 @@ gremBlockCol = !interm;
 
 image_xscale = sign(target.x-x);
 
+spawn_weight = 2;
 event_inherited();
 
 knock_resistance = 1;
@@ -64,7 +65,7 @@ shield_charges_max = 1;
 shield_charges = 0;
 shield_health_max = 4;
 shield_health = shield_health_max;
-charge_rate = 3*room_speed;
+charge_rate = 8*room_speed;
 alarm[3] = charge_rate;
 
 shield_scale = shield_health/shield_health_max;

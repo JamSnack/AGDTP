@@ -73,6 +73,7 @@ alarm[stateLockAlarm] = 20;
 
 image_xscale = sign(target.x-x);
 
+spawn_weight = 1;
 event_inherited();
 scale = 2;
 image_xscale = scale;

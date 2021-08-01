@@ -160,8 +160,9 @@ draw_set_font(global.fnt_Ui);
 
 if dev == true
 {
-    if instance_exists(ENEMY)
-    { draw_text(10,25,"Gremlins: "+string(instance_number(GR_ENEMY))+ ' | ' + string(worldControl.maxGrem)); }
+    var str = "0"
+    if instance_exists(ENEMY) then str = string(instance_number(ENEMY));
+    draw_text(10,25,"Gremlins: "+string(current_grem)+ ' | ' + string(worldControl.maxGrem) + '|' + str);
 } else
 {
     if interm == false 

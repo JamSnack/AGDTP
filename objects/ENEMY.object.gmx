@@ -34,7 +34,7 @@ vsp = 0;
 knock_resistance = 0.2;
 agility = 0.1;
 dropItem = false;
-death_gib = part_gib;
+death_gib = spr_gib;
 canDespawn = true;
 
 shield_charges_max = 0;
@@ -55,7 +55,14 @@ if worldControl.raidBossID == id
     scale += 0.1;
     image_xscale = scale;
     image_yscale = scale;
-} else raid_boss = false;
+} 
+else 
+{
+raid_boss = false;
+
+//Gremlin weight should only be factored once :)
+current_grem += spawn_weight;
+}
 
 //Prevent spawning inside tiles.
 while place_meeting_fast(0,0,OBSTA) y -= 16;
@@ -100,7 +107,8 @@ if deathSound != noone &amp;&amp; insideView(x,y) == true
 {
     scr_playSound(deathSound,false,8,x,y,1,true);
     
-    part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
+    //part_particles_create(particle_system,x,y,death_gib,irandom_range(4,8))
+    scr_particleCreate("BLOOD",death_gib);
 }
 
 //--Remove dead enemies from Wave menu enemy list!
@@ -111,6 +119,10 @@ if ds_exists(enemySprites,ds_type_list) &amp;&amp; instance_number(object_index)
     var pos = ds_list_find_index(enemySprites,object_index);
     ds_list_delete(enemySprites,pos);
 }
+
+//-- remove weight from current_grem
+current_grem -= spawn_weight;
+print(string(object_get_name(object_index)+": "+string(spawn_weight)));
 </string>
           </argument>
         </arguments>

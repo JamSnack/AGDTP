@@ -65,6 +65,7 @@ bobAltitude = 2;
 knockType = noone;
 deathSound = noone;
 
+spawn_weight = 0;
 event_inherited();
 
 knock_resistance = 25;

@@ -49,7 +49,7 @@ stateLockAlarm = 2;
 aggroRange = 16*8; //8 tiles
 hAccel = 0;
 vAccel = 0;
-maxAccel = 2.5;
+maxAccel = 2;
 accelRate = 0.08;
 
 stateLock = true;
@@ -57,11 +57,12 @@ alarm[stateLockAlarm] = 20;
 
 image_xscale = sign(target.x-x)*scale;
 
+spawn_weight = 1;
 event_inherited();
 knockType = "FLY";
 knock_resistance = 0.1;
 deathSound = snd_enemydie_ghost;
-death_gib = part_nullGib;
+death_gib = spr_nullGib;
 
 if raid_boss = true
 {

@@ -39,9 +39,9 @@ if equip != 0
         }
         else
         {
-            if ds_list_size(accessories_equipped) > 0
+            if ds_list_size(accessories_equipped) > 2
             {
-                scr_hudMessage("No more slots",global.fnt_Ui,3,0,c_red,0);
+                scr_hudMessage("Max accessories.",global.fnt_Ui,3,0,c_red,0);
                 exit;
             }
         }

@@ -38,6 +38,8 @@ playButton_active = false;
 deleteButton_active = false;
 dConfirm = false;
 dWait = false;
+
+randomize();
 </string>
           </argument>
         </arguments>

@@ -134,7 +134,7 @@ switch presetSettings
             
             interm = false;
             
-            if random(1) < wave/10 && wave > 2
+            if random(1) < wave/8 && wave > 2
             {
                 raidBoss = true;
                 bossID = new_raidBoss(0);
@@ -235,7 +235,7 @@ if interm == false
     instance_create(RAIDBOUND_Upper+24,flatLandsY,GREM_BLOCK); //Right Most
     
     //Remove tiles that are in the way of gremlin spawn zone.
-    for (i=0;i<4;i++) //A total of 4 tiles can be removed.
+    for (i=0;i<4;i++) //A total of 6 tiles can be removed.
     {
         var c = floor(i/2);
         var raid_Lower = (RAIDBOUND_Lower-32)+(i*16)-(c*16*2);

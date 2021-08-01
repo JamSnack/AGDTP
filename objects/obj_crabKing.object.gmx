@@ -54,6 +54,7 @@ gremBlockCol = !interm;
 
 image_xscale = sign(target.x-x);
 
+spawn_weight = 4;
 event_inherited();
 
 knock_resistance = 3;

@@ -53,6 +53,7 @@ gremBlockCol = !interm;
 
 image_xscale = sign(target.x-x);
 
+spawn_weight = 1;
 event_inherited();
 
 //Local variables

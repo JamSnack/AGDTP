@@ -76,6 +76,7 @@ if instance_exists(ENEMY)
         {
             longest_dist = dist;
             targ = id;
+            scr_playSound(snd_rifle,false,7,x,y,1.4,true);
         }
     }
     

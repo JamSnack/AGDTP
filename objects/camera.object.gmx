@@ -205,9 +205,10 @@ if room == rm_zero &amp;&amp; gameOver == false &amp;&amp; hudControl.showBackgr
     background_x[4] = view_xview/2.2; //grass
 
     background_y[0] = view_yview-383; //clouds
+    background_y[1] = view_yview-383; //stars
     background_y[2] = view_yview+166; //ocean
     //background_y[2] = (-view_yview/5.15)+85*4; //hill
-    background_y[3] = (-view_yview/10.35)+95*3; //hill close
+    background_y[3] = (-view_yview/40.35)+95*3; //hill close
     background_y[4] = (-view_yview/5.40)-62; //foreground feature
     
 }/* else if room == rm_lobby

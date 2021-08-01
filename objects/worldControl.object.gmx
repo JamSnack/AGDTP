@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Initialize world variables
 event_inherited();
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,kingDied_1,kingDied_2;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,current_grem,kingDied_1,kingDied_2;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -38,6 +38,7 @@ raidProgress = 0; //How many more gremlins need to die before the raid is comple
 maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 energy = 0;
+current_grem = 0; //Number of gremlins in the world based on their spawn weight.
 
 
 //- boss checklist
@@ -120,7 +121,7 @@ var _viewY = view_yview[0];
 var _viewH = view_hview[0]+_viewY;
 
 
-if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
+if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
 {
     var outer_x_range = 2*16; //Defines how many tiles outside the xview the enemy can spawn.
     if interm == false then outer_x_range = 5;
@@ -178,7 +179,7 @@ if instance_number(ENEMY) &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
     
     
 } 
-else if instance_number(ENEMY) &gt;= maxGrem
+else if current_grem &gt;= maxGrem
 {
     //Despawn an offview gremlin.
     for (i=0;i&lt;instance_number(ENEMY);i++)
@@ -237,6 +238,13 @@ if interm == true
 
 heal_Time += 1;
 
+//Failsafe for left-over spawn weight.
+if current_grem != 0 &amp;&amp; !instance_exists(ENEMY)
+{ 
+    print("ERROR: spawn_weight imbalance corrected.");
+    current_grem = 0;
+}
+
 //- init logic
 var playerX = obj_player.x;
 var playerY = obj_player.y;
@@ -283,7 +291,7 @@ if view_zoom != view_zoom_buffer
         
         //-Deactivate offscreen objects.
         if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
-        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); }
+        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); alarm[2] = 1; }
         if instance_exists(INTERACT) then with INTERACT scr_deactivateOffscreen(id);
         if instance_exists(NOCOL) then with NOCOL if object_get_parent(object_index) != PLR_NOCOL &amp;&amp; object_index != GREM_BLOCK then scr_deactivateOffscreen(id);
         

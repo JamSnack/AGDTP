@@ -118,7 +118,7 @@ else if !place_meeting_fast(0,1,OBSTA)
 image_angle-=(vspeed+hspeed)*2;
 
 //Activate TILES and explode them!
-instance_activate_region(x-radius-32+hspeed,y-radius-32+vspeed,radius+32+hspeed,radius+32+vspeed,true);
+instance_activate_region(x-radius-48+hspeed,y-radius-48+vspeed,radius+48+hspeed,radius+48+vspeed,true);
 </string>
           </argument>
         </arguments>

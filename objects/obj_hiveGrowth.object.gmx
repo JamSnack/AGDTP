@@ -48,6 +48,7 @@ aggroRange = 16*4;
 stateLock = false;
 //alarm[stateLockAlarm] = 20;
 
+spawn_weight = 0;
 event_inherited();
 knockType = "FLY";
 knock_resistance = 100; //No knockbacks please!

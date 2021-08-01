@@ -29,6 +29,7 @@
 //MODIFIED FOR USE IN REGION SHIFTING!
 //---------REMOVE PREVIOUS REGION---------------
 //- Reactivate everything, then destroy it.
+if wave == 0 then visible = false;
 time = 0;
 worldControl.deactivation_enabled = false;
 worldControl.region_shift = false;

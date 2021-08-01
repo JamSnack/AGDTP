@@ -57,6 +57,7 @@ yBuffer = y;
 stateLock = true;
 alarm[stateLockAlarm] = 20;
 
+spawn_weight = 3;
 event_inherited();
 knockType = "LAND";
 

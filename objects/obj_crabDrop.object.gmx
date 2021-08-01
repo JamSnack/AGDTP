@@ -64,7 +64,7 @@ else if place_meeting_fast(0,0,obj_projectile)
     if hp &lt;= 0
     {
         scr_playSound(snd_enemydie_monster,false,8,x,y,1,true);
-        part_particles_create(particle_system,x,y,part_gib,irandom_range(4,8))
+        part_particles_create(particle_system,x,y,_part_gib,irandom_range(4,8))
         instance_destroy();
     }
 }

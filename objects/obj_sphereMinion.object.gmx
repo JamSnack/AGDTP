@@ -56,11 +56,12 @@ hAccel = 0;
 vAccel = 0;
 maxAccel = 5;
 accelRate = 0.1;
-death_gib = part_nullGib;
 
+spawn_weight = 0;
 event_inherited();
 
 //Other Locals
+death_gib = spr_nullGib;
 sk_diameter = 64;
 sm_centerDistance = 0; //The Diameter from Point A to Point B, and the distance on that line from A to B (0, 128);
 sm_rate = 0.5;

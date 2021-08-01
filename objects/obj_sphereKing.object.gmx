@@ -62,6 +62,7 @@ bobLinearDir = 1;
 bobRate = 0.001;
 bobAltitude = 3;
 
+spawn_weight = 1;
 event_inherited();
 
 //Other Locals
@@ -69,7 +70,7 @@ spwnRate = 3-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
 knockType = "FLY";
-death_gib = part_nullGib;
+death_gib = spr_nullGib;
 knock_resistance = 1;
 sphere_backup = 1;
 sphere_max = 8;

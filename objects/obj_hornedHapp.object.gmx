@@ -57,11 +57,12 @@ alarm[stateLockAlarm] = 20;
 
 image_xscale = sign(target.x-x)*scale;
 
+spawn_weight = 1;
 event_inherited();
 knockType = "FLY";
 knock_resistance = 0.4;
 deathSound = snd_enemydie_monster;
-death_gib = part_nullGib;
+death_gib = spr_nullGib;
 
 if raid_boss = true
 {
