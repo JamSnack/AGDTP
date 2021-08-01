@@ -55,9 +55,11 @@ if (hp-damage <= 0)
                         //Grenade
                         if tag == "Grenade" 
                         { 
-                            //Tie chance to this in the future.
-                           var _gre = instance_create(x,y,obj_grenade);
-                           _gre.damage = damage/2;
+                            if _ran <= 20
+                            {
+                               var _gre = instance_create(x,y,obj_grenade);
+                               _gre.damage = damage/2;
+                            }
                         }
                     }
                 }

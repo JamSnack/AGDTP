@@ -265,7 +265,7 @@ if vForce == 0 && hForce == 0
                 //Snap gremlin
                 // - value adjusted to simulate platform center on (8,0), not (8,8).
                 var platY = (colRect.y)-8
-                if y < platY && point_distance(x,y+16,x,platY) < 4 then y = (platY)-1;
+               // if y < platY && point_distance(x,y+16,x,platY) < 4 then y = (platY)-1;
                 
                 vsp = 0;
             }

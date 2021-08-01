@@ -2049,6 +2049,8 @@ if showSuperMenu == true
 //#region
 if invenX &gt; 5 &amp;&amp; instance_exists(obj_player)
 {
+    var invenX_scale = (invenX/invenXMax);
+
     //Inventory background
     //draw_set_alpha(0.9);
     //draw_nineSliceBox(spr_ui_9slice,-10,20,invenX,200,0);
@@ -2068,8 +2070,8 @@ if invenX &gt; 5 &amp;&amp; instance_exists(obj_player)
             var y2 = -35;
         } else
         {
-            var x1 = (10+(i*16)-(c*16*column))*(invenX/invenXMax);
-            var x2 = (20+(i*16)-(c*16*column))*(invenX/invenXMax);
+            var x1 = (10+(i*16)-(c*16*column))*invenX_scale;
+            var x2 = (20+(i*16)-(c*16*column))*invenX_scale;
             var y1 = -45+(16*c);
             var y2 = -35+(16*c);
         }
@@ -2119,9 +2121,10 @@ if invenX &gt; 5 &amp;&amp; instance_exists(obj_player)
         text[1] = scr_fitText(text[1],30);
         
         var _text = text[0]+"##"+text[1]+"##"+text[2];
+        var _text_length = string_width(_text);
         
         draw_set_font(global.fnt_menu);
-        draw_text_transformed(6,2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
+        draw_text_transformed(6-(-(_text_length*invenX_scale)+_text_length),2+(16*ceil(maxInvenSlots/7)),_text,0.8,0.8,0);
     }
     
     //- Draw Trash Slot
@@ -2407,7 +2410,7 @@ else if keybindMenu_visible == true
 if interm == false
 {
     draw_set_font(global.fnt_menu);
-    draw_text(10,dispHeight-13,"Wave Progress: "+string(floor(raidProgress/2))+"/"+string(floor(maxRaidProgress/2)));
+    draw_text(10,dispHeight-13,"Wave "+string(wave)+" Progress: "+string(floor(raidProgress/2))+"/"+string(floor(maxRaidProgress/2)));
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,dispHeight-2);
 }
