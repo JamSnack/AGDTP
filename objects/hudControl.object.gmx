@@ -2047,7 +2047,7 @@ if showSuperMenu == true
 
 //Draw Inventory -----------------------------------------
 //#region
-if invenX &gt; 5 &amp;&amp; instance_exists(obj_player)
+if invenX &gt; 1 &amp;&amp; instance_exists(obj_player)
 {
     var invenX_scale = (invenX/invenXMax);
 

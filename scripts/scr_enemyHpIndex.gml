@@ -17,6 +17,7 @@ switch argument0
     case obj_sweetWorm: { return 16; } break;
     case obj_sandMenace: { return 30; } break;
     case obj_hiveGrowth: { return 120;} break;
+    case obj_mackerel: { return 60;} break;
     
     //Bosses
     case obj_sphereKing: {return 100+(25*floor(wave/5));} break;

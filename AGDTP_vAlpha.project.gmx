@@ -275,6 +275,7 @@
     <sprite>sprites\spr_portal</sprite>
     <sprite>sprites\spr_shield</sprite>
     <sprite>sprites\spr_squidKing</sprite>
+    <sprite>sprites\spr_mackerel</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -337,6 +338,7 @@
       <script>scripts\ai_nilmergAi.gml</script>
       <script>scripts\ai_bliploAi.gml</script>
       <script>scripts\ai_drillin.gml</script>
+      <script>scripts\ai_mackerel.gml</script>
       <script>scripts\scr_hurt.gml</script>
       <script>scripts\place_meeting_fast.gml</script>
     </scripts>
@@ -532,6 +534,7 @@
       <object>objects\obj_sweetWorm</object>
       <object>objects\obj_sandMenace</object>
       <object>objects\obj_hiveGrowth</object>
+      <object>objects\obj_mackerel</object>
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
