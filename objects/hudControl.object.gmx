@@ -2305,6 +2305,7 @@ if settingsMenu == true
     var xx = display_get_gui_width()/2;
     var yy = display_get_gui_height()/2;
     
+    draw_set_font(global.fnt_menu);
     draw_text(xx-26,yy-80,"Game Paused");
 
     //Draw background
@@ -2582,6 +2583,7 @@ if settingsMenu == true &amp;&amp; instance_exists(obj_pausedObject)
 //If the settings menu var is true but the game isn't paused, pause the game and keep the menu open.
 else if settingsMenu == true
 {
+    //PAUSE THE GAME
     with PAUSE
     {
         //Clone game world
@@ -2611,11 +2613,14 @@ else if settingsMenu == true
             }
         }
         
-        //Deactivate the instance
+        //Note the instance's deactivation method.
         deactivate_method = "PAUSE";
         
         instance_deactivate_object(id);
     }
+    
+    //Make sure we don't skip this frame.
+    draw_enable_drawevent(true);
     
     print("Paused instances: "+string(instance_number(obj_pausedObject)));
 }

@@ -12,31 +12,30 @@ var x_previous = round(xprevious);
 var _x = round(x); 
 
 //Attack Check --------------------------------------------
-if objective.canHurt == true
+var nearestNoCol = instance_nearest(x,y,PLR_NOCOL);
+var nearestCol = instance_nearest(x,y,PLRTILE);
+var _xx = x;
+var _yy = y;
+
+if objective.canHurt == true && point_in_rectangle(xObjective,yObjective,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
 {
-    var nearestNoCol = instance_nearest(x,y,PLR_NOCOL);
-    var _xx = x;
-    var _yy = y;
-    
-    if point_in_rectangle(xObjective,yObjective,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+    with objective  //Hurt the objective.
     {
-        with objective  //Hurt the objective.
-        {
-            scr_hurt(other.damage,HURT_LONG,true,2);
-        }
-        
-        stateLock = true;
-        alarm[stateLockAlarm] = 30;
-    } 
-    else if instance_exists(PLR_NOCOL) && nearestNoCol.canHurt == true && state == MOVE && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+        scr_hurt(other.damage,HURT_LONG,true,2);
+    }
+} 
+else if instance_exists(PLR_NOCOL) && nearestNoCol.canHurt == true && point_in_rectangle(nearestNoCol.x,nearestNoCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+{
+    with nearestNoCol  //Hurt the objective.
     {
-        with nearestNoCol  //Hurt the objective.
-        {
-            scr_hurt(other.damage,HURT_LONG,true,2);
-        }
-    
-        stateLock = true;
-        alarm[stateLockAlarm] = 30;
+        scr_hurt(other.damage,HURT_LONG,true,2);
+    }
+}
+else if instance_exists(PLRTILE) && point_in_rectangle(nearestCol.x,nearestCol.y,x-atkBox,y-atkBox+2,x+atkBox,y+atkBox+2)
+{
+    with nearestCol  //Hurt the objective.
+    {
+        scr_hurt(other.damage,HURT_LONG,true,3);
     }
 }
 
@@ -65,12 +64,12 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
         //Fall towards the ground;
         var deAccelRate = 0.1;
         
-        //If we're jumping and ascending, move toward the player!
+        //If we're jumping and ascending, move toward the objective!
         if jumping == true && vAccel < 2
         {
             if dir == -1 //Objective is to the right
-            { if hAccel > -maxAccel then hAccel -= accelRate*0.1; }
-            else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate*0.1; }
+            { if hAccel > -maxAccel then hAccel -= accelRate*0.05; }
+            else if dir == 1 { if hAccel < maxAccel then hAccel += accelRate*0.05; }
         }
         
         
@@ -90,12 +89,14 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
         if x+hAccel > room_width || x+hAccel < 0 then hAccel = -hAccel;
         
         //Vertical Collision
-        var vdir = sign(vAccel);
     
         
         //-------Attack BURST Logic--------
         if place_meeting_fast(0,vAccel,OBSTA)
         {
+            //REAL COLLISION LOGIC!
+            var vdir = sign(vAccel);
+            
             while !place_meeting_fast(0,vAccel,OBSTA)
             { y+=vdir; }
             
@@ -136,6 +137,11 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 }
             }
         }
+        else
+        {
+            //Vertical move ( : ) :
+            y += vAccel;
+        }
         
         //Horizontal collision
         var hdir = sign(hAccel);
@@ -146,9 +152,8 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
             hAccel = -hAccel/3;
         }
         
-        //Move
+        //Horizontal Move
         x += hAccel;
-        y += vAccel;
     }
 }
 

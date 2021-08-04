@@ -76,7 +76,7 @@ event_inherited();
             <string>///Background and frame skip control
 frame_skip += 60-fps;
 
-if frame_skip &gt; frame_skip_max
+if frame_skip &gt; frame_skip_max &amp;&amp; !instance_exists(obj_pausedObject)
 {
     frame_skip = 0;
     draw_enable_drawevent(false);
