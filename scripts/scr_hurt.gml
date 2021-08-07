@@ -106,7 +106,7 @@ if (shield_charges <= 0 || other_index == obj_railgunBullet)
     //--Display damage number--
     var c;
     if object_index == obj_player then c = c_red else c = c_yellow;
-    scr_popMessage(string(damage),global.fnt_Ui,0.4,c,x+random(2),y+random(2));
+    scr_popMessage(string(damage),global.fnt_menu,0.4,c,x+random(2),y+random(2));
     
     
     //-------KNOCKBACK-----------

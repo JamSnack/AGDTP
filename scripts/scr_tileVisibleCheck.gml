@@ -1,10 +1,12 @@
-///scr_tileVisibleCheck(x,y);
+///scr_tileVisibleCheck(bbox_left,bbox_top,bbox_right,bbox_bottom);
 //Returns true if the instance is inside view or barely outside the view.
-var xx = argument0+(sprite_width/2)*sign((camera.x)-x);
-var yy = argument1+(sprite_height/2)*sign((camera.y)-y);
-var boundary = 16*3;
+var box_left = argument0;
+var box_top = argument1;
+var box_right = argument2;
+var box_bottom = argument3;
+var boundary = 16*4;
 
-if (yy > view_yview-boundary && yy < view_yview+view_hview+boundary) && (xx > view_xview-boundary && xx < view_xview+view_wview+boundary)
+if (box_top > view_yview-boundary && box_bottom < view_yview+view_hview+boundary) && (box_right > view_xview-boundary && box_left < view_xview+view_wview+boundary)
 {
     return true;
 } else return false;

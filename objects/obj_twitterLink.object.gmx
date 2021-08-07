@@ -52,7 +52,7 @@
           <argument>
             <kind>1</kind>
             <string>if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),x-sprite_width/2,y-sprite_height/2,x+sprite_width,y+sprite_height)
-{ url_open('https://twitter.com/JamSnack_'); }
+{ clipboard_set_text("https://twitter.com/JamSnack_"); scr_popMessage("Copied URL",global.fnt_menu,2,c_white,mouse_x,mouse_y+20); }
 </string>
           </argument>
         </arguments>

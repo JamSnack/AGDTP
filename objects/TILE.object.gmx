@@ -100,7 +100,7 @@ level = 0;
           <argument>
             <kind>1</kind>
             <string>///Update visibility and lighting
-var vis_check = scr_tileVisibleCheck(x,y)
+var vis_check = scr_tileVisibleCheck(bbox_left,bbox_top,bbox_right,bbox_bottom)
 
 if visible == false &amp;&amp; vis_check
 {
@@ -118,7 +118,7 @@ else if visible == true
     }
 }
 
-alarm[2] = floor(120/(fps))*5;;
+alarm[2] = floor(120/(fps))*5;
 </string>
           </argument>
         </arguments>

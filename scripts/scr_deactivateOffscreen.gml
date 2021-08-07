@@ -13,9 +13,4 @@ if instance_exists(inst)
     {
         instance_deactivate_object(inst);
     }
-    else if !point_in_rectangle(x,y,view_xview-viewBuffer,view_yview-viewBuffer,view_xview+view_wview+viewBuffer,view_yview+view_hview+viewBuffer)
-    //Invisible offview
-    {
-        visible = false;
-    } else visible = true;
 }

@@ -129,6 +129,10 @@ if r &gt;= 84
     scr_dropTag("Split",1);
 }
 
+
+//Drop sesahell metal
+scr_dropItem(ITEMID.item_seashellMetal,1+irandom(4+waveScale(1,5,0,10)),0,x,y,noone);
+
 //Drop essence
 scr_spawnEssence(9,45,17);
 </string>

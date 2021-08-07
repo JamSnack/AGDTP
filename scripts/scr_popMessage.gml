@@ -12,7 +12,7 @@ if hudControl.showPopMessage == true
     i.alarm[0] = time*room_speed; //Time displayed in seconds.
     i.popColor = argument3;
     i.direction = irandom_range(80,100);
-    i.speed = 4;
+    i.speed = 2;
     i.friction = random_range(0.2,0.7);
 }
 

@@ -732,6 +732,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
             }
         
             audio_play_sound(snd,10,false);
+            audio_sound_pitch(snd,choose(0.9,1,1.1));
         }
         
         

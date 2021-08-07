@@ -2326,7 +2326,7 @@ if settingsMenu == true
     //toggle music setting
     draw_nineSliceBox(spr_ui_slider,xx-30,yy+1,xx+30,yy+4,0);
     draw_sprite(spr_ui_selectedBool,1,(xx-30)+(60*(music_volume/1)),yy+4);
-    draw_text(xx-32,yy-13,"Music Volume: "+string(music_volume));
+    draw_text(xx-32,yy-13,"Music Volume:"+string(music_volume));
     
     //keybind setting
     draw_sprite(spr_ui_selectedBool,1,xx-40,yy+20);
