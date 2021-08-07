@@ -45,6 +45,9 @@ while place_meeting(x,y,FLATLAND) y-=16;
 amt = 1;
 type = 0;
 item = ITEMID.item_gremEssence;
+
+c_hue = irandom(255);
+color = make_colour_hsv(c_hue,240,167);
 </string>
           </argument>
         </arguments>
@@ -95,12 +98,16 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
 {
     var dir = point_direction(x,y,obj_player.x,obj_player.y);
     motion_add(dir,1);
-    if image_angle != dir
-    { 
-        image_angle += 1+lerp(image_angle,dir,0.1); 
-        image_angle = clamp(image_angle,0,dir);
-    }
+    
+    speed = min(speed,6);
+    
+    part_particles_create(particle_system,x,y,part_esc,irandom(2));
 }
+
+//Color the essence!
+image_angle += (hspeed+vspeed)*4;
+c_hue += speed*2;
+color = make_colour_hsv(c_hue,170,240);
 </string>
           </argument>
         </arguments>
@@ -125,13 +132,33 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
             <kind>1</kind>
             <string>if obj_player.dead == true then exit;
 
-if scr_invenAddItem(ITEMID.item_gremEssence,amt,type,tags) != -1 
-{
-    instance_destroy();
-    audio_play_sound(snd_itemPickup,10,false);
-}
-else 
-{alarm[0] = room_speed*2; canPickUp = false;}
+currency_essence += amt;
+
+instance_destroy();
+audio_play_sound(snd_itemPickup,10,false);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,image_angle,color,1);
 </string>
           </argument>
         </arguments>

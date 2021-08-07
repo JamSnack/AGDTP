@@ -21,7 +21,5 @@
   <height>4</height>
   <frames>
     <frame index="0">images\spr_gremlinEssence_0.png</frame>
-    <frame index="1">images\spr_gremlinEssence_1.png</frame>
-    <frame index="2">images\spr_gremlinEssence_2.png</frame>
   </frames>
 </sprite>

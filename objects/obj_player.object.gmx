@@ -111,7 +111,7 @@ if tip_controls == false
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
 
-scr_dropTag("Split",99);
+//scr_dropTag("Split",99);
 </string>
           </argument>
         </arguments>
@@ -308,7 +308,7 @@ if dead = false &amp;&amp; g_over == false
     
     //-- Collision with ground; else platform --
     //Complex Condition note: We have two complex coniditions, one is run when moving upward and checks corresponding points; two is run when moving downward and does the same.
-    if true_vsp != 0 &amp;&amp; ((true_vsp &gt; 0 &amp;&amp; (position_meeting(x-3,y+spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y+spr_height+true_vsp+1,OBSTA))) || (true_vsp &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y-spr_height+true_vsp+1,OBSTA))))
+    if true_vsp != 0 &amp;&amp; place_meeting_fast(0,true_vsp+1,OBSTA)//((true_vsp &gt; 0 &amp;&amp; (position_meeting(x-3,y+spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y+spr_height+true_vsp+1,OBSTA))) || (true_vsp &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y-spr_height+true_vsp+1,OBSTA))))
     {
         // Correct the while loop iterator in-case values are less than 1
         if true_vsp != 0 &amp;&amp; (true_vsp &lt; 1 || true_vsp &gt; -1)
@@ -1021,7 +1021,8 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-instance_create(mouse_x,mouse_y,obj_mackerel);
+scr_spawnEssence(10,4,8);
+//instance_create(mouse_x,mouse_y,obj_mackerel);
 /*
 if instance_exists(worldControl.raidBossID)
 {

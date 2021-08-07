@@ -28,6 +28,8 @@
             <string>task_inventory_completed = false;
 task_super_menu_completed = false;
 task_settings_completed = false;
+
+if currency_essence != 0 then instance_destroy();
 </string>
           </argument>
         </arguments>

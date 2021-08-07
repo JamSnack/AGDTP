@@ -165,8 +165,16 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         tip_controls = _list[| 1];
     }
     
-    //- Player stat data
+    // - currency data
     var _list = _wrapper[? "STAT"];
+    
+    if _list != undefined
+    {
+        currency_essence = _list[| 0];
+    }
+    
+    //- Player stat data
+    /*var _list = _wrapper[? "STAT"];
     
     if _list != undefined
     {
@@ -174,7 +182,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         energyMax = _list[| 1];
         tileRegenRate = _list[| 2];
         tileLevel = _list[| 3];
-    }
+    }*/
     
     //-------Handle Settings----------
     var _list = _wrapper[? "SETTINGS"];
@@ -199,6 +207,16 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         
         music_volume = _list[| 15];
         vsyncToggled = _list[| 16];
+    }
+    
+    //Check for and eat essence from old save-files!
+    var essence_slot = scr_findInvenItem(ITEMID.item_gremEssence);
+    
+    if essence_slot != noone
+    {
+        var amt = hudControl.inventorySlotAmt[essence_slot];
+        currency_essence += amt;
+        scr_clearSlot(essence_slot);
     }
     
     ds_map_destroy(_wrapper);

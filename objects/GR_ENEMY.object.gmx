@@ -98,6 +98,9 @@ if r == 1
     ds_list_add(bTag,"Bouncy");
     scr_dropItem(ITEMID.item_modTag,1,ITEMTYPE.def,x,y,bTag);
 }
+
+//Spawn essence - balanced!
+scr_spawnEssence(1+(maxHp div 20),8,spawn_weight);
 </string>
           </argument>
         </arguments>

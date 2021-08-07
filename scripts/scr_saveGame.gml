@@ -60,11 +60,13 @@ ds_list_add(recipe_list,recipe_seashellMetal);
 ds_list_add(quest_list,mainQuest);
 ds_list_add(quest_list,tip_controls);
 
+ds_list_add(stat_list,currency_essence);
+
 //Save player stats
-ds_list_add(stat_list,energyRegenRate);
+/*ds_list_add(stat_list,energyRegenRate);
 ds_list_add(stat_list,energyMax);
 ds_list_add(stat_list,tileRegenRate);
-ds_list_add(stat_list,tileLevel);
+ds_list_add(stat_list,tileLevel);*/
 
 //- Save equipped accessories
 if ds_exists(accessories_equipped,ds_type_list)

@@ -62,6 +62,9 @@ equipQueue = noone;
 //Super Menu
 showSuperMenu = false;
 ui_state = "CRAFT"; // No ui is visible
+esc_hue = 0;
+esc_subimage = 0;
+essence_color = c_white;
 
 //Wave Menu
 enemySprites = ds_list_create();
@@ -416,6 +419,15 @@ else if input_wait == true &amp;&amp; keyboard_key != 0
     
     input_wait = false;
 }
+
+//-------Animate Essence Icon Element----
+esc_hue += 1;
+if esc_hue &gt; 240 then esc_hue = 0;
+
+essence_color = make_colour_hsv(esc_hue,170,240);
+esc_subimage += 1/8;
+
+if esc_subimage &gt; 8 then esc_subimage = 0;
 </string>
           </argument>
         </arguments>
@@ -2425,7 +2437,17 @@ else if instance_exists(worldControl)
     //Region shifting icon
 
     var region_shift = worldControl.region_shift;
-    if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,120,6) };
+    if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,143,6) };
+}
+
+
+//---Essence amount
+if !instance_exists(obj_tutorialControl)
+{
+    draw_sprite_ext(spr_ui_essence,esc_subimage,125,10,1,1,0,essence_color,1);
+    
+    var cur_str = scr_convertToCompressedString(currency_essence);
+    draw_text_transformed(132,7,cur_str,0.8,0.8,0);
 }
 
 //---Display Enemy Information---

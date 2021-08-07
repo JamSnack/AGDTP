@@ -20,6 +20,7 @@ switch enemy
     case obj_sweetWorm: { name = "Sweet Worm"; } break;
     case obj_sandMenace: { name = "Sand Menace"; } break;
     case obj_sphereMinion: { name = "Sphere Minion"; } break;
+    case obj_mackerel: { name = "Summer Mackerel"; } break;
     
     //Bosses
     case obj_sphereKing: {name = "Sphere King";} break;
