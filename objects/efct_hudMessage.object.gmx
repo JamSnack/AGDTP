@@ -35,7 +35,7 @@ bkg_color = make_colour_hsv(0,0,bkg_lum);
 message_length = 0;
 
 //Sprite scaling
-scale = 0.5;
+scale = 0.4;
 
 deactivate_method = 0;
 </string>

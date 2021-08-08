@@ -75,6 +75,7 @@ craftIndex = -1; //The CRAFTING ID of the item to craft
 craftSelect = -1; //Which crafting slot has its information displayed.
 craftBuffer = 0; //Last Item crafted
 drawn_crafting_slots = 0; //Used to synchronize slots when drawing the crafting menu.
+cost = 0; //essence cost
 
 //- crafting filters. Whether or not to filter out an item of a specific type.
 craft_filter_resources = false;
@@ -1830,7 +1831,18 @@ if showSuperMenu == true
                          
                         draw_text_transformed(132,134,text[0],1.25,1.25,0);
                         draw_text_transformed(133,145,text[1],0.8,0.8,0);
-                        draw_text_transformed(133,185,"Items Needed: ",1,1,0);
+                        draw_text(133,185,"Items Needed: ");
+                        
+                        //draw cost
+                        if cost &gt; 0
+                        {
+                            draw_sprite_ext(spr_ui_essence,esc_subimage,_posX+208,137,1,1,0,essence_color,1);
+                            
+                            if currency_essence &gt;= cost then draw_set_color(c_white) else draw_set_color(c_red);
+                            
+                            draw_text(_posX+213,134,"x"+string(cost));
+                            draw_set_color(c_white);
+                        }
                         
                         //- Draw material sprites.
                         for(_i=0;_i&lt;array_length_1d(mats);_i++)
@@ -2057,7 +2069,7 @@ if showSuperMenu == true
 
 }
 
-//Draw Inventory -----------------------------------------
+//----------------Draw Inventory -----------------------------------------
 //#region
 if invenX &gt; 1 &amp;&amp; instance_exists(obj_player)
 {
@@ -2067,11 +2079,28 @@ if invenX &gt; 1 &amp;&amp; instance_exists(obj_player)
     //draw_set_alpha(0.9);
     //draw_nineSliceBox(spr_ui_9slice,-10,20,invenX,200,0);
     
+    var draw_tooltip = false;
+    var column = 7;
+    
+    if selectedSlot != noone
+    {
+        //later redefined in the for loop
+        var c = floor(selectedSlot/column); 
+        var x1 = (10+(selectedSlot*16)-(c*16*column))*invenX_scale;
+        var x2 = (20+(selectedSlot*16)-(c*16*column))*invenX_scale;
+        var y1 = -45+(16*c)+50;
+        var y2 = -35+(16*c)+50;
+        
+        if point_in_rectangle(mx,my,x1,y1,x2,y2)
+        {
+            draw_tooltip = true;
+        }
+    }
+    
     // -- Inventory slots layer 1 --
     for (i=0;i&lt;maxInvenSlots;i++)
     {
         var hotbarCount = 7;
-        var column = 7;
         var c = floor(i/column);
         
         if i &lt; hotbarCount
@@ -2126,7 +2155,7 @@ if invenX &gt; 1 &amp;&amp; instance_exists(obj_player)
     }
     
     //Draw tooltip
-    if selectedSlot != noone &amp;&amp; selectedSlot != "trashSlot"
+    if draw_tooltip == true &amp;&amp; selectedSlot != noone &amp;&amp; selectedSlot != "trashSlot"
     {
         scr_drawToolTip(inventorySlotIcon[selectedSlot],inventorySlotType[selectedSlot],false);
         
