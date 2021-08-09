@@ -95,7 +95,7 @@ if opened == false
     for(i=0;i&lt;items;i++)
     {
         var copper = 10;
-        var cAmt = irandom(4)+1;
+        var cAmt = irandom(3)+1;
         
         var stick = 9;
         var sAmt = irandom(9)+1;

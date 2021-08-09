@@ -10,8 +10,6 @@ scr_getRecipe(itemID);
 
 if currency_essence >= cost
 {
-    scr_removeEssence(cost);
-
     //Check the player's inventory.
     var hc = hudControl;
 
@@ -45,6 +43,7 @@ if currency_essence >= cost
     } //Crafting succeeds if it makes it through the final check.
     
     //Craft the item
+    scr_removeEssence(cost);
     scr_dropItem(itemID,itemAmt,itemType,obj_player.x,obj_player.y,noone);
     
     return true;

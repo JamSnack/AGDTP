@@ -22,5 +22,7 @@
   <frames>
     <frame index="0">images\spr_ui_tips_0.png</frame>
     <frame index="1">images\spr_ui_tips_1.png</frame>
+    <frame index="2">images\spr_ui_tips_2.png</frame>
+    <frame index="3">images\spr_ui_tips_3.png</frame>
   </frames>
 </sprite>

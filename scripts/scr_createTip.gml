@@ -11,6 +11,8 @@ switch t_type
 {
     case "controls": { t_frame = 0; } break;
     case "tools": { t_frame = 1; } break;
+    case "shifting": {t_frame = 2; } break;
+    case "battery": {t_frame = 3; } break;
 }
 
 //- Update the tip frame value

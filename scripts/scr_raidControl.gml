@@ -59,8 +59,11 @@ switch presetSettings
         //scr_musicTransition(snd_The_Grasslands,musicTransitionTime);
         nextRaid = "RAID";
         
-        //Tutorial Quest
-        if currentTask == 3 { currentTask = 4; obj_tutorialControl.alarm[1] = room_speed*5; }
+        //Tips
+        if kingDied_1 == true && tip_shifting == false
+        {
+            scr_createTip(1.5,1.75,"shifting");
+        }
         
         //REGION SHIFT
         if worldControl.region_shift == true

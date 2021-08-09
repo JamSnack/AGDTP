@@ -1454,7 +1454,7 @@ if showSuperMenu == true &amp;&amp; obj_player.dead == false
                 if craftTimerMax &gt; 5 then craftTimerMax -= craftTimerRate;
                 if craftIndex != -1// &amp;&amp; craftTimer &gt; craftTimerMax 
                 { 
-                    scr_craftItem(craftIndex); 
+                    scr_craftItem(craftIndex);
                     craftSelect = craftIndex;
                     craftBuffer = craftIndex;
                 } 

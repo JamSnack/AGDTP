@@ -105,10 +105,12 @@ global.key_7 = ord("7");
 
 
 //Other globals
-globalvar tutorialComplete,music,tip_controls,tip_tools,music_volume,sfx_volume,vsyncToggled,performance_mode;
+globalvar tutorialComplete,music,tip_controls,tip_tools,tip_battery,tip_shifting,music_volume,sfx_volume,vsyncToggled,performance_mode;
 tutorialComplete = false;
-tip_controls = false; //Whether or not the control tip has been displayed.
+tip_controls = false; //Whether or not the controls tip has been displayed.
 tip_tools = false; //Whether or not the "tools tutorial" tips has been displayed.
+tip_battery = false; //Whether or not the energy/power tip has been displayed.
+tip_shifting = false; //Whether or not the region shifting tip has been displayed.
 music_volume = 0.4;
 music = audio_play_sound(snd_theStarsForever,10,true);
 audio_sound_gain(snd_theStarsForever,music_volume,0);

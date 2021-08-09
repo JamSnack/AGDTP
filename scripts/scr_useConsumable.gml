@@ -44,21 +44,39 @@ switch item
         armAngleGoal = 51;
         armAngle = 50; //Out a bit
         armAngleRate = 0;
-        toolSprite = spr_itemDrops;
+        toolSprite = spr_itemDrops; //hold nothing
         alarm[2] = room_speed;
     }
     break;
     
     case ITEMID.cons_treeFruit:
     {
+        if toolReady == true
+        {
+            armIndex = sprite_arm_swing;
+            armAngleGoal = 51;
+            armAngle = 50; //Out a bit
+            armAngleRate = 0;
+            toolSprite = spr_itemDrops; //hold nothing
+            alarm[2] = 20;
+        }
+    
         var _hp = obj_player.hp;
         var _maxHp = obj_player.maxHp;
-    
-        obj_player.hp = approach(_hp,_maxHp,10);
         
-        audio_play_sound(snd_heal,8,false);
-        alarm[2] = 45;
-        scr_popMessage("+10",global.fnt_menu,1,c_green,x-4,y);
+        if _hp < _maxHp
+        {
+            obj_player.hp = approach(_hp,_maxHp,10);
+            
+            audio_play_sound(snd_heal,8,false);
+            scr_popMessage("+10",global.fnt_menu,1,c_green,x-4,y);
+        }
+        else if _hp >= _maxHp
+        {
+            audio_play_sound(snd_invalid,12,false);
+            scr_popMessage("HP full",global.fnt_menu,1,c_red,x-8,y);
+            exit;
+        }
     }
     break;
 }

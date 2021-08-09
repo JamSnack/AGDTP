@@ -111,7 +111,11 @@ if tip_controls == false
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
 
-//scr_dropTag("Split",99);
+/*
+scr_dropTag("Tool Speed+",99);
+scr_dropItem(ITEMID.pickaxe_stingerDrill,0,ITEMTYPE.pickaxe,x,y,noone);
+scr_dropItem(ITEMID.pickaxe_greenPickaxe,0,ITEMTYPE.pickaxe,x,y,noone);
+scr_dropItem(ITEMID.pickaxe_seashellPickaxe,0,ITEMTYPE.pickaxe,x,y,noone);
 </string>
           </argument>
         </arguments>
@@ -816,9 +820,14 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                         
                         case "SHOOT":
                         {
-                            //Aiming done in the step event.
+                            //local variables are the same as SWING and is meant to synchronize SHOOT animation times with SWING animation times via calculation.
                             armIndex = sprite_arm_swing; //Still a straight arm.
-                            alarm[2] = toolFireRate;
+                            var _armAngleGoal = -60; //Down somewhat
+                            var _armAngle = 90; //Straight up
+                            var _armAngleRate = (180/toolFireRate)+1;
+                            
+                            //if _armAngle move at _armAbleRate, how long will it take to reach _armAngleGoal?
+                            alarm[2] = ((150*(180/toolFireRate))/room_speed)+1;
                         }
                         break;
                     }
@@ -833,8 +842,8 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
                 //Consumable
                 if toolReady == true &amp;&amp; room == rm_zero
                 {
-                    toolReady = false;
                     scr_useConsumable(hudControl.inventorySlotIcon[slot]);
+                    toolReady = false;
                 }
             }
             break;

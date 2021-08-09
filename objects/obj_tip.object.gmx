@@ -56,6 +56,8 @@ switch tip_type
 {
     case "controls": { tip_controls = true; } break;
     case "tools": { tip_tools = true; } break;
+    case "shifting": { tip_shifting = true; } break;
+    case "battery": { tip_battery = true; } break;
 }
 </string>
           </argument>
@@ -117,14 +119,22 @@ var size = 13;
 //Interaction
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),xx-size,yy-size,xx+size,yy+size)
 {
+    switch tip_type
+    {
+        //0 = controls tip;
+        case "controls":
+        {
+            //Create the tools tip.
+            if tip_tools == false
+            {
+                scr_createTip(xscale,yscale,"tools");
+            }
+        }
+        break;
+    }
+    
     //We killa!
     instance_destroy();
-    
-    //Create the tools tip.
-    if tip_tools == false
-    {
-        scr_createTip(xscale,yscale,"tools");
-    }
 }
 </string>
           </argument>

@@ -43,6 +43,12 @@ alarm[11] = 30;
 turretDirection = 0;
 ammoMax = 4;
 ammo = 0;
+
+//Tips
+if tip_battery == false
+{
+    scr_createTip(1.5,1.75,"battery");
+}
 </string>
           </argument>
         </arguments>

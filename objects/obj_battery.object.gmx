@@ -52,6 +52,12 @@ if distance_to_point(obj_pie.x,obj_pie.y) &lt;= 16*8 //8 tiles
 charge_speed = 10;
 
 alarm[1] = charge_speed; //Faux step event
+
+//Tips
+if tip_battery == false
+{
+    scr_createTip(1.5,1.75,"battery");
+}
 </string>
           </argument>
         </arguments>
