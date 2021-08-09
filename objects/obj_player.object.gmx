@@ -468,9 +468,9 @@ if dead == false
         visible = false;
         
         //LOSE ESSENCE
-        var essence_lost = ceil(scr_getInvenItemAmt(ITEMID.item_gremEssence)*0.10);
+        var essence_lost = ceil(currency_essence*0.15);
         
-        scr_invenRemoveItem(ITEMID.item_gremEssence,essence_lost,0,false,-1,noone);
+        scr_removeEssence(essence_lost);
         scr_hudMessage(string(essence_lost)+" essence lost...",global.fnt_Ui,5,0,c_red,0);
         
         //Respawn at the pie
@@ -1021,7 +1021,7 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-scr_spawnEssence(10,4,8);
+scr_spawnEssence(currency_essence,4,10);
 //instance_create(mouse_x,mouse_y,obj_mackerel);
 /*
 if instance_exists(worldControl.raidBossID)

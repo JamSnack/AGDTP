@@ -135,7 +135,6 @@ color = make_colour_hsv(c_hue,170,240);
 currency_essence += amt;
 
 instance_destroy();
-audio_play_sound(snd_itemPickup,10,false);
 </string>
           </argument>
         </arguments>

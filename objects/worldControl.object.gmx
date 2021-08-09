@@ -364,7 +364,7 @@ if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || pla
         
             if light_level &lt; 255 //Only change the light of tiles that aren't completely bright
             {
-                var light_dist = floor(255+(playerLight)-dist*3);
+                var light_dist = floor(255+(playerLight)-dist*4);
                 
                 if dist &lt; (playerLight)+32
                 { light_level = 255;}

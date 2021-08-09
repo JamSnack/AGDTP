@@ -77,6 +77,8 @@
     <sound>sound\snd_burn</sound>
     <sound>sound\snd_heal</sound>
     <sound>sound\snd_achievement_unlocked</sound>
+    <sound>sound\snd_essence_get</sound>
+    <sound>sound\snd_essence_lose</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">
@@ -247,6 +249,7 @@
       <sprite>sprites\spr_white_arrow_small</sprite>
       <sprite>sprites\spr_ui_region_shift</sprite>
       <sprite>sprites\spr_ui_essence</sprite>
+      <sprite>sprites\spr_ui_essenceOutline</sprite>
     </sprites>
     <sprites name="Particles">
       <sprite>sprites\spr_tile_frag_dirt</sprite>
@@ -384,6 +387,7 @@
     <scripts name="Drawing">
       <script>scripts\scr_fitText.gml</script>
       <script>scripts\scr_convertToCompressedString.gml</script>
+      <script>scripts\scr_convertFullNumberToString.gml</script>
       <script>scripts\draw_nineSliceBox.gml</script>
       <script>scripts\scr_get_character.gml</script>
     </scripts>
@@ -555,8 +559,8 @@
   <rooms name="rooms">
     <room>rooms\init_display</room>
     <room>rooms\rm_menu</room>
-    <room>rooms\rm_lobby</room>
     <room>rooms\rm_zero</room>
+    <room>rooms\rm_lobby</room>
     <room>rooms\rm_tutorial</room>
   </rooms>
   <constants number="10">

@@ -29,7 +29,7 @@
 
 canActiveRegion = false;
 canHurt = true;
-maxHp = 100+(25*floor(wave/5));
+maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
 image_speed = 8/60;
 state = MOVE;
@@ -157,7 +157,7 @@ scr_spawnEssence(1,60,5+floor(wave/3));
           <argument>
             <kind>1</kind>
             <string>///Create a Sphere Minion
-if !place_meeting(x,y,OBSTA)
+if !place_meeting_fast(x,y,OBSTA)
 {
     if sphere_backup &gt;= 0
     {

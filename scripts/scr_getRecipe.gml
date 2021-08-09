@@ -19,9 +19,9 @@ switch argument0
     case ITEMID.pickaxe_seashellPickaxe: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 5; mats[1] = ITEMID.item_seashellMetal; matsAmt[1] = 15; mats[2] = ITEMID.item_stick; matsAmt[2] = 5; itemAmt = 0; itemType = 2;} break;
     case ITEMID.tile_copperTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 4; mats[1] = 9; matsAmt[1] = 5; itemAmt = 1; itemType = 3; } break;
     case ITEMID.tile_ladder: { mats[0] = 9; matsAmt[0] = 2; itemID = 13; itemAmt = 1; itemType = 3; } break;
-    case ITEMID.cons_gremTalisman: { cost = 250; itemAmt = 1; itemType = 4; } break;
+    case ITEMID.cons_gremTalisman: { cost = 25; itemAmt = 1; itemType = 4; } break;
     case ITEMID.tile_platform: { mats[0] = 9; matsAmt[0] = 2; itemID = 16; itemAmt = 1; itemType = 3; } break;
-    case ITEMID.cons_bomb: { mats[0] = 8; matsAmt[0] = ITEMID.item_copperOre; mats[1] = 15; matsAmt[1] = 2; mats[2] = ITEMID.item_copperOre; matsAmt[2] = 2; itemAmt = 1; itemType = 4; } break;
+    case ITEMID.cons_bomb: { mats[0] = ITEMID.item_stonePiece; matsAmt[0] = 8; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 2; cost = 5; itemAmt = 1; itemType = 4; } break;
     case ITEMID.tile_packedStone: { mats[0] = 8; matsAmt[0] = 4; itemID = 18; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_modBench: { cost = 30; mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; itemAmt = 1; itemType = 3;} break;
     case ITEMID.tile_woodenStilt: { mats[0] = ITEMID.item_stick; matsAmt[0] = 2; itemAmt = 2; itemType = 3;} break;
