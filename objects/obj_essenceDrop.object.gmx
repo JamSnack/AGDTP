@@ -99,7 +99,7 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
     var dir = point_direction(x,y,obj_player.x,obj_player.y);
     motion_add(dir,1);
     
-    speed = min(speed,6);
+    speed = min(speed,9);
     
     part_particles_create(particle_system,x,y,part_esc,irandom(2));
 }

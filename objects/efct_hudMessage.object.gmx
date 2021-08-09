@@ -33,9 +33,13 @@ bkg_lum = 255;
 bkg_x = 0;
 bkg_color = make_colour_hsv(0,0,bkg_lum);
 message_length = 0;
+last_amt = 0;
 
 //Sprite scaling
-scale = 0.4;
+sprite_scale = 0.4;
+
+//scale the entire thing
+scale = 1;
 
 deactivate_method = 0;
 </string>
@@ -106,9 +110,10 @@ deactivate_method = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if message_length == 0
+            <string>if message_length == 0 || amt != last_amt
 {
-    message_length = string_width(hudString+string(amt));
+    last_amt = amt;
+    message_length = string_width(hudString+string(amt))/scale;
 } 
 else if bkg_x != message_length || bkg_lum != 0
 {
@@ -166,13 +171,14 @@ if new_position != 0 then position -= 1;
             <string>if room == rm_menu &amp;&amp; img != 0 then exit; //Do not display item notifications in the menu.
 
 var y_pos = 162+(12*position);
+var str_amt = string(amt);
 
-draw_rectangle_colour(0,y_pos-4,bkg_x,y_pos+6,bkg_color,bkg_color,bkg_color,bkg_color,false);
+draw_rectangle_colour(0,y_pos-(4*scale),bkg_x*scale,y_pos+(6*scale),bkg_color,bkg_color,bkg_color,bkg_color,false);
 
 draw_set_font(hudFont);
 draw_set_color(color);
-draw_sprite_ext(spr_itemDrops,img,5,y_pos+2,scale,scale,0,c_white,1);
-draw_text(10,160+(12*position),hudString+string(amt));
+draw_sprite_ext(spr_itemDrops,img,5,y_pos+2,scale-0.6,scale-0.6,0,c_white,1);
+draw_text_transformed(10,160+(12*position),hudString+str_amt,scale,scale,0);
 </string>
           </argument>
         </arguments>

@@ -504,7 +504,7 @@
     <option_version_build>0</option_version_build>
     <option_version_company>JamSnack</option_version_company>
     <option_version_copyright>JamSnack</option_version_copyright>
-    <option_version_description></option_version_description>
+    <option_version_description>:)</option_version_description>
     <option_version_major>1</option_version_major>
     <option_version_minor>0</option_version_minor>
     <option_version_product>A Good Day to Pie</option_version_product>
@@ -585,7 +585,7 @@
     <option_windows_company_info>JamSnack</option_windows_company_info>
     <option_windows_copyright_info>JamSnack</option_windows_copyright_info>
     <option_windows_create_textures_on_demand>False</option_windows_create_textures_on_demand>
-    <option_windows_description_info></option_windows_description_info>
+    <option_windows_description_info>:)</option_windows_description_info>
     <option_windows_enable_steam>0</option_windows_enable_steam>
     <option_windows_game_icon>Configs\Default\windows\runner_icon.ico</option_windows_game_icon>
     <option_windows_license>Configs\Default\windows\License.txt</option_windows_license>

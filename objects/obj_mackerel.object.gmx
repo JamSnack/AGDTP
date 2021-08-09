@@ -90,11 +90,9 @@ knockType = "LAND";
 
 if dropItem != true then exit;
 
-scr_spawnEssence(2,10,irandom(3));
-
-/*if irandom(10) == 1
+if irandom(10) == 1
 {
-    scr_dropItem(ITEMID.item_seashell,0,ITEMTYPE.def,x,y,noone);
+    scr_dropItem(ITEMID.item_seashellMetal,0,ITEMTYPE.def,x,y,noone);
 }
 </string>
           </argument>

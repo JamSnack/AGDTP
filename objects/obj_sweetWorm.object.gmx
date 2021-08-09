@@ -87,8 +87,6 @@ knockType = "LAND";
 
 if dropItem != true then exit;
 
-scr_spawnEssence(2,10,irandom(3));
-
 if irandom(10) == 1
 {
     scr_dropItem(ITEMID.item_sweetComb,1,ITEMTYPE.def,x,y,noone);

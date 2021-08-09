@@ -107,8 +107,6 @@ mask_index = spr_hornedHapp;
 
 if dropItem != true then exit;
 
-if c &lt;= 10 then scr_spawnEssence(3,10,5);//~10% chance
-
 </string>
           </argument>
         </arguments>

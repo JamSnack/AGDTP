@@ -360,9 +360,9 @@ if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || pla
         with TILE
         {
             var dist = point_distance(x,y,playerX,playerY);
-            if dist &gt; (playerLight)+16*4 then continue;
+            if dist &gt; (playerLight)+16*4 then continue; //Skip tiles that are far away.
         
-            if light_level &lt; 255
+            if light_level &lt; 255 //Only change the light of tiles that aren't completely bright
             {
                 var light_dist = floor(255+(playerLight)-dist*3);
                 
