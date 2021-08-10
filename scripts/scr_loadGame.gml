@@ -163,6 +163,8 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     {
         mainQuest = _list[| 0];
         tip_controls = _list[| 1];
+        tip_battery = _list[| 2];
+        tip_shifting = _list[| 3];
     }
     
     // - currency data

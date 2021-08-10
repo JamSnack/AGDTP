@@ -79,6 +79,7 @@
     <sound>sound\snd_achievement_unlocked</sound>
     <sound>sound\snd_essence_get</sound>
     <sound>sound\snd_essence_lose</sound>
+    <sound>sound\snd_craftingSuccess</sound>
   </sounds>
   <sprites name="sprites">
     <sprites name="Tutorial">
@@ -109,6 +110,13 @@
         <sprite>sprites\spr_arm_tadIdle</sprite>
         <sprite>sprites\spr_arm_tadSwing</sprite>
         <sprite>sprites\spr_arm_tadJump</sprite>
+      </sprites>
+      <sprites name="TimeGuy">
+        <sprite>sprites\spr_timeGuyIdle</sprite>
+        <sprite>sprites\spr_timeGuyWalk</sprite>
+        <sprite>sprites\spr_timeGuyJump</sprite>
+        <sprite>sprites\spr_timeArmJump</sprite>
+        <sprite>sprites\spr_timeArmSwing</sprite>
       </sprites>
     </sprites>
     <sprites name="Tools">

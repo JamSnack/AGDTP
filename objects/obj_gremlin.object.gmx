@@ -26,7 +26,6 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the Gremlin
-
 canActiveRegion = true;
 canHurt = true;
 maxHp = scr_enemyHpIndex(object_index);

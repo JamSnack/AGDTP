@@ -45,6 +45,18 @@ if currency_essence >= cost
     //Craft the item
     scr_removeEssence(cost);
     scr_dropItem(itemID,itemAmt,itemType,obj_player.x,obj_player.y,noone);
+    if audio_is_playing(snd_craftingSuccess)
+    {
+        audio_stop_sound(snd_craftingSuccess);
+        audio_play_sound(snd_craftingSuccess,4,false);
+        audio_sound_pitch(snd_craftingSuccess,choose(1,1.1,0.9));
+    }
+    else
+    {
+        audio_play_sound(snd_craftingSuccess,4,false);
+        audio_sound_pitch(snd_craftingSuccess,choose(1,1.1,0.9));
+    }
+    
     
     return true;
 }

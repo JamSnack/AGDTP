@@ -30,8 +30,8 @@ canActiveRegion = true;
 
 scale = 1;
 canHurt = true;
-hp = 50+waveScale(5,1,0,-1);
-maxHp = hp;
+maxHp = scr_enemyHpIndex(object_index);
+hp = maxHp;
 image_speed = 0;
 state = MOVE;
 

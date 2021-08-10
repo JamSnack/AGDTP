@@ -54,8 +54,8 @@ pickupTimer = 0; //When right clicking a slot - how long until multiple items wi
 pickupTimerMax = 30; //The interval when a single item will be taken out of a slot.
 pickupTimerRate = 10;
 craftTimer = 0;
-craftTimerMax = 30;
-craftTimerRate = 10;
+craftTimerMax = 35;
+craftTimerRate = 5;
 equipQueue = noone;
 drawn_essence = currency_essence; //The number of essence show to the player. Approaches currency_essence
 
@@ -207,7 +207,7 @@ if instance_exists(ENEMY)
     
     if _e
     {
-        cursor_information = string(_e.hp)+"/"+string(scr_enemyHpIndex(_e.object_index));
+        cursor_information = string(_e.hp)+"/"+string(_e.maxHp); //scr_enemyHpIndex(_e.object_index)
         enemy_on_cursor = true;
         
     } else cursor_information = "";
@@ -400,7 +400,7 @@ if input_wait == false &amp;&amp; (settingsMenu == false &amp;&amp; keybindMenu_
 }
 
 //--------------KEYBINDING-----------------
-else if input_wait == true &amp;&amp; keyboard_key != 0
+else if input_wait == true &amp;&amp; keyboard_key != 0 &amp;&amp; keyboard_key != vk_escape &amp;&amp; keyboard_key != vk_f1 &amp;&amp; keyboard_key != vk_f2 &amp;&amp; keyboard_key != vk_f3 &amp;&amp; keyboard_key != vk_f4 &amp;&amp; keyboard_key != vk_f5
 {
     if global.key_jump == noone
     { global.key_jump = keyboard_key; }
@@ -440,11 +440,6 @@ if drawn_essence != currency_essence
         {
             audio_play_sound(snd_essence_get,3,false);
             audio_sound_pitch(snd_essence_get,choose(0.9,1,1.1));
-        }
-        else if drawn_essence &gt; currency_essence
-        {
-            audio_play_sound(snd_essence_lose,3,false);
-            audio_sound_pitch(snd_essence_lose,choose(0.9,1,1.1));
         }
         
     }
@@ -2497,7 +2492,7 @@ else if instance_exists(worldControl)
     //Region shifting icon
 
     var region_shift = worldControl.region_shift;
-    if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,143,6) };
+    if region_shift == true { draw_sprite(spr_ui_region_shift,region_shift,147+string_width(string(currency_essence)),10) };
 }
 
 
@@ -2578,7 +2573,7 @@ if cursor_information != ""
         </arguments>
       </action>
     </event>
-    <event eventtype="10" enumb="98">
+    <event eventtype="10" enumb="117">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -2619,7 +2614,7 @@ if cursor_information != ""
           <argument>
             <kind>1</kind>
             <string>///Clear Ui or Open Settings
-if room == rm_menu then exit;
+if room == rm_menu || keybindMenu_visible == true then exit;
 
 //Settings menu
 if settingsMenu == false
@@ -2630,7 +2625,6 @@ if settingsMenu == false
     //Close other menus
     if invOpen == true then invOpen = false;
     if showSuperMenu == true then showSuperMenu = false;
-    if keybindMenu_visible = true then keybindMenu_visible = false;
 }
 
 //If settings menu is open AND the game has been paused: delete paused objects and unpause the game.

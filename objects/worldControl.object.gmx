@@ -149,14 +149,13 @@ alarm[2] = floor(120/(fps))*5;
           <argument>
             <kind>1</kind>
             <string>///Spawn gremlins
-
 var _viewX = view_xview[0];
 var _viewW = view_wview[0]+_viewX; //wview is a constant denoting the size of the view.
 var _viewY = view_yview[0];
 var _viewH = view_hview[0]+_viewY;
 
 
-if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
+if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance &amp;&amp; !(wave == 0 &amp;&amp; world_Time &lt; 60*15)
 {
     var outer_x_range = 2*16; //Defines how many tiles outside the xview the enemy can spawn.
     if interm == false then outer_x_range = 5;
@@ -202,7 +201,7 @@ if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance
             //-Sphere Pylon
         if interm == true
         {
-            if irandom(55) == 55 &amp;&amp; nextRaid != "SPHERE"
+            if irandom(100) == 55 &amp;&amp; nextRaid != "SPHERE" &amp;&amp; wave != 0
             {
                 instance_create(xx,yy,obj_spherePylon);
             }

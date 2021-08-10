@@ -259,7 +259,7 @@ if dead = false &amp;&amp; g_over == false
     if vsp &lt; maxGrav then vsp = vsp + grav;
     
     //jump check
-    if  key_jump &amp;&amp; vsp &gt;= 0 &amp;&amp; ((collision_point(x-3,y+spr_height+1,OBSTA,false,true) || collision_point(x+2,y+spr_height+1,OBSTA,false,true)) || on_platform)
+    if  key_jump &amp;&amp; vsp &gt;= 0 &amp;&amp; ((collision_point(x-3,bbox_bottom+1,OBSTA,false,true) || collision_point(x+2,bbox_bottom+1,OBSTA,false,true)) || on_platform)
     {
         vsp = vsp_jump;
     }
@@ -330,9 +330,9 @@ if dead = false &amp;&amp; g_over == false
     else if !key_down &amp;&amp; instance_exists(obj_platform) &amp;&amp; vsp+vForce &gt; 0// &amp;&amp; platform_collide == true
     {
         
-        var _plat = collision_line(x-3,y+spr_height+true_vsp+1,x+3,y+spr_height+true_vsp+1,obj_platform,false,true);
+        var _plat = collision_line(x-3,bbox_bottom+true_vsp+1,x+3,bbox_bottom+true_vsp+1,obj_platform,false,true);
                 
-        if _plat != noone &amp;&amp; y+spr_height &lt; _plat.y-7
+        if _plat != noone &amp;&amp; bbox_bottom &lt; _plat.y-7
         {            
             vForce = 0;
             vsp = 0;
@@ -375,7 +375,7 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != sprite_walk &amp;&amp; (position_meeting(x,y+1+spr_height,OBSTA) || position_meeting(x,y+1+spr_height,obj_platform) ) then sprite_index = sprite_walk;
+            if sprite_index != sprite_walk &amp;&amp; (position_meeting(x,1+bbox_bottom,OBSTA) || position_meeting(x,1+bbox_bottom,obj_platform) ) then sprite_index = sprite_walk;
             if armIndex != sprite_arm_walk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_walk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
@@ -960,6 +960,40 @@ draw_rectangle(x-3,y+spr_height-2,x+3,y+spr_height+2,false);
         </arguments>
       </action>
     </event>
+    <event eventtype="10" enumb="116">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if sprite_idle = spr_tadIdle
+{
+    scr_swapPlayerSkin("BARRY");
+}
+else if sprite_idle = spr_playerIdle
+{
+    scr_swapPlayerSkin("TIME");
+}
+else if sprite_idle = spr_timeGuyIdle
+{
+    scr_swapPlayerSkin("TAD");
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="10" enumb="100">
       <action>
         <libid>1</libid>
@@ -1030,8 +1064,8 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
           <argument>
             <kind>1</kind>
             <string>if dev != true then exit;
-scr_spawnEssence(currency_essence,4,10);
-//instance_create(mouse_x,mouse_y,obj_mackerel);
+//scr_spawnEssence(currency_essence,4,10);
+instance_create(mouse_x,mouse_y,obj_nilmerg);
 /*
 if instance_exists(worldControl.raidBossID)
 {

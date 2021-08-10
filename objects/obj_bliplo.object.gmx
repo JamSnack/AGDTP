@@ -29,7 +29,7 @@
 canActiveRegion = true;
 
 canHurt = true;
-hp = 300+waveScale(20,5,0,-1);
+hp = scr_enemyHpIndex(object_index);
 maxHp = hp;
 image_speed = 0;
 state = "WANDER";

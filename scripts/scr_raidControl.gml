@@ -70,7 +70,7 @@ switch presetSettings
         {
             var _cost = scr_getRegionCost(worldControl.shift_destination);
             
-            if scr_getInvenItemAmt(ITEMID.item_gremEssence) < _cost
+            if currency_essence < _cost
             {
                 scr_hudMessage("Region shift failed.",global.fnt_Ui,5,0,c_red,0);
             }
@@ -86,7 +86,7 @@ switch presetSettings
                 scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
                 
                 //- remove essence
-                scr_invenRemoveItem(ITEMID.item_gremEssence,_cost,ITEMTYPE.def,false,-1,noone);
+                scr_removeEssence(_cost);
             }
         }
     }

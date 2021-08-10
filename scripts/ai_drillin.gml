@@ -52,7 +52,7 @@ if target == obj_pie
     {
         state = WANDER;
         stateLock = true;
-        alarm[stateLockAlarm] = 60;
+        alarm[stateLockAlarm] = 120;
     }
 }
 

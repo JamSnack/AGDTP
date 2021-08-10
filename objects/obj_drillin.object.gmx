@@ -45,7 +45,7 @@ target = obj_pie; //objective priority.
 
 objective = target;
 stateLockAlarm = 2;
-aggroRange = 16*3; //3 tiles
+aggroRange = 16*8; //8 tiles
 hAccel = 0;
 vAccel = 0;
 maxAccel = 2.5;
@@ -164,29 +164,27 @@ yBuffer = y;
 
 //Gremlin Ai
 
-if stateLock == false
-{    
-    var dp = distance_to_object(obj_player);
-    var player_dead = obj_player.dead;
 
-    //Aggro range
-    if target != obj_player
+var dp = distance_to_object(obj_player);
+var player_dead = obj_player.dead;
+
+//Aggro range
+if target != obj_player
+{
+    if dp &lt;= aggroRange &amp;&amp; player_dead == false
     {
-        if dp &lt;= aggroRange &amp;&amp; player_dead == false
+        target = obj_player;
+    } 
+    else 
+    { 
+        if instance_exists(PLRTILE) 
         {
-            target = obj_player;
-        } 
-        else 
-        { 
-            if instance_exists(PLT_1) 
-            {
-                target = instance_nearest(x,y,PLT_1);
-                if distance_to_object(target) &gt; 16*2 then target = obj_pie;
-            }
-            else target = obj_pie;
+            target = instance_nearest(x,y,PLRTILE);
+            if distance_to_object(target) &gt; 16*2 then target = obj_pie;
         }
-    } else if dp &gt; aggroRange*2 || player_dead == false then target = obj_pie;
-}
+        else target = obj_pie;
+    }
+} else if dp &gt; aggroRange*2 || player_dead == false then target = obj_pie;
 
 //State checks
 if position_meeting(x,y,OBSTA) &amp;&amp; (state != WANDER || state != MOVE)

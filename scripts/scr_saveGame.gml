@@ -59,6 +59,8 @@ ds_list_add(recipe_list,recipe_seashellMetal);
 
 ds_list_add(quest_list,mainQuest);
 ds_list_add(quest_list,tip_controls);
+ds_list_add(quest_list,tip_battery);
+ds_list_add(quest_list,tip_shifting);
 
 ds_list_add(stat_list,currency_essence);
 

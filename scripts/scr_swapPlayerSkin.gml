@@ -17,6 +17,18 @@ with obj_player
         }
         break;
         
+        case "TIME":
+        {
+            sprite_jump = spr_timeGuyJump;
+            sprite_arm_jump = spr_timeArmJump;
+            sprite_walk = spr_timeGuyWalk;
+            sprite_arm_walk = spr_nothing;
+            sprite_idle = spr_timeGuyIdle;
+            sprite_arm_idle = spr_nothing;
+            sprite_arm_swing = spr_timeArmSwing;
+        }
+        break;
+        
         default:
         {
             sprite_jump = spr_playerJump;
