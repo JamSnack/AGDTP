@@ -183,7 +183,7 @@ if instance_exists(gameControl)
 if room == rm_zero &amp;&amp; gameOver == false &amp;&amp; hudControl.showBackground == true
 {
     cloudBkg_xOffset += 0.02;
-    if cloudBkg_xOffset &gt; 319 then cloudBkg_xOffset = 0;
+    if interm == false then cloudBkg_xOffset = 0; //Reset cloud position at a time when they aren't visible :)
     
     var _dayAlpha = worldControl.dayAlpha/0.6; // dayAlpha/[MAGIC NUMBER]: MN is the maximum dayAlpha value.
     var max_saturation = 80;

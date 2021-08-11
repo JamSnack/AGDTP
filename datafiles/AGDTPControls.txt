@@ -11,3 +11,5 @@ f1 - Small Screen
 f2 - Medium Screen
 f3 - Large Screen
 f4 - Full Screen
+f5 - Cycle player skin
+f6 - toggle HUD

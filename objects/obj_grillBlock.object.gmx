@@ -87,7 +87,7 @@ canAttack = true;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if canAttack == true &amp;&amp; energy &gt; 0 &amp;&amp; instance_exists(ENEMY)
+            <string>if canAttack == true &amp;&amp; instance_exists(ENEMY)
 {
     var xx = x;
     var yy = y;
@@ -97,7 +97,7 @@ canAttack = true;
     {
         if point_distance(x,y,xx,yy) &lt;= 24
         {
-            scr_hurt(4,2,false,0);
+            scr_hurt(6,2,false,0);
             attack_success = true;
         }
     }

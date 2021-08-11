@@ -37,7 +37,7 @@ with hudControl
                 {
                     if is_string(str) && is_string(tagList[| k])
                     { str = str+tagList[| k]+"$"; }
-                    else print("ERROR? TAG LIST: "+string(tagList[| k])+"STR: "+string(str));
+                    else print("ERROR? TAG LIST: "+string(tagList[| k])+"| STR: "+string(str));
                 }
                 ds_map_add(_map,"tags",str);
             }
@@ -73,13 +73,7 @@ ds_list_add(stat_list,tileLevel);*/
 //- Save equipped accessories
 if ds_exists(accessories_equipped,ds_type_list)
 {
-    //Check to see if the accessory has already been equipped
-    var list_size = ds_list_size(accessories_equipped);
-    
-    for(_q=0;_q<list_size;_q++)
-    {
-        ds_list_add(accessory_list,accessories_equipped[| _q]);
-    }
+    ds_list_copy(accessory_list,accessories_equipped);
 }
 //--Save settings--
 //- save keybinds

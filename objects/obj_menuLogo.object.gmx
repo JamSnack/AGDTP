@@ -32,7 +32,7 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = "Summer Demo v1.2";
+text = "Summer Demo v1.2.1";
 
 playButton_active = false;
 deleteButton_active = false;
@@ -192,6 +192,8 @@ if dConfirm == true &amp;&amp; deleteButton_active == true &amp;&amp; dWait == f
         tip_tools = false;
         tip_battery = false;
         tip_shifting = false;
+        
+        ds_list_destroy(accessories_equipped);
         
       }
        else { scr_hudMessage("File not found.",global.fnt_menu,5,0,c_red,0); }

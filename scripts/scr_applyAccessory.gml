@@ -5,6 +5,13 @@ var slot_cost = 0;
 var accessory = argument0;
 
 //Check to see if the accessory has already been equipped
+if !ds_exists(accessories_equipped,ds_type_list)
+{
+    globalvar accessories_equipped;
+    accessories_equipped = ds_list_create();
+    print("ERROR: accessories_equipped DS does not exist. Recreating.");
+}
+
 var list_size = ds_list_size(accessories_equipped);
 
 for(_q=0;_q<list_size;_q++)
@@ -33,11 +40,7 @@ if equip != 0
     if equip == 1
     {
         //Do not equip please >:)
-        if !ds_exists(accessories_equipped,ds_type_list)
-        {
-            accessories_equipped = ds_list_create();
-        }
-        else
+        if ds_exists(accessories_equipped,ds_type_list)
         {
             if ds_list_size(accessories_equipped) > 2
             {
@@ -45,7 +48,8 @@ if equip != 0
                 exit;
             }
         }
-    
+        
+        //Calculate available slots
         var slots_available = 0;
         
         for(_q=0;_q<maxInvenSlots;_q++)
@@ -54,7 +58,7 @@ if equip != 0
             if hudControl.inventorySlotType[_q] == 0  && hudControl.inventorySlotAmt[_q] == 0 && hudControl.inventorySlotIcon[_q] == 0  && hudControl.inventorySlotTags[_q] == noone
             {
                 //Don't need to check anything!
-                if slot_cost == 0 then break;
+                if slot_cost == 0 { print("Zero cost"); break; }
                 
                 slots_available += 1;
             
@@ -63,6 +67,7 @@ if equip != 0
                     //Slot_cost slots will be removed from the end of inventory.
                     //Remove items in the slots and re-add them to the inventory.
                     //This should always be possible because the amount of occupied slots does not change.
+                    print("Z init: "+string(maxInvenSlots-slot_cost)+" | Cost: "+string(slot_cost));
                     for(z=maxInvenSlots-slot_cost;z<maxInvenSlots;z++)
                     {
                         if hudControl.inventorySlotIcon[z] != ITEMID.nil

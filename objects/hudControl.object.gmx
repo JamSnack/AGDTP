@@ -1631,7 +1631,8 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     var _amt = inventorySlotAmt[selectedSlot];
                     
                     //Single place
-                    if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
+                    if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
+                    &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
                     &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*4 //3 tiles worth of distance.
                     &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
                     &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
@@ -2551,8 +2552,9 @@ if cursor_information != ""
             
             draw_set_alpha(0.5);
         
-            if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt)) &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
-            &amp;&amp; mouse_distance_to_player &lt;= 16*4 //3 tiles worth of distance.
+            if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
+            &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
+            &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*4 //3 tiles worth of distance.
             &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
             &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,obj_player,false,true) 
             &amp;&amp; !collision_rectangle(xx-8,yy-8,xx+8,yy+8,ENEMY,false,true)

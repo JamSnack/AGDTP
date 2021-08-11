@@ -6,6 +6,7 @@ maxInvenSlots = hudControl.maxInvenSlots_original;
 
 //This script refreshes slot cost and reapplies equipped accessories.
 var _size = ds_list_size(accessories_equipped);
+print("scr_reloadAccessories> size: "+string(_size));
 if _size > 0
 {
     for(i=0;i<_size;i++)

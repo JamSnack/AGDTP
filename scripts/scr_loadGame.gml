@@ -22,76 +22,89 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     
     var _list = _wrapper[? "ACC"];
     
-    if _list != undefined
+    if !ds_exists(accessories_equipped,ds_type_list)
     {
-        //Check to see if the accessory has already been equipped
-        var list_size = ds_list_size(_list);
-        
-        for(_q=0;_q<list_size;_q++)
-        {
-            scr_applyAccessory(_list[| _q]);
-        }
+        globalvar accessories_equipped;
+        accessories_equipped = ds_list_create();
+        print("accessories_equipped created in scr_loadGame.");
     }
     
-    //Update inventory size if needed
-    with hudControl
+    if ds_exists(_list,ds_type_list)
     {
-    
-        var array_size = array_length_1d(inventorySlotIcon);
+        ds_list_copy(accessories_equipped,_list);
         
-        if maxInvenSlots > array_size
+        /*var list_size = ds_list_size(_list);
+        
+        for(_qq=0;_qq<list_size;_qq++)
         {
-            //- reinitialize the array
-            inventorySlotIcon[maxInvenSlots-1] = 0;
-            inventorySlotAmt[maxInvenSlots-1] = 0;
-            inventorySlotType[maxInvenSlots-1] = 0;
-            inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+            ds_list_add(accessories_equipped,_list[| _qq]);
+        }*/
+        //scr_reloadAccessories();
+        
+        //Update inventory size if needed
+        with hudControl
+        {
+        
+            var array_size = array_length_1d(inventorySlotIcon);
             
-            for (i=array_size;i<maxInvenSlots;i++)
+            if maxInvenSlots > array_size
             {
-                inventorySlotIcon[i] = 0; //Nothing
-                inventorySlotAmt[i] = 0; //No items
-                inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
-                inventorySlotTags[i] = noone; //No tags
-            }
-        }
-        else if maxInvenSlots < array_size
-        {
-            //If we lose slots, reallocate the affected items
-            for(z=array_size-(array_size-maxInvenSlots);z<array_size;z++)
-            {
-                if inventorySlotIcon[z] != ITEMID.nil
+                //- reinitialize the array
+                inventorySlotIcon[maxInvenSlots-1] = 0;
+                inventorySlotAmt[maxInvenSlots-1] = 0;
+                inventorySlotType[maxInvenSlots-1] = 0;
+                inventorySlotTags[maxInvenSlots-1] = noone; //Each slot has '2' tag slots.
+                
+                for (i=array_size;i<maxInvenSlots;i++)
                 {
-                    //Remove the item and re-add it to the inventory.
-                    var _item = inventorySlotIcon[z];
-                    var _amt = inventorySlotAmt[z]; 
-                    var _type = inventorySlotType[z]; 
-                    var _tags = inventorySlotTags[z];
-        
-                    //Unequip a removed accessory
-                    if _type == ITEMTYPE.accessory
+                    inventorySlotIcon[i] = 0; //Nothing
+                    inventorySlotAmt[i] = 0; //No items
+                    inventorySlotType[i] = 0; //Default item. '1' for equippable tool.
+                    inventorySlotTags[i] = noone; //No tags
+                }
+            }
+            else if maxInvenSlots < array_size
+            {
+                //If we lose slots, reallocate the affected items
+                for(z=array_size-(array_size-maxInvenSlots);z<array_size;z++)
+                {
+                    if inventorySlotIcon[z] != ITEMID.nil
                     {
-                        for(g=0;g<ds_list_size(accessories_equipped);g++)
+                        //Remove the item and re-add it to the inventory.
+                        var _item = inventorySlotIcon[z];
+                        var _amt = inventorySlotAmt[z]; 
+                        var _type = inventorySlotType[z]; 
+                        var _tags = inventorySlotTags[z];
+            
+                        //Unequip a removed accessory
+                        if _type == ITEMTYPE.accessory
                         {
-                            if _item == accessories_equipped[| g]
+                            for(g=0;g<ds_list_size(accessories_equipped);g++)
                             {
-                                scr_applyAccessory(_item);
+                                if _item == accessories_equipped[| g]
+                                {
+                                    scr_applyAccessory(_item);
+                                }
                             }
                         }
-                    }
-                    
-                    //Clear the slot
-                    scr_clearSlot(z);
-                    
-                    //Reallocate the item
-                    if scr_invenAddItem(_item,_amt,_type,_tags) == -1
-                    {
-                        scr_dropItem(_item,_amt,_type,obj_player.x,obj_player.y,_tags);
+                        
+                        //Clear the slot
+                        scr_clearSlot(z);
+                        
+                        //Reallocate the item
+                        if scr_invenAddItem(_item,_amt,_type,_tags) == -1
+                        {
+                            scr_dropItem(_item,_amt,_type,obj_player.x,obj_player.y,_tags);
+                        }
                     }
                 }
             }
         }
-    }
+    } 
+    else 
+    {print("scr_loadGame> _list does not exist.")}
+        
+        //scr_reloadAccessories();
     
     
     //----------------Handle the inventory-------------
