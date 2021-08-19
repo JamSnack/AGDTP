@@ -214,7 +214,7 @@ if dev == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev == true then with ENEMY instance_destroy();
+            <string>//if dev == true then with ENEMY instance_destroy();
 </string>
           </argument>
         </arguments>
@@ -237,7 +237,7 @@ if dev == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev == true then game_restart();
+            <string>//if dev == true then game_restart();
 </string>
           </argument>
         </arguments>

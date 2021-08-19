@@ -38,7 +38,7 @@ type = 3;
 
 //Local variables
 local_power = 0;
-local_power_max = 5;
+local_power_max = 8;
 discharge = false;
 
 in_range = false;

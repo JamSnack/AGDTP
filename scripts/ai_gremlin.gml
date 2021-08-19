@@ -17,6 +17,7 @@ var spr_width = sprite_width;
 var spr_height = sprite_height;
 
 var on_ground = place_meeting_fast(0,1,OBSTA);
+var knock_amt = knockAmt;
 
 //Check for objective line of sight.
 if instance_exists(objective)
@@ -56,7 +57,7 @@ if objective.canHurt == true
     {
         with objective  //Hurt the objective.
         {
-            scr_hurt(other.damage,DEF_HURT,true,3);
+            scr_hurt(other.damage,DEF_HURT,true,knock_amt);
         }
         
         state = WANDER;
@@ -67,7 +68,7 @@ if objective.canHurt == true
     {
         with nearestCol  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,3);
+            scr_hurt(other.damage,HURT_LONG,true,knock_amt);
         }
     
         state = WANDER;
@@ -78,7 +79,7 @@ if objective.canHurt == true
     {
         with nearestNoCol  //Hurt the objective.
         {
-            scr_hurt(other.damage,HURT_LONG,true,3);
+            scr_hurt(other.damage,HURT_LONG,true,knock_amt);
         }
     
         state = WANDER;

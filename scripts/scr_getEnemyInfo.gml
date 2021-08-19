@@ -9,7 +9,7 @@ switch enemy
 {
     case obj_gremlin: { name = "Gremlin"; } break;
     case obj_crab: { name = "Crab"; } break;
-    case obj_crabKing: { name = "Crab King"; } break;
+    case obj_crabKing: { name = "Crab Elite"; } break;
     case obj_stoneGremlin: { name = "Stone Gremlin"; } break;
     case obj_grassGremlin: { name = "Grass Gremlin"; } break;
     case obj_spherePylon: { name = "Sphere Pylon"; } break;

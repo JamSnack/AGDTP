@@ -223,7 +223,7 @@ else if current_grem &gt;= maxGrem
         var gy = grem.y;
         
         //Don't despawn the bosses
-        if grem == raidBossID || grem.canDespawn == false then break;
+        if grem == raidBossID || grem.canDespawn == false then continue;
         
         //Don't despawn things inside the Flatlands and above the stone layer
         if !(gx &gt;= RAIDBOUND_Lower &amp;&amp; gx &lt;= RAIDBOUND_Upper) &amp;&amp; (gy &gt;= stoneLayer)
@@ -409,7 +409,7 @@ if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
     
     //-Energy &amp; health regeneration-
     if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
-    energy = approach(energy,energyMax,energyRegenRate);
+    energy = approach(energy,energyMax,energyRegenRate+(interm*3));
     
     heal_Time = 0;
 }
@@ -578,8 +578,8 @@ switch special_raidID
                     {
                         switch ran
                         {
-                            case 0: if difficulty &gt;= 16 { normalGremlins[normal_array_size] = obj_mackerel; } 
-                            case 1: if difficulty &gt;= 14 { normalGremlins[normal_array_size] = obj_sandMenace; } 
+                            case 0: if difficulty &gt;= 16 { normalGremlins[normal_array_size] = obj_mackerel; }  break;
+                            case 1: if difficulty &gt;= 14 { normalGremlins[normal_array_size] = obj_sandMenace; } break;
                             default: if difficulty &gt; 12 { specialGremlins[special_array_size] = obj_crab; }
                         }
                     }
@@ -681,7 +681,7 @@ if raidProgress &gt;= maxRaidProgress
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev == true then scr_raidControl(nextRaid,0,0,0,0);
+            <string>//if dev == true then scr_raidControl(nextRaid,0,0,0,0);
 </string>
           </argument>
         </arguments>

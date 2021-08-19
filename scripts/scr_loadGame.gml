@@ -39,7 +39,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         {
             ds_list_add(accessories_equipped,_list[| _qq]);
         }*/
-        //scr_reloadAccessories();
+        scr_reloadAccessories();
         
         //Update inventory size if needed
         with hudControl

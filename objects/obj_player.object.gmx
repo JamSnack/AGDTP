@@ -66,7 +66,7 @@ hsp_walk = 2; //Max walk speed
 vsp_jump = -5; //Max jump speed
 break_range = 2; //Tiles around the player that can be broken.
 dead = false; //Whether or not the player is dead.
-knock_resistance = 0.24;
+knock_resistance = 0.15;
 
 //Tool variables
 toolReady = true;
@@ -111,7 +111,7 @@ if tip_controls == false
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
 
-
+/*
 scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
@@ -171,7 +171,7 @@ g_over = gameOver;
 
 if g_over == false
 {
-    visible = true;
+    //visible = true;
     x = obj_pie.x;
     y = obj_pie.y-32;
     while place_meeting(x,y,OBSTA) y-=16;
@@ -468,8 +468,8 @@ if dead == false
     if hp &lt;= 0 || g_over == true
     {
         dead = true;
-        alarm[1] = room_speed*5;
-        visible = false;
+        alarm[1] = room_speed*20-(interm*60*15);
+        //visible = false;
         
         //LOSE ESSENCE
         var essence_lost = ceil(currency_essence*0.15);
@@ -547,7 +547,7 @@ if keyboard_check_released(global.key_interact)
 }
 
 //-----QUICK HEAL KEY----------
-if keyboard_check_released(global.key_quick_heal)
+if keyboard_check_released(global.key_quick_heal) &amp;&amp; obj_player.dead == false
 {
     if hp &lt; maxHp
     {
@@ -840,7 +840,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
             case 4:
             {
                 //Consumable
-                if toolReady == true &amp;&amp; room == rm_zero
+                if toolReady == true &amp;&amp; room == rm_zero &amp;&amp; obj_player.dead == false
                 {
                     scr_useConsumable(hudControl.inventorySlotIcon[slot]);
                     toolReady = false;
@@ -893,50 +893,58 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
           <argument>
             <kind>1</kind>
             <string>//draw body
-draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,0,c_white,image_alpha);
-
-//draw arms
-//- Draw tool
-if toolReady == false 
+if dead == false
 {
-    switch toolAnimation
+    draw_sprite_ext(sprite_index,image_index,x,y,image_xscale,image_yscale,0,c_white,image_alpha);
+    
+    //draw arms
+    //- Draw tool
+    if toolReady == false 
     {
-        case "SWING":
+        switch toolAnimation
         {
-            draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
-        } 
-        break;
-        
-        case "SHOOT":
-        {
-            draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+            case "SWING":
+            {
+                draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+            } 
+            break;
+            
+            case "SHOOT":
+            {
+                draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+            }
+            break;
+            
+            case "STAB":
+            {
+                if armOffset == 0 then break;
+                //Click to deathpoke the Gremlins.
+                //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
+                var _dir = point_direction(x,y,mouse_x,mouse_y);
+                
+                //- prepare _dir for further processing...
+                if image_xscale == -1 then _dir = (_dir-180)*-1;
+                
+                var yOffset = lengthdir_y((armOffset),_dir);
+                var xOffset = lengthdir_x((armOffset)*image_xscale,_dir);
+                
+                draw_sprite_ext(toolSprite,0,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+                //- STAB arm animator
+                draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+            }
+            break;
         }
-        break;
-        
-        case "STAB":
-        {
-            if armOffset == 0 then break;
-            //Click to deathpoke the Gremlins.
-            //- cute little magic used for simulating 360 degrees of arm movement that isn't actually real ;-;
-            var _dir = point_direction(x,y,mouse_x,mouse_y);
-            
-            //- prepare _dir for further processing...
-            if image_xscale == -1 then _dir = (_dir-180)*-1;
-            
-            var yOffset = lengthdir_y((armOffset),_dir);
-            var xOffset = lengthdir_x((armOffset)*image_xscale,_dir);
-            
-            draw_sprite_ext(toolSprite,0,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
-            //- STAB arm animator
-            draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
-        }
-        break;
     }
+    
+    //- Default arm animator
+    if armOffset == 0
+    { draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,image_alpha); }
 }
-
-//- Default arm animator
-if armOffset == 0
-{ draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,image_alpha); }
+else if dead == true
+{
+    ///-- RESPAWN TIMER --
+    draw_text(x-50,y,"Respawning... "+string(alarm_get(1) div 60));
+}
 
 
 //PLATFORM DEBUGGING
@@ -1012,7 +1020,7 @@ else if sprite_idle = spr_timeGuyIdle
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev != true then exit;
+            <string>/*if dev != true then exit;
 instance_create(x,y,region_shifter);
 </string>
           </argument>
@@ -1036,7 +1044,7 @@ instance_create(x,y,region_shifter);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if dev != true then exit;
+            <string>/*if dev != true then exit;
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
@@ -1066,7 +1074,7 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
             <kind>1</kind>
             <string>if dev != true then exit;
 //scr_spawnEssence(currency_essence,4,10);
-instance_create(mouse_x,mouse_y,obj_nilmerg);
+//instance_create(mouse_x,mouse_y,obj_crabKing);
 /*
 if instance_exists(worldControl.raidBossID)
 {

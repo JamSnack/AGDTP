@@ -34,8 +34,8 @@ image_speed = 12/60;
 state = WANDER;
 
 vsp = 0;
-atkBox = 32; //divided by 2 on calculation.
-damage = 5; //Attack damage.
+atkBox = 64; //divided by 2 on calculation.
+damage = 8; //Attack damage.
 
 hurtAlarm = 1;
 

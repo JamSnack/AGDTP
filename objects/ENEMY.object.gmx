@@ -36,6 +36,7 @@ agility = 0.1;
 dropItem = false;
 death_gib = spr_gib;
 canDespawn = true;
+knockAmt = 5;
 
 shield_charges_max = 0;
 shield_charges = 0;
@@ -48,6 +49,7 @@ scale = 1;
 //Change some stats for a true boss fight;
 if worldControl.raidBossID == id
 {
+    canDespawn = false;
     raid_boss = true;
     maxHp = scr_enemyHpIndex(object_index); //extra 50% hp
     hp = maxHp;

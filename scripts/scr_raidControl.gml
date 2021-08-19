@@ -131,13 +131,13 @@ switch presetSettings
         {
         
             spawnRate = 0.5+(difficulty*0.25);
-            spawnChance = 70+(wave*5);
-            maxGrem = 10+(wave*2);
-            maxRaidProgress = 20+(wave*5);
+            spawnChance = 60+(difficulty*3);
+            maxGrem = 8+(wave*1);
+            maxRaidProgress = 15+(wave*2);
             
             interm = false;
             
-            if random(1) < wave/8 && wave > 2
+            if random(1) < wave/7 && wave > 2
             {
                 raidBoss = true;
                 bossID = new_raidBoss(0);
@@ -152,10 +152,10 @@ switch presetSettings
     {
         //---------- Sphere King Raid ---------
         specialRaid = true;
-        spawnRate = spawnRate = 0.5+(difficulty*0.25);
-        spawnChance = 70+(wave*5);
-        maxGrem = 10+(wave*2);
-        maxRaidProgress = 15+(wave*3);
+        spawnRate = 0.5+(difficulty*0.25);
+        spawnChance = 60+(difficulty*3);
+        maxGrem = 8+(wave*1);
+        maxRaidProgress = 15+(wave*2);
         
         interm = false;
         
@@ -181,9 +181,9 @@ switch presetSettings
         //---------- Region King Raid ---------
         specialRaid = true;
         spawnRate = spawnRate = 0.5+(difficulty*0.25);
-        spawnChance = 70+(wave*5);
-        maxGrem = 10+(wave*2);
-        maxRaidProgress = 15+(wave*3);
+        spawnChance = 60+(difficulty*3);
+        maxGrem = 8+(wave*1);
+        maxRaidProgress = 20+(wave*5);
         
         interm = false;
         
@@ -269,7 +269,7 @@ if interm == false
 
 //Clamps
 maxRaidProgress = clamp(maxRaidProgress,10,100);
-spawnChance = clamp(spawnChance,0,100);
+spawnChance = clamp(spawnChance,0,90);
 maxGrem = clamp(maxGrem,0,25);
 spawnRate = clamp(spawnRate,0.5,10);
 
