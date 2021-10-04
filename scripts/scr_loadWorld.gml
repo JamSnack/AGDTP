@@ -27,8 +27,8 @@ for(i=0;i<floor(flatLandTotal);i++)
 
 
 var i = instance_create(0,0,region_shifter);
-i.next_region = "COVE";
-region = "COVE";
+i.next_region = "GRASSLANDS";
+region = "GRASSLANDS";
 
 /* FUCK YOU CODE! GET BLASTED!
 randomize();

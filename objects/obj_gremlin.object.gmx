@@ -58,7 +58,7 @@ event_inherited();
 
 knock_resistance = 0.15;
 mask_index = sprite_index;
-knockAmt = 6;
+knockAmt = 3.5;
 /*
 PLATFORM DRAW DEBUG:
 draw_text(x,y+10,string(state));
