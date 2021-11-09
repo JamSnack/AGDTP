@@ -5,11 +5,11 @@ var equip = argument1;
 
 
 //Accessories that affect the inventory
-switch accessory
+/*switch accessory
 {    
     case ITEMID.acc_satchel: { maxInvenSlots += 4*equip; } break;
     case ITEMID.acc_beehiveBackpack: { maxInvenSlots += 2*equip; } break;
-}
+}*/
 
 //Acessories that affect stats
 if instance_exists(obj_player)

@@ -282,6 +282,8 @@ if showSuperMenu == true
 //---------Update inventory size if needed----------
 var array_size = array_length_1d(inventorySlotIcon);
 
+show_debug_message("array_size: "+string(array_size));
+
 if maxInvenSlots &gt; array_size
 {
     //- reinitialize the array
@@ -303,6 +305,7 @@ else if maxInvenSlots &lt; array_size
     //If we lose slots, reallocate the affected items
     for(z=array_size-(array_size-maxInvenSlots);z&lt;array_size;z++)
     {
+    
         if hudControl.inventorySlotIcon[z] != ITEMID.nil
         {
             //Remove the item and re-add it to the inventory.
@@ -1976,7 +1979,7 @@ if showSuperMenu == true
             if selectedEquipment != noone 
             { 
                 draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
-            } //MN: 50+50 = 100; 50 is MN for equip slot placement.
+            } //Magic Number: 50+50 = 100; 50 is MN for equip slot placement within the slot.
             
             //Draw mod complete
             draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);

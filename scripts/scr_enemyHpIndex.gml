@@ -4,7 +4,7 @@ var _hp = 0;
 
 switch argument0
 {
-    case obj_gremlin: { _hp = 16; } break;
+    case obj_gremlin: { _hp = 8; } break;
     case obj_crab: { _hp = 16; } break;
     case obj_crabKing: { _hp = 225; } break;
     case obj_stoneGremlin: { _hp = 32; } break;

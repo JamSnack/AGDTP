@@ -123,13 +123,9 @@ while place_meeting_fast(0,0,OBSTA) y -= 16;
 if dropItem != true then exit;
 
 var r = irandom(4);
-if r == 1
+if r == 1 || r == 2
 {
     scr_dropItem(ITEMID.weapon_sphereLauncher,0,ITEMTYPE.weapon,x,y,noone);
-    scr_playSound(snd_rareItem,false,11,x,y,1,false);
-} else if r &gt; 2
-{
-    scr_dropTag("Tool Speed+",1);
     scr_playSound(snd_rareItem,false,11,x,y,1,false);
 }
 

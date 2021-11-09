@@ -123,13 +123,6 @@ event_inherited();
 
 if dropItem != true then exit;
 
-var r = irandom(99); //0 to 99
-if r &gt;= 84
-{
-    scr_dropTag("Split",1);
-}
-
-
 //Drop sesahell metal
 scr_dropItem(ITEMID.item_seashellMetal,1+irandom(4+waveScale(1,5,0,10)),0,x,y,noone);
 

@@ -60,7 +60,7 @@ if crafting_menu == false
         
         case ITEMTYPE.accessory:
         {
-            text[1] += ("Accessory##Slot Cost: "+string(scr_getSlotCost(argument0)))
+            text[1] += ("Accessory##");//Slot Cost: "+string(scr_getSlotCost(argument0)))
         }
         break;
         
@@ -104,7 +104,7 @@ else
         
         case ITEMTYPE.accessory:
         {
-            text[1] += ("Accessory##Slot Cost: "+string(scr_getSlotCost(item_id)))
+            text[1] += ("Accessory##");//Slot Cost: "+string(scr_getSlotCost(item_id)))
         }
         break;
         
@@ -150,7 +150,7 @@ switch item_id
     case ITEMID.acc_ultrablueStar: { text[0] = "Ultra-Blue Star"; text[1] += "Increases knockback resistance by 0.6#Knockback resistance: "+string(obj_player.knock_resistance); } break;
     case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "Increases inventory size by 4." } break;
     case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Place within 8 tiles of the pie to charge over time. Energy is distributed when needed. Holds 8 energy."; } break;
-    case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "Increases inventory size by 2. Increase jump-height by 1 tile."; } break;
+    case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "Increase jump-height by 1 tile."; } break;
     case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "A delectable little snack! Heals 10 health points."; } break;
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "A true marksman's humble beginning."; } break;
     case ITEMID.item_sweetComb: { text[0] = "Sweet Comb"; text[1] += "The prized treasure of the bees."; } break; 

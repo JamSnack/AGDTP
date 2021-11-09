@@ -68,6 +68,14 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
                 //If we lose slots, reallocate the affected items
                 for(z=array_size-(array_size-maxInvenSlots);z<array_size;z++)
                 {
+                    if z < 0
+                    { 
+                        print("ARRAY_BROKE");
+                        print(array_size);
+                        print(maxInvenSlots);
+                        break;
+                    }
+                
                     if inventorySlotIcon[z] != ITEMID.nil
                     {
                         //Remove the item and re-add it to the inventory.
