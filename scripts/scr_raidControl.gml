@@ -130,7 +130,7 @@ switch presetSettings
         else
         {
         
-            spawnRate = 0.5+(difficulty*0.25);
+            spawnRate = 0.5+(difficulty*0.18); //spawn rate = 60/spawnRate. NOTE: difficulty*0.25 seemed too high. Decreased to 0.18 - 11/9/21
             spawnChance = 60+(difficulty*3);
             maxGrem = 8+(wave*1);
             maxRaidProgress = 15+(wave*2);

@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Initialize world variables
 event_inherited();
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,current_grem,kingDied_1,kingDied_2;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,current_grem,kingDied_1,kingDied_2,turret_capacity,turret_capacity_max;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -37,7 +37,9 @@ enemyActiveList[0] = noone; //List of enemies that require chunking.
 raidProgress = 0; //How many more gremlins need to die before the raid is complete.
 maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
-energy = 0;
+energy = 0; //NOTE: CURRENTLY REPLACING WITH turret_capacity; 11/9/21
+turret_capacity = 0;
+turret_capacity_max = 2;
 current_grem = 0; //Number of gremlins in the world based on their spawn weight.
 
 
@@ -397,7 +399,7 @@ if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || pla
 
 
 //------------- Proliferate every tick ---------------------------
-if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
+if (heal_Time &gt;= room_speed)
 {
     //Tile regeneration
     if interm == true
@@ -408,8 +410,12 @@ if heal_Time &gt;= (room_speed-max(tileRegenRate,30))
     }
     
     //-Energy &amp; health regeneration-
-    if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
-    energy = approach(energy,energyMax,energyRegenRate+(interm*3));
+    if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false 
+    {
+        with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
+    }
+    
+    //energy = approach(energy,energyMax,energyRegenRate+(interm*3));
     
     heal_Time = 0;
 }

@@ -284,7 +284,7 @@ if showSuperMenu == true
 //---------Update inventory size if needed----------
 var array_size = array_length_1d(inventorySlotIcon);
 
-show_debug_message("array_size: "+string(array_size));
+//show_debug_message("array_size: "+string(array_size));
 
 if maxInvenSlots &gt; array_size
 {
@@ -1658,8 +1658,9 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     var _tile = scr_invenTileIndex(inventorySlotIcon[selectedSlot]);
                     var _amt = inventorySlotAmt[selectedSlot];
                     
-                    //Single place
-                    if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
+                    //Place
+                    if ((object_get_parent(_tile) == PLT_1 &amp;&amp; turret_capacity &lt; turret_capacity_max) || (object_get_parent(_tile) != PLT_1)) &amp;&amp;
+                    (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
                     &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
                     &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*4 //3 tiles worth of distance.
                     &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )
@@ -2394,11 +2395,11 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; inst
     }
     
     // - Energy
-    if instance_exists(worldControl) &amp;&amp; room == rm_zero
+    /*if instance_exists(worldControl) &amp;&amp; room == rm_zero
     { 
         draw_text(viewWidth-12,30,string(energy));
         draw_sprite(spr_ui_electricity,0,viewWidth-25,30);
-    }
+    }*/
 }
 //#endregion
 
@@ -2593,7 +2594,8 @@ if cursor_information != ""
             
             draw_set_alpha(0.5);
         
-            if (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
+            if ((object_get_parent(_tile) == PLT_1 &amp;&amp; turret_capacity &lt; turret_capacity_max) || (object_get_parent(_tile) != PLT_1)) &amp;&amp;
+            (!position_meeting(xx,yy,OBSTA) &amp;&amp; !position_meeting(xx,yy,NOCOL) || position_meeting(xx,yy,obj_woodenStilt) &amp;&amp; !position_meeting(xx,yy,OBSTA)) 
             &amp;&amp; !(object_get_parent(_tile) == PLR_NOCOL &amp;&amp; position_meeting(xx,yy,NOCOL))
             &amp;&amp; point_distance(obj_player.x,obj_player.y,mouse_x,mouse_y) &lt;= 16*4 //3 tiles worth of distance.
             &amp;&amp; (isConnected(xx,yy) || isGrounded(xx,yy)) //|| collision_point(xx,yy+16,obj_platform,false,false) )

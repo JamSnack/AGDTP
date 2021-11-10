@@ -40,6 +40,8 @@ if room == rm_tutorial then visible = false;
 hit_sound = snd_shield_deployed;
 
 deactivate_method = 0;
+
+draw_stats = false; //Whether or not to display certain stats.
 </string>
           </argument>
         </arguments>
@@ -72,6 +74,33 @@ if hp &lt;= 0
     gameOver = true; 
     audio_play_sound(snd_game_over,15,false);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Draw interesting pie stats
+if point_in_rectangle(mouse_x,mouse_y,bbox_left,bbox_top,bbox_right,bbox_bottom)
+{
+    draw_stats = true;
+} else draw_stats = false;
 </string>
           </argument>
         </arguments>
@@ -157,6 +186,15 @@ else if wave == 0 &amp;&amp; world_Time &lt; 450
 {
     draw_text(x-37,y-16,"Protect the pie!");
     draw_sprite(spr_red_arrow_down,world_Time/4,x-0.5,y-6);
+}
+
+
+//Draw stats
+if draw_stats == true
+{
+    draw_set_halign(fa_center);
+    draw_text(x,y+15,"Turret Capacity: "+string(turret_capacity)+"/"+string(turret_capacity_max));
+    draw_set_halign(fa_left);
 }
 </string>
           </argument>

@@ -26,9 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize the game
-globalvar canPlace,light,currentTask,gameOver,region;
+globalvar light,currentTask,gameOver,region;
 
-canPlace = false; //Whether or not an object can be placed.
 removeReady = true; //Can remove a block or not
 cellSize = 8; //The size of the building tile selection.
 currentTask = 0; //Nothing

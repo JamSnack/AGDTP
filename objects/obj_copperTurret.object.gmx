@@ -72,6 +72,15 @@ if tip_battery == false
           <argument>
             <kind>1</kind>
             <string>///Attack/Target Enemy
+
+//fireRate will be fr_slow during a reload cycle. Alarm triggers when the reload is complete.
+if fireRate = fr_slow
+{
+    fireRate = fr_fast;
+    ammo = ammoMax;
+}
+
+
 if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 {
     fireRate = fr_fast;
@@ -89,16 +98,9 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
         scr_playSound(snd_turret_shoot,false,7,x,y,1,true);
     }
 }
-
-if ammo &lt; ammoMax &amp;&amp; energy &gt; 1
+else if ammo &lt; ammoMax
 {
-    if ammo == 0
-    {
-        fireRate = fr_slow; //How many seconds are in-between shots.
-    }
-
-    energy -= 2;
-    ammo += 1;
+    fireRate = fr_slow; //Initializes the reload.
 }
 
 alarm[11] = fireRate*room_speed;
@@ -129,13 +131,13 @@ alarm[11] = fireRate*room_speed;
 draw_sprite_ext(spr_turretHead,0,x,y,1,1,turretDirection,c_white,1);
 
 //Draw Ammo
-if ammo != 0
+if fireRate == fr_slow
 {
-    for(_am=0;_am&lt;ammo;_am++)
-    {
-        draw_sprite(spr_ui_ammo,0,x-7+3*_am,y+8);
-    }
+    //reloading
+    var _t = room_speed*fr_slow;
+    draw_sprite_stretched(spr_ui_ammo,1,bbox_left,y+10,(bbox_right-bbox_left)*((_t-alarm_get(11))/_t),1);
 }
+else draw_sprite_stretched(spr_ui_ammo,0,bbox_left,y+10,(bbox_right-bbox_left)*(ammo/ammoMax),1);
 </string>
           </argument>
         </arguments>

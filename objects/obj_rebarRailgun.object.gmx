@@ -111,11 +111,9 @@ if cooled_down == true &amp;&amp; instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
     if ammo &gt; 0 then fireRate = fr_fast else fireRate = fr_slow;
     
     alarm[11] = fireRate*room_speed;
-}
-
-if ammo &lt; ammoMax &amp;&amp; energy &gt; 2
+} 
+else if ammo &lt; ammoMax
 {
-    energy -= 2;
     ammo += 1;
 }
 </string>
