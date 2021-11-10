@@ -21,8 +21,8 @@ switch argument0
     case ITEMID.weapon_seashellSpear: { tool_firerate = 34; wep_Dam = 7; wep_Knock = 3.75; } break;
     
     // ---- PICKAXES ----
-    case 4: { tool_firerate = 40; pick_Dam = 1; pick_level = 0; } break;
-    case 5: { tool_firerate = 35; pick_Dam = 1; pick_level = 0; } break;
+    case 4: { tool_firerate = 45; pick_Dam = 1; pick_level = 0; } break;
+    case 5: { tool_firerate = 40; pick_Dam = 1; pick_level = 0; } break;
     case ITEMID.pickaxe_stingerDrill: { tool_firerate = 25; pick_Dam = 1; pick_level = 1; } break;
     case ITEMID.pickaxe_seashellPickaxe: { tool_firerate = 30; pick_Dam = 2; pick_level = 1; } break;
 }
