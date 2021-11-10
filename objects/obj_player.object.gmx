@@ -377,7 +377,7 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != sprite_walk &amp;&amp; (position_meeting(x,1+bbox_bottom,OBSTA) || position_meeting(x,1+bbox_bottom,obj_platform) ) then sprite_index = sprite_walk;
+            if sprite_index != sprite_walk &amp;&amp; (collision_point(x,1+bbox_bottom,OBSTA,false,true) || collision_point(x,1+bbox_bottom,obj_platform,false,true) ) then sprite_index = sprite_walk;
             if armIndex != sprite_arm_walk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_walk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             

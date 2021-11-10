@@ -43,7 +43,7 @@ else
 platformCollide = true;
 
 //----Despawn Check-----------
-if position_meeting(x,y,OBSTA) then instance_destroy();
+if collision_point(x,y,OBSTA,false,true) then instance_destroy();
 
 //Attack Check --------------------------------------------
 if objective.canHurt == true
@@ -226,25 +226,6 @@ if vForce == 0 && hForce == 0
         }
         break;
     }
-    
-    // Grem Block check ----------------------------
-    var flatLandsY = (room_height/2)-(16*3);
-      /*  
-    if gremBlockCol == true && interm == false && position_meeting(x,y+spr_height,GREM_BLOCK)
-    {
-        while place_meeting_fast(0,0,GREM_BLOCK)
-        { 
-            y-=1; 
-            
-            if y < 0
-            {
-                print("FOREVER LOOP BREAK");
-                break;
-            }
-        }
-        
-        if position_meeting(x,y-6,GREM_BLOCK) then gremBlockCol = false;
-    }*/
     
     //Handle vertical movement states------------------------------------------
     if vsp != 0 || state = FALL

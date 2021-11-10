@@ -7,10 +7,9 @@ var yInterval = argument1;
 
 for (_tree=0;_tree<treeHeight;_tree++)
 {      
-    print(_tree);
     //Place tree tiles using previously used xInterval variable.
-    if position_meeting(xInterval,yInterval,OBSTA) { break; }
-    while position_meeting(xInterval,yInterval,obj_tree) { yInterval -= 16; }
+    if collision_point(xInterval,yInterval,OBSTA,false,true) { break; }
+    while collision_point(xInterval,yInterval,obj_tree,false,true) { yInterval -= 16; }
     
     //(y+16) because the trees spawn one tile above the ground
     var t = instance_create(xInterval,yInterval,obj_tree);

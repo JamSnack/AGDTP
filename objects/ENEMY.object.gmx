@@ -65,6 +65,7 @@ else
 }
 
 //Prevent spawning inside tiles.
+//TODO: For optimization, replace while condition with collision_point after snapping gremlin to the middle of the tile grid.
 while place_meeting_fast(0,0,OBSTA) y -= 16;
 
 event_inherited();

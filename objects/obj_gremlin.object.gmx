@@ -160,7 +160,7 @@ if stateLock == false
         {
             objective = plrTile;
             state = MOVE;
-        } else if position_meeting(x,y+plrTileAggroRange,PLRTILE)
+        } else if collision_point(x,y+plrTileAggroRange,PLRTILE,false,true)
         {
             objective = instance_position(x,y+plrTileAggroRange,PLRTILE);
             state = MOVE;
