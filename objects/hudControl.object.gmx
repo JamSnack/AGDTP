@@ -94,6 +94,8 @@ selectedType = noone;
 equipmentIcon = noone;
 equipmentTags = noone;
 modCanConfirm = false;
+mod_list_weapons = ds_list_create();
+mod_list_tags = ds_list_create();
 
 //Inventory Slots
 maxInvenSlots_original = maxInvenSlots;
@@ -696,6 +698,28 @@ if showSuperMenu == true
     }
     else if point_in_rectangle(dx,dy,_posX-15+_modOn-10+menu_width,_posY+35-10,_posX-15+_modOn+10+menu_width,_posY+35+10)
     {
+        //Initialize ui_state MOD
+        if ds_exists(mod_list_weapons,ds_type_list)
+        {
+            ds_list_clear(mod_list_weapons);
+        } else mod_list_weapons = ds_list_create();
+        
+        if ds_exists(mod_list_tags,ds_type_list)
+        {
+            ds_list_clear(mod_list_tags);
+        } else mod_list_tags = ds_list_create();
+        
+        //- Fill out our lists
+        for(_l=0;_l&lt;maxInvenSlots;_l++)
+        {
+            if inventorySlotType[_l] == ITEMTYPE.weapon
+            {
+                ds_list_add(mod_list_weapons,inventorySlotIcon[_l]);
+            }
+        }
+        
+        //TODO: Add unlocked tags to a list here.
+    
         ui_state = "MOD";
     }
    /* else if point_in_rectangle(dx,dy,_posX-15+_upgradeOn-10,_posY+60-10,_posX-15+_upgradeOn+10,_posY+60+10)
@@ -1954,11 +1978,17 @@ if showSuperMenu == true
             var y2 = (_posY)+size+yOff;
             
             draw_set_font(global.fnt_Ui);
-            var _text = "Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
+            var _text = "Tool Workshop";//"Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
             _text = scr_fitText(_text,45);
             
             draw_text(_posX+10,_posY+10,_text);
             
+            //TODO: Draw available weapons list.
+            //TODO: Draw available tags list.
+            //TODO: Draw new weapon and tag combo information.
+            
+            
+            /*
             //Slot labels
             draw_text(x1+3,y1-10,"Mod Tag");
             draw_text(x1+53,y1-10,"Tool");
@@ -1988,6 +2018,7 @@ if showSuperMenu == true
             {
                 draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
             }
+            */
         }
         break;
         
