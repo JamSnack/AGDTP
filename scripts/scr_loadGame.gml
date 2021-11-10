@@ -188,24 +188,14 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         tip_shifting = _list[| 3];
     }
     
-    // - currency data
+    // - misc stat data
     var _list = _wrapper[? "STAT"];
     
     if _list != undefined
     {
         currency_essence = _list[| 0];
+        turret_capacity_max = _list[| 1];
     }
-    
-    //- Player stat data
-    /*var _list = _wrapper[? "STAT"];
-    
-    if _list != undefined
-    {
-        energyRegenRate = _list[| 0];
-        energyMax = _list[| 1];
-        tileRegenRate = _list[| 2];
-        tileLevel = _list[| 3];
-    }*/
     
     //-------Handle Settings----------
     var _list = _wrapper[? "SETTINGS"];

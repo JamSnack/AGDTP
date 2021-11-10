@@ -63,6 +63,7 @@ ds_list_add(quest_list,tip_battery);
 ds_list_add(quest_list,tip_shifting);
 
 ds_list_add(stat_list,currency_essence);
+ds_list_add(stat_list,turret_capacity_max);
 
 //Save player stats
 /*ds_list_add(stat_list,energyRegenRate);

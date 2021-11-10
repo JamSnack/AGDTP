@@ -62,8 +62,7 @@ firerate = 1*room_speed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Eat energy
-if energy &gt; 0 then energy -= 1;
+            <string>///canAttack = true;
 canAttack = true;
 </string>
           </argument>
