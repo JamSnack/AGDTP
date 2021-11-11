@@ -38,6 +38,13 @@ scale = 2;
 initialized = false;
 alarm[1] = 1;
 knock_amt = 4;
+
+//Gather parent turret
+if instance_exists(PLT_1)
+{
+    parent = instance_position(x,y,PLT_1);
+}
+else instance_destroy();
 </string>
           </argument>
         </arguments>
@@ -85,12 +92,11 @@ if instance_exists(ENEMY)
     
     if target == noone
     {
-        energy += 2; //Return lost energy
         instance_destroy();
     }
     else
     {
-    
+        parent.ammo -= 1;
         tx = target.x;
         ty = target.y;
         

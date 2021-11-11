@@ -36,17 +36,17 @@ type = 3;
 //Turret stuff
 target = 0;
 targetRange = 7*16; //7 Tiles
-fireRate = 1; //How many seconds are in-between shots.
+fireRate = 6; //How many seconds are in-between shots.
 
 //Firerate values to control a burst of bullets.
 fr_fast = 0.2;
 fr_slow = 6;
 
-alarm[11] = 30;
+alarm[11] = room_speed*fr_slow;
 turretDirection = 0;
 ammoMax = 3;
 ammo = 0;
-cooled_down = true;
+cooled_down = false;
 </string>
           </argument>
         </arguments>
@@ -71,6 +71,7 @@ cooled_down = true;
             <kind>1</kind>
             <string>///Cooldown Reset
 cooled_down = true;
+ammo = ammoMax;
 </string>
           </argument>
         </arguments>
@@ -94,10 +95,8 @@ cooled_down = true;
           <argument>
             <kind>1</kind>
             <string>///Attack/Target Enemy
-if cooled_down == true &amp;&amp; instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
+if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
 {
-    cooled_down = false;
-
     var nearestEnemy = instance_nearest(x,y,ENEMY);
     
     if distance_to_object(nearestEnemy) &lt;= targetRange
@@ -105,16 +104,19 @@ if cooled_down == true &amp;&amp; instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
         target = nearestEnemy;
         scr_turretBulletCreate(x,y,nearestEnemy,0,8,obj_railgunBullet,spr_railgunBullet);
         turretDirection = scr_predictedDirection(x,y,target.x,target.y,target.hspd,target.vsp);
-        ammo -= 1;
     }
-    
-    if ammo &gt; 0 then fireRate = fr_fast else fireRate = fr_slow;
-    
-    alarm[11] = fireRate*room_speed;
 } 
-else if ammo &lt; ammoMax
+
+
+//Reload sequence
+if ammo &gt; 0
+{ 
+    fireRate = fr_fast 
+}
+else if alarm[11] == -1
 {
-    ammo += 1;
+    fireRate = fr_slow;
+    alarm[11] = room_speed*fr_slow;
 }
 </string>
           </argument>
@@ -143,13 +145,13 @@ else if ammo &lt; ammoMax
 draw_sprite_ext(spr_railgunHead,0,x,y,1,1,turretDirection,c_white,1);
 
 //Draw Ammo
-if ammo != 0
+if fireRate == fr_slow
 {
-    for(_am=0;_am&lt;ammo;_am++)
-    {
-        draw_sprite(spr_ui_ammo,0,x-7+3*_am,y+8);
-    }
+    //reloading
+    var _t = room_speed*fr_slow;
+    draw_sprite_stretched(spr_ui_ammo,1,bbox_left,y+10,(bbox_right-bbox_left)*((_t-alarm_get(11))/_t),1);
 }
+else draw_sprite_stretched(spr_ui_ammo,0,bbox_left,y+10,(bbox_right-bbox_left)*(ammo/ammoMax),1);
 </string>
           </argument>
         </arguments>
