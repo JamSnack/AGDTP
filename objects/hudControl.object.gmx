@@ -66,6 +66,7 @@ ui_state = "CRAFT"; // No ui is visible
 esc_hue = 0;
 esc_subimage = 0;
 essence_color = c_white;
+menu_surface = surface_create(250,200);
 
 //Wave Menu
 enemySprites = ds_list_create();
@@ -96,6 +97,8 @@ equipmentTags = noone;
 modCanConfirm = false;
 mod_list_weapons = ds_list_create();
 mod_list_tags = ds_list_create();
+
+//Achievements Menu
 
 //Inventory Slots
 maxInvenSlots_original = maxInvenSlots;
@@ -170,6 +173,33 @@ craftingSpriteSet = 0;
         </arguments>
       </action>
     </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Free menu_surface
+if surface_exists(menu_surface)
+{
+    surface_free(menu_surface);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -237,8 +267,8 @@ if showSuperMenu == true
             {
                 if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
                 {
-                    var size = 35; //The size of the distance between slots - the actual size of the slots.
-                    var column = 7;
+                    var size = 25; //The size of the distance between slots - the actual size of the slots.
+                    var column = 9;
                     var c = floor(drawn_slots/column);
                     
                     var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
@@ -455,6 +485,16 @@ if drawn_essence != currency_essence
     
     if essence_difference &lt; 10 then drawn_essence = currency_essence;
 }
+
+
+//Reset menu_surface if there is an input
+//NOTE: mouse_button returns 0 if no input (or side buttons), 1 for lmb, 2 for rmb, and 3 for middle click.
+
+if surface_exists(menu_surface) &amp;&amp; (mouse_button == 1 || mouse_wheel_up() || mouse_wheel_down())
+{
+    alarm[0] = 2;
+    surface_free(menu_surface);
+}
 </string>
           </argument>
         </arguments>
@@ -495,8 +535,8 @@ if drawn_essence != currency_essence
         }
     }
     
-    
-    var limit = floor(total_slots/7)*24;
+    //MN total_slots/9 is total_slots divided by crafting columns.
+    var limit = 90+floor(total_slots/9)*24;
     
     if craft_scroll &gt; limit then craft_scroll = limit;
 }
@@ -551,8 +591,8 @@ else
         }
     }
     
-    
-    var limit = -floor(total_slots/7)*24;
+    //MN total_slots/9 is total_slots divided by crafting columns.
+    var limit = -floor(total_slots/9)*24;
     
     if craft_scroll &lt; limit then craft_scroll = limit;
 }
@@ -1436,8 +1476,8 @@ if showSuperMenu == true &amp;&amp; obj_player.dead == false
             {
                 if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
                 {
-                    var size = 35; //The size of the distance between slots - the actual size of the slots.
-                    var column = 7;
+                    var size = 25; //The size of the distance between slots - the actual size of the slots.
+                    var column = 9;
                     var c = floor(drawn_slots/column);
                     
                     var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
@@ -1509,6 +1549,12 @@ else if settingsMenu = true
         
         //AUDIO CHANGE FUNCTION IS IN Left Button Released!!!
     }
+}
+
+//Ensure the surface is re-drawn.
+/*if surface_exists(menu_surface)
+{
+    surface_free(menu_surface);
 }
 
 </string>
@@ -1784,7 +1830,7 @@ modCanConfirm = false;
 
 ///Draw Ui
 draw_set_color(c_white);
-var dispWidth = viewWidth;
+var dispWidth = viewWidth; //dispWidth contains the width of the view size.
 var dispHeight = viewHeight;
 var menu_height = sprite_get_height(spr_ui_superMenuBackground);
 
@@ -1799,29 +1845,81 @@ if showSuperMenu == true
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
+    var menu_surface_y_offset = 80;
+    
     draw_set_font(global.fnt_Ui);
     
     //Draw background
     draw_sprite(spr_ui_superMenuBackground,0,_posX,_posY);
 
+    //---SURFACE STUFF WIP
+    if surface_exists(menu_surface)
+    {
+        draw_surface_part(menu_surface,0,35,400,300,0,35);
+    }
+    
     //Draw menu content
     switch ui_state
     {
         case "CRAFT":
         {
-            //-----------------Crafting Menu---------------------------------------
-            //#region
-        
-            if craft_scroll &gt; 0
+            if !surface_exists(menu_surface)
             {
-                draw_sprite(spr_white_arrow_small,1,_posX-10,_posY+10);
+                menu_surface = scr_init_surface(menu_surface, 400, 250);
+                //-----------------Crafting Menu---------------------------------------
+                //#region
+                
+                //draw crafting buttons
+                var drawn_slots = 0;
+                
+                for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
+                {
+                
+                    if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
+                    {
+                        var size = 25; //The size of the distance between slots - the actual size of the slots.
+                        var column = 9;
+                        var c = floor(drawn_slots/column);
+                        
+                        var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
+                        var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
+                        var y1 = _posY+5+(size*c)+craft_scroll;
+                        var y2 = _posY+25+(size*c)+craft_scroll;
+                        
+                        //If not on-screen then continue
+                        if (y1 &lt; _posY-40 || y2 &gt; 35+_posY+menu_height/2) 
+                        { 
+                            drawn_slots += 1;
+                            continue;
+                        }
+    
+                        //Draw Slots
+                        draw_sprite(spr_ui_craftingIcon,0,x1,y1);
+                        
+                        //Draw items
+                        var _center = 12;
+                        draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
+                        
+                        drawn_slots += 1;
+                    }
+                }
+                //Draw the new surface
+                surface_reset_target();
+                draw_surface_part(menu_surface,0,35,400,300,0,35);
             }
-            else if craft_scroll &lt; 0
+            
+            //Draw these to the application surface
+            
+            //- Draw Filters
+            if craft_scroll &gt; 0
             {
                 draw_sprite(spr_white_arrow_small,0,_posX-10,_posY+10);
             }
+            else if craft_scroll &lt; 0
+            {
+                draw_sprite(spr_white_arrow_small,1,_posX-10,_posY+10);
+            }
             
-            //- draw filters
             var _ico_scale = 0.8;
             var _y_offset = 14;
             var enabled_offset = 4;;
@@ -1846,268 +1944,232 @@ if showSuperMenu == true
             //Recipe scroll instructions
             draw_text(_posX-10,_posY+menu_height+10,"Use the scroll wheel to scroll through multiple recipes");
             draw_set_font(global.fnt_Ui);
-            //draw crafting buttons
-            var drawn_slots = 0;
-            
-            for(i=0;i&lt;sprite_get_number(spr_itemDrops);i++)
+                
+            //Draw crafting tooltip
+            if craftSelect != -1
             {
-            
-                if scr_checkCraftingIndex(i) == true &amp;&amp; scr_checkCraftingType(i) != false
+                scr_craftingToolTip(craftSelect); //initializes text and recipe variables and sets recipe varialbes
+                scr_drawToolTip(craftSelect,scr_checkCraftingType(craftSelect),true); //initializes and sets text variables
+                
+                
+                text[1] = scr_fitText(text[1],58);
+                
+                draw_text_transformed(132,134,text[0],1.25,1.25,0); //Item Name
+                draw_text_transformed(133,145,text[1],0.8,0.8,0); //item description
+                draw_text(133,185,"Items Needed: "); //Necessary stuff
+                
+                
+                //draw cost
+                if cost &gt; 0
                 {
-                    var size = 35; //The size of the distance between slots - the actual size of the slots.
-                    var column = 7;
-                    var c = floor(drawn_slots/column);
+                    draw_sprite_ext(spr_ui_essence,esc_subimage,_posX+208,137,1,1,0,essence_color,1);
                     
-                    var x1 = _posX+10+(drawn_slots*size)-(c*size*column);
-                    var x2 = _posX+30+(drawn_slots*size)-(c*size*column);
-                    var y1 = _posY+5+(size*c)+craft_scroll;
-                    var y2 = _posY+25+(size*c)+craft_scroll;
+                    if currency_essence &gt;= cost then draw_set_color(c_white) else draw_set_color(c_red);
                     
-                    //If not on-screen then continue
-                    if (y1 &lt; _posY || y2 &gt; _posY+menu_height/2) 
-                    { 
-                        drawn_slots += 1;
-                        continue;
-                    }
-
-                    //Draw Slots
-                    draw_sprite(spr_ui_craftingIcon,0,x1,y1);
+                    draw_text(_posX+213,134,"x"+string(cost));
+                    draw_set_color(c_white);
+                }
+                
+                //- Draw material sprites.
+                for(_i=0;_i&lt;array_length_1d(mats);_i++)
+                {
+                    var column = floor(_i/2);
+                    var y_offset = _i*10;
+                    var x_offset = (column*32)+5
+                    var _scal = 0.5;
+                    var y_pos = 196;
                     
-                    //Draw items
-                    var _center = 12;
-                    draw_sprite(spr_itemDrops,i,x1+_center,y1+_center);
+                    y_pos -= column*y_offset;
                     
-                    //Draw crafting tooltip
-                    if craftSelect != -1// &amp;&amp; craftSelect == i
-                    {
-                        scr_craftingToolTip(craftSelect); //initializes text and recipe variables and sets recipe varialbes
-                        scr_drawToolTip(craftSelect,scr_checkCraftingType(craftSelect),true); //initializes and sets text variables
-                        
-                        
-                        text[1] = scr_fitText(text[1],58);
-                         
-                        draw_text_transformed(132,134,text[0],1.25,1.25,0);
-                        draw_text_transformed(133,145,text[1],0.8,0.8,0);
-                        draw_text(133,185,"Items Needed: ");
-                        
-                        //draw cost
-                        if cost &gt; 0
-                        {
-                            draw_sprite_ext(spr_ui_essence,esc_subimage,_posX+208,137,1,1,0,essence_color,1);
-                            
-                            if currency_essence &gt;= cost then draw_set_color(c_white) else draw_set_color(c_red);
-                            
-                            draw_text(_posX+213,134,"x"+string(cost));
-                            draw_set_color(c_white);
-                        }
-                        
-                        //- Draw material sprites.
-                        for(_i=0;_i&lt;array_length_1d(mats);_i++)
-                        {
-                            var column = floor(_i/2);
-                            var y_offset = _i*10;
-                            var x_offset = (column*32)+5
-                            var _scal = 0.5;
-                            var y_pos = 196;
-                            
-                            y_pos -= column*y_offset;
-                            
-                            
-                            draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
-                            if matsAmt[_i] &gt; 0 then draw_text(135+x_offset,y_pos+y_offset,"x"+string(matsAmt[_i]));
-                        }
-                    }
                     
-                    drawn_slots += 1;
+                    draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
+                    if matsAmt[_i] &gt; 0 then draw_text(135+x_offset,y_pos+y_offset,"x"+string(matsAmt[_i]));
                 }
             }
     //#endregion
         }
         break;
-    
-        /*case "UPGRADE":
-        {
-    //-----------------Upgrade Menu-----------------------------
-    //#region
-        //- INIT BUTTONS
-        var h_size = 36;
-        var v_size = 12;
-        
-        //NOTE: Adding 32 to the y value every new button
-        //- Regeneration Upgrade button
-        var xx = 8+h_size;
-        var yy = 8+v_size;
-        
-        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.25*string_length("Regen Level"))+xx,_posY-(v_size/2)+yy,"Regen Level#Cost: "+string(tileRegenRate*25));
-        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase the rate at which the#player, pie, and tile's#health regenerates during the day.#Regeneration Level: "+string(60-(60-tileRegenRate)),0.75,0.75,1);
-        
-        //- Tile base HP Upgrade button
-        var xx = 8+h_size;
-        var yy = 40+v_size;
-        
-        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.5*string_length("Tile Level"))+xx,_posY-(v_size/2)+yy,"Tile Level#Cost: "+string(tileLevel*50));
-        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increase tile strength and#amount regenerated.#Tile Level: "+string(tileLevel),0.75,0.75,1);
-        
-        //- Electricity storage
-        var xx = 8+h_size;
-        var yy = 72+v_size;
-        
-        draw_nineSliceBox(spr_ui_button,_posX-h_size+xx,_posY-v_size+yy,_posX+h_size+xx,_posY+v_size+yy,0);
-        draw_text((_posX-2.5*string_length("Power Storage"))+xx,_posY-(v_size/2)+yy,"Power Storage#Cost: "+string((energyMax-4)*100));
-        draw_text_transformed(_posX+(xx*2)+5,_posY-(v_size/2)+yy,"Increases power storage capacity.#Max capacity: "+string(energyMax),0.75,0.75,1);
-        
-        //Draw essence count
-        var str_essence = ":"+string(scr_getInvenItemAmt(ITEMID.item_gremEssence));
-        
-        draw_sprite(spr_gremlinEssence,image_index,3*_posX-string_width(str_essence),_posY+190);
-        draw_text(3*_posX+4-string_width(str_essence),_posY+186,str_essence);
-        
-        }
-        break;*/
         
         case "MOD":
         {
-            //-------Mod menu-----
-            var size = 16;
-            var xOff = 70;
-            var yOff = 100;
-            var x1 = (_posX)-size+xOff;
-            var y1 = (_posY)-size+yOff;
-            var x2 = (_posX)+size+xOff;
-            var y2 = (_posY)+size+yOff;
-            
-            draw_set_font(global.fnt_Ui);
-            var _text = "Tool Workshop";//"Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
-            _text = scr_fitText(_text,45);
-            
-            draw_text(_posX+10,_posY+10,_text);
-            
-            //TODO: Draw available weapons list.
-            //TODO: Draw available tags list.
-            //TODO: Draw new weapon and tag combo information.
-            
-            
-            /*
-            //Slot labels
-            draw_text(x1+3,y1-10,"Mod Tag");
-            draw_text(x1+53,y1-10,"Tool");
-            draw_text(x1+113,y1-10,"Result");
-            
-            //Tag and Equipment Slots respectively
-            draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
-            draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
-            
-            //Draw icons
-            if selectedTag != noone 
-            { 
-                draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
-                if ds_exists(selectedTag,ds_type_list)
-                { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
-            }
-            
-            if selectedEquipment != noone 
-            { 
-                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
-            } //Magic Number: 50+50 = 100; 50 is MN for equip slot placement within the slot.
-            
-            //Draw mod complete
-            draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
-            
-            if modCanConfirm == true
+            if !surface_exists(menu_surface)
             {
-                draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
+                menu_surface = scr_init_surface(menu_surface, 400, 250);
+                
+                //-------Mod menu-----
+                var size = 16;
+                var xOff = 70;
+                var yOff = 100;
+                var x1 = (_posX)-size+xOff;
+                var y1 = (_posY)-size+yOff;
+                var x2 = (_posX)+size+xOff;
+                var y2 = (_posY)+size+yOff;
+                
+                draw_set_font(global.fnt_Ui);
+                var _text = "Tool Workshop";//"Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
+                _text = scr_fitText(_text,45);
+                
+                draw_text(_posX+10,_posY+10,_text);
+                
+                //TODO: Draw available weapons list.
+                //TODO: Draw available tags list.
+                //TODO: Draw new weapon and tag combo information.
+                
+                
+                /*
+                //Slot labels
+                draw_text(x1+3,y1-10,"Mod Tag");
+                draw_text(x1+53,y1-10,"Tool");
+                draw_text(x1+113,y1-10,"Result");
+                
+                //Tag and Equipment Slots respectively
+                draw_nineSliceBox(spr_ui_9slice_small,x1,y1,x2,y2,0);
+                draw_nineSliceBox(spr_ui_9slice_small,x1+50,y1,x2+50,y2,0);
+                
+                //Draw icons
+                if selectedTag != noone 
+                { 
+                    draw_sprite(spr_itemDrops,ITEMID.item_modTag,(x1+x2)/2,(y1+y2)/2);
+                    if ds_exists(selectedTag,ds_type_list)
+                    { draw_text(((x1+x2)/2)-13,((y1+y2)/2)+25,ds_list_find_value(selectedTag,0)); }
+                }
+                
+                if selectedEquipment != noone 
+                { 
+                    draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+100)/2,(y1+y2)/2);
+                } //Magic Number: 50+50 = 100; 50 is MN for equip slot placement within the slot.
+                
+                //Draw mod complete
+                draw_nineSliceBox(spr_ui_modConfirm,x1+110,y1,x2+110,y2,modCanConfirm);
+                
+                if modCanConfirm == true
+                {
+                    draw_sprite(spr_itemDrops,equipmentIcon,(x1+x2+220)/2,(y1+y2)/2);
+                }
+                */
+                
+                //Draw the new surface
+                surface_reset_target();
+                draw_surface_part(menu_surface,0,35,400,300,0,35);
             }
-            */
         }
         break;
         
         //#endregion
         case "WAVE":
         {
-           //------REGION SHIFTING----------
-           var region_shift = worldControl.region_shift;
-           var region_type = worldControl.shift_destination;
-           
-            draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+20,_posX+226,_posY+20+65,0);
-            draw_sprite(spr_ui_regionShiftBool,region_shift,_posX+12,_posY+13);
-            
-            //-- draw region buttons
-            for(_p=0;_p&lt;sprite_get_number(spr_ui_regions)-1;_p++)
+            if !surface_exists(menu_surface)
             {
-                var _subimage = _p;
-                
-                switch _p
-                {
-                    //Region requirements
-                    case 2: { if kingDied_1 == false then _subimage = 3; } break;
-                }
+                menu_surface = scr_init_surface(menu_surface, 400, 250);
             
-                draw_sprite(spr_ui_regions,_subimage,_posX+20+(_p*38),_posY+30);
-            }
-            
-            //-- cost
-            if region_shift == true
-            {
-                var str = "Essence Cost: ";
+               //------REGION SHIFTING----------
+               var region_shift = worldControl.region_shift;
+               var region_type = worldControl.shift_destination;
+               
+                draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+20,_posX+226,_posY+20+65,0);
+                draw_sprite(spr_ui_regionShiftBool,region_shift,_posX+12,_posY+13);
                 
-                switch region_type
+                //-- draw region buttons
+                for(_p=0;_p&lt;sprite_get_number(spr_ui_regions)-1;_p++)
                 {
-                    case "GRASSLANDS": { draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30); } break;
-                    case "COVE": { draw_sprite(spr_ui_regionSelected,0,_posX+20+76,_posY+30); } break;
-                }
-                
-                draw_text(_posX+153,_posY+10,str+string(scr_getRegionCost(region_type)));
-            }
-            else
-            {
-                draw_text(_posX+153,_posY+10,"Essence Cost: 0");
-                draw_sprite(spr_ui_regionSelected,0,_posX+20,_posY+30);
-            }
-           
-           //-----ENEMY INFORMATION--------
-           draw_text(_posX+12,_posY+97,"Enemies: ");
-           draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+105,_posX+226,_posY+105+65,0);
-           
-           //--- Draw the enemy information
-           if room != rm_lobby
-           {
-                for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
-                {
-                    var _sprite = object_get_sprite(enemySprites[| _p]);
+                    var _subimage = _p;
                     
-                    if sprite_exists(_sprite)
+                    switch _p
                     {
-                        var scale = 1;
-                        var _sprite_width = sprite_get_width(_sprite);
-                        var _sprite_height = sprite_get_height(_sprite);
-                        
-                        while sprite_get_width(_sprite)/scale &gt; 20 || sprite_get_height(_sprite)/scale &gt; 20
-                        {
-                            scale += 0.2;
-                        }
-                        
-                        draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
-                        draw_sprite_ext(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22,1/scale,1/scale,0,c_white,1);
+                        //Region requirements
+                        case 2: { if kingDied_1 == false then _subimage = 3; } break;
                     }
+                
+                    draw_sprite(spr_ui_regions,_subimage,_posX+20+(_p*38),_posY+30);
                 }
-           }
-           
-           //------DIFFICULTY/BOSSES KILLED--------------
-           draw_text(_posX+12,_posY+178,"Bosses: ")
-           
-           if kingDied_1 == true
-           {
-               draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+182);
-           }
-           
-           if kingDied_2 == true
-           {
-               draw_sprite(spr_bossDefeatedIcon,1,_posX+60,_posY+182);
-           }
+                
+                //-- cost
+                if region_shift == true
+                {
+                    var str = "Essence Cost: ";
+                    
+                    switch region_type
+                    {
+                        case "GRASSLANDS": { draw_sprite(spr_ui_regionSelected,0,_posX+20+38,_posY+30); } break;
+                        case "COVE": { draw_sprite(spr_ui_regionSelected,0,_posX+20+76,_posY+30); } break;
+                    }
+                    
+                    draw_text(_posX+153,_posY+10,str+string(scr_getRegionCost(region_type)));
+                }
+                else
+                {
+                    draw_text(_posX+153,_posY+10,"Essence Cost: 0");
+                    draw_sprite(spr_ui_regionSelected,0,_posX+20,_posY+30);
+                }
+               
+               //-----ENEMY INFORMATION--------
+               draw_text(_posX+12,_posY+97,"Enemies: ");
+               draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+105,_posX+226,_posY+105+65,0);
+               
+               //--- Draw the enemy information
+               if room != rm_lobby
+               {
+                    for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
+                    {
+                        var _sprite = object_get_sprite(enemySprites[| _p]);
+                        
+                        if sprite_exists(_sprite)
+                        {
+                            var scale = 1;
+                            var _sprite_width = sprite_get_width(_sprite);
+                            var _sprite_height = sprite_get_height(_sprite);
+                            
+                            while sprite_get_width(_sprite)/scale &gt; 20 || sprite_get_height(_sprite)/scale &gt; 20
+                            {
+                                scale += 0.2;
+                            }
+                            
+                            draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
+                            draw_sprite_ext(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22,1/scale,1/scale,0,c_white,1);
+                        }
+                    }
+               }
+               
+               //------DIFFICULTY/BOSSES KILLED--------------
+               draw_text(_posX+12,_posY+178,"Bosses: ")
+               
+               if kingDied_1 == true
+               {
+                   draw_sprite(spr_bossDefeatedIcon,0,_posX+50,_posY+182);
+               }
+               
+               if kingDied_2 == true
+               {
+                   draw_sprite(spr_bossDefeatedIcon,1,_posX+60,_posY+182);
+               }
+               
+               
+               //Draw the new surface
+                surface_reset_target();
+                draw_surface_part(menu_surface,0,35,400,300,0,35);
+            }
         }
+        break;
+        
+        case "ACHIEVE":
+        {
+            if !surface_exists(menu_surface)
+            {
+                menu_surface = scr_init_surface(menu_surface, 400, 250);
+                
+                //Draw a list of achievements.
+                //TODO: actually draw this
+                
+                //Draw the new surface
+                surface_reset_target();
+                draw_surface_part(menu_surface,0,35,400,300,0,35);
+            }
+        }
+        break;
     }
+    
+    surface_reset_target();
+    
     
     //-----------------Draw Ui state buttons--------
     //Drawing them underneath the menu for overlapping effect.
@@ -2635,7 +2697,8 @@ if cursor_information != ""
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hudVisible = !hudVisible;
+            <string>//hudVisible = !hudVisible;
+ui_state = "ACHIEVE";
 </string>
           </argument>
         </arguments>

@@ -164,6 +164,8 @@
       <sprite>sprites\spr_hiveGrowth</sprite>
       <sprite>sprites\spr_crabKing</sprite>
       <sprite>sprites\spr_crab</sprite>
+      <sprite>sprites\spr_squidKing</sprite>
+      <sprite>sprites\spr_mackerel</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -286,8 +288,6 @@
     <sprite>sprites\spr_sparkleRed</sprite>
     <sprite>sprites\spr_portal</sprite>
     <sprite>sprites\spr_shield</sprite>
-    <sprite>sprites\spr_squidKing</sprite>
-    <sprite>sprites\spr_mackerel</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -430,6 +430,7 @@
     <script>scripts\scr_enemyHpIndex.gml</script>
     <script>scripts\scr_particleCreate.gml</script>
     <script>scripts\scr_removeEssence.gml</script>
+    <script>scripts\scr_init_surface.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
