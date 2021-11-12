@@ -111,8 +111,6 @@ if tip_controls == false
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
 
-achievements_unlocked[ACHIEVEMENT.getting_dirty] = 1;
-achievements_unlocked[ACHIEVEMENT.first_blood] = 1;
 /*scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);

@@ -174,6 +174,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         {
             recipe_copperOre = _list[| 0];
             recipe_sweetComb = _list[| 1];
+            recipe_seashellMetal = _list[| 2];
         }
     }
     
@@ -188,6 +189,17 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         tip_shifting = _list[| 3];
     }
     
+    //- achievements
+    var _list = _wrapper[? "ACHIEVE"];
+    
+    if _list != undefined
+    {
+        for(i=0;i<array_length_1d(achievements_unlocked);i++)
+        {
+            achievements_unlocked[i] = _list[| i];
+        }
+    }
+    
     // - misc stat data
     var _list = _wrapper[? "STAT"];
     
@@ -195,6 +207,9 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     {
         currency_essence = _list[| 0];
         turret_capacity_max = _list[| 1];
+        global.kills = _list[| 2];
+        global.base_tiles_placed = _list[| 3];
+        global.waves_survived = _list[| 4];
     }
     
     //-------Handle Settings----------

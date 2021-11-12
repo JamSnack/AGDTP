@@ -163,7 +163,7 @@ draw_set_font(global.fnt_menu);
 
 if task_inventory_completed == false
 {
-    draw_text_transformed(120,6,"Press 'I' to open your inventory.",0.75,0.75,0);
+    draw_text_transformed(120,6,"Press 'F' to open your inventory.",0.75,0.75,0);
 }
 
 else if task_super_menu_completed == false &amp;&amp; hudControl.invOpen == false

@@ -29,6 +29,8 @@ switch presetSettings
     case "INTERM":
     {
         //---------- Intermission settings ---------
+        if wave != 0 then global.waves_survived += 1;
+        
         spawnRate = 0.5;
         spawnChance = 20+clamp(floor(wave/2),0,40);
         maxGrem = 7;

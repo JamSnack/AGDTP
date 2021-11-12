@@ -60,12 +60,11 @@ event_inherited();
 knock_resistance = 1;
 agility = 0.08;
 
-agility = 0.1;
 shield_charges_max = 1;
 shield_charges = 0;
-shield_health_max = 4;
+shield_health_max = 3;
 shield_health = shield_health_max;
-charge_rate = 8*room_speed;
+charge_rate = 9*room_speed;
 alarm[3] = charge_rate;
 
 shield_scale = shield_health/shield_health_max;

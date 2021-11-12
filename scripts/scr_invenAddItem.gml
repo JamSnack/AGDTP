@@ -75,6 +75,9 @@ if item != 0
             //RECIPE UNLOCKS
             scr_unlockRecipe(item);
             
+            //ACHIEVEMENT STUFF
+            if item == ITEMID.item_dirtClump then scr_unlockAchievement(ACHIEVEMENT.getting_dirty);
+            
             scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
             return 1;
         }

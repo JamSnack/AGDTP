@@ -2,6 +2,7 @@
 var save_list = ds_list_create(); //Inventory data
 var recipe_list = ds_list_create(); //Recipes unlocked
 var quest_list = ds_list_create(); //List containing quest progress
+var achieve_list = ds_list_create(); //List containing achievement bools
 var stat_list = ds_list_create(); //List containing player stats to save.
 var accessory_list = ds_list_create(); //List containing equipped accessories.
 var settings_list = ds_list_create(); //List of settings to save.
@@ -62,8 +63,17 @@ ds_list_add(quest_list,tip_controls);
 ds_list_add(quest_list,tip_battery);
 ds_list_add(quest_list,tip_shifting);
 
+//- achievements
+for(i=0;i<array_length_1d(achievements_unlocked);i++)
+{
+    ds_list_add(achieve_list,achievements_unlocked[i]);
+}
+
 ds_list_add(stat_list,currency_essence);
 ds_list_add(stat_list,turret_capacity_max);
+ds_list_add(stat_list,global.kills);
+ds_list_add(stat_list,global.base_tiles_placed);
+ds_list_add(stat_list,global.waves_survived);
 
 //Save player stats
 /*ds_list_add(stat_list,energyRegenRate);
@@ -107,6 +117,7 @@ var _wrapper = ds_map_create();
 ds_map_add_list(_wrapper,"INV",save_list);
 ds_map_add_list(_wrapper,"RECIPE",recipe_list);
 ds_map_add_list(_wrapper,"QUEST",quest_list);
+ds_map_add_list(_wrapper,"ACHIEVE",achieve_list);
 ds_map_add_list(_wrapper,"STAT",stat_list);
 ds_map_add_list(_wrapper,"ACC",accessory_list);
 ds_map_add_list(_wrapper,"SETTINGS",settings_list);

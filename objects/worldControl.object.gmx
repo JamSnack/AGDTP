@@ -39,7 +39,7 @@ maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 energy = 0; //NOTE: CURRENTLY REPLACING WITH turret_capacity; 11/9/21
 turret_capacity = 0;
-turret_capacity_max = 2;
+turret_capacity_max = 1;
 current_grem = 0; //Number of gremlins in the world based on their spawn weight.
 
 

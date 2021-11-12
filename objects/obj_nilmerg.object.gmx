@@ -113,7 +113,11 @@ canDespawn = false;
           <argument>
             <kind>1</kind>
             <string>//Call this region king death check before event_inherited();
-if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id then kingDied_1 = true;
+if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl.raidBossID == id
+{
+    scr_unlockAchievement(ACHIEVEMENT.the_king_of_lesser_things);
+    kingDied_1 = true;
+}
 
 event_inherited();
 

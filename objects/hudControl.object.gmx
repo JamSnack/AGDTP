@@ -99,9 +99,10 @@ mod_list_weapons = ds_list_create();
 mod_list_tags = ds_list_create();
 
 //Achievements Menu
+achievement_select = -1; //Which achievement's information is being displayed.
 achievement_scroll = 0;
 achievement_scroll_drag = false;
-achievement_scroll_max = 73*(array_length_1d(achievements_unlocked)-3); //MN: 3. I can see 3 Achievements at once by default. These are removed from the calculation.
+achievement_scroll_max = 73*(array_length_1d(achievements_unlocked)-3); //MN: 3. I can see 3 Achievements at once by default. These are removed from the calculation to avoid extra white space at the end.
 
 //Inventory Slots
 maxInvenSlots_original = maxInvenSlots;
@@ -773,7 +774,12 @@ if showSuperMenu == true
     {
         ui_state = "WAVE";
     }
+    else if point_in_rectangle(dx,dy,_posX-15+_waveOn-10+menu_width,_posY+85-10,_posX-15+_waveOn+10+menu_width,_posY+85+10)
+    {
+        ui_state = "ACHIEVE";
+    }
     
+    //-----Specific Functionality-----
     //Crafting Menu Filters
     if ui_state == "CRAFT"
     {
@@ -855,6 +861,29 @@ if showSuperMenu == true
                     worldControl.region_shift = r_shift;
                     worldControl.shift_destination = s_destination;
                 }
+            }
+        }
+    }
+    else if ui_state == "ACHIEVE"
+    {
+        if (dy &lt; _posY+10+sprite_get_height(spr_ui_achievement))
+        {
+            //Select an achievement to display and remember its ID.
+        
+            var _ox = _posX+10-(achievement_scroll*(achievement_scroll_max));
+            var _oy = _posY+10;
+            var t_scale = 1;
+            
+            var _w = sprite_get_width(spr_ui_achievement);
+            var _h = sprite_get_height(spr_ui_achievement);
+            
+            for(i=0;i&lt;array_length_1d(achievements_unlocked);i++)
+            {
+                if point_in_rectangle(dx,dy,_ox+(i*73),_oy,_ox+(i*73)+_w,_oy+_h)
+                {
+                    achievement_select = i;
+                    break;
+                } else achievement_select = -1;
             }
         }
     }
@@ -1348,6 +1377,11 @@ else if keybindMenu_visible == true
         settingsMenu = true;
     }
 }
+else if ui_state == "ACHIEVE"
+{
+    //Reset achievement_scroll_drag;
+    achievement_scroll_drag = false;
+}
 </string>
           </argument>
         </arguments>
@@ -1535,7 +1569,7 @@ if showSuperMenu == true &amp;&amp; obj_player.dead == false
         //- Achievement Scroll
         if point_in_rectangle(dx,dy,_posX+4,_posY+46,_posX+243,_posY+54) || achievement_scroll_drag == true
         {
-            print(achievement_scroll);
+            //print(achievement_scroll);
             achievement_scroll_drag = true;
         
             var point_1 = _posX+4;
@@ -1737,12 +1771,34 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                     {
                         if _amt &gt; 0
                         {
+                            //Place the tile
                             instance_create(xx,yy,_tile);
                             scr_tileUpdate(xx,yy);
                             scr_invenRemoveItem(0,1,3,false,selectedSlot,noone);
                             if _amt == 0 then selectedSlot = noone;
                             lastPlaceX = xx;
                             lastPlaceY = yy;
+                            
+                            //Achievement Control
+                            if xx &gt; RAIDBOUND_Lower &amp;&amp; xx &lt; RAIDBOUND_Upper
+                            {
+                                global.base_tiles_placed += 1;
+                                
+                                //print(global.base_tiles_placed);
+
+                                //achievement logic
+                                var _b = global.base_tiles_placed;
+                                
+                                if _b &gt;= 25 &amp;&amp; _b &lt; 1000
+                                {
+                                    scr_unlockAchievement(ACHIEVEMENT.starter_base);
+                                }
+                                else if _b &gt;= 1000 &amp;&amp; _b &lt; 50000
+                                {
+                                   scr_unlockAchievement(ACHIEVEMENT.impenetrable); 
+                                }
+                                else if _b &gt;= 50000 then scr_unlockAchievement(ACHIEVEMENT.stalwart_creation);
+                            }
                             
                             //Sound
                             if position_meeting(xx,yy+16,FLATLAND)
@@ -2191,6 +2247,9 @@ if showSuperMenu == true
                 draw_rectangle(_posX+4,_posY+48,_posX+243,_posY+52,false);
                 draw_sprite(spr_ui_selectedBool,1,_posX+4+(243*(achievement_scroll)),_posY+50);
                 
+                //- Description Background
+                draw_rectangle(_posX+4,_posY+60,_posX+243,_posY+120,false);
+                
                 //Init text
                 draw_set_colour(c_white);
                 draw_set_font(global.fnt_Ui);
@@ -2227,11 +2286,37 @@ if showSuperMenu == true
                     }
                 }
                 
-                
                 //Draw the new surface
                 surface_reset_target();
                 draw_set_halign(fa_left);
                 draw_surface_part(menu_surface,surface_left,35,surface_width,300,surface_left,35);
+            }
+            
+            //Draw a selected achievement's information
+            if (achievement_select != -1)
+            {
+                draw_set_halign(fa_center);
+                var _data = scr_getAchievementInfo(achievement_select);
+                
+                var _name = _data[0];
+                var _str = scr_fitText(_data[1],75);
+                
+                if achievements_unlocked[achievement_select] == 0
+                {
+                    _name = "Locked";
+                }
+                
+                //- Draw the info/data
+                draw_text_transformed(_posX+120,_posY+65,_name,2,2,0); //Name
+                draw_text_transformed(_posX+120,_posY+85,_str,0.8,0.8,0); //Description
+                draw_set_halign(fa_left);
+            }
+            else
+            {
+                //otherwise, draw stats
+                draw_text(_posX+6,_posY+65,"Total Kills: "+string(global.kills));
+                draw_text(_posX+6,_posY+72,"Total Tiles Placed: "+string(global.base_tiles_placed));
+                draw_text(_posX+6,_posY+79,"Total Waves Survived: "+string(global.waves_survived));
             }
         }
         break;
@@ -2243,11 +2328,12 @@ if showSuperMenu == true
     //-----------------Draw Ui state buttons--------
     //Drawing them underneath the menu for overlapping effect.
     
-    var _craftOn, _modOn, _upgradeOn, _waveOn, offset;
+    var _craftOn, _modOn, _upgradeOn, _waveOn, _achieveOn, offset;
     _craftOn = 0;
     _modOn = 0;
     _upgradeOn = 0;
     _waveOn = 0;
+    _achieveOn = 0;
     offset = -4;
     
     var menu_width = 280;
@@ -2256,11 +2342,13 @@ if showSuperMenu == true
     else if ui_state == "MOD" then _modOn = offset;
     else if ui_state == "UPGRADE" then _upgradeOn = offset;
     else if ui_state == "WAVE" then _waveOn = offset;
+    else if ui_state == "ACHIEVE" then _achieveOn = offset;
     
     draw_sprite(spr_menuIcons,6,_posX-15+_craftOn+menu_width,_posY+10); //Crafting menu
     draw_sprite(spr_menuIcons,7,_posX-15+_modOn+menu_width,_posY+35); //Mod menu
     //draw_sprite(spr_menuIcons,8,_posX-15+_upgradeOn,_posY+60); //Upgrade menu
     draw_sprite(spr_menuIcons,9,_posX-15+_waveOn+menu_width,_posY+60); //Wave menu
+    draw_sprite(spr_menuIcons,10,_posX-15+_achieveOn+menu_width,_posY+85); //Achievements menu
 
 }
 
