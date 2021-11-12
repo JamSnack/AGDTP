@@ -116,7 +116,7 @@ music = audio_play_sound(snd_theStarsForever,10,true);
 audio_sound_gain(snd_theStarsForever,music_volume,0);
 sfx_volume = 0.4;
 vsyncToggled = true;
-performance_mode = false; //THE FUTURE IS NOW! AGDTP RUNNING ON Average American Home 1.1 GHz CPU PCs IS A REALITY!
+performance_mode = false; //THE FUTURE IS NOW! AGDTP RUNNING ON Average American Home 1.1 GHz CPU PCs IS A REALITY! (not)
 
 
 //Item IDs
@@ -178,6 +178,32 @@ enum ITEMTYPE
     consumable,
     accessory,
 }
+
+enum ACHIEVEMENT
+{
+    triple_king, //Killed the Sphere King
+    explosive_gremlin, //Killed the Bomb King
+    the_king_of_sky_and_sea, //Killed Bliplo
+    getting_dirty, //Collected Dirt (recipe unlock)
+    speedrunner_1, //Killed Nilmerg on wave 1
+    speedrunner_2, //Killed Bliplo on wave 2
+    starter_base, //Placed a few blocks in the flatlands.
+    impenetrable, //Placed 100 blocks in the flatlands.
+    stalwart_creation, //Placed 10000 blocks in the flatlands.
+    sharpened_blade, //Crafted a weapon
+    prepared_to_delve, //Crafted a pickaxe
+    first_blood, //Killed your first enemy
+    new_world, //Region shifted
+    avant_garde, //Used a tag on a tool.
+    
+    //RECIPE UNLOCKS
+    the_king_of_lesser_things, //Killed Nilmerg
+    rusty_tools, //Collected Copper Ore
+    beached, //Collected Seashell Metal Ore
+    last,
+}
+globalvar achievements_unlocked;
+achievements_unlocked = array_create(ACHIEVEMENT.last-1);
 
 //Particles
 globalvar particle_system,_part_gib,part_dirt_frag,part_stone_frag,part_nullGib,part_esc;

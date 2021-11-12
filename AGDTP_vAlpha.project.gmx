@@ -230,6 +230,7 @@
       <sprite>sprites\spr_ui_invenSlot</sprite>
       <sprite>sprites\spr_ui_enemyBackground</sprite>
       <sprite>sprites\spr_ui_craftingIcon</sprite>
+      <sprite>sprites\spr_ui_achievement</sprite>
       <sprite>sprites\spr_menuIcons</sprite>
       <sprite>sprites\spr_ui_trashSlot</sprite>
       <sprite>sprites\spr_ui_button</sprite>
@@ -431,6 +432,7 @@
     <script>scripts\scr_particleCreate.gml</script>
     <script>scripts\scr_removeEssence.gml</script>
     <script>scripts\scr_init_surface.gml</script>
+    <script>scripts\scr_getAchievementInfo.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
