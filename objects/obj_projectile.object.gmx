@@ -226,10 +226,10 @@ switch type
         
         if bBouncy == true
         {
-            if place_meeting_fast(hAccel,0,OBSTA)
+            if hAccel != 0 &amp;&amp; place_meeting_fast(hAccel,0,OBSTA)
             { hAccel=-hAccel; }
                     
-            if place_meeting_fast(0,vAccel,OBSTA)
+            if vAccel != 0 &amp;&amp; place_meeting_fast(0,vAccel,OBSTA)
             { vAccel=-vAccel; }
         } else if place_meeting_fast(hAccel,vAccel,OBSTA) { instance_destroy(); }
         
@@ -261,14 +261,14 @@ switch type
 }
 
 //Gravity
-if localGrav != 0 &amp;&amp; !place_meeting(x,y+1,OBSTA)
+if localGrav != 0 &amp;&amp; !place_meeting_fast(0,1,OBSTA)
 { vspeed += (localGrav); }
 
 //Time
 time += 1;
 
 //Collisions based on projectile type
-if canCollide == true &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)
+if canCollide == true &amp;&amp; (y &lt; stoneLayer || (instance_exists(obj_nullLight) &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)))
 {
     var col = place_meeting_fast(0,0,OBSTA);
     
@@ -340,7 +340,7 @@ if canCollide == true &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)
                         if instance_exists(OBSTA)
                         {
                             //X collisions
-                            if collision_circle(x+hspeed,y,1,OBSTA,false,true)
+                            if collision_circle(x+hspeed,y,1,OBSTA,false,true) != noone
                             { 
                                 repeat(20)
                                 { 
@@ -354,7 +354,7 @@ if canCollide == true &amp;&amp; !place_meeting_fast(0,0,obj_nullLight)
                             
                             
                             //Y collisions
-                            if collision_circle(x,y+vspeed,1,OBSTA,false,true)
+                            if collision_circle(x,y+vspeed,1,OBSTA,false,true) != noone
                             { 
                                 repeat(20)
                                 { 
@@ -484,7 +484,8 @@ if enemy_col != noone
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy();
+            <string>///DESTROY
+instance_destroy();
 </string>
           </argument>
         </arguments>
