@@ -118,6 +118,8 @@ canPickUp = true;
           <argument>
             <kind>1</kind>
             <string>//PICKUP, GRAVITATION, &amp; ITEM COLLECTION
+if !instance_exists(obj_player) then exit;
+
 if distance_to_object(obj_player) &lt;= 20
 {
 
