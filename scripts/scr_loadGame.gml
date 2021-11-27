@@ -205,11 +205,40 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
     
     if _list != undefined
     {
+        var _throw = false;
+    
         currency_essence = _list[| 0];
         turret_capacity_max = _list[| 1];
         global.kills = _list[| 2];
         global.base_tiles_placed = _list[| 3];
         global.waves_survived = _list[| 4];
+        
+        //- Initialize undefined variables
+        if is_undefined(global.kills)
+        {
+            print("Error on load: global.kills undefined.");
+            global.kills = 0;
+            _throw = true;
+        }
+        
+        if is_undefined(global.base_tiles_placed)
+        {
+            print("Error on load: global.base_tiles_placed undefined.");
+            global.base_tiles_placed = 0;
+            _throw = true;
+        }
+        
+        if is_undefined(global.waves_survived == undefined)
+        {
+            print("Error on load: global.waves_survived undefined.");
+            global.waves_survived = 0;
+            _throw = true;
+        }
+        
+        if _throw == true
+        {
+            scr_hudMessage("Error on load> Some STAT undefined.",global.fnt_Ui,10,0,c_red,0);
+        }
     }
     
     //-------Handle Settings----------
