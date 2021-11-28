@@ -110,7 +110,9 @@ deactivate_method = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if message_length == 0 || amt != last_amt
+            <string>
+//Message length stuff
+if message_length == 0 || amt != last_amt
 {
     last_amt = amt;
     message_length = string_width(hudString+string(amt))/scale;
@@ -121,6 +123,9 @@ else if bkg_x != message_length || bkg_lum != 0
     bkg_color = make_colour_hsv(0,0,bkg_lum);
     bkg_x = approach(bkg_x,message_length+16,message_length/(bkg_x+2)*2);
 }
+
+//Visibility
+if instance_exists(efct_roomTransition) then visible = false else visible = true;
 </string>
           </argument>
         </arguments>
