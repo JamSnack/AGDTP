@@ -64,7 +64,7 @@ switch region_type
 
 //Init some variables I guess :)
 var _flatX = 32;
-var _flatY = 3;
+var _flatY = 5;
 var flatLandTotal = _flatX*_flatY;
 
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
