@@ -41,7 +41,7 @@ fr_slow = 3;
 fr_fast = 0.75;
 alarm[11] = 30;
 turretDirection = 0;
-ammoMax = 3;
+ammoMax = 6;
 ammo = 0;
 </string>
           </argument>
@@ -80,7 +80,7 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
     if distance_to_object(nearestEnemy) &lt;= targetRange
     {
         target = nearestEnemy;
-        scr_turretBulletCreate(x,y,nearestEnemy,2,3,obj_beeBullet,spr_beeBullet);
+        scr_turretBulletCreate(x,y,nearestEnemy,2,4,obj_beeBullet,spr_beeBullet);
         turretDirection = point_direction(x,y,target.x,target.y);
         ammo -= 1;
         

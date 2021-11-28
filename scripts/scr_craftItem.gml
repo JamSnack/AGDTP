@@ -57,6 +57,17 @@ if currency_essence >= cost
         audio_sound_pitch(snd_craftingSuccess,choose(1,1.1,0.9));
     }
     
+    //stat track
+    global.items_crafted += 1;
+    
+    //Achievements - Crafting
+    if global.items_crafted >= 250
+        { scr_unlockAchievement(ACHIEVEMENT.handyman); }
+    
+    if itemType == ITEMTYPE.weapon
+        { scr_unlockAchievement(ACHIEVEMENT.sharpened_blade); }
+    else if itemType == ITEMTYPE.pickaxe
+        { scr_unlockAchievement(ACHIEVEMENT.prepared_to_delve); }
     
     return true;
 }

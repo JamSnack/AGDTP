@@ -47,6 +47,9 @@ frame_skip = 0; //Once this value reaches its maximum, a frame will be skipped a
 //currentTrack = 0; //Overworld theme 1;
 
 event_inherited();
+
+//Flush texture memory to optimize the game-room.
+draw_texture_flush();
 </string>
           </argument>
         </arguments>

@@ -2314,9 +2314,11 @@ if showSuperMenu == true
             else
             {
                 //otherwise, draw stats
-                draw_text(_posX+6,_posY+65,"Total Kills: "+string(global.kills));
-                draw_text(_posX+6,_posY+72,"Total Tiles Placed: "+string(global.base_tiles_placed));
-                draw_text(_posX+6,_posY+79,"Total Waves Survived: "+string(global.waves_survived));
+                draw_text(_posX+6,_posY+65,"Kills: "+string(global.kills));
+                draw_text(_posX+6,_posY+72,"Tiles Placed: "+string(global.base_tiles_placed));
+                draw_text(_posX+6,_posY+79,"Waves Survived: "+string(global.waves_survived));
+                draw_text(_posX+6,_posY+86,"Tiles Mined: "+string(global.tiles_mined));
+                draw_text(_posX+6,_posY+93,"Items Crafted: "+string(global.items_crafted));
             }
         }
         break;
@@ -2854,8 +2856,8 @@ if cursor_information != ""
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//hudVisible = !hudVisible;
-ui_state = "ACHIEVE";
+            <string>hudVisible = !hudVisible;
+//ui_state = "ACHIEVE";
 </string>
           </argument>
         </arguments>

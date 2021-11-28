@@ -37,6 +37,17 @@ if instance_exists(col)
             with col { instance_destroy(); }
             scr_tileUpdate(cx,cy);
             
+            //Achievement - Tiles mined
+            global.tiles_mined += 1;
+            
+            if global.tiles_mined >= 100 && global.tiles_mined < 1000
+            {
+                scr_unlockAchievement(ACHIEVEMENT.digging_novice);
+            }
+            else if global.tiles_mined >= 1000
+            {
+                scr_unlockAchievement(ACHIEVEMENT.expert_on_rocks);
+            }
         } 
         else 
         {

@@ -183,11 +183,15 @@ enum ACHIEVEMENT
 {
     getting_dirty, //Collected Dirt (recipe unlock)-
     first_blood, //Killed your first enemy-
-    sharpened_blade, //Crafted a weapon
-    prepared_to_delve, //Crafted a pickaxe
+    sharpened_blade, //Crafted a weapon-
+    prepared_to_delve, //Crafted a pickaxe-
     starter_base, //Placed a few blocks in the flatlands.-
     geared_up, //Equipped an accessory.
+    handyman, //Crafted 250 items-
     
+    digging_novice, //Mined 100 tiles
+    expert_on_rocks, //Mined 1000 tiles
+    gremlin_slayer, //Killed 500 gremlins
     
     rusty_tools, //Collected Copper Ore-
     beached, //Collected Seashell Metal Ore-

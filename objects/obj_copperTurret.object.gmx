@@ -89,7 +89,7 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
     if distance_to_object(nearestEnemy) &lt;= targetRange
     {
         target = nearestEnemy;
-        scr_turretBulletCreate(x,y,nearestEnemy,7,5,obj_turretBullet,spr_bullet);
+        scr_turretBulletCreate(x,y,nearestEnemy,8,5,obj_turretBullet,spr_bullet);
         var _dir = scr_predictedDirection(x,y,target.x,target.y,target.hspd,target.vsp);
         turretDirection = _dir;
         ammo -= 1;
