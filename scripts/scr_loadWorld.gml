@@ -4,7 +4,7 @@
 
 //FlatLands and RAIDBOUND definition
 var _flatX = 32;
-var _flatY = 20;
+var _flatY = 5;
 var flatLandTotal = _flatX*_flatY;
 
 var xx = 0;

@@ -64,7 +64,7 @@ switch region_type
 
 //Init some variables I guess :)
 var _flatX = 32;
-var _flatY = 20;
+var _flatY = 5;
 var flatLandTotal = _flatX*_flatY;
 
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
@@ -143,7 +143,7 @@ else if (time >= 4 && time <= 43 )
         {
             var inst_y = yy+(16*j)-(heightIndex*heightDirection)+16;
         
-            if xInterval > RAIDBOUND_Lower && xInterval < RAIDBOUND_Upper && inst_y < stoneLayer+(16*10)
+            if xInterval > RAIDBOUND_Lower && xInterval < RAIDBOUND_Upper && inst_y < stoneLayer-((10-_flatY)*16)
             { continue; }
         
             if j > (heightIndex/16)+irandom_range(6,10) then tileType = stone_tileset else tileType = dirt_tileset;

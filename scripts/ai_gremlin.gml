@@ -43,7 +43,7 @@ else
 platformCollide = true;
 
 //----Despawn Check-----------
-if collision_point(x,y,OBSTA,false,true) then instance_destroy();
+if hForce == 0 && vForce == 0 && collision_point(x,y,OBSTA,false,true) then instance_destroy();
 
 //Attack Check --------------------------------------------
 if objective.canHurt == true
@@ -98,7 +98,8 @@ if x_previous = xObjective //Do not stand on top of pie.
 
 //Fall check---------------------------------------------
 // -- platformCollide = false and on a platform means we should fall through the platform.
-if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && on_platform)
+//if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && on_platform)
+if current_state != FALL && ((vForce == 0 && vsp == 0 && !place_meeting_fast(0,1,OBSTA)) || platformCollide == false && on_platform)
 {
     if on_platform && (yObjective > y+spr_height/2 && canSeeObjective)
     { platformCollide = false; state = FALL; }
@@ -137,8 +138,8 @@ if vForce == 0 && hForce == 0
             hspd = approach(hspd,approach_speed,agility);
             var obsta_in_front = place_meeting_fast(hspd,0,OBSTA);
             
-            //---Jump check---
-            if (on_ground || on_platform) && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA))
+            //---Jump check--- if on ground || on platform and if there's a gap in the ground or a block in-front of us
+            if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA)))
             {
                 vsp = jump_speed;
             }
@@ -159,17 +160,19 @@ if vForce == 0 && hForce == 0
                 
                 x += hspd;
             }
-            else if canSeeObjective && collision_point(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin,false,true)
+            /*else if canSeeObjective
             {
-                //Use arbitrary values to decide which Gremlin moves.
-                var _gr = instance_place(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin);
+                var _gr = collision_point(x+(((spr_width+1)/2)*image_xscale),y,obj_gremlin,false,true);
                 
-                if instance_exists(_gr) && _gr.id > id
+                if _gr != noone 
                 {
-                    sprite_index = idle_sprite;
-                    hspd = 0;
-                } else { state = WANDER; alarm[stateLockAlarm] = 30; stateLock = true; }
-            }
+                    //Slow down gremlins?
+                    if instance_exists(_gr) && _gr.id > id
+                    {
+                        hspd = 0;
+                    }
+                }
+            }*/
             else
             {
                 state = WANDER; 
@@ -212,7 +215,7 @@ if vForce == 0 && hForce == 0
                 
                 //--Jump Conditions
                 //- If tile in front or gap in front
-                if (on_ground || on_platform) && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA))
+                if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA)))
                 {
                     vsp = jump_speed;
                 } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0; }
@@ -268,7 +271,10 @@ if vForce == 0 && hForce == 0
         //-----Normal Obstacles
         if (place_meeting_fast(0,vsp,OBSTA))
         {
-            var vdir = sign(vsp);
+            var vdir;
+            
+            if (vsp < 1 && vsp > -1) { vdir = vsp; }
+            else vdir = sign(vsp);
         
             //move as close as we can
             while (!place_meeting_fast(0,vdir,OBSTA))
@@ -332,7 +338,7 @@ else
     var hdir = sign(hForce);
     var vdir = sign(vForce);
 
-    if place_meeting_fast(hForce,0,OBSTA)
+    if hForce != 0 && place_meeting_fast(hForce,0,OBSTA)
     {
         while hdir != 0 && !place_meeting_fast(hdir,0,OBSTA)  
         { x+=hdir; }
@@ -340,7 +346,7 @@ else
         hForce = 0;
     }
     
-    if place_meeting_fast(0,vForce,OBSTA)
+    if vForce != 0 && place_meeting_fast(0,vForce,OBSTA)
     {
         while !place_meeting_fast(0,vdir,OBSTA)  && vdir != 0
         { y+=vdir; }
@@ -353,7 +359,7 @@ else
     x+=(hForce);
     y+=(vForce);
     
-    if collision_point(x,y+(spr_height/2)+1,OBSTA,false,true)
+    if collision_point(x,y+(spr_height/2)+1,OBSTA,false,true) != noone
     {
        hForce = approach(hForce,0,knock_resistance);
     }
