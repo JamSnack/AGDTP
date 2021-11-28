@@ -2184,34 +2184,6 @@ if showSuperMenu == true
                     draw_sprite(spr_ui_regionSelected,0,_posX+20,_posY+30);
                 }
                
-               //-----ENEMY INFORMATION--------
-               draw_text(_posX+12,_posY+97,"Enemies: ");
-               draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+105,_posX+226,_posY+105+65,0);
-               
-               //--- Draw the enemy information
-               if room != rm_lobby
-               {
-                    for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
-                    {
-                        var _sprite = object_get_sprite(enemySprites[| _p]);
-                        
-                        if sprite_exists(_sprite)
-                        {
-                            var scale = 1;
-                            var _sprite_width = sprite_get_width(_sprite);
-                            var _sprite_height = sprite_get_height(_sprite);
-                            
-                            while sprite_get_width(_sprite)/scale &gt; 20 || sprite_get_height(_sprite)/scale &gt; 20
-                            {
-                                scale += 0.2;
-                            }
-                            
-                            draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
-                            draw_sprite_ext(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22,1/scale,1/scale,0,c_white,1);
-                        }
-                    }
-               }
-               
                //------DIFFICULTY/BOSSES KILLED--------------
                draw_text(_posX+12,_posY+178,"Bosses: ")
                
@@ -2229,6 +2201,32 @@ if showSuperMenu == true
                //Draw the new surface
                 surface_reset_target();
                 draw_surface_part(menu_surface,surface_left,35,surface_width,300,surface_left,35);
+            }
+            
+            
+           //-----ENEMY INFORMATION--------
+           draw_text(_posX+12,_posY+97,"Enemies: ");
+           draw_nineSliceBox(spr_ui_9slice_small,_posX+10,_posY+105,_posX+226,_posY+105+65,0);
+           
+           //--- Draw the enemy information
+            for (_p=0;_p&lt;ds_list_size(enemySprites);_p++)
+            {
+                var _sprite = object_get_sprite(enemySprites[| _p]);
+                
+                if sprite_exists(_sprite)
+                {
+                    var scale = 1;
+                    var _sprite_width = sprite_get_width(_sprite);
+                    var _sprite_height = sprite_get_height(_sprite);
+                    
+                    while sprite_get_width(_sprite)/scale &gt; 20 || sprite_get_height(_sprite)/scale &gt; 20
+                    {
+                        scale += 0.2;
+                    }
+                    
+                    draw_sprite(spr_ui_enemyBackground,0,_posX+30+(_p*22),_posY+105+24);
+                    draw_sprite_ext(_sprite,image_index/2,_posX+30+(_p*22),_posY+105+22,1/scale,1/scale,0,c_white,1);
+                }
             }
         }
         break;
