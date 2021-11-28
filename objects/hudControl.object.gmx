@@ -2854,8 +2854,8 @@ if cursor_information != ""
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//hudVisible = !hudVisible;
-ui_state = "ACHIEVE";
+            <string>hudVisible = !hudVisible;
+//ui_state = "ACHIEVE";
 </string>
           </argument>
         </arguments>
