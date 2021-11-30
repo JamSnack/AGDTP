@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>image_speed = 0;
 hspd = 0.5;
-vsp = -0.2;
+vsp = -0.8;
 </string>
           </argument>
         </arguments>
@@ -54,8 +54,8 @@ vsp = -0.2;
 
 if vsp !=0
 {        
-    vsp = 0;
-    vdir = 0;
+    //vsp = 0;
+    var vdir = sign(vsp);
     
     //-----Normal Obstacles
     if (place_meeting_fast(0,vsp,OBSTA))

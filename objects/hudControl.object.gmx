@@ -221,7 +221,7 @@ if surface_exists(menu_surface)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if room == rm_menu then exit;
+            <string>if (room == rm_menu || !instance_exists(obj_player)) then exit;
 
 if invOpen == true
     { if invenX &lt; invenXMax then invenX += (invenXMax-invenX)*0.2; } 

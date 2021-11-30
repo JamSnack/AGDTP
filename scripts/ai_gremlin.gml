@@ -294,12 +294,16 @@ if vForce == 0 && hForce == 0
         //Move while in a vertical movement state.
        if obsta_in_front
        {
-            if (hspd > 1 || hspd < -1)
+            var hdir = sign(hspd);
+            
+            if hspd < 1 && hspd > -1 && hspd != 0
             {
-                while !place_meeting_fast(sign(hspd),0,OBSTA)
-                {
-                    x+=sign(hspd);
-                }
+                hdir = hspd;
+            }
+        
+            while !place_meeting_fast(hdir,0,OBSTA)
+            {
+                x+=hdir;
             }
        } else x+=hspd;
         
@@ -337,18 +341,29 @@ else
     
     var hdir = sign(hForce);
     var vdir = sign(vForce);
-
-    if hForce != 0 && place_meeting_fast(hForce,0,OBSTA)
+    
+    //Avoid crashing the game by checking for numbers less than 1 pixel
+    if hForce < 1 && hForce > -1 && hForce != 0
     {
-        while hdir != 0 && !place_meeting_fast(hdir,0,OBSTA)  
+        hdir = hForce;
+    }
+    
+    if vForce < 1 && vForce > -1 && vForce != 0
+    {
+        vdir = vForce;
+    }
+
+    if hdir != 0 && hForce != 0 && place_meeting_fast(hForce,0,OBSTA)
+    {
+        while !place_meeting_fast(hdir,0,OBSTA)  
         { x+=hdir; }
         hspd += hForce;
         hForce = 0;
     }
     
-    if vForce != 0 && place_meeting_fast(0,vForce,OBSTA)
+    if vdir != 0 && vForce != 0 && place_meeting_fast(0,vForce,OBSTA)
     {
-        while !place_meeting_fast(0,vdir,OBSTA)  && vdir != 0
+        while !place_meeting_fast(0,vdir,OBSTA)
         { y+=vdir; }
     
         vForce = 0;

@@ -66,8 +66,8 @@ switch current_state
     {
         //Direction
         //var variation; //How much the gremlin will vary horizontally (use sine waves);
-        var dir = sign(objective.x-x);
-        var vdir = sign(objective.y-y);
+        var dir = sign(xObjective-x);
+        var vdir = sign(yObjective-y);
         var hAccelRate = accelRate/2;
         
         //Horizontal Acceleration

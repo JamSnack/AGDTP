@@ -1078,7 +1078,7 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
             <kind>1</kind>
             <string>if dev != true then exit;
 //scr_spawnEssence(currency_essence,4,10);
-instance_create(mouse_x,mouse_y,obj_gremlin);
+instance_create(mouse_x,mouse_y,obj_collisionGremlin);
 /*
 if instance_exists(worldControl.raidBossID)
 {
