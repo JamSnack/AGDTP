@@ -9,7 +9,14 @@ if (achievements_unlocked[_ach] != 1)
     //TODO: Make efct_achievement its own thing!
     var _d = scr_getAchievementInfo(_ach);
     
-    scr_hudMessage("Achievement Unlocked: "+_d[0],global.fnt_Ui,6,0,c_orange,0);
+    //Notify player
+    if instance_exists(obj_player)
+    {
+        var _inst = instance_create(0,0,efct_achievement);
+        _inst.text = _d[0];
+        
+        audio_play_sound(snd_achievement_unlocked,20,false);
+    }
     
     //Rewards
     switch _ach

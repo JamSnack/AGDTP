@@ -231,6 +231,7 @@
       <sprite>sprites\spr_ui_enemyBackground</sprite>
       <sprite>sprites\spr_ui_craftingIcon</sprite>
       <sprite>sprites\spr_ui_achievement</sprite>
+      <sprite>sprites\spr_ui_achievement_popup</sprite>
       <sprite>sprites\spr_menuIcons</sprite>
       <sprite>sprites\spr_ui_trashSlot</sprite>
       <sprite>sprites\spr_ui_button</sprite>
@@ -532,6 +533,7 @@
       <object>objects\obj_popUi</object>
       <object>objects\obj_tip</object>
       <object>objects\part_gib</object>
+      <object>objects\efct_achievement</object>
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>

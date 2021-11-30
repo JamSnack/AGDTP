@@ -13,9 +13,4 @@ if notify_player == true
 {
     var c = make_colour_rgb(255,178,102);
     scr_overMessage("Recipes Unlocked",0,5,c);
-    
-    if instance_exists(obj_player)
-    {
-        audio_play_sound(snd_achievement_unlocked,20,false);
-    }
 }
