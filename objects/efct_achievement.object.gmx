@@ -85,7 +85,7 @@ var scale_target = 1;
 
 if image_alpha == 1 &amp;&amp; scale &lt; scale_target
 {
-    scale += 0.33;
+    scale += 0.12;
 } else scale = image_alpha;
 
 </string>
