@@ -2577,7 +2577,7 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; inst
     
         if pieHp &gt; 0
         { draw_sprite_stretched(spr_ui_pieHealth,0,viewWidth-110,21,pieHp,6) }
-        draw_text(viewWidth-95,20,"HP: "+string(pieHp)+"\"+string(obj_pie.maxHp));
+        draw_text(viewWidth-95,20,"PIE: "+string(pieHp)+"\"+string(obj_pie.maxHp));
         
         //-Blue health vial
         //draw_nineSliceBox(spr_ui_vial,viewWidth-110,19,viewWidth-10,26,0);
