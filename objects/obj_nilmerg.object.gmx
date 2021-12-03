@@ -117,6 +117,8 @@ if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl
 {
     scr_unlockAchievement(ACHIEVEMENT.the_king_of_lesser_things);
     kingDied_1 = true;
+    
+    if wave == 1 then scr_unlockAchievement(ACHIEVEMENT.speedrunner_1);
 }
 
 event_inherited();

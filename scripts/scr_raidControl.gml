@@ -89,6 +89,9 @@ switch presetSettings
                 
                 //- remove essence
                 scr_removeEssence(_cost);
+                
+                //ACHIEVEMENT - New World
+                scr_unlockAchievement(ACHIEVEMENTS.new_world);
             }
         }
     }

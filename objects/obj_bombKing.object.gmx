@@ -120,6 +120,8 @@ if r &gt;= 95 || r &lt;= 15
 }
 
 scr_dropItem(ITEMID.item_copperOre,irandom_range(3,5+waveScale(1,5,1,10)),ITEMTYPE.def,x,y,noone);
+
+scr_unlockAchievement(ACHIEVEMENT.explosive_gremlin);
 </string>
           </argument>
         </arguments>

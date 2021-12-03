@@ -29,4 +29,18 @@ if (achievements_unlocked[_ach] != 1)
     }
     
     if save == true then scr_saveGame();
+    
+    //ACHIEVEMENT - The King of Everything
+    //For very little optimal purposes, run this check only after we've collected the hardest achievement in the game.
+    if (achievements_unlocked[ACHIEVEMENT.speedrunner_2] == 1)
+    {
+        for(ach_index=0;ach_index<ACHIEVEMENT.last;ach_index++)
+        {
+            if achievements_unlocked[ach_index] == ACHIEVEMENT.the_king_of_everything
+            {
+                scr_unlockAchievement(ACHIEVEMENT.the_king_of_everything);
+            } 
+            else if achievements_unlocked[ach_index] == 0 then break;
+        }
+    }
 }

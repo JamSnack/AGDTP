@@ -109,6 +109,9 @@ if equip != 0
         //Play equpped sound!
         scr_hudMessage("equipped!",global.fnt_Ui,5,accessory,c_green,0);
         audio_play_sound(snd_equip,8,false);
+        
+        //ACHIEVEMENT - Geared Up
+        scr_unlockAchievement(ACHIEVEMENT.geared_up);
     }
     else if equip == -1 
     { 

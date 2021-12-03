@@ -186,28 +186,28 @@ enum ACHIEVEMENT
     sharpened_blade, //Crafted a weapon-
     prepared_to_delve, //Crafted a pickaxe-
     starter_base, //Placed a few blocks in the flatlands.-
-    geared_up, //Equipped an accessory.
+    geared_up, //Equipped an accessory. +
     handyman, //Crafted 250 items-
     
-    digging_novice, //Mined 100 tiles
-    expert_on_rocks, //Mined 1000 tiles
-    gremlin_slayer, //Killed 500 gremlins
+    digging_novice, //Mined 100 tiles-
+    expert_on_rocks, //Mined 1000 tiles-
+    gremlin_slayer, //Killed 500 gremlins +
     
     rusty_tools, //Collected Copper Ore-
     beached, //Collected Seashell Metal Ore-
     
     impenetrable, //Placed 100 blocks in the flatlands.-
     stalwart_creation, //Placed 10000 blocks in the flatlands.-
-    new_world, //Region shifted
+    new_world, //Region shifted +
     avant_garde, //Used a tag on a tool.
     
-    explosive_gremlin, //Killed the Bomb King
-    triple_king, //Killed the Sphere King
-    the_king_of_lesser_things, //Killed Nilmerg
-    the_king_of_sky_and_sea, //Killed Bliplo
-    speedrunner_1, //Killed Nilmerg on wave 1
-    speedrunner_2, //Killed Bliplo by wave 3
-    the_king_of_everything, //Get every achievement.
+    explosive_gremlin, //Killed the Bomb King+
+    triple_king, //Killed the Sphere King+
+    the_king_of_lesser_things, //Killed Nilmerg - 
+    the_king_of_sky_and_sea, //Killed Bliplo +
+    speedrunner_1, //Killed Nilmerg on wave 1 +
+    speedrunner_2, //Killed Bliplo by wave 3+
+    the_king_of_everything, //Get every achievement. +
     //RECIPE UNLOCKS
     last,
 }

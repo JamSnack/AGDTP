@@ -96,9 +96,13 @@ if dropItem == true
     global.kills += 1;
     print(global.kills);
     
-    if global.kills &gt; 0
+    if global.kills &gt; 0 &amp;&amp; global.kills &lt; 500
     {
         scr_unlockAchievement(ACHIEVEMENT.first_blood);
+    }
+    else if global.kills &gt;= 500
+    {
+        scr_unlockAchievement(ACHIEVEMENT.gremlin_slayer);
     }
     
     //Spawn essence - balanced!

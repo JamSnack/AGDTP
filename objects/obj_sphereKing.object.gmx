@@ -130,6 +130,8 @@ if r == 1 || r == 2
 }
 
 scr_spawnEssence(1,60,5+floor(wave/3));
+
+scr_unlockAchievement(ACHIEVEMENT.triple_king);
 </string>
           </argument>
         </arguments>
