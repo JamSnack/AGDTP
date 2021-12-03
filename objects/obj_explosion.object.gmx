@@ -106,7 +106,26 @@ with type //TILE or PLRTILE
                 //Check for tile death otherwise heal.
                 if hp &lt;= 0 &amp;&amp; level == 0
                 {
-                    scr_tileUpdate(x,y);
+                    //scr_tileUpdate(x,y);
+                    //A DIRECT COPY OF THE LOGIC INSIDE THE USE PICKAXE SCRIPT!
+                    //This is the same logic as scr_tileUpdate but includes light_level = 255;
+                    for(i=0;i&lt;9;i++)
+                    {
+                        //Check every adjacent block starting with the top left most block.
+                    
+                        var column = floor(i/3);
+                        var col = collision_point(x-16+(i*16)-(column*16*3),y-16+(16*column),TILE,true,true);
+                        
+                        if col != noone
+                        {
+                            with col 
+                            {
+                                event_user(1);
+                                light_level = 255;
+                            }
+                        }
+                    }
+                    
                     instance_destroy();
                 } 
                 else 

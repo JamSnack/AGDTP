@@ -149,12 +149,12 @@ if room_current == room &amp;&amp; transition_time == transition_length-0.1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Draw some text YO
+            <string>///TEXT
 if drawText == true &amp;&amp; str != ""
 {
     draw_set_font(font);
     draw_set_colour(color);
-    draw_text_transformed_colour((view_wview[0]/2)-string_length(str)*5,60,str,2,2,0,color,color,color,color,transition_time/transition_length);
+    draw_text_transformed_colour((280)-string_width(str)*2,60,str,2,2,0,color,color,color,color,transition_time/transition_length);
 }
 </string>
           </argument>
@@ -178,7 +178,7 @@ if drawText == true &amp;&amp; str != ""
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Draw the transition
+            <string>///BACKGROUND
 shader_set(sh_transition);
 shader_set_uniform_f(uni_time,transition_time/transition_length);
 draw_sprite_tiled_ext(roomTransition_1,subImage,0,0,1,1,c_white,1);

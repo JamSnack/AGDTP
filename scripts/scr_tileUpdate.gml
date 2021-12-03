@@ -9,7 +9,7 @@ for(i=0;i<9;i++)
     var column = floor(i/3);
     var col = collision_point(xx-16+(i*16)-(column*16*3),yy-16+(16*column),TILE_ALL,true,true); //Upper left most tile to begin with.
     
-    if col
+    if col != noone
     {
         with col event_user(1);
     }

@@ -35,9 +35,27 @@ if instance_exists(col)
             var cy = col.y;
         
             with col { instance_destroy(); }
-            scr_tileUpdate(cx,cy);
+            //scr_tileUpdate(cx,cy);
             
-            //Achievement - Tiles mined
+            //This is the same logic as scr_tileUpdate but includes light_level = 255;
+            for(i=0;i<9;i++)
+            {
+                //Check every adjacent block starting with the top left most block.
+            
+                var column = floor(i/3);
+                var col = collision_point(xx-16+(i*16)-(column*16*3),yy-16+(16*column),TILE_ALL,true,true);
+                
+                if col != noone
+                {
+                    with col 
+                    {
+                        event_user(1);
+                        light_level = 255;
+                    }
+                }
+            }
+            
+            //Achievements - Tiles mined
             global.tiles_mined += 1;
             
             if global.tiles_mined >= 100 && global.tiles_mined < 1000

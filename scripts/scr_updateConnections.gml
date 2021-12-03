@@ -6,29 +6,29 @@ var yy = argument1;
 var delay = 4;
 
 //If below
-if position_meeting(xx,yy+16,PLRTILE)
+if collision_point(xx,yy+16,PLRTILE,false,true) != noone
 { with instance_position(xx,yy+16,PLRTILE) alarm[2] = delay; }
 
-if position_meeting(xx,yy+16,PLR_NOCOL)
+else if collision_point(xx,yy+16,PLR_NOCOL,false,true) != noone
 { with instance_position(xx,yy+16,PLR_NOCOL) alarm[2] = delay; }
 
 //If above
-if position_meeting(xx,yy-16,PLRTILE)
+if collision_point(xx,yy-16,PLRTILE,false,true) != noone
 { with instance_position(xx,yy-16,PLRTILE) alarm[2] = delay; }
 
-if position_meeting(xx,yy-16,PLR_NOCOL)
+else if collision_point(xx,yy-16,PLR_NOCOL,false,true) != noone
 { with instance_position(xx,yy-16,PLR_NOCOL) alarm[2] = delay; }
 
 //If right
-if position_meeting(xx+16,yy,PLRTILE) 
+if collision_point(xx+16,yy,PLRTILE,false,true) != noone
 { with instance_position(xx+16,yy,PLRTILE) alarm[2] = delay; }
 
-if position_meeting(xx+16,yy,PLR_NOCOL)
+else if collision_point(xx+16,yy,PLR_NOCOL,false,true) != noone
 { with instance_position(xx+16,yy,PLR_NOCOL) alarm[2] = delay; }
 
 //If left
-if position_meeting(xx-16,yy,PLRTILE) 
+if collision_point(xx-16,yy,PLRTILE,false,true) != noone
 { with instance_position(xx-16,yy,PLRTILE) alarm[2] = delay; }
 
-if position_meeting(xx-16,yy,PLR_NOCOL)
+else if collision_point(xx-16,yy,PLR_NOCOL,false,true) != noone
 { with instance_position(xx-16,yy,PLR_NOCOL) alarm[2] = delay; }
