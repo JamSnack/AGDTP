@@ -212,6 +212,8 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         global.kills = _list[| 2];
         global.base_tiles_placed = _list[| 3];
         global.waves_survived = _list[| 4];
+        global.tiles_mined = _list[| 5];
+        global.items_crafted = _list[| 6];
         
         //- Initialize undefined variables
         if is_undefined(global.kills)
@@ -228,10 +230,24 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
             _throw = true;
         }
         
-        if is_undefined(global.waves_survived == undefined)
+        if is_undefined(global.waves_survived)
         {
             print("Error on load: global.waves_survived undefined.");
             global.waves_survived = 0;
+            _throw = true;
+        }
+
+        if is_undefined(global.tiles_mined)
+        {
+            print("Error on load: global.tiles_mined undefined.");
+            global.tiles_mined = 0;
+            _throw = true;
+        }
+        
+        if is_undefined(global.items_crafted)
+        {
+            print("Error on load: global.items_crafted undefined.");
+            global.items_crafted = 0;
             _throw = true;
         }
         

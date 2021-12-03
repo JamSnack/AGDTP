@@ -18,11 +18,11 @@ switch _ach
     case ACHIEVEMENT.stalwart_creation: { _d[0] = "Stalwart Creation"; _d[1] = "Place 50,000 tiles around the pie."; } break;
     case ACHIEVEMENT.new_world: { _d[0] = "New World"; _d[1] = "Region shift."; } break;
     case ACHIEVEMENT.avant_garde: { _d[0] = "Avant Garde"; _d[1] = "Use the workshop to tag a tool."; } break;
-    case ACHIEVEMENT.explosive_gremlin: { _d[0] = "Explosive Gremlin"; _d[1] = "Kill the Bomb King."; } break;
+    case ACHIEVEMENT.explosive_gremlin: { _d[0] = "The Bomb"; _d[1] = "Kill the Bomb King."; } break;
     case ACHIEVEMENT.triple_king: { _d[0] = "Triple King"; _d[1] = "Kill the Sphere King."; } break;
     case ACHIEVEMENT.the_king_of_lesser_things: { _d[0] = "The King of Lesser Things"; _d[1] = "Kill Nilmerg, King of the Grasslands."; } break;
     case ACHIEVEMENT.the_king_of_sky_and_sea: { _d[0] = "The King of the Sky and the Sea"; _d[1] = "Kill Bliplo, King of the Coral Coves."; } break;
-    case ACHIEVEMENT.speedrunner_1: { _d[0] = "Speedrunner_1"; _d[1] = "Kill Nilmerg on wave 1."; } break;
+    case ACHIEVEMENT.speedrunner_1: { _d[0] = "Speedrunner 1"; _d[1] = "Kill Nilmerg on wave 1."; } break;
     case ACHIEVEMENT.speedrunner_2: { _d[0] = "Speedrunner 2"; _d[1] = "Kill Bliplo by wave 3."; } break;
     case ACHIEVEMENT.handyman: { _d[0] = "Hands On"; _d[1] = "Crafted 250 items."; } break;
     case ACHIEVEMENT.digging_novice: { _d[0] = "Digging Novice"; _d[1] = "Mined 100 tiles."; } break;

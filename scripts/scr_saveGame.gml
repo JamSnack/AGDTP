@@ -74,6 +74,8 @@ ds_list_add(stat_list,turret_capacity_max);
 ds_list_add(stat_list,global.kills);
 ds_list_add(stat_list,global.base_tiles_placed);
 ds_list_add(stat_list,global.waves_survived);
+ds_list_add(stat_list,global.tiles_mined);
+ds_list_add(stat_list,global.items_crafted);
 
 //Save player stats
 /*ds_list_add(stat_list,energyRegenRate);
