@@ -231,7 +231,7 @@ scr_musicTransition(_music,musicTransitionTime);
 //#region
 if interm == false
 {
-    var flatLandsY = (room_height/2)-(16*3);
+    var flatLandsY = (384+48)-(16*3);
 
     instance_create(RAIDBOUND_Lower-8,flatLandsY,GREM_BLOCK); //Left Adjacent
     instance_create(RAIDBOUND_Lower-24,flatLandsY,GREM_BLOCK); //Left Most

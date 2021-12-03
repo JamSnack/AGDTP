@@ -110,8 +110,8 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-
 /*
+scr_dropItem(ITEMID.cons_bomb,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_stonePiece,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_copperOre,99,ITEMTYPE.def,x,y,noone);

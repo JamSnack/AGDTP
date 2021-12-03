@@ -68,7 +68,7 @@ var _flatY = 5;
 var flatLandTotal = _flatX*_flatY;
 
 var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
-var sizeY = 30;
+var sizeY = 60;
 
 //Total amount of positions to iterate through.
 var worldLandTotal = ((sizeX*sizeY)*2)+flatLandTotal;
@@ -158,9 +158,10 @@ else if time == 44
 {
     //Ore veins
     var oreHeight = yy+(16*16);
-    var oreHeightMax = yy+(30*16);
-    var spawnAmt = 10;
-    var veinAmt = irandom(4)+3; //Ensure a vein of at least 3 ore.
+    var oreHeightMax = yy+(59*16);
+    var spawnAmt = 20;
+    var veinAmt_max = 7;
+    var veinAmt_min = 3;
     
     for (i=0;i<spawnAmt;i++)
     {
@@ -168,6 +169,7 @@ else if time == 44
         var yInterval_Original = floor(irandom_range(oreHeight,oreHeightMax)/16)*16 //The lowest possible place a tree may spawn. -9 is the lowest possible tile height.
         var yInterval = yInterval_Original;
         var xInterval = xInterval_Original;
+        var veinAmt = irandom_range(veinAmt_min-1,veinAmt_max+1); //Ensure a vein of at least 3 ore.
         
         
         //-------PLACE ORE--------
@@ -295,9 +297,9 @@ else if time == 46
 {
     //Spawn Caves
     var pocketHeight = yy+(16*16);
-    var pocketHeightMax = yy+(30*16);
-    var spawnAmt = 5;
-    var chestAmt = 10;
+    var pocketHeightMax = yy+(59*16);
+    var spawnAmt = 15; //How many caves
+    var chestAmt = 10; //How many caves have chests
     
     for (i=0;i<spawnAmt;i++)
     {

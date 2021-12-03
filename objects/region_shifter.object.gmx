@@ -85,10 +85,10 @@ animation_max = 1;
 {
     //- Declare variables
     sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
-    sizeY = 30;
+    sizeY = 60;
     
     xx = 0;
-    yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
+    yy = 384; //-48 includes 3 rows of tiles inside the room.
     
     heightSeed = get_height_seed(15,"FLAT",1,10,1);
     heightNegativeSeed = get_height_negativeSeed("FLAT"); //Random digit seed defining whether or not a column will grow upwards or downwards.

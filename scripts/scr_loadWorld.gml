@@ -8,10 +8,10 @@ var _flatY = 5;
 var flatLandTotal = _flatX*_flatY;
 
 var xx = 0;
-var yy = room_height/2-48; //-48 includes 3 rows of tiles inside the room.
+var yy = 384; //-48 includes 3 rows of tiles inside the room.
 
-var sizeX = 64; //64x30 target world size. Repeated on the other side of the flat lands.
-var sizeY = 30;
+var sizeX = 64; //64x60 target world size. Repeated on the other side of the flat lands.
+var sizeY = 60;
 
 for(i=0;i<floor(flatLandTotal);i++)
 {
