@@ -13,6 +13,12 @@ if _size > 0
     {
         var accessory = accessories_equipped[| i];
         
+        if accessory == 0
+        {
+            print("scr_reloadAccessories> Abort equip, accessory is 0.");
+            exit;
+        }
+        
         //Apply the accessory's stats
         scr_applyAccessoryStats(accessory,1); 
         

@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>///Initialize world variables
 event_inherited();
-globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,current_grem,kingDied_1,kingDied_2,turret_capacity,turret_capacity_max;
+globalvar grav,maxGrav,loadStep,wave,interm,enemyActiveList,RAIDBOUND_Upper,RAIDBOUND_Lower,raidProgress,maxRaidProgress,stoneLayer,specialRaid,nextRaid,world_Time,energy,difficulty,current_grem,kingDied_1,kingDied_2,turret_capacity;
 grav = 0.350;
 maxGrav = 5;
 loadStep = 0; //Load the world.
@@ -39,7 +39,6 @@ maxRaidProgress = 100; //Raid goal.
 stoneLayer = (room_height/2-48)+(10*16); //Around the layer of stone
 energy = 0; //NOTE: CURRENTLY REPLACING WITH turret_capacity; 11/9/21
 turret_capacity = 0;
-turret_capacity_max = 1;
 current_grem = 0; //Number of gremlins in the world based on their spawn weight.
 
 

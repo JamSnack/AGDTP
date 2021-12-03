@@ -293,12 +293,13 @@ part_type_blend(part_esc, false);
 part_type_life(part_esc, 8, 15);
 
 //Gameplay globals and player stats
-globalvar mainQuest,energyMax,energyRegenRate,accessories_equipped,tileLevel,tileRegenRate;
+globalvar mainQuest,energyMax,energyRegenRate,accessories_equipped,tileLevel,tileRegenRate,turret_capacity_max;
 energyMax = 5; //Maximum amount of energy in storage.
 energyRegenRate = 1; //Energy gained per second.
 mainQuest = 0; //Progress on the main storyline. 0 = tutorial.
 tileLevel = 0; //Percentage to increase a tile's maximum HP when placed.
 tileRegenRate = 0; //How fast a tile's HP is regenerated.
+turret_capacity_max = 1; //maximum turret capacity
 
 accessories_equipped = ds_list_create();
 

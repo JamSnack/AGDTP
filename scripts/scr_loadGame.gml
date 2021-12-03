@@ -42,7 +42,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         scr_reloadAccessories();
         
         //Update inventory size if needed
-        with hudControl
+        /*with hudControl
         {
         
             var array_size = array_length_1d(inventorySlotIcon);
@@ -107,7 +107,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
                     }
                 }
             }
-        }
+        }*/
     } 
     else 
     {print("scr_loadGame> _list does not exist.")}

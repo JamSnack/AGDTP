@@ -19,9 +19,14 @@ if (achievements_unlocked[_ach] != 1)
     }
     
     //Rewards
+    var save = false;
+    
     switch _ach
     {
-        case ACHIEVEMENT.the_king_of_lesser_things: { turret_capacity_max += 1; } break;
-        case ACHIEVEMENT.the_king_of_sky_and_sea: { turret_capacity_max += 1; } break;
+        case ACHIEVEMENT.the_king_of_lesser_things: { turret_capacity_max += 1; save = true; } break;
+        case ACHIEVEMENT.the_king_of_sky_and_sea: { turret_capacity_max += 1; save = true; } break;
+        case ACHIEVEMENT.getting_dirty: { turret_capacity_max += 1; save = true; } break;
     }
+    
+    if save == true then scr_saveGame();
 }

@@ -183,16 +183,26 @@ if dConfirm == true &amp;&amp; deleteButton_active == true &amp;&amp; dWait == f
         dConfirm = false; 
         scr_clearSlot("all");
         
-        //Reset most variables in case the game is not restarted. NOTE: Run a game_restart(); instead of resetting variables in the future.
+        //Reset most variables in case the game is not restarted.
+        // - reset stats
         currency_essence = 0;
+        turret_capacity_max = 1;
+        
+        // - reset recipes
         recipe_copperOre = false;
         recipe_sweetComb = false;
         recipe_seashellMetal = false;
+        
+        // - reset tips
         tip_controls = false;
         tip_tools = false;
-        tip_battery = false;
+        tip_battery = true;
         tip_shifting = false;
         
+        // - reset achievements
+        achievements_unlocked = array_create(ACHIEVEMENT.last);
+        
+        // - clear active accessory list
         ds_list_destroy(accessories_equipped);
         
       }

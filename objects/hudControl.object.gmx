@@ -316,7 +316,7 @@ if showSuperMenu == true
 }
 
 //---------Update inventory size if needed----------
-var array_size = array_length_1d(inventorySlotIcon);
+/*var array_size = array_length_1d(inventorySlotIcon);
 
 //show_debug_message("array_size: "+string(array_size));
 
@@ -373,7 +373,7 @@ else if maxInvenSlots &lt; array_size
         }
     }
 }
-
+*/
 
 //-----------KEY INTERACTION----------------
 if input_wait == false &amp;&amp; (settingsMenu == false &amp;&amp; keybindMenu_visible == false)
