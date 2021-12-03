@@ -35,6 +35,11 @@ alarm[0] = 2; //Delay event_user(0);
 image_speed = 30/60;
 
 scr_playSound(snd_explosion,false,8,x,y,1,true);
+
+//Activate TILES and explode them!
+var radius_extra = 16*2;
+//Activate a tiny amount of stuff around the bomb. Big activation whenever the explosion hits.
+instance_activate_region(x-(radius+radius_extra)+hspeed,y-(radius+radius_extra)+vspeed,(radius+radius_extra+hspeed)*2,(radius+radius_extra+vspeed)*2,true);
 </string>
           </argument>
         </arguments>

@@ -39,6 +39,8 @@ globalvar viewWidth, viewHeight;
 viewWidth = view_wview[0];
 viewHeight = view_hview[0];
 
+use_camera = true;
+
 
 //Further fit backgrounds
 /*if room == rm_zero || rm_tutorial
@@ -72,6 +74,8 @@ viewHeight = view_hview[0];
           <argument>
             <kind>1</kind>
             <string>//Follow an instance
+if use_camera == false then exit;
+
 view_zoom = 0.75;
 
 if instance_exists(followThis)
@@ -279,6 +283,36 @@ if room == rm_zero &amp;&amp; gameOver == false &amp;&amp; hudControl.showBackgr
     x -= sign(x-mouse_x)*5
     y -= sign(y-mouse_y)*5
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="123">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if dev == false then exit;
+
+use_camera = !use_camera;
+
+view_xview = 0;
+view_yview = 0;
+view_wview = room_width;
+view_hview = room_height;
 </string>
           </argument>
         </arguments>
