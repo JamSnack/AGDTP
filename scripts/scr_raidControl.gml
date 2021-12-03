@@ -91,7 +91,7 @@ switch presetSettings
                 scr_removeEssence(_cost);
                 
                 //ACHIEVEMENT - New World
-                scr_unlockAchievement(ACHIEVEMENTS.new_world);
+                scr_unlockAchievement(ACHIEVEMENT.new_world);
             }
         }
     }
