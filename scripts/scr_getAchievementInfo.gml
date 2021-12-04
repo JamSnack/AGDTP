@@ -21,7 +21,7 @@ switch _ach
     case ACHIEVEMENT.avant_garde: { _d[0] = "Avant Garde"; _d[1] = "Use the workshop to tag a tool."; } break;
     case ACHIEVEMENT.explosive_gremlin: { _d[0] = "The Bomb"; _d[1] = "Kill the Bomb King."; } break;
     case ACHIEVEMENT.triple_king: { _d[0] = "Triple King"; _d[1] = "Kill the Sphere King."; } break;
-    case ACHIEVEMENT.the_king_of_lesser_things: { _d[0] = "King Slayer 1"; _d[1] = "Kill Nilmerg, King of the Grasslands."; _d[2] = "Turret Capacity +1";} break;
+    case ACHIEVEMENT.the_king_of_lesser_things: { _d[0] = "King Slayer 1"; _d[1] = "Kill Nilmerg, King of the Grasslands."; _d[2] = "Turret Capacity +1#Sweet Comb Recipes Unlocked";} break;
     case ACHIEVEMENT.the_king_of_sky_and_sea: { _d[0] = "King Slayer 2"; _d[1] = "Kill Bliplo, King of the Coral Coves."; _d[2] = "Turret Capacity +1";} break;
     case ACHIEVEMENT.speedrunner_1: { _d[0] = "Speed Runner 1"; _d[1] = "Kill Nilmerg on wave 1."; _d[2] = "Turret Capacity +1";} break;
     case ACHIEVEMENT.speedrunner_2: { _d[0] = "Speed Runner 2"; _d[1] = "Kill Bliplo by wave 3."; _d[2] = "Turret Capacity +1";} break;

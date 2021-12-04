@@ -2263,6 +2263,8 @@ if showSuperMenu == true
                     var _unlocked = achievements_unlocked[i];
                     var _data = scr_getAchievementInfo(i);
                     
+                    var _reward = _data[2];
+                    
                     var text_x = _ox+47+(i*73);
                     var text_y = _oy+2;
                     
@@ -2274,6 +2276,8 @@ if showSuperMenu == true
                     
                         draw_sprite(spr_ui_achievement,1,_ox+(i*73),_oy);
                         draw_text_transformed(text_x,text_y,_n,t_scale,t_scale,0);
+                        
+                        if _reward != "" then draw_sprite_ext(spr_ui_notification,1,_ox+(i*73)+4,_oy+4,1,1,0,c_white,1);
                     }
                     else
                     {
@@ -2281,6 +2285,8 @@ if showSuperMenu == true
                         
                         draw_sprite(spr_ui_achievement,0,_ox+(i*73),_oy);
                         draw_text_transformed(text_x,text_y,"Locked",t_scale,t_scale,0);
+                        
+                        if _reward != "" then draw_sprite_ext(spr_ui_notification,0,_ox+(i*73)+4,_oy+4,1,1,0,c_white,1);
                     }
                 }
                 

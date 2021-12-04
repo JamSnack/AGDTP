@@ -223,6 +223,7 @@
     </sprites>
     <sprites name="Ui">
       <sprite>sprites\spr_ui_selectedBool</sprite>
+      <sprite>sprites\spr_ui_notification</sprite>
       <sprite>sprites\spr_bossDefeatedIcon</sprite>
       <sprite>sprites\spr_selectedSlot</sprite>
       <sprite>sprites\fnt_grem</sprite>
