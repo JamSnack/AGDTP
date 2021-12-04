@@ -179,7 +179,7 @@ if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance &amp;&amp
     if (xx &gt;= RAIDBOUND_Lower &amp;&amp; xx &lt;= RAIDBOUND_Upper) || interm == false
     {
         xx = choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16); 
-        yy = (room_height/2)-(16*4);
+        yy = (384)-(16*4);
         spawn_at_portal = !interm; //if interm == false then spawn_at_portal = true;
     }
     
@@ -191,10 +191,10 @@ if current_grem &lt; maxGrem &amp;&amp; irandom(100) &lt;= spawnChance &amp;&amp
     var gremNumber = random(1);
     
     //-Check whether or not the enemy will spawn inside the view.
-    if !point_in_rectangle(xx,yy,_viewX,_viewY,_viewW,_viewH)
+    if spawn_at_portal == false &amp;&amp; !point_in_rectangle(xx,yy,_viewX,_viewY,_viewW,_viewH)
     {
         //--SpawnGremlins directly ontop of a tile from the sky
-        while (!position_meeting(xx,yy+16,TILE_ALL) &amp;&amp; !position_meeting(xx,yy+16,GREM_BLOCK)) { yy+=16; if yy &gt; room_height then break; }
+        while (!collision_point(xx,yy+16,TILE_ALL,false,true) &amp;&amp; !collision_point(xx,yy+16,GREM_BLOCK,false,true)) { yy+=16; if yy &gt; room_height then break; }
         
         new_raidGremlin(xx,yy,gremNumber,specialChance,special_raidID);
         
@@ -298,25 +298,11 @@ if view_zoom != view_zoom_buffer
     
     //-Deactivation and Reactivation updates every eight tiles.
     if (player_distance_amt_x &gt; 16*16 || player_distance_amt_y &gt; 16*16)
-    {
-    
-       /* SAVING PROGRESS ON THIS CULLING METHOD INCASE IT ENDS UP BEING FASTER
-       instance_deactivate_all(true);
-        
-        instance_activate_object(CONTROL);
-        instance_activate_object(hudControl);
-        instance_activate_object(obj_player);
-        instance_activate_object(obj_pie);
-        instance_activate_object(EFFECT);
-        instance_activate_object(BULLET);
-        instance_activate_object(obj_projectile);
-        instance_activate_object(ENEMY_PROJ);*/
-        
-            
+    {         
         //-Activate everything inside the camera view.
         //NOTE: outerBoundary for activation and deactivation must be synched when changing one of these values. OTHERWISE YOU MIGHT FUCK IT UP FOR A FEW UPDATES :)
         var outerBoundary = 16*16; //-"offscreen" boundary distance from view.
-        var enemyBoundary = 5*16; //-tiles enemies are allowed to have active.
+        var enemyBoundary = 2*16; //-tiles enemies are allowed to have active.
         
         //NOTE: width and height arguments require two times the outerBoundaries to make up for the origin point's outerboundary offset.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_wview[0]+outerBoundary*2,view_hview[0]+outerBoundary*2,true);
@@ -336,7 +322,7 @@ if view_zoom != view_zoom_buffer
         plr_yBuffer = round(playerY);
         
         //-Activate offscreen tiles for needed enemies.
-        if array_length_1d(enemyActiveList) &gt; 0
+        /*if array_length_1d(enemyActiveList) &gt; 0
         {
             for (i=0;i&lt;array_length_1d(enemyActiveList);i++)
             {
@@ -345,7 +331,7 @@ if view_zoom != view_zoom_buffer
                  instance_activate_region(x-enemyBoundary,y-enemyBoundary,x+enemyBoundary,y+enemyBoundary,true);
                 }
             }
-        }
+        }*/
     }
 }
 
@@ -630,13 +616,12 @@ switch special_raidID
           <argument>
             <kind>1</kind>
             <string>///Event: RAID_PROGRESSED
-print('Raid Progressed');
+print('RAID_PROGRESSED');
 
 //Increase progress meter
-if raidProgress &lt;= maxRaidProgress
+if raidProgress &lt; maxRaidProgress
 {
-    if raidBoss == false { raidProgress += 1 }
-    else if raidProgress &gt;= 99 then raidProgress = 99;
+    if ((raidBoss == false) || (raidBoss == true &amp;&amp; raidProgress+1 &lt; maxRaidProgress)) then raidProgress += 1;
 }
 
 
@@ -646,7 +631,7 @@ if raidProgress &lt;= maxRaidProgress
 //Check for completion
 if raidProgress &gt;= maxRaidProgress
 {
-    print('Raid Complete');
+    print('RAID_DEFEATED');
     scr_raidControl("INTERM",0,0,0,0);
     
     //Grow trees

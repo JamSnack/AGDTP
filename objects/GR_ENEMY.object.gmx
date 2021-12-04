@@ -72,7 +72,6 @@ if interm == false
         {
             if object_index != obj_grassGremlin || (object_index == obj_grassGremlin &amp;&amp; split_life == 3)
             {
-                raidProgress += 1; 
                 with worldControl event_user(0); 
             }
         }

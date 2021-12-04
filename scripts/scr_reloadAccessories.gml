@@ -15,8 +15,8 @@ if _size > 0
         
         if accessory == 0
         {
-            print("scr_reloadAccessories> Abort equip, accessory is 0.");
-            exit;
+            print("scr_reloadAccessories> Abort equip, accessory is 0. Remove this acc");
+            continue;
         }
         
         //Apply the accessory's stats

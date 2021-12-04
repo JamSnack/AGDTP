@@ -2758,7 +2758,7 @@ else if keybindMenu_visible == true
 if interm == false
 {
     draw_set_font(global.fnt_menu);
-    draw_text(10,dispHeight-13,"Wave "+string(wave)+" Progress: "+string(floor(raidProgress/2))+"/"+string(floor(maxRaidProgress/2)));
+    draw_text(10,dispHeight-13,"Wave "+string(wave)+" Progress: "+string(raidProgress)+"/"+string(maxRaidProgress));
     draw_sprite_stretched(spr_nullLight,0,0,dispHeight-4,dispWidth,dispHeight-2);
     draw_sprite_stretched(spr_ui_waveProgress,0,0,dispHeight-4,(raidProgress/maxRaidProgress)*dispWidth,2);
 }

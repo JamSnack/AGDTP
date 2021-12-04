@@ -138,11 +138,11 @@ switch presetSettings
             spawnRate = 0.5+(difficulty*0.18); //spawn rate = 60/spawnRate. NOTE: difficulty*0.25 seemed too high. Decreased to 0.18 - 11/9/21
             spawnChance = 60+(difficulty*3);
             maxGrem = 8+(wave*1);
-            maxRaidProgress = 15+(wave*2);
+            maxRaidProgress = 5+((wave+1)*2);
             
             interm = false;
             
-            if random(1) < wave/7 && wave > 2
+            if (random(1) < wave) && wave > 2
             {
                 raidBoss = true;
                 bossID = new_raidBoss(0);
@@ -273,7 +273,7 @@ if interm == false
 //#endregion
 
 //Clamps
-maxRaidProgress = clamp(maxRaidProgress,10,100);
+maxRaidProgress = clamp(maxRaidProgress,7,100);
 spawnChance = clamp(spawnChance,0,90);
 maxGrem = clamp(maxGrem,0,25);
 spawnRate = clamp(spawnRate,0.5,10);

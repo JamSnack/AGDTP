@@ -117,6 +117,7 @@ scr_dropItem(ITEMID.item_dirtClump,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_stonePiece,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_copperOre,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_stick,99,ITEMTYPE.def,x,y,noone);
+*/
 scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
