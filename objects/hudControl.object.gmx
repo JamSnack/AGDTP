@@ -1304,7 +1304,7 @@ if settingsMenu = true
         //Save the game
         scr_saveGame();
     
-        scr_roomTransition("WARP",choose("Come back soon!","Loading...","Good Game"),global.fnt_menu,c_white,rm_menu);
+        scr_roomTransition("WARP",choose("Loading..."),global.fnt_menu,c_white,rm_menu);
     }
     
     //UPDATE MUSIC VOLUME - SLIDER LOGIC IN Left Button EVENT!
