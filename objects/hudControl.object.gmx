@@ -2266,7 +2266,7 @@ if showSuperMenu == true
                     var text_x = _ox+47+(i*73);
                     var text_y = _oy+2;
                     
-                    //- Draw the achievements, name, and description
+                    //- Draw the achievements and name
                     if (_unlocked == 1)
                     {
                         var _n = _data[0];
@@ -2297,11 +2297,23 @@ if showSuperMenu == true
                 var _data = scr_getAchievementInfo(achievement_select);
                 
                 var _name = _data[0];
-                var _str = scr_fitText(_data[1],75);
+                var _str = scr_fitText(_data[1],72);
                 
                 if achievements_unlocked[achievement_select] == 0
                 {
                     _name = "Locked";
+                    
+                    //- red (locked) reward
+                    draw_set_colour(c_red);
+                    draw_text_transformed(_posX+120,_posY+95,_data[2],0.6,0.6,0); //Reward
+                    draw_set_colour(c_white);
+                }
+                else
+                {
+                    //- green (unlocked) reward
+                    draw_set_colour(c_green);
+                    draw_text_transformed(_posX+120,_posY+95,_data[2],0.6,0.6,0); //Reward
+                    draw_set_colour(c_white);
                 }
                 
                 //- Draw the info/data
