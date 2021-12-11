@@ -93,7 +93,9 @@ repeat(10)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if insideView(x,y) == true
+            <string>event_inherited();
+
+if insideView(x,y) == true
 {
     scr_spawnEssence(2,10,5);
     scr_dropItem(ITEMID.item_sweetComb,1+irandom(4),ITEMTYPE.def,x,y,noone);
