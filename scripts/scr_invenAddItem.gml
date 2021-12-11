@@ -33,7 +33,7 @@ if item != 0
         if invSlot == hudItem && newSlot == false && hudControl.inventorySlotAmt[i] != 0 && sameTags = true
         { 
             hudControl.inventorySlotAmt[i] += invAmt;
-            scr_hudMessage(" acquired",global.fnt_menu,3,invSlot,c_white,invAmt);
+            scr_hudMessage("",global.fnt_menu,3,invSlot,c_white,invAmt);
             
             return 2; 
         } 
