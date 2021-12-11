@@ -164,6 +164,7 @@ switch item_id
     case ITEMID.acc_copperChestplate: { text[0] = "Copper Chestplate"; text[1] += "Protects your body.#+20 Max HP."; } break;
     case ITEMID.weapon_sandySeadollar: { text[0] = "Sandy Seadollar"; text[1] += "A creature of the ocean, or a creature of the sky?"; } break;
     case ITEMID.pickaxe_seashellPickaxe: { text[0] = "Seashell-Metal Pickaxe"; text[1] += "A strong pickaxe made out of the metals of the sea."; } break;
+    case ITEMID.acc_copperCompass: { text[0] = "Copper Compass"; text[1] += "Provides guidance in the underground Grasslands."; } break;
 }
 
 //-TAG DESCRIPTIONS;

@@ -74,6 +74,7 @@ if craft_filter_acc == false
 {
     switch argument0
     {
+        case ITEMID.acc_copperCompass: { returnID = ITEMTYPE.accessory; } break;
         case ITEMID.acc_beehiveBackpack: { returnID = ITEMTYPE.accessory; } break;
         case ITEMID.acc_copperChestplate: { returnID = ITEMTYPE.accessory; } break;
     }

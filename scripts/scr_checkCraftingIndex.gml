@@ -23,6 +23,7 @@ if recipe_copperOre == true
         case ITEMID.tile_battery: { returnID = true; } break;
         case ITEMID.tile_copperTurret: { returnID = true; } break;
         case ITEMID.acc_copperChestplate: { returnID = true; } break;
+        case ITEMID.acc_copperCompass: { returnID = true; } break;
         case ITEMID.tile_copperBlock: { returnID = true; } break;
         case ITEMID.weapon_greenSword: { returnID = true; } break;
         case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
