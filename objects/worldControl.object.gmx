@@ -299,6 +299,16 @@ if view_zoom != view_zoom_buffer
     //-Deactivation and Reactivation updates every eight tiles.
     if (player_distance_amt_x &gt; 16*16 || player_distance_amt_y &gt; 16*16)
     {         
+        //-Deactivate offscreen objects.
+        if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
+        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); alarm[2] = 1; }
+        if instance_exists(INTERACT) then with INTERACT scr_deactivateOffscreen(id);
+        if instance_exists(NOCOL) then with NOCOL if object_get_parent(object_index) != PLR_NOCOL &amp;&amp; object_index != GREM_BLOCK then scr_deactivateOffscreen(id);
+        
+        //Keep some objects active.
+        instance_activate_object(obj_sapling);
+        instance_activate_object(TOTEM);
+        
         //-Activate everything inside the camera view.
         //NOTE: outerBoundary for activation and deactivation must be synched when changing one of these values. OTHERWISE YOU MIGHT FUCK IT UP FOR A FEW UPDATES :)
         var outerBoundary = 16*16; //-"offscreen" boundary distance from view.
@@ -307,15 +317,6 @@ if view_zoom != view_zoom_buffer
         //NOTE: width and height arguments require two times the outerBoundaries to make up for the origin point's outerboundary offset.
         instance_activate_region(view_xview[0]-outerBoundary,view_yview[0]-outerBoundary,view_wview[0]+outerBoundary*2,view_hview[0]+outerBoundary*2,true);
         
-        //Keep saplings active.
-        if instance_exists(obj_sapling)
-        {  instance_activate_object(obj_sapling); }
-        
-        //-Deactivate offscreen objects.
-        if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
-        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); alarm[2] = 1; }
-        if instance_exists(INTERACT) then with INTERACT scr_deactivateOffscreen(id);
-        if instance_exists(NOCOL) then with NOCOL if object_get_parent(object_index) != PLR_NOCOL &amp;&amp; object_index != GREM_BLOCK then scr_deactivateOffscreen(id);
         
         //-Update player buffer
         plr_xBuffer = round(playerX);

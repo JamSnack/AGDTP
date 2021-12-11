@@ -978,7 +978,7 @@ if compass_level &gt; 0 &amp;&amp; instance_exists(TOTEM)
     //Draw the compass indicator
     var _len = 16;
     var _dir = point_direction(x,y,compass_target.x,compass_target.y);
-    draw_sprite_ext(spr_ui_arrow_down,0,x+lengthdir_x(_len,_dir),y+lengthdir_y(_len,_dir),0.5,0.5,_dir+90,1,1);
+    draw_sprite_ext(spr_ui_arrow_down,0,x+lengthdir_x(_len,_dir),y+lengthdir_y(_len,_dir),0.5,0.5,_dir+90,c_white,1);
 }
 else
 {
