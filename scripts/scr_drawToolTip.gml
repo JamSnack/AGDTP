@@ -131,7 +131,7 @@ switch item_id
     case 8: { text[0] = "Stone Piece"; text[1] += "Ha ha yes!"; } break;
     case 9: { text[0] = "Stick"; text[1] += "Basic crafting material. Even gremlins could use this!"; } break;
     case 10: { text[0] = "Copper Ore"; text[1] += "Basic crafting material. A building block of nature!"; } break;
-    case 11: { text[0] = "Weak Bow"; text[1] += "Shoot arrows at far enemies."; } break;
+    case 11: { text[0] = "Wooden Bow"; text[1] += "Shoot arrows at far enemies."; } break;
     case 12: { text[0] = "Copper Turret"; text[1] += "A turret that converts energy into bullets and automatically attacks Gremlins."; } break;
     case 13: { text[0] = "Ladder"; text[1] += "Latter or ladder?"; } break;
     case 14: { text[0] = "Gremlin Talisman"; text[1] += "Consume to turn the day into night."; } break;

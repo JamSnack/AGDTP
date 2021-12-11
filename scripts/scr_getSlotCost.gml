@@ -7,6 +7,7 @@ switch argument0
     case ITEMID.acc_ultrablueStar:
     case ITEMID.acc_satchel:
     case ITEMID.acc_beehiveBackpack:
+    case ITEMID.acc_copperCompass:
     case ITEMID.acc_copperChestplate: { return 0; } break;
     default: { print("ERROR: EQUIP IS NOT ACCESSORY"); scr_hudMessage("ERROR: EQUIP IS NOT ACCESSORY#Cool bug bro",global.fnt_menu,4,0,c_red,0); return 999; } break;
 }

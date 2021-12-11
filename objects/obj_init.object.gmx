@@ -165,7 +165,8 @@ enum ITEMID
     tile_copperBlock,
     weapon_seashellSpear,
     pickaxe_seashellPickaxe,
-    weapon_sandySeadollar
+    weapon_sandySeadollar,
+    acc_copperCompass
 }
 
 //Item Types

@@ -491,6 +491,7 @@
         <object>objects\obj_sapling</object>
         <object>objects\obj_nullLight</object>
         <object>objects\obj_chest</object>
+        <object>objects\TOTEM</object>
       </objects>
       <objects name="Player Tiles">
         <object>objects\PLR_NOCOL</object>

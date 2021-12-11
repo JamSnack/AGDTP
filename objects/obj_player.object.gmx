@@ -87,6 +87,8 @@ hitSyncY = 0;
 playerLight = 0; //How bright light is underground.
 tool_snd = noone;
 shield_charges = 0;
+compass_level = 0; //Each totem is associated with a compass level. A compass level of 2 will point the player in the direction of existing bliplo and nilmerg totems.
+compass_target = noone; //Noone = no totem.
 
 //Tag Resets
 globalvar bright_reset;
@@ -111,13 +113,15 @@ if tip_controls == false
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
 
+
+scr_dropItem(ITEMID.acc_copperCompass,0,ITEMTYPE.accessory,x,y,noone);
+
 /*
 scr_dropItem(ITEMID.cons_bomb,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_stonePiece,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_copperOre,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.item_stick,99,ITEMTYPE.def,x,y,noone);
-*/
 scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
@@ -952,6 +956,34 @@ else if dead == true
     draw_text(x-50,y,"Respawning... "+string(alarm_get(1) div 60));
 }
 
+//Compass level
+if compass_level &gt; 0 &amp;&amp; instance_exists(TOTEM)
+{
+    if compass_level == 1
+    {
+        //level 1 only finds hive totems.
+        var _t = instance_find(TOTEM, 0);
+        if ( _t.object_index == obj_hiveTotem )
+        {
+            compass_target = _t;
+        }
+    }
+    else if compass_level == 2
+    {
+        //level 2 will find all totem types.
+        var _t = instance_find(TOTEM, 0);
+        compass_target = _t;
+    }
+    
+    //Draw the compass indicator
+    var _len = 16;
+    var _dir = point_direction(x,y,compass_target.x,compass_target.y);
+    draw_sprite_ext(spr_ui_arrow_down,0,x+lengthdir_x(_len,_dir),y+lengthdir_y(_len,_dir),0.5,0.5,_dir+90,1,1);
+}
+else
+{
+    compass_target = noone;
+}
 
 //PLATFORM DEBUGGING
 /*
