@@ -16,7 +16,7 @@ if currency_essence >= cost
     //For each slot, we loop through and set amt_remove to 0. We also check to see if that slot is in our mats list. If it is, we flag that slot by setting its amt_remove to matsAmt.
     for (i=0;i<maxInvenSlots;i++)
     { 
-        //Loop through inventory slots
+        //Loop through inventory slots to find out whether or not we have the required mats and mat amounts.
         amt_remove[i] = 0;
         
         for (k=0;k<array_length_1d(mats);k++)
@@ -28,23 +28,31 @@ if currency_essence >= cost
             }
         }
         
-        //If the inventory has been searched 
+        //If the inventory has been searched
         if i == maxInvenSlots-1
-        { //Check for total confirmation
+        {
+            //Check for if all required mats are accounted for
             for (k=0;k<array_length_1d(mats);k++) { if mats[k] != 0 then return false; } // The crafting has failed
             
+            //Remove materials from required mats.
             for (k=0;k<maxInvenSlots;k++) 
             { 
+                print("amt_remove at "+string(k)+": "+string(amt_remove[k]));
                 if amt_remove[k] != 0 
                 {
                     //Note from about a year after writing this script: I have no idea why, but setting item to 0 is necessary for the crafting system to work.
                     var _type = hc.inventorySlotType[k];
                     var _pass = 0; //the value to pass into scr_invenRemoveItem.
                     
-                    if _type == ITEMTYPE.accessory then _pass = hc.inventorySlotIcon[k];
+                    if (_type == ITEMTYPE.accessory || _type == ITEMTYPE.consumable)
+                    {
+                        _pass = hc.inventorySlotIcon[k];
+                    }
                     
-                    scr_invenRemoveItem(_pass,amt_remove[k],_type,false,k,noone); 
-                    break;
+                    print("scr_craftItem> _type is "+string(_type));
+                    print("scr_craftItem> _pass is "+string(_pass));
+                    
+                    scr_invenRemoveItem(_pass,amt_remove[k],_type,false,k,noone);
                 }
             }
         }
@@ -53,6 +61,7 @@ if currency_essence >= cost
     //Craft the item
     scr_removeEssence(cost);
     scr_dropItem(itemID,itemAmt,itemType,obj_player.x,obj_player.y,noone);
+    
     if audio_is_playing(snd_craftingSuccess)
     {
         audio_stop_sound(snd_craftingSuccess);
