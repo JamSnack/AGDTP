@@ -33,7 +33,8 @@ switch argument0
     case ITEMID.tile_beeTurret: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 1; mats[1] = ITEMID.item_sweetComb; matsAmt[1] = 2; itemAmt = 1; itemType = ITEMTYPE.playertile;} break;
     case ITEMID.tile_grillBlock: { mats[0] = ITEMID.tile_battery matsAmt[0] = 1; mats[1] = ITEMID.tile_copperBlock; matsAmt[1] = 1; itemAmt = 1; itemType = ITEMTYPE.playertile; } break;
     case ITEMID.tile_copperBlock: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 4; itemAmt = 1; itemType = ITEMTYPE.playertile; } break;
-    case ITEMID.weapon_waterGun: { mats[0] = ITEMID.item_seashellMetal matsAmt[0] = 25; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
+    case ITEMID.weapon_subLimeMachineGun: { mats[0] = ITEMID.item_copperOre; matsAmt[0] = 10; mats[1] = ITEMID.cons_treeFruit; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
+    case ITEMID.weapon_waterGun: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 25; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
     case ITEMID.weapon_seashellSpear: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 20; mats[1] = ITEMID.item_stick; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
     case ITEMID.tile_rebarRailgun: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 8; mats[1] = 9; matsAmt[1] = 5; itemAmt = 1; itemType = 3; } break;
     case ITEMID.weapon_sandySeadollar: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 20; mats[1] = ITEMID.item_dirtClump; matsAmt[1] = 50; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;

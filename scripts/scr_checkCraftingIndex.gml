@@ -26,6 +26,7 @@ if recipe_copperOre == true
         case ITEMID.acc_copperCompass: { returnID = true; } break;
         case ITEMID.tile_copperBlock: { returnID = true; } break;
         case ITEMID.weapon_greenSword: { returnID = true; } break;
+        case ITEMID.weapon_subLimeMachineGun: { returnID = true; } break;
         case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
     }
 }
