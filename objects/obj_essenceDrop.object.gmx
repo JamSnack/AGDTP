@@ -107,7 +107,7 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
 //Color the essence!
 image_angle += (hspeed+vspeed)*4;
 c_hue += speed*2;
-color = make_colour_hsv(c_hue,170,240);
+color = make_colour_hsv(c_hue,200,240);
 </string>
           </argument>
         </arguments>
