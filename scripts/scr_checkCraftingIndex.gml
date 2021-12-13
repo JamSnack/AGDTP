@@ -52,6 +52,7 @@ if recipe_seashellMetal == true
         case ITEMID.weapon_seashellSpear: { returnID = true; } break;
         case ITEMID.pickaxe_seashellPickaxe: { returnID = true; } break;
         case ITEMID.weapon_sandySeadollar: { returnID = true; } break;
+        case ITEMID.acc_metalCompass: { returnID = true; } break;
     }
 }
 

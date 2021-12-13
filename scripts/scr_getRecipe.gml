@@ -5,7 +5,7 @@
 NOTE: these variables must be initialized before calling scr_getRecipe:
 
 mats; // What type of material to look for
-matsAmt; // How much of the material to look for/consume.
+matsAmt; // How much of the material to look for/consume. Use -1 for item types that have no amount.
 itemID = 0; //The ID of the item to craft.
 */
 cost = 0;
@@ -37,5 +37,6 @@ switch argument0
     case ITEMID.weapon_seashellSpear: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 20; mats[1] = ITEMID.item_stick; matsAmt[1] = 5; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
     case ITEMID.tile_rebarRailgun: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 8; mats[1] = 9; matsAmt[1] = 5; itemAmt = 1; itemType = 3; } break;
     case ITEMID.weapon_sandySeadollar: { mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 20; mats[1] = ITEMID.item_dirtClump; matsAmt[1] = 50; itemAmt = 0; itemType = ITEMTYPE.weapon;} break;
-    case ITEMID.acc_copperCompass: { cost = 75; mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; itemAmt = 0; itemType = ITEMTYPE.accessory; }
+    case ITEMID.acc_copperCompass: { cost = 75; mats[0] = ITEMID.item_copperOre; matsAmt[0] = 15; itemAmt = 0; itemType = ITEMTYPE.accessory; } break;
+    case ITEMID.acc_metalCompass: { cost = 175; mats[0] = ITEMID.acc_copperCompass; matsAmt[0] = -1; mats[1] = ITEMID.item_seashellMetal; matsAmt[1] = 0; itemAmt = 0; itemType = ITEMTYPE.accessory; } break;
 }
