@@ -107,7 +107,7 @@ switch state
             dive_time = 0;
             target_image_index = 0;
             image_speed = animation_speed;
-            wander_pointY = min(room_height/2-(12*16),scr_getHighestBasePoint()-(5*16));
+            wander_pointY = min(world_height-(12*16),scr_getHighestBasePoint()-(5*16));
         }
         
         dive_time += 1;

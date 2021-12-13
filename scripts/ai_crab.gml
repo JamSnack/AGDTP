@@ -210,7 +210,7 @@ if vForce == 0 && hForce == 0
     // Grem Block check ----------------------------
     if gremBlockCol == true && interm == false
     {
-        var flatLandsY = (room_height/2)-(16*3);
+        var flatLandsY = world_height-(16*3);
         
         if position_meeting(x,y+spr_height,GREM_BLOCK)
         {

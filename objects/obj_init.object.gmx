@@ -105,7 +105,7 @@ global.key_7 = ord("7");
 
 
 //Other globals
-globalvar tutorialComplete,music,tip_controls,tip_tools,tip_battery,tip_shifting,music_volume,sfx_volume,vsyncToggled,performance_mode;
+globalvar tutorialComplete,music,tip_controls,tip_tools,tip_battery,tip_shifting,music_volume,sfx_volume,vsyncToggled,performance_mode,world_height;
 tutorialComplete = false;
 tip_controls = false; //Whether or not the controls tip has been displayed.
 tip_tools = false; //Whether or not the "tools tutorial" tips has been displayed.
@@ -117,6 +117,7 @@ audio_sound_gain(snd_theStarsForever,music_volume,0);
 sfx_volume = 0.4;
 vsyncToggled = true;
 performance_mode = false; //THE FUTURE IS NOW! AGDTP RUNNING ON Average American Home 1.1 GHz CPU PCs IS A REALITY! (not)
+world_height = 384;
 
 
 //Item IDs
@@ -166,7 +167,8 @@ enum ITEMID
     weapon_seashellSpear,
     pickaxe_seashellPickaxe,
     weapon_sandySeadollar,
-    acc_copperCompass
+    acc_copperCompass,
+    acc_metalCompass
 }
 
 //Item Types

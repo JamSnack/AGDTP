@@ -39,9 +39,9 @@ while true
     }
     
     if desired_boss == 0
-    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,i); }
+    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),world_height,i); }
     else
-    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),room_height/2,desired_boss); }
+    { var g = instance_create(choose(RAIDBOUND_Lower-16,RAIDBOUND_Upper+16),world_height,desired_boss); }
     
     //All boss mobs should not despawn.
     g.canDespawn = false;

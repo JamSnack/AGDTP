@@ -20,6 +20,7 @@ if instance_exists(obj_player)
         case ITEMID.acc_beehiveBackpack: { obj_player.vsp_jump -= 1*equip; } break;
         case ITEMID.acc_copperChestplate: { obj_player.maxHp += 20*equip; } break;
         case ITEMID.acc_copperCompass: { obj_player.compass_level = 1*equip; } break;
+        case ITEMID.acc_metalCompass: { obj_player.compass_level = 2*equip; } break;
     }
 }
 

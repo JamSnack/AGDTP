@@ -1,6 +1,6 @@
 ///scr_getHighestBasePoint();
 //Returns the highest point of the player's base.
-var return_y = room_height/2;
+var return_y = world_height;
 
 if instance_exists(PLRTILE)
 {

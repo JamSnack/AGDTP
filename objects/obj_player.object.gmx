@@ -114,7 +114,7 @@ if tip_controls == false
 while place_meeting(x,y,PLRTILE) y-=16;
 
 
-scr_dropItem(ITEMID.acc_copperCompass,0,ITEMTYPE.accessory,x,y,noone);
+scr_dropItem(ITEMID.acc_metalCompass,0,ITEMTYPE.accessory,x,y,noone);
 
 /*
 scr_dropItem(ITEMID.cons_bomb,99,ITEMTYPE.consumable,x,y,noone);
