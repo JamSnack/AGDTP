@@ -68,6 +68,7 @@ switch state
                     image_index = 0;
                     
                     wander_pointX = choose(RAIDBOUND_Upper,RAIDBOUND_Lower);
+                    wander_pointY = min(world_height-(4*16),scr_getHighestBasePoint());
                 }
             }
             break;
@@ -158,6 +159,8 @@ switch state
     {
         sprite_index = spr_nilmerg_hover;
         image_xscale = sign(objective.x-x)*scale;
+        
+        y = wander_pointY+8*cos(current_time/100);
         
         //Roll for an attack!
         var r = irandom(2);

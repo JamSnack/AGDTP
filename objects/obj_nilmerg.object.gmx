@@ -61,7 +61,7 @@ accelRate = 0.8;
 
 //Ai
 wander_pointX = choose(RAIDBOUND_Lower,RAIDBOUND_Upper);
-wander_pointY = world_height-(12*16);
+wander_pointY = world_height-(2*16);
 transition_to = "WANDER";
 tile_punch_max = 8;
 tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
