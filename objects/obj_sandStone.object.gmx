@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>event_inherited();
 level = 0;
-maxHp = 6;
+maxHp = 4;
 hp = maxHp;
 
 item = ITEMID.item_stonePiece;
