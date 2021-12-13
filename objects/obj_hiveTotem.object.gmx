@@ -67,7 +67,7 @@ sparkle = false;
 if interm == true &amp;&amp; insideView(x,y) == true &amp;&amp; !instance_exists(region_shifter)
 {
     nextRaid = "KING"; 
-    scr_hudMessage(choose("I never liked bees anyway...","The Grasslands grow uneasy...","The air smells sweet!"),global.fnt_menu,20,0,c_purple,0);
+    scr_hudMessage(choose("Your mind is buzzing!","The Grasslands grow uneasy...","The air smells sweet."),global.fnt_menu,20,0,c_purple,0);
 }
 </string>
           </argument>
