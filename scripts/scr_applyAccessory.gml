@@ -30,6 +30,7 @@ if list_size == 0 then equip = 1;
 if equip != 0
 {
     slot_cost = scr_getSlotCost(accessory);
+    if slot_cost == 999 then exit; //999 is our error code.
     
     //If can equip:
     //Check if slots are available
@@ -50,7 +51,7 @@ if equip != 0
         }
         
         //Calculate available slots
-        var slots_available = 0;
+        /*var slots_available = 0;
         
         for(_q=0;_q<maxInvenSlots;_q++)
         {
@@ -83,7 +84,7 @@ if equip != 0
                         }
                     }
                     
-                    maxInvenSlots -= slot_cost;
+                    //maxInvenSlots -= slot_cost;
                     break;
                 }
             }
@@ -95,7 +96,7 @@ if equip != 0
                 exit; 
                 //Do not finish the script. The next part of the script will always equip or unequip something.
             } 
-        }
+        }*/
     }
     
     //-------------------Equip or dequip--------------------
@@ -117,7 +118,7 @@ if equip != 0
     { 
         ds_list_delete(accessories_equipped,ds_list_find_index(accessories_equipped,accessory)); 
         //Play dequipped sound!
-        maxInvenSlots += slot_cost;
+        //maxInvenSlots += slot_cost;
         scr_hudMessage("un-equipped!",global.fnt_Ui,5,accessory,c_green,0);
         audio_play_sound(snd_unequip,8,false);
     }

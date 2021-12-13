@@ -27,7 +27,7 @@ if item != ITEMID.nil
             {
                 for(g=0;g<ds_list_size(accessories_equipped);g++)
                 {
-                    if item == accessories_equipped[| g]
+                    if hudControl.inventorySlotIcon[i] == accessories_equipped[| g]
                     {
                         scr_applyAccessory(item);
                     }
@@ -93,7 +93,7 @@ if item != ITEMID.nil
                 {
                     for(g=0;g<ds_list_size(accessories_equipped);g++)
                     {
-                        if item == accessories_equipped[| g]
+                        if hudControl.invetnorySlotIcon[i] == accessories_equipped[| g]
                         {
                             scr_applyAccessory(item);
                         }
@@ -111,12 +111,15 @@ if item != ITEMID.nil
 else if slot != -1
 {
     //This case is used in crafting.
+    
+    var hc_slot = hudControl.inventorySlotIcon[slot];
+    
     //Unequip a dropped accessory (UNO MAS)
     if invType == ITEMTYPE.accessory
     {
         for(g=0;g<ds_list_size(accessories_equipped);g++)
         {
-            if item == accessories_equipped[| g]
+            if hc_slot == accessories_equipped[| g]
             {
                 scr_applyAccessory(item);
             }
@@ -124,7 +127,7 @@ else if slot != -1
     }
     
     //Y'know tha deal
-    var hudAmt = hudControl.inventorySlotAmt[slot]
+    var hudAmt = hudControl.inventorySlotAmt[slot];
     if invAmt == -1 then invAmt = hudAmt;
     
     if (hudAmt - invAmt) > 0 then hudControl.inventorySlotAmt[slot] -= invAmt else scr_clearSlot(slot); 

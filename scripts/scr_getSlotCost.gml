@@ -10,5 +10,6 @@ switch argument0
     case ITEMID.acc_copperCompass:
     case ITEMID.acc_metalCompass:
     case ITEMID.acc_copperChestplate: { return 0; } break;
-    default: { print("ERROR: EQUIP IS NOT ACCESSORY"); scr_hudMessage("ERROR: EQUIP IS NOT ACCESSORY#Cool bug bro",global.fnt_menu,4,0,c_red,0); return 999; } break;
+    case ITEMID.nil: { print("scr_getSlotCost: EQUIP IS NIL"); scr_hudMessage("scr_getSlotCost: EQUIP IS NIL",global.fnt_menu,4,0,c_red,0); return 999;} break;
+    default: { print("scr_getSlotCost: EQUIP IS NOT ACCESSORY"); scr_hudMessage("scr_getSlotCost: EQUIP IS NOT ACCESSORY",global.fnt_menu,4,0,c_red,0); return 999; } break;
 }

@@ -16,6 +16,7 @@ if _size > 0
         if accessory == 0
         {
             print("scr_reloadAccessories> Abort equip, accessory is 0. Remove this acc");
+            ds_list_delete(accessories_equipped,i);
             continue;
         }
         
@@ -23,7 +24,7 @@ if _size > 0
         scr_applyAccessoryStats(accessory,1); 
         
         //Reallocates slot cost.
-        slot_cost = scr_getSlotCost(accessory);
-        maxInvenSlots -= slot_cost;
+        //slot_cost = scr_getSlotCost(accessory);
+        //maxInvenSlots -= slot_cost;
     }
 }

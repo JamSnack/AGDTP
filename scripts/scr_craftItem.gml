@@ -13,6 +13,7 @@ if currency_essence >= cost
     //Check the player's inventory.
     var hc = hudControl;
 
+    //For each slot, we loop through and set amt_remove to 0. We also check to see if that slot is in our mats list. If it is, we flag that slot by setting its amt_remove to matsAmt.
     for (i=0;i<maxInvenSlots;i++)
     { 
         //Loop through inventory slots
@@ -20,8 +21,7 @@ if currency_essence >= cost
         
         for (k=0;k<array_length_1d(mats);k++)
         {
-            //Loop through each slot
-            if hc.inventorySlotIcon[i] == mats[k] && hc.inventorySlotAmt[i] >= matsAmt[k] && mats[k] != 0
+            if mats[k] != 0 && hc.inventorySlotIcon[i] == mats[k] && hc.inventorySlotAmt[i] >= matsAmt[k]
             {   
                 amt_remove[i] = matsAmt[k];
                 mats[k] = 0; //Set the material to "confirmed."
@@ -32,11 +32,19 @@ if currency_essence >= cost
         if i == maxInvenSlots-1
         { //Check for total confirmation
             for (k=0;k<array_length_1d(mats);k++) { if mats[k] != 0 then return false; } // The crafting has failed
+            
             for (k=0;k<maxInvenSlots;k++) 
             { 
                 if amt_remove[k] != 0 
                 {
-                    scr_invenRemoveItem(0,amt_remove[k],0,false,k,noone); 
+                    //Note from about a year after writing this script: I have no idea why, but setting item to 0 is necessary for the crafting system to work.
+                    var _type = hc.inventorySlotType[k];
+                    var _pass = 0; //the value to pass into scr_invenRemoveItem.
+                    
+                    if _type == ITEMTYPE.accessory then _pass = hc.inventorySlotIcon[k];
+                    
+                    scr_invenRemoveItem(_pass,amt_remove[k],_type,false,k,noone); 
+                    break;
                 }
             }
         }
