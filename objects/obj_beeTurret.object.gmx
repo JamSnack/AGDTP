@@ -35,7 +35,7 @@ type = ITEMTYPE.playertile;
 
 //Turret stuff
 target = 0;
-targetRange = 6*16;
+targetRange = scr_get_tile_range(ITEMID.tile_beeTurret);//6*16;
 fireRate = 0.75; //How many seconds are in-between shots.
 fr_slow = 3;
 fr_fast = 0.75;

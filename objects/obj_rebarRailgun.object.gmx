@@ -35,7 +35,7 @@ type = 3;
 
 //Turret stuff
 target = 0;
-targetRange = 7*16; //7 Tiles
+targetRange = ITEMID.tile_rebarRailgun; //7 Tiles
 fireRate = 6; //How many seconds are in-between shots.
 
 //Firerate values to control a burst of bullets.

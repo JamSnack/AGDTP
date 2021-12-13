@@ -35,7 +35,7 @@ type = 3;
 
 //Turret stuff
 target = 0;
-targetRange = 7*16; //7 Tiles
+targetRange = scr_get_tile_range(ITEMID.tile_copperTurret); //7 Tiles
 fr_fast = 0.75;
 fr_slow = 3;
 fireRate = fr_fast; //How many seconds are in-between shots.

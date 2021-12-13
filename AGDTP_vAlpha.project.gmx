@@ -337,8 +337,6 @@
       <script>scripts\scr_drawToolTip.gml</script>
       <script>scripts\scr_clearSlot.gml</script>
       <script>scripts\scr_slotEquip.gml</script>
-      <script>scripts\scr_invenTileIndex.gml</script>
-      <script>scripts\scr_invenTileHealthIndex.gml</script>
       <script>scripts\scr_dropItem.gml</script>
       <script>scripts\scr_dropTag.gml</script>
       <script>scripts\scr_getInvenItemAmt.gml</script>
@@ -419,6 +417,9 @@
       <script>scripts\scr_updateConnections.gml</script>
       <script>scripts\scr_groundedConnectionCheck.gml</script>
       <script>scripts\scr_tileVisibleCheck.gml</script>
+      <script>scripts\scr_get_tile_range.gml</script>
+      <script>scripts\scr_invenTileIndex.gml</script>
+      <script>scripts\scr_invenTileHealthIndex.gml</script>
     </scripts>
     <script>scripts\scr_getTaskText.gml</script>
     <script>scripts\scr_getTask.gml</script>
