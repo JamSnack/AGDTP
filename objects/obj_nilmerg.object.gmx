@@ -119,6 +119,9 @@ if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl
     kingDied_1 = true;
     
     if wave == 1 then scr_unlockAchievement(ACHIEVEMENT.speedrunner_1);
+    
+    //Drop more items for king kill
+    scr_dropItem(ITEMID.item_sweetComb,4+irandom(3),0,x,y,noone);
 }
 
 event_inherited();
@@ -131,7 +134,7 @@ var r = irandom(99); //0 to 99
 scr_spawnEssence(5,45,15);
 
 //Drop items
-scr_dropItem(ITEMID.item_sweetComb,1+irandom(4+waveScale(1,5,0,10)),0,x,y,noone);
+scr_dropItem(ITEMID.item_sweetComb,1+irandom(2),0,x,y,noone);
 
 //Potentially drop a bee-grade weapon
 </string>

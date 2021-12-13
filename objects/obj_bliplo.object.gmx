@@ -123,6 +123,9 @@ if region == "COVE" &amp;&amp; kingDied_2 == false &amp;&amp; worldControl.raidB
     kingDied_2 = true;
     
     if wave &lt;= 3 then scr_unlockAchievement(ACHIEVEMENT.speedrunner_2);
+    
+    //Drop more items for king kill
+    scr_dropItem(ITEMID.item_seashellMetal,4+irandom(4),0,x,y,noone);
 }
 
 event_inherited();
@@ -130,7 +133,7 @@ event_inherited();
 if dropItem != true then exit;
 
 //Drop sesahell metal
-scr_dropItem(ITEMID.item_seashellMetal,1+irandom(4+waveScale(1,5,0,10)),0,x,y,noone);
+scr_dropItem(ITEMID.item_seashellMetal,1+irandom(2),0,x,y,noone);
 
 //Drop essence
 scr_spawnEssence(9,45,17);

@@ -103,7 +103,7 @@ if ds_list_find_index(enemySprites,object_index) == -1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Destroy Audio Emitter
+            <string>///Audio, particles, enemy list, remove spawn weight
 if deathSound != noone &amp;&amp; insideView(x,y) == true 
 {
     scr_playSound(deathSound,false,8,x,y,1,true);
