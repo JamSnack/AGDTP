@@ -54,6 +54,12 @@
     <instance objName="obj_menuLogo" x="232" y="64" name="inst_681BCDE5" locked="0" code="" scaleX="0.649999976158142" scaleY="0.649999976158142" colour="4294967295" rotation="0"/>
     <instance objName="obj_twitterLink" x="8" y="8" name="inst_541CE950" locked="0" code="" scaleX="0.150000005960464" scaleY="0.150000005960464" colour="4294967295" rotation="0"/>
     <instance objName="obj_youtubeLink" x="24" y="8" name="inst_1F5988E5" locked="0" code="" scaleX="0.150000005960464" scaleY="0.150000005960464" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="72" y="168" name="inst_79ED4BBC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="120" y="168" name="inst_B5FDBA4B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="184" y="168" name="inst_DED1C963" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="240" y="160" name="inst_D4FE3B64" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="312" y="160" name="inst_504190FB" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_menuGremlin" x="384" y="160" name="inst_36063EAD" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>

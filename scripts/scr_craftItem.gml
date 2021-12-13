@@ -1,4 +1,5 @@
 ///scr_craftItem(itemName)
+//Note for future reference: for some reason, the system is dependent on these variables not being vars.
 mats = 0; // What type of material to look for
 matsAmt = 0; // How much of the material to look for/consume.
 itemID = argument0; //The ID of the item to craft.
@@ -37,7 +38,7 @@ if currency_essence >= cost
             //Remove materials from required mats.
             for (k=0;k<maxInvenSlots;k++) 
             { 
-                print("amt_remove at "+string(k)+": "+string(amt_remove[k]));
+                //print("amt_remove at "+string(k)+": "+string(amt_remove[k]));
                 if amt_remove[k] != 0 
                 {
                     //Note from about a year after writing this script: I have no idea why, but setting item to 0 is necessary for the crafting system to work.
@@ -49,8 +50,8 @@ if currency_essence >= cost
                         _pass = hc.inventorySlotIcon[k];
                     }
                     
-                    print("scr_craftItem> _type is "+string(_type));
-                    print("scr_craftItem> _pass is "+string(_pass));
+                    //print("scr_craftItem> _type is "+string(_type));
+                    //print("scr_craftItem> _pass is "+string(_pass));
                     
                     scr_invenRemoveItem(_pass,amt_remove[k],_type,false,k,noone);
                 }
