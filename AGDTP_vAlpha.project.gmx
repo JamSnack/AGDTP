@@ -292,6 +292,7 @@
     <sprite>sprites\spr_sparkleRed</sprite>
     <sprite>sprites\spr_portal</sprite>
     <sprite>sprites\spr_shield</sprite>
+    <sprite>sprites\sprite178</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
