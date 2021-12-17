@@ -6,7 +6,6 @@ if (achievements_unlocked[_ach] != 1)
 {
     achievements_unlocked[_ach] = 1;
     
-    //TODO: Make efct_achievement its own thing!
     var _d = scr_getAchievementInfo(_ach);
     
     //Notify player

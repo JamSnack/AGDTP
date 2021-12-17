@@ -763,7 +763,6 @@ if showSuperMenu == true
             }
         }
         
-        //TODO: Add unlocked tags to a list here.
     
         ui_state = "MOD";
     }

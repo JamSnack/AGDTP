@@ -25,11 +25,12 @@ switch argument0
     case obj_nilmerg: {_hp = 150+waveScale(10,5,0,-1);} break;
     case obj_bombKing: {_hp = 50+waveScale(5,1,0,-1);} break;
     case obj_bliplo: {_hp = 300+waveScale(20,5,0,-1);} break;
+    case obj_melonster: {_hp = 250+waveScale(25,5,0,-1); } break;
     default: _hp = 0;
 }
 
 
-//Raid Boss hp buff
+//Raid Boss hp buff (+50% HP);
 if worldControl.raidBossID == id
 {
     _hp += round(_hp/2);

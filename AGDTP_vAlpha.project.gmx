@@ -166,6 +166,7 @@
       <sprite>sprites\spr_crab</sprite>
       <sprite>sprites\spr_squidKing</sprite>
       <sprite>sprites\spr_mackerel</sprite>
+      <sprite>sprites\spr_melonster</sprite>
     </sprites>
     <sprites name="Tiles">
       <sprites name="Player Tiles">
@@ -293,6 +294,7 @@
     <sprite>sprites\spr_portal</sprite>
     <sprite>sprites\spr_shield</sprite>
     <sprite>sprites\sprite178</sprite>
+    <sprite>sprites\spr_melon_vine</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -560,6 +562,7 @@
       <object>objects\obj_sandMenace</object>
       <object>objects\obj_hiveGrowth</object>
       <object>objects\obj_mackerel</object>
+      <object>objects\obj_melonster</object>
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
