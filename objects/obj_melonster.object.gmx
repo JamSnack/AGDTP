@@ -37,9 +37,7 @@ last_move = noone;
 
 vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
-b_atkBox = 16*7; //Range for bomb attack.
 damage = 8; //body damage.
-s_damage = 15; //swoop damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
 attackCooldown = 4; //How long until the boss rolls for another attack.
 
 hurtAlarm = 1;
@@ -60,11 +58,18 @@ accelRate = 0.8;
 //Animation
 
 //Ai
-wander_pointX = choose(RAIDBOUND_Lower,RAIDBOUND_Upper);
-wander_pointY = world_height-(2*16);
 transition_to = "WANDER";
-tile_punch_max = 8;
-tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
+resource_memory_x = ds_list_create();
+resource_memory_y = ds_list_create();
+sight = 16*5; // The radius of the melon monster's vision circle.
+
+//- Initialize vine objects;
+repeat(3)
+{
+    var _i = instance_create(x,y,obj_vine);
+    _i.parent_id = id;
+    _i.range = sight;
+}
 
 growth_phase = 1; //Informs the melonster's behavior and attack stats.
 
@@ -75,7 +80,7 @@ alarm[stateLockAlarm] = 20;
 
 image_xscale = sign(target.x-x);
 
-spawn_weight = 1;
+spawn_weight = 3;
 event_inherited();
 scale = 2;
 image_xscale = scale;
@@ -92,6 +97,160 @@ if raid_boss == true
 }
 
 canDespawn = false;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>event_inherited();
+
+if dropItem != true then exit;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Reset state lock
+stateLock = false;
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="1">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Reset hurt
+canHurt = true;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
+
+//Gremlin Ai
+target = obj_pie;
+objective = obj_pie;
+
+//Feet/Vines
+
+
+ai_melonAi(state,1,objective,-4,atkBox);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///IGNORE INHERITED EVENT!
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+draw_text(x,y+5,"state: "+string(state));
 </string>
           </argument>
         </arguments>

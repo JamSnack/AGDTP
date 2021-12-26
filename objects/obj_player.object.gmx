@@ -1083,7 +1083,13 @@ instance_create(x,y,region_shifter);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if dev != true then exit;
+            <string>with obj_vine
+{
+    vine_target_x = mouse_x;
+    vine_target_y = mouse_y;
+}
+
+/*if dev != true then exit;
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
@@ -1113,7 +1119,7 @@ scr_dropItem(ITEMID.item_seashellMetal,99,0,x,y,noone);
             <kind>1</kind>
             <string>if dev != true then exit;
 //scr_spawnEssence(currency_essence,4,10);
-instance_create(mouse_x,mouse_y,efct_achievement);
+instance_create(mouse_x,mouse_y,obj_vine);
 /*
 if instance_exists(worldControl.raidBossID)
 {
