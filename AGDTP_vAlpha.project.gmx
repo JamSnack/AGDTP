@@ -295,6 +295,7 @@
     <sprite>sprites\spr_shield</sprite>
     <sprite>sprites\sprite178</sprite>
     <sprite>sprites\spr_melon_vine</sprite>
+    <sprite>sprites\spr_seed</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -579,6 +580,8 @@
     <object>objects\obj_pausedObject</object>
     <object>objects\obj_collisionGremlin</object>
     <object>objects\obj_vine</object>
+    <object>objects\obj_spawn_seed</object>
+    <object>objects\obj_builder_bloom</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\init_display</room>

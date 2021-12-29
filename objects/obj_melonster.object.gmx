@@ -32,7 +32,7 @@ canHurt = true;
 maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
 image_speed = 0;
-state = "TRANSITION"; //TODO:
+state = "DIG"; //TODO:
 last_move = noone;
 
 vsp = 0;
@@ -62,27 +62,22 @@ transition_to = "WANDER";
 resource_memory_x = ds_list_create();
 resource_memory_y = ds_list_create();
 sight = 16*5; // The radius of the melon monster's vision circle.
-
-//- Initialize vine objects;
-repeat(3)
-{
-    var _i = instance_create(x,y,obj_vine);
-    _i.parent_id = id;
-    _i.range = sight;
-}
-
-growth_phase = 1; //Informs the melonster's behavior and attack stats.
+local_essence = 0; //How much essence the melon monster has.
+essence_needed_to_depot = 50; //How much essence the melon monster needs to auto-depot;
+base_point_x = x+16*6;
+base_point_y = y;
 
 
 //Other locals
 stateLock = true;
 alarm[stateLockAlarm] = 20;
+_xscale = 0; //Used for calculating image_angle in-place of classic image_xscale flipping.
 
 image_xscale = sign(target.x-x);
 
 spawn_weight = 3;
 event_inherited();
-scale = 2;
+scale = 1;
 image_xscale = scale;
 image_yscale = scale;
 alarm[3] = -1;
@@ -97,6 +92,9 @@ if raid_boss == true
 }
 
 canDespawn = false;
+
+//Initialize local chunk activation
+alarm[3] = 1;
 </string>
           </argument>
         </arguments>
@@ -123,6 +121,36 @@ canDespawn = false;
 
 if dropItem != true then exit;
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Local chunk activation
+if state == "DIG"
+{
+    var border = 16*6;
+    instance_activate_region(x-border,y-border,x+border,y+border,true);
+}
+
+alarm[3] = room_speed*3;
 </string>
           </argument>
         </arguments>
@@ -200,9 +228,6 @@ canHurt = true;
 target = obj_pie;
 objective = obj_pie;
 
-//Feet/Vines
-
-
 ai_melonAi(state,1,objective,-4,atkBox);
 </string>
           </argument>
@@ -251,6 +276,7 @@ ai_melonAi(state,1,objective,-4,atkBox);
             <kind>1</kind>
             <string>draw_self();
 draw_text(x,y+5,"state: "+string(state));
+draw_text(x,y+10,"essence: "+string(local_essence));
 </string>
           </argument>
         </arguments>

@@ -57,6 +57,58 @@ switch state
         {
             
         }
+        
+        if local_essence >= essence_needed_to_depot
+        {
+            state = "DEPOT";
+        }
+        
+        local_essence += 2;
+    }
+    break;
+    
+    case "DEPOT":
+    {
+        //Return to base and depot.
+        //Direction
+        var dir = sign(base_point_x-x);
+        var vdir = sign(base_point_y-y);
+        
+        //Horizontal Acceleration
+        hAccel = approach(hAccel,maxAccel*dir,accelRate);
+        
+        //Vertical Acceleration
+        vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        
+        _xscale = dir*scale;
+        
+        //Drop stuff when we nearby the base_point
+        if point_distance(x,y,base_point_x,base_point_y) <= 50
+        {
+            
+            //Begin depositing essence for minions.
+            /*if (!instance_exists(obj_builder_bloom) && local_essence > 25)
+            {
+                instance_create(x,y,obj_builder_bloom);
+                local_essence -= 25;
+            }
+            else */if (local_essence > 10)
+            {
+                instance_create(x,y,obj_spawn_seed);
+                local_essence -= 10;
+                print("DROP");
+            }
+            else
+            {
+                state = "DIG";
+            }
+        }
+        
+        x += hAccel;
+        y += vAccel;
+        
+        //Local_essence clamp
+        local_essence = clamp(local_essence,0,essence_needed_to_depot*2);
     }
     break;
     
@@ -72,7 +124,7 @@ switch state
         //Vertical Acceleration
         vAccel = approach(vAccel,maxAccel*vdir,accelRate);
         
-        image_xscale = dir*scale;
+        _xscale = dir*scale;
         
         //Slow down and stop at the target point!
         if point_distance(x,y,wander_pointX,wander_pointY) <= (vAccel+hAccel)*4
@@ -161,3 +213,6 @@ if ( hForce != 0 || vForce != 0 )
     vForce = approach(vForce,0,knock_resistance);
     hForce = approach(hForce,0,knock_resistance);
 }
+
+//Animate
+image_angle = point_direction(x,y,objective.x,objective.y);
