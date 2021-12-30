@@ -11,6 +11,8 @@ var yObjective = objective.y;
 var x_previous = round(xprevious);
 var _x = round(x);
 
+var player_in_sight = (instance_exists(obj_player) && distance_to_object(obj_player) < 16*5);
+
 if instance_exists(objective)
 { var canSeeObjective = !collision_line(x,y,objective.x,objective.y,OBSTA,true,false); } 
 
@@ -52,18 +54,29 @@ switch state
 {    
     case "DIG":
     {
-        //Search for resources to build an army with!
-        if instance_exists(obj_player) && distance_to_object(obj_player) < 16*5
-        {
-            
-        }
-        
-        if local_essence >= essence_needed_to_depot
+        //Decide whether or not to depot..
+        if ((player_in_sight) || (local_essence >= essence_needed_to_depot))
         {
             state = "DEPOT";
         }
-        
-        local_essence += 2;
+        else
+        {
+            //Search for goodies to turn into essence!
+            if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_object(GR_ENEMY) <= sight)
+            {
+                gremlin_grab = true;
+                
+                //Eat the gremlin!
+                var _grem = instance_nearest(x,y,GR_ENEMY);
+                
+                gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 1);
+            }
+            else if !instance_exists(gremlin_grab_vine)
+            {
+                //Reset gremlin grabbing function
+                gremlin_grab = false;
+            }
+        }
     }
     break;
     

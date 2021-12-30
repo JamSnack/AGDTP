@@ -2580,25 +2580,25 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; inst
     var playerHp = obj_player.hp;
     var playerMaxHp = obj_player.maxHp;
     
-    //- Red Health vial
-    draw_sprite(spr_ui_vial,0,viewWidth-110,9);
-    
     if playerHp &gt; 0
     { draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,100*(playerHp/playerMaxHp),6); }
     draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
+    
+    //- Red Health vial
+    draw_sprite(spr_ui_vial,0,viewWidth-110,9);
     
     
     //- Pie health bar
     if instance_exists(obj_pie)
     {
         var pieHp = obj_pie.hp;
-    
-        //-Blue health vial
-        draw_sprite(spr_ui_vial,0,viewWidth-110,19);
         
         if pieHp &gt; 0
         { draw_sprite_stretched(spr_ui_pieHealth,0,viewWidth-110,21,pieHp,6) }
         draw_text(viewWidth-95,20,"PIE: "+string(pieHp)+"\"+string(obj_pie.maxHp));
+        
+        //-Blue health vial
+        draw_sprite(spr_ui_vial,0,viewWidth-110,19);
     }
     
     //- Boss health bar

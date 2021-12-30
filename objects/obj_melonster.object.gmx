@@ -61,11 +61,13 @@ accelRate = 0.8;
 transition_to = "WANDER";
 resource_memory_x = ds_list_create();
 resource_memory_y = ds_list_create();
-sight = 16*5; // The radius of the melon monster's vision circle.
+sight = 16*10; // The radius of the melon monster's vision circle.
 local_essence = 0; //How much essence the melon monster has.
 essence_needed_to_depot = 50; //How much essence the melon monster needs to auto-depot;
 base_point_x = x+16*6;
 base_point_y = y;
+gremlin_grab = false; //Whether or not a vine exists to grab a gremlin.
+gremlin_grab_vine = noone; //The ID of the gremlin grabbing vine.
 
 
 //Other locals

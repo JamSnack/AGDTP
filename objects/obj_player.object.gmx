@@ -1083,12 +1083,7 @@ instance_create(x,y,region_shifter);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>with obj_vine
-{
-    vine_target_x = mouse_x;
-    vine_target_y = mouse_y;
-}
-
+            <string>instance_create(mouse_x,mouse_y,obj_gremlin);
 /*if dev != true then exit;
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);

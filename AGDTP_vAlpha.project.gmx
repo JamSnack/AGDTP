@@ -443,6 +443,8 @@
     <script>scripts\scr_init_surface.gml</script>
     <script>scripts\scr_getAchievementInfo.gml</script>
     <script>scripts\scr_unlockAchievement.gml</script>
+    <script>scripts\distance_to_nearest_object.gml</script>
+    <script>scripts\scr_create_vine.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>
