@@ -1084,6 +1084,7 @@ instance_create(x,y,region_shifter);
           <argument>
             <kind>1</kind>
             <string>instance_create(mouse_x,mouse_y,obj_gremlin);
+
 /*if dev != true then exit;
 scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);

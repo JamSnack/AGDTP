@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>ENEMY</parentName>
+  <parentName>INV_ENEMY</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -31,7 +31,6 @@ canActiveRegion = true;
 canHurt = true;
 maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
-image_speed = 0;
 state = "DIG"; //TODO:
 last_move = noone;
 
@@ -41,7 +40,7 @@ damage = 8; //body damage.
 attackCooldown = 4; //How long until the boss rolls for another attack.
 
 hurtAlarm = 1;
-image_speed = 30/60;
+image_speed = 0;
 
 target = obj_pie; //objective priority.
 
@@ -52,8 +51,8 @@ aggroRange = 0; //0 tiles
 //Flying speed
 hAccel = 0;
 vAccel = 0;
-maxAccel = 2;
-accelRate = 0.8;
+maxAccel = 1;
+accelRate = 0.1;
 
 //Animation
 
@@ -66,8 +65,12 @@ local_essence = 0; //How much essence the melon monster has.
 essence_needed_to_depot = 50; //How much essence the melon monster needs to auto-depot;
 base_point_x = x+16*6;
 base_point_y = y;
+tile_grab = false;
+tile_grab_vine = noone;
 gremlin_grab = false; //Whether or not a vine exists to grab a gremlin.
 gremlin_grab_vine = noone; //The ID of the gremlin grabbing vine.
+vine_delay_set = 20;
+vine_delay = 0;
 
 
 //Other locals
@@ -77,21 +80,16 @@ _xscale = 0; //Used for calculating image_angle in-place of classic image_xscale
 
 image_xscale = sign(target.x-x);
 
-spawn_weight = 3;
+spawn_weight = 8;
 event_inherited();
 scale = 1;
 image_xscale = scale;
 image_yscale = scale;
 alarm[3] = -1;
-knockType = "LAND";
+knockType = "FLY";
 knock_resistance = 2;
 
 deathSound = snd_enemydie_boss;
-
-if raid_boss == true
-{
-    maxAccel += 0.5;
-}
 
 canDespawn = false;
 
@@ -121,6 +119,8 @@ alarm[3] = 1;
             <kind>1</kind>
             <string>event_inherited();
 
+scr_spawnEssence(1,2,local_essence);
+
 if dropItem != true then exit;
 
 </string>
@@ -149,10 +149,10 @@ if dropItem != true then exit;
 if state == "DIG"
 {
     var border = 16*6;
-    instance_activate_region(x-border,y-border,x+border,y+border,true);
+    instance_activate_region(x-border,y-border,border*2,border*2,true);
 }
 
-alarm[3] = room_speed*3;
+alarm[3] = room_speed*1;
 </string>
           </argument>
         </arguments>
@@ -227,7 +227,7 @@ canHurt = true;
             <string>var canSeeTarget = !collision_line(x,y,target.x,target.y,OBSTA,false,false);
 
 //Gremlin Ai
-target = obj_pie;
+//target = obj_pie;
 objective = obj_pie;
 
 ai_melonAi(state,1,objective,-4,atkBox);

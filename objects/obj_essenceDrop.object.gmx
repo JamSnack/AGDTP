@@ -35,7 +35,7 @@ friction = 0.5;
 vsp = 1;
 canPickUp = false;
 alarm[0] = 30;
-tags = noone;
+target_instance = obj_player; //What the essence chases
 
 //deactivate if the game is loaded.
 if instance_exists(obj_player) then scr_deactivateOffscreen(id);
@@ -93,10 +93,27 @@ color = make_colour_hsv(c_hue,240,167);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//Gravitate toward player
-if canPickUp == true &amp;&amp; obj_player.dead == false
+            <string>//Gravitate toward target
+
+//- target either the player or a nearby invader
+if instance_exists(INV_ENEMY)
 {
-    var dir = point_direction(x,y,obj_player.x,obj_player.y);
+    var _tar = instance_nearest(x,y,INV_ENEMY);
+    
+    if distance_to_object(_tar) &lt; 5*16
+    {
+        target_instance = _tar;
+    } else target_instance = obj_player;
+} 
+else if canPickUp == true &amp;&amp; obj_player.dead == false
+    { target_instance = obj_player; }
+else target_instance = noone;
+
+
+//- motion
+if instance_exists(target_instance)
+{
+    var dir = point_direction(x,y,target_instance.x,target_instance.y);
     motion_add(dir,1);
     
     speed = min(speed,9);
@@ -105,9 +122,30 @@ if canPickUp == true &amp;&amp; obj_player.dead == false
 }
 
 //Color the essence!
-image_angle += (hspeed+vspeed)*4;
-c_hue += speed*2;
+image_angle += (hspeed)*4;
+c_hue += 2;
 color = make_colour_hsv(c_hue,200,240);
+
+//Collect the essence
+if collision_rectangle(x-2,y-2,x+2,y+2,target_instance,false,true)
+{
+    if target_instance == obj_player &amp;&amp; obj_player.dead == false
+    {
+        currency_essence += amt;
+        instance_destroy();
+    }
+    else
+    {
+        var _a = amt;
+        
+        with target_instance
+        {
+            local_essence += _a;
+        }
+        
+        instance_destroy();
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -130,12 +168,7 @@ color = make_colour_hsv(c_hue,200,240);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if obj_player.dead == true then exit;
-
-currency_essence += amt;
-
-instance_destroy();
-</string>
+            <string></string>
           </argument>
         </arguments>
       </action>

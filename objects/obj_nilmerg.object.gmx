@@ -31,7 +31,6 @@ canActiveRegion = true;
 canHurt = true;
 maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
-image_speed = 0;
 state = "TRANSITION";
 last_move = noone;
 

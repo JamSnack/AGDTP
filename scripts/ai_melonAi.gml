@@ -7,6 +7,7 @@ var atkBox = (argument4)/2;
 
 var xObjective = objective.x;
 var yObjective = objective.y;
+var direction_to_objective = point_direction(x,y,xObjective,yObjective);
 
 var x_previous = round(xprevious);
 var _x = round(x);
@@ -14,7 +15,7 @@ var _x = round(x);
 var player_in_sight = (instance_exists(obj_player) && distance_to_object(obj_player) < 16*5);
 
 if instance_exists(objective)
-{ var canSeeObjective = !collision_line(x,y,objective.x,objective.y,OBSTA,true,false); } 
+{ var canSeeObjective = !collision_line(x,y,xObjective,yObjective,OBSTA,true,false); } 
 
 //Attack Check --------------------------------------------
 
@@ -62,21 +63,47 @@ switch state
         else
         {
             //Search for goodies to turn into essence!
-            if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_object(GR_ENEMY) <= sight)
+            if instance_exists(obj_essenceOre)
             {
-                gremlin_grab = true;
-                
-                //Eat the gremlin!
-                var _grem = instance_nearest(x,y,GR_ENEMY);
-                
-                gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 1);
+                objective = instance_nearest(x,y,obj_essenceOre);
             }
-            else if !instance_exists(gremlin_grab_vine)
+            else if instance_exists(obj_copperOre)
             {
-                //Reset gremlin grabbing function
-                gremlin_grab = false;
+                objective = instance_nearest(x,y,obj_copperOre);
             }
+            else if instance_exists(obj_seashellMetal)
+            {
+                objective = instance_nearest(x,y,obj_seashellMetal);
+            }
+            else if instance_exists(GR_ENEMY)
+            {
+                objective = instance_nearest(x,y,GR_ENEMY);
+            }
+            else
+            {
+                objective = instance_nearest(x,y+32,TILE);
+            }
+            
+            //- update objective direction
+            direction_to_objective = point_direction(x,y,xObjective,yObjective);
+            xObjective = objective.x;
+            yObjective = objective.y;
         }
+        
+        //Direction
+        var dir = sign(xObjective-x);
+        var vdir = sign(yObjective-y);
+        
+        //Horizontal Acceleration
+        hAccel = approach(hAccel,maxAccel*dir,accelRate);
+        
+        //Vertical Acceleration
+        vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        
+        _xscale = dir*scale;
+        
+        if !place_meeting_fast(hAccel,0,OBSTA) then x += hAccel;
+        if !place_meeting_fast(0,vAccel,OBSTA) then y += vAccel;
     }
     break;
     
@@ -109,7 +136,7 @@ switch state
             {
                 instance_create(x,y,obj_spawn_seed);
                 local_essence -= 10;
-                print("DROP");
+                //print("DROP");
             }
             else
             {
@@ -124,34 +151,89 @@ switch state
         local_essence = clamp(local_essence,0,essence_needed_to_depot*2);
     }
     break;
-    
-    case "WANDER":
-    {
-        //Direction
-        var dir = sign(wander_pointX-x);
-        var vdir = sign(wander_pointY-y);
-        
-        //Horizontal Acceleration
-        hAccel = approach(hAccel,maxAccel*dir,accelRate);
-        
-        //Vertical Acceleration
-        vAccel = approach(vAccel,maxAccel*vdir,accelRate);
-        
-        _xscale = dir*scale;
-        
-        //Slow down and stop at the target point!
-        if point_distance(x,y,wander_pointX,wander_pointY) <= (vAccel+hAccel)*4
-        {
-            vAccel = approach(vAccel,0,accelRate*2);
-            hAccel = approach(hAccel,0,accelRate*2);
-        }
-        
-        x += hAccel;
-        y += vAccel;
-    }
-    break;
 }
 
+//----Vine Control----
+
+//--Hunt for Gremlins to snack on
+if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_object(GR_ENEMY) <= sight)
+{
+    gremlin_grab = true;
+    
+    //Eat the gremlin!
+    var _grem = instance_nearest(x,y,GR_ENEMY);
+    
+    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 3, _grem);
+}
+else if !instance_exists(gremlin_grab_vine)
+{
+    //Reset gremlin grabbing function
+    gremlin_grab = false;
+    gremlin_grab_vine = noone;
+}
+
+//--Hunt for Tiles to snack on
+if vine_delay <= 0 && (tile_grab = false ) && instance_exists(TILE) && (distance_to_nearest_object(TILE) <= sight)
+{
+    vine_delay = vine_delay_set;
+    tile_grab = true;
+    
+    //Eat the tile!
+    var _tile = instance_nearest(x+lengthdir_x(16*2,direction_to_objective),y+lengthdir_y(16*2,direction_to_objective),TILE);
+    
+    if (_tile.object_index != TOTEM && _tile.object_index != obj_pie)
+    {
+        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 0, 1, _tile);
+    }
+}
+else if !instance_exists(tile_grab_vine)
+{
+    //Reset tile grabbing function
+    tile_grab = false;
+    tile_grab_vine = noone;
+}
+
+//- Consume certain item drops
+if instance_exists(obj_itemDrop) && distance_to_object(obj_itemDrop) <= 16*2
+{
+    var _it = instance_nearest(x,y,obj_itemDrop);
+    var _value = 0;
+    
+    switch _it.image_index
+    {
+        case ITEMID.item_stick:
+        case ITEMID.item_dirtClump:
+        case ITEMID.item_stonePiece:
+        { _value = 1; }
+        break;
+        
+        case ITEMID.item_copperOre: 
+        case ITEMID.item_seashellMetal:
+        { _value = 5; } 
+        break;
+    }
+    
+    //Consume only those items of value
+    if _value > 0
+    {
+        with _it
+        {
+            instance_destroy();
+        }
+        
+        local_essence += _value;
+    }
+    
+}
+
+//-Animate
+if (gremlin_grab == true || tile_grab == true)
+{
+    image_index = 1;
+} else image_index = 0;
+
+//- vine delay
+if vine_delay > 0 then vine_delay -= 1;
 
 //------------------------------------------------------
 //Collision and movement
@@ -228,4 +310,4 @@ if ( hForce != 0 || vForce != 0 )
 }
 
 //Animate
-image_angle = point_direction(x,y,objective.x,objective.y);
+image_angle = approach(image_angle,point_direction(x,y,xObjective,yObjective),3);

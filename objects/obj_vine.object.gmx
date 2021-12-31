@@ -50,6 +50,92 @@ image_index = 1;
 behavior_return = false; //Whether or not the vine is set to return upon reaching it destination and despawning at OX, OY
 damage_amt = 0; //0 if no damage calculation, set to anything else to for a hitbox to be drawn onto the tip of the vine.
 reversing = false;
+instance_to_grab = noone;
+instance_grabbed = false;
+
+alarm[0] = 1; //Delayed init event
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Hurt grabbed instance
+if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab) &amp;&amp; instance_grabbed == true
+{
+    with instance_to_grab
+    {
+        scr_hurt(hp*5,0,true,5);
+        
+        //Crack open them tiles for some exotic loot:
+        if object_get_parent(object_index) == TILE then event_user(2);
+    }
+    
+    //-Update tile sprites and light_level
+    //This is the same logic as scr_tileUpdate but includes light_level = 255;
+    for(i=0;i&lt;9;i++)
+    {
+        //Check every adjacent block starting with the top left most block.
+    
+        var column = floor(i/3);
+        var col = collision_point(vine_target_x-16+(i*16)-(column*16*3),vine_target_y-16+(16*column),TILE_ALL,true,true);
+        
+        if col != noone
+        {
+            with col 
+            {
+                event_user(1);
+                light_level = 255;
+            }
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Delayed init
+vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
+vine_speed_h = abs(vine_speed*cos(vine_direction));
+vine_speed_v = abs(vine_speed*sin(vine_direction));
+
+//print(vine_speed_h);
+//print(vine_speed_v);
+//print("--");
 </string>
           </argument>
         </arguments>
@@ -86,57 +172,75 @@ else
 }
 
 //vine movement
-if reversing == false &amp;&amp; (vine_x != vine_target_x || vine_y != vine_target_y) 
-{
-    vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
-    image_angle = vine_direction;
-    vine_length = point_distance(ox,oy,vine_target_x,vine_target_y);
-    vine_parts = floor(vine_length/vine_segment_length);
+vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
+image_angle = vine_direction;
+vine_length = point_distance(ox,oy,vine_target_x,vine_target_y);
+vine_parts = floor(vine_length/vine_segment_length);
+vine_direction_x = abs(lengthdir_x(vine_segment_length, vine_direction));
+vine_direction_y = abs(lengthdir_y(vine_segment_length, vine_direction));
 
+print("--");
+print(vine_direction_x);
+print(vine_direction_y);
+
+
+if reversing == false &amp;&amp; point_distance(vine_x,vine_y,vine_target_x,vine_target_y) &gt; 4 
+{
     //Move the vine toward the target point
-    if vine_x != vine_target_x 
-    {
-        vine_direction_x = lengthdir_x(vine_segment_length, vine_direction);
-        vine_x = approach(vine_x,vine_target_x,vine_speed);
+    if vine_x != vine_target_x {
+        vine_x = approach(vine_x,vine_target_x,vine_direction_x);
     }
     
-    if vine_y != vine_target_y 
-    {
-        vine_direction_y = lengthdir_y(vine_segment_length, vine_direction);
-        vine_y = approach(vine_y,vine_target_y,vine_speed);
+    if vine_y != vine_target_y {
+        vine_y = approach(vine_y,vine_target_y,vine_direction_y);
     }
 }
 else if behavior_return == true// &amp;&amp; point_distance(vine_x,vine_y,vine_target_x,vine_target_y) &lt; 2
 {
     reversing = true;
+    
 
-    vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
-    image_angle = vine_direction;
-    vine_length = point_distance(ox,oy,vine_target_x,vine_target_y);
-    vine_parts = floor(vine_length/vine_segment_length);
-
+    
     //Bring the vine back home without affecting target_point
-    if vine_x != ox 
-    {
-        vine_direction_x = lengthdir_x(vine_segment_length, vine_direction);
-        vine_x = approach(vine_x,ox,vine_speed);
+    if vine_x != ox {
+        vine_x = approach(vine_x,ox,vine_direction_x);
     }
     
-    if vine_y != oy 
-    {
-        vine_direction_y = lengthdir_y(vine_segment_length, vine_direction);
-        vine_y = approach(vine_y,oy,vine_speed);
+    if vine_y != oy {
+        vine_y = approach(vine_y,oy,vine_direction_y);
     }
     
-    print("----REVERSE----");
-    
-    if point_distance(vine_x,vine_y,ox,oy) &lt; 4
-    {
+    if point_distance(vine_x,vine_y,ox,oy) &lt; 4{
         print("obj_vine&gt; death");
         instance_destroy();
     }
 }
 
+//Grab an instance
+
+if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab)
+{
+    if instance_grabbed == false
+    {
+        var _grab = collision_circle(vine_x,vine_y,4,instance_to_grab,false,true);
+    
+        if _grab == instance_to_grab
+        {
+            instance_grabbed = true;
+        }
+    }
+    else
+    {
+        var _xx = vine_x;
+        var _yy = vine_y;
+    
+        with instance_to_grab
+        {
+            x = _xx;
+            y = _yy;
+        }
+    }
+}
 
 </string>
           </argument>
@@ -173,18 +277,16 @@ var x_perc,y_perc;
 //x_percentage
 if x_perc_flipped
 {
-   x_perc = ((vine_target_x-vine_target_x)/(vine_x+0.1-vine_target_x));
+   x_perc = ((vine_target_x-vine_target_x+0.1)/(vine_x+0.1-vine_target_x));
 }
-else x_perc = ((vine_x-ox)/(vine_target_x-ox+0.1));
-print("x_perc is: "+string(x_perc));
+else x_perc = ((vine_x-ox+0.1)/(vine_target_x-ox+0.1));
 
 //y_percentage
 if y_perc_flipped
 {
-   y_perc = ((vine_y-oy)/(vine_target_y-oy+0.1));
+   y_perc = ((vine_y-oy+0.1)/(vine_target_y-oy+0.1));
 }
-else y_perc = ((vine_target_y-vine_target_y)/(vine_y+0.1-vine_target_y));
-print("y_perc is: "+string(y_perc));
+else y_perc = ((vine_target_y-vine_target_y+0.1)/(vine_y+0.1-vine_target_y));
 
 for(_i = 0; _i &lt; vine_parts; _i++)
 {
@@ -203,6 +305,8 @@ for(_i = 0; _i &lt; vine_parts; _i++)
         draw_sprite_ext( spr_melon_vine, 1, ox+(vine_direction_x)*(_i*x_perc), oy+(vine_direction_y)*(_i*y_perc), 1, 1, vine_direction, c_white, 1);
     }
 }
+
+draw_circle(vine_x,vine_y,4,true);
 </string>
           </argument>
         </arguments>

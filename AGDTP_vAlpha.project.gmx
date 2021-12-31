@@ -535,6 +535,7 @@
       <object>objects\PAUSE</object>
       <object>objects\CONTROL</object>
       <object>objects\EFFECT</object>
+      <object>objects\INV_ENEMY</object>
     </objects>
     <objects name="effects">
       <object>objects\efct_hudMessage</object>

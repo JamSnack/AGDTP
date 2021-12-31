@@ -1,4 +1,4 @@
-///scr_hurt(damage,time,knockback,knockAmt);
+///scr_hurt(damage,time,knockback_bool,knockAmt);
 if gameOver == true then exit;
 
 var damage = floor(argument0); //Damage dealt
@@ -36,7 +36,7 @@ if inst_parent == TILE || inst_parent == PLRTILE  || inst_parent == PLT_1 || ins
 if (hp-damage <= 0)
 {
     //Death to enemies
-    if (inst_parent == GR_ENEMY || inst_parent == ENEMY)
+    if (inst_parent == GR_ENEMY || inst_parent == ENEMY || inst_parent == INV_ENEMY)
     {
         if (shield_charges <= 0 || other_index == obj_railgunBullet)
         {
