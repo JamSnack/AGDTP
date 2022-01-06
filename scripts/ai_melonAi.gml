@@ -148,12 +148,12 @@ switch state
         {
             
             //Begin depositing essence for minions.
-            /*if (!instance_exists(obj_builder_bloom) && local_essence > 25)
+            if (!instance_exists(obj_builder_bloom) && local_essence > 25)
             {
                 instance_create(x,y,obj_builder_bloom);
                 local_essence -= 25;
             }
-            else */if (local_essence > 10)
+            else if (local_essence > 10)
             {
                 instance_create(x,y,obj_spawn_seed);
                 local_essence -= 10;

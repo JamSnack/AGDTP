@@ -29,6 +29,9 @@
 hspeed = irandom_range(-3,3);
 gravity = grav;
 
+//Choose instance to spawn
+to_spawn = choose(obj_mackerel);
+
 </string>
           </argument>
         </arguments>

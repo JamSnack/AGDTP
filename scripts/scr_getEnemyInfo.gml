@@ -22,12 +22,14 @@ switch enemy
     case obj_sphereMinion: { name = "Sphere Minion"; } break;
     case obj_mackerel: { name = "Summer Mackerel"; } break;
     case obj_hiveGrowth: { name = "Hive Growth"; } break;
+    case obj_builder_bloom: { name = "Builder Bloom"; } break;
     
     //Bosses
     case obj_sphereKing: {name = "Sphere King";} break;
     case obj_nilmerg: {name = "Nilmerg";} break;
     case obj_bombKing: {name = "Bomb King";} break;
     case obj_bliplo: {name = "Bliplo";} break;
+    case obj_melonster: { name = "Melon Bloom"; } break;
     
     default: name = "Stranger"; hp = "Unknown";
 }
