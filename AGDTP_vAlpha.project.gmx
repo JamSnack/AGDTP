@@ -296,6 +296,8 @@
     <sprite>sprites\sprite178</sprite>
     <sprite>sprites\spr_melon_vine</sprite>
     <sprite>sprites\spr_seed</sprite>
+    <sprite>sprites\spr_builder_bloom</sprite>
+    <sprite>sprites\spr_vineTile</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -501,6 +503,8 @@
         <object>objects\obj_nullLight</object>
         <object>objects\obj_chest</object>
         <object>objects\TOTEM</object>
+        <object>objects\INV_TILE</object>
+        <object>objects\obj_vineTile</object>
       </objects>
       <objects name="Player Tiles">
         <object>objects\PLR_NOCOL</object>

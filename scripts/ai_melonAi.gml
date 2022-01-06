@@ -12,7 +12,7 @@ var direction_to_objective = point_direction(x,y,xObjective,yObjective);
 var x_previous = round(xprevious);
 var _x = round(x);
 
-var player_in_sight = (instance_exists(obj_player) && distance_to_object(obj_player) < 16*5);
+var player_in_sight = (instance_exists(obj_player) && distance_to_object(obj_player) < 16*7);
 
 if instance_exists(objective)
 { var canSeeObjective = !collision_line(x,y,xObjective,yObjective,OBSTA,true,false); } 
@@ -79,15 +79,15 @@ switch state
             {
                 objective = instance_nearest(x,y,GR_ENEMY);
             }
-            else
+            else if instance_exists(TILE)
             {
-                objective = instance_nearest(x,y+32,TILE);
+                objective = instance_nearest(x+hAccel,y+vAccel,TILE);
             }
-            
+            //print(object_get_name(objective.object_index));
             //- update objective direction
-            direction_to_objective = point_direction(x,y,xObjective,yObjective);
             xObjective = objective.x;
             yObjective = objective.y;
+            direction_to_objective = point_direction(x,y,xObjective,yObjective);
         }
         
         //Direction
@@ -102,8 +102,29 @@ switch state
         
         _xscale = dir*scale;
         
-        if !place_meeting_fast(hAccel,0,OBSTA) then x += hAccel;
-        if !place_meeting_fast(0,vAccel,OBSTA) then y += vAccel;
+        if !place_meeting_fast(hAccel,0,TILE) then x += hAccel;
+        if !place_meeting_fast(0,vAccel,TILE) then y += vAccel;
+        
+        //--Hunt for Tiles to snack on
+        if vine_delay <= 0 && (tile_grab = false ) && instance_exists(TILE) && (distance_to_nearest_object(TILE) <= sight)
+        {
+            vine_delay = vine_delay_set;
+            tile_grab = true;
+            
+            //Eat the tile!
+            var _tile = instance_nearest(x+lengthdir_x(16*4,direction_to_objective),y+lengthdir_y(16*4,direction_to_objective),TILE);
+            
+            if (_tile.object_index != TOTEM && _tile.object_index != obj_pie) && _tile
+            {
+                tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 0, 12, _tile);
+            }
+        }
+        else if !instance_exists(tile_grab_vine)
+        {
+            //Reset tile grabbing function
+            tile_grab = false;
+            tile_grab_vine = noone;
+        }
     }
     break;
     
@@ -163,34 +184,13 @@ if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_
     //Eat the gremlin!
     var _grem = instance_nearest(x,y,GR_ENEMY);
     
-    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 3, _grem);
+    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 12, _grem);
 }
 else if !instance_exists(gremlin_grab_vine)
 {
     //Reset gremlin grabbing function
     gremlin_grab = false;
     gremlin_grab_vine = noone;
-}
-
-//--Hunt for Tiles to snack on
-if vine_delay <= 0 && (tile_grab = false ) && instance_exists(TILE) && (distance_to_nearest_object(TILE) <= sight)
-{
-    vine_delay = vine_delay_set;
-    tile_grab = true;
-    
-    //Eat the tile!
-    var _tile = instance_nearest(x+lengthdir_x(16*2,direction_to_objective),y+lengthdir_y(16*2,direction_to_objective),TILE);
-    
-    if (_tile.object_index != TOTEM && _tile.object_index != obj_pie)
-    {
-        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 0, 1, _tile);
-    }
-}
-else if !instance_exists(tile_grab_vine)
-{
-    //Reset tile grabbing function
-    tile_grab = false;
-    tile_grab_vine = noone;
 }
 
 //- Consume certain item drops

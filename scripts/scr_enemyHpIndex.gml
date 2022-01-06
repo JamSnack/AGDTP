@@ -19,6 +19,7 @@ switch argument0
     case obj_sandMenace: { _hp = 30; } break;
     case obj_hiveGrowth: { _hp = 120;} break;
     case obj_mackerel: { _hp = 60;} break;
+    case obj_builder_bloom: {_hp = 25;} break;
     
     //Bosses
     case obj_sphereKing: {_hp = 100+(25*floor(wave/5));} break;

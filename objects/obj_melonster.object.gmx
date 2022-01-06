@@ -60,7 +60,7 @@ accelRate = 0.1;
 transition_to = "WANDER";
 resource_memory_x = ds_list_create();
 resource_memory_y = ds_list_create();
-sight = 16*10; // The radius of the melon monster's vision circle.
+sight = 16*4; // The radius of the melon monster's vision circle.
 local_essence = 0; //How much essence the melon monster has.
 essence_needed_to_depot = 50; //How much essence the melon monster needs to auto-depot;
 base_point_x = x+16*6;
@@ -82,7 +82,7 @@ image_xscale = sign(target.x-x);
 
 spawn_weight = 8;
 event_inherited();
-scale = 1;
+scale = 0.8;
 image_xscale = scale;
 image_yscale = scale;
 alarm[3] = -1;
@@ -279,6 +279,8 @@ ai_melonAi(state,1,objective,-4,atkBox);
             <string>draw_self();
 draw_text(x,y+5,"state: "+string(state));
 draw_text(x,y+10,"essence: "+string(local_essence));
+var direction_to_objective = point_direction(x,y,objective.x,objective.y);
+draw_circle(x+lengthdir_x(16*4,direction_to_objective),y+lengthdir_y(16*4,direction_to_objective),2,false);
 </string>
           </argument>
         </arguments>

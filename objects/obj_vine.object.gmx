@@ -176,23 +176,19 @@ vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
 image_angle = vine_direction;
 vine_length = point_distance(ox,oy,vine_target_x,vine_target_y);
 vine_parts = floor(vine_length/vine_segment_length);
-vine_direction_x = abs(lengthdir_x(vine_segment_length, vine_direction));
-vine_direction_y = abs(lengthdir_y(vine_segment_length, vine_direction));
-
-print("--");
-print(vine_direction_x);
-print(vine_direction_y);
+vine_direction_x = lengthdir_x(vine_segment_length, vine_direction);
+vine_direction_y = lengthdir_y(vine_segment_length, vine_direction);
 
 
 if reversing == false &amp;&amp; point_distance(vine_x,vine_y,vine_target_x,vine_target_y) &gt; 4 
 {
     //Move the vine toward the target point
     if vine_x != vine_target_x {
-        vine_x = approach(vine_x,vine_target_x,vine_direction_x);
+        vine_x = approach(vine_x,vine_target_x,vine_speed);
     }
     
     if vine_y != vine_target_y {
-        vine_y = approach(vine_y,vine_target_y,vine_direction_y);
+        vine_y = approach(vine_y,vine_target_y,vine_speed);
     }
 }
 else if behavior_return == true// &amp;&amp; point_distance(vine_x,vine_y,vine_target_x,vine_target_y) &lt; 2
@@ -203,11 +199,11 @@ else if behavior_return == true// &amp;&amp; point_distance(vine_x,vine_y,vine_t
     
     //Bring the vine back home without affecting target_point
     if vine_x != ox {
-        vine_x = approach(vine_x,ox,vine_direction_x);
+        vine_x = approach(vine_x,ox,vine_speed);
     }
     
     if vine_y != oy {
-        vine_y = approach(vine_y,oy,vine_direction_y);
+        vine_y = approach(vine_y,oy,vine_speed);
     }
     
     if point_distance(vine_x,vine_y,ox,oy) &lt; 4{
@@ -288,12 +284,9 @@ if y_perc_flipped
 }
 else y_perc = ((vine_target_y-vine_target_y+0.1)/(vine_y+0.1-vine_target_y));
 
+
 for(_i = 0; _i &lt; vine_parts; _i++)
 {
-    //utilize the percentage
-    //var x_perc = _i*x_perc;
-    //var y_perc = _i*y_perc;
-
     if _i == vine_parts-1
     {
         //Vine knife
