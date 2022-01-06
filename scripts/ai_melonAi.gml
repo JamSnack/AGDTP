@@ -114,7 +114,7 @@ switch state
             //Eat the tile!
             var _tile = instance_nearest(x+lengthdir_x(16*4,direction_to_objective),y+lengthdir_y(16*4,direction_to_objective),TILE);
             
-            if (_tile.object_index != TOTEM && _tile.object_index != obj_pie) && _tile
+            if (_tile.object_index != TOTEM && _tile.object_index != obj_pie && _tile.object_index != obj_vineTile) && _tile
             {
                 tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 0, 12, _tile);
             }
@@ -235,49 +235,6 @@ if (gremlin_grab == true || tile_grab == true)
 //- vine delay
 if vine_delay > 0 then vine_delay -= 1;
 
-//------------------------------------------------------
-//Collision and movement
-//#region
-/*
-var targetPlrTile = noone;
-var _stall = 1;
-
-if state == "DIVE" && tile_punch > 0
-{
-    if place_meeting_fast(hAccel,0,OBSTA)
-    {
-        targetPlrTile = collision_point(x+hAccel,y,PLRTILE,false,true);
-    }
-    
-    if place_meeting_fast(0,vAccel,OBSTA)
-    {
-        targetPlrTile = collision_point(x,y+vAccel,PLRTILE,false,true);
-    }
-} 
-else if tile_punch <= 0
-{
-    stateLock = true;
-    alarm[stateLockAlarm] = _stall;
-    state = "TRANSITION";
-    transition_to = "WANDER";
-    tile_punch = tile_punch_max;
-}
-*/
-
-//#endregion
-
-//Attack a tile.
-/*
-if state == "DIVE" && targetPlrTile != noone 
-{ 
-    var _damage = damage;
-    if targetPlrTile.canHurt == true 
-    {
-        with targetPlrTile scr_hurt(_damage,DEF_HURT,false,0);
-        
-        tile_punch -= 1;
-    }
-}*/
 
 //Knockback Collision ---------------------------------------------
 if ( hForce != 0 || vForce != 0 )
