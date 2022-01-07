@@ -30,7 +30,7 @@ hspeed = irandom_range(-3,3);
 gravity = grav;
 
 //Choose instance to spawn
-to_spawn = choose(obj_mackerel);
+to_spawn = choose(obj_lemon,obj_blueberryGremlin);
 
 </string>
           </argument>
@@ -60,7 +60,7 @@ image_angle += hspeed;
 if place_meeting_fast(vspeed,hspeed,OBSTA)
 {
     //Create the gremlin
-    instance_create(x,y,obj_gremlin);
+    instance_create(x,y,to_spawn);
     
     //Spawn some juice
     part_particles_create(particle_system,x,y,part_dirt_frag,irandom_range(4,8));
