@@ -53,7 +53,7 @@ maxAccelFall = 5;
 accelRate = 3;
 xBuffer = x;
 yBuffer = y;
-jump_speed = -12;
+jump_speed = -8;
 jump_charges = 0;
 jumping = false;
 

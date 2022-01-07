@@ -308,6 +308,7 @@ if view_zoom != view_zoom_buffer
         //Keep some objects active.
         instance_activate_object(obj_sapling);
         instance_activate_object(TOTEM);
+        instance_activate_object(ENEMY);
         
         //-Activate everything inside the camera view.
         //NOTE: outerBoundary for activation and deactivation must be synched when changing one of these values. OTHERWISE YOU MIGHT FUCK IT UP FOR A FEW UPDATES :)

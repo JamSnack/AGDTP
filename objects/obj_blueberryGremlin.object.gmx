@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>-1</depth>
   <persistent>0</persistent>
-  <parentName>GR_ENEMY</parentName>
+  <parentName>ENEMY</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -56,7 +56,7 @@ image_xscale = sign(target.x-x);
 spawn_weight = 1;
 event_inherited();
 
-knock_resistance = 0.15;
+knock_resistance = 0.3;
 mask_index = sprite_index;
 knockAmt = 3.5;
 /*
@@ -208,8 +208,17 @@ if stateLock == false
         { state = MOVE; stateLock = true; alarm[stateLockAlarm] = 20; }
     }
 }
+
 if instance_exists(objective) 
-{ ai_gremlin(state,spr_gremlinIdle,spr_blueberrygremlinJump,spr_blueberrygremlinWalk,0.8,objective,-4.2,atkBox); }
+{ 
+    ai_gremlin(state,spr_gremlinIdle,spr_blueberrygremlinJump,spr_blueberrygremlinWalk,0.8,objective,-4.2,atkBox); 
+    
+    //WE GONNA EXPLODE!!!
+    if distance_to_object(objective) &lt; 8
+    {
+        instance_destroy();
+    }
+}
 </string>
           </argument>
         </arguments>

@@ -559,7 +559,6 @@
     </objects>
     <objects name="Mobs">
       <object>objects\obj_gremlin</object>
-      <object>objects\obj_blueberryGremlin</object>
       <object>objects\obj_crab</object>
       <object>objects\obj_crabKing</object>
       <object>objects\obj_stoneGremlin</object>
@@ -577,6 +576,8 @@
         <object>objects\obj_melonster</object>
         <object>objects\obj_builder_bloom</object>
         <object>objects\obj_lemon</object>
+        <object>objects\obj_blueberryGremlin</object>
+        <object>objects\obj_blueberry_bomb</object>
       </objects>
       <object>objects\obj_drillin</object>
       <object>objects\obj_sweetWorm</object>
@@ -585,7 +586,6 @@
       <object>objects\obj_mackerel</object>
     </objects>
     <object>objects\obj_bomb</object>
-    <object>objects\obj_blueberry_bomb</object>
     <object>objects\obj_explosion</object>
     <object>objects\Boundary</object>
     <object>objects\obj_grenade</object>

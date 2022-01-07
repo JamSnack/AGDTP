@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>PAUSE</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -79,9 +79,11 @@ alarm[0] = 1; //Delayed init event
             <string>///Hurt grabbed instance
 if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab) &amp;&amp; instance_grabbed == true
 {
+    var _d = damage_amt;
+    
     with instance_to_grab
     {
-        scr_hurt(hp*5,0,true,5);
+        scr_hurt(_d,0,true,5);
         
         //Crack open them tiles for some exotic loot:
         if object_get_parent(object_index) == TILE then event_user(2);
@@ -213,7 +215,6 @@ else if behavior_return == true// &amp;&amp; point_distance(vine_x,vine_y,vine_t
 }
 
 //Grab an instance
-
 if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab)
 {
     if instance_grabbed == false
@@ -236,6 +237,14 @@ if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab)
             y = _yy;
         }
     }
+}
+
+//Vine collision
+if behavior_return == true &amp;&amp; collision_circle(vine_x,vine_y,2,OBSTA,false,true) != noone
+{
+    if reversing == true then instance_destroy();
+
+    reversing = true; 
 }
 
 </string>

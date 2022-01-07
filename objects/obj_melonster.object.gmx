@@ -31,7 +31,7 @@ canActiveRegion = true;
 canHurt = true;
 maxHp = scr_enemyHpIndex(object_index);
 hp = maxHp;
-state = "DIG"; //TODO:
+state = "DEPOT";
 last_move = noone;
 
 vsp = 0;
@@ -61,7 +61,7 @@ transition_to = "WANDER";
 resource_memory_x = ds_list_create();
 resource_memory_y = ds_list_create();
 sight = 16*4; // The radius of the melon monster's vision circle.
-local_essence = 24; //How much essence the melon monster has.
+local_essence = 50; //How much essence the melon monster has.
 essence_needed_to_depot = 50; //How much essence the melon monster needs to auto-depot;
 base_point_x = x+16*6;
 base_point_y = y;
@@ -71,6 +71,7 @@ gremlin_grab = false; //Whether or not a vine exists to grab a gremlin.
 gremlin_grab_vine = noone; //The ID of the gremlin grabbing vine.
 vine_delay_set = 30;
 vine_delay = 0;
+vine_player_delay = 0;
 
 
 //Other locals
@@ -145,7 +146,7 @@ if dropItem != true then exit;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Local chunk activation
+            <string>///Chunk activation
 if state == "DIG"
 {
     var border = 16*6;

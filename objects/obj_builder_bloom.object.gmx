@@ -132,6 +132,8 @@ if ds_list_find_index(enemySprites,object_index) == -1
 var on_screen = insideView(x,y);
 var border = 16;
 if !on_screen then instance_deactivate_region(x-border,y-border,border*2,border*2,true,true);
+
+instance_activate_object(obj_vineTile);
 </string>
           </argument>
         </arguments>
@@ -191,6 +193,9 @@ else
             
             var _vd = sign(target_y-y);
             building_point_y = y+(16*_vd);
+            
+            //Destroy the melon bloom before it causes too much trouble
+            if point_distance(x,y,target_x,target_y) &lt;= 16 then instance_destroy();
         }
         else if (building_point_y &gt; y)
         {
@@ -209,6 +214,9 @@ else
         
         var _d = sign(target_x-x);
         building_point_x = x+(16*_d);
+        
+        //Destroy the melon bloom before it causes too much trouble
+        if point_distance(x,y,target_x,target_y) &lt;= 16 then instance_destroy();
     }
     else if (building_point_x &gt; x)
     {
@@ -221,9 +229,6 @@ else
 }
 
 image_angle += 6;
-
-//Destroy the melon bloom before it causes too much trouble
-if point_distance(x,y,target_x,target_y) &lt;= 16 then instance_destroy();
 </string>
           </argument>
         </arguments>

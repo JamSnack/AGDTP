@@ -56,7 +56,7 @@ switch state
     case "DIG":
     {
         //Decide whether or not to depot..
-        if ((player_in_sight) || (local_essence >= essence_needed_to_depot))
+        if (local_essence >= essence_needed_to_depot)
         {
             state = "DEPOT";
         }
@@ -188,7 +188,7 @@ if vine_delay <= 0 && (tile_grab = false ) && instance_exists(TILE) && (distance
     
     if _tile != noone && distance_to_object(_tile) < sight && (_tile.object_index != TOTEM && _tile.object_index != obj_pie && _tile.object_index != obj_vineTile)
     {
-        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 0, 12, _tile);
+        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 100, 12, _tile);
     }
 }
 else if !instance_exists(tile_grab_vine)
@@ -206,7 +206,17 @@ if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_
     //Eat the gremlin!
     var _grem = instance_nearest(x,y,GR_ENEMY);
     
-    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 0, 12, _grem);
+    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 100, 12, _grem);
+}
+else if vine_player_delay <= 0 && ( gremlin_grab = false ) && player_in_sight && !collision_line(x,y,obj_player.x,obj_player.y,TILE_ALL,false,true)
+{
+    vine_player_delay = vine_delay_set*6;
+    gremlin_grab = true;
+    
+    //Eat the gremlin!
+    var _grem = instance_nearest(x,y,obj_player);
+    
+    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 15, 2, _grem);
 }
 else if !instance_exists(gremlin_grab_vine)
 {
@@ -255,7 +265,8 @@ if (gremlin_grab == true || tile_grab == true)
 } else image_index = 0;
 
 //- vine delay
-if vine_delay > 0 then vine_delay -= 1;
+if vine_delay > 0 then vine_delay -= 1
+if vine_player_delay > 0 then vine_player_delay -= 1;;
 
 
 //Knockback Collision ---------------------------------------------
@@ -289,4 +300,4 @@ if ( hForce != 0 || vForce != 0 )
 }
 
 //Animate
-image_angle = approach(image_angle,point_direction(x,y,xObjective,yObjective),3);
+image_angle = point_direction(x,y,xObjective,yObjective);
