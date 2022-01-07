@@ -69,7 +69,7 @@ tile_grab = false;
 tile_grab_vine = noone;
 gremlin_grab = false; //Whether or not a vine exists to grab a gremlin.
 gremlin_grab_vine = noone; //The ID of the gremlin grabbing vine.
-vine_delay_set = 20;
+vine_delay_set = 30;
 vine_delay = 0;
 
 
