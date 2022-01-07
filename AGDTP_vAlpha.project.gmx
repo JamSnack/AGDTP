@@ -572,6 +572,11 @@
       <object>objects\obj_bombKing</object>
       <object>objects\obj_nilmerg</object>
       <object>objects\obj_bliplo</object>
+      <object>objects\obj_drillin</object>
+      <object>objects\obj_sweetWorm</object>
+      <object>objects\obj_sandMenace</object>
+      <object>objects\obj_hiveGrowth</object>
+      <object>objects\obj_mackerel</object>
       <objects name="Melon Bloom">
         <object>objects\obj_melonster</object>
         <object>objects\obj_builder_bloom</object>
@@ -579,11 +584,6 @@
         <object>objects\obj_blueberryGremlin</object>
         <object>objects\obj_blueberry_bomb</object>
       </objects>
-      <object>objects\obj_drillin</object>
-      <object>objects\obj_sweetWorm</object>
-      <object>objects\obj_sandMenace</object>
-      <object>objects\obj_hiveGrowth</object>
-      <object>objects\obj_mackerel</object>
     </objects>
     <object>objects\obj_bomb</object>
     <object>objects\obj_explosion</object>
