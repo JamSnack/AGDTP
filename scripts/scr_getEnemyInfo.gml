@@ -18,12 +18,14 @@ switch enemy
     case obj_beeMinion: { name = "Bee Minion"; } break;
     case obj_drillin: { name = "Drillin"; } break;
     case obj_sweetWorm: { name = "Sweet Worm"; } break;
-    case obj_sandMenace: { name = "Sand Menace"; } break;
+    case obj_sandMenace: { name = "Sand Worm"; } break;
     case obj_sphereMinion: { name = "Sphere Minion"; } break;
     case obj_mackerel: { name = "Summer Mackerel"; } break;
     case obj_hiveGrowth: { name = "Hive Growth"; } break;
     case obj_builder_bloom: { name = "Builder Bloom"; } break;
     case obj_lemon: { name = "Leapin' Lemon"; } break;
+    case obj_blueberryGremlin: { name = "Bombin' Blueberry"; } break;
+    case obj_watermelon_gremlin: { name = "Melon Menace"; } break;
     
     //Bosses
     case obj_sphereKing: {name = "Sphere King";} break;
@@ -32,7 +34,7 @@ switch enemy
     case obj_bliplo: {name = "Bliplo";} break;
     case obj_melonster: { name = "Melon Bloom"; } break;
     
-    default: name = "Stranger"; hp = "Unknown";
+    default: { name = "???"; hp = "Unknown"; }
 }
 
 return name+"#"+hp;
