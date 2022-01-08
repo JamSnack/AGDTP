@@ -482,8 +482,13 @@ if dead = false &amp;&amp; g_over == false
         { if mouse_x != x then image_xscale = sign(mouse_x-x); }
         
     //----- Sling-Drive ----
-    if (keyboard_check_pressed(global.key_sling) &amp;&amp; sling_cooldown &lt;= 0 &amp;&amp; sling_jumps_remaining &gt; 0)
+    if (keyboard_check_pressed(global.key_sling) &amp;&amp; sling_jumps_remaining &gt; 0)
     {
+        vsp = 0;
+        vForce = 0;
+        hspd = 0;
+        hForce = 0;
+        
         sling_cooldown = sling_cooldown_set;
         sling_jumps_remaining -= 1;
         
