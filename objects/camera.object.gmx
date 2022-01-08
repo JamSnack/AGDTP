@@ -36,8 +36,9 @@ zoom_rate = 1;
 cloudBkg_xOffset = 0;
 
 globalvar viewWidth, viewHeight;
-viewWidth = view_wview[0];
-viewHeight = view_hview[0];
+//TODO: change to display_get_gui functions for increased gui size update.
+viewWidth = view_wview[0];//display_get_gui_width();
+viewHeight = view_hview[0];//display_get_gui_height();
 
 use_camera = true;
 
