@@ -28,6 +28,7 @@ if recipe_copperOre == true
         case ITEMID.weapon_greenSword: { returnID = true; } break;
         case ITEMID.weapon_subLimeMachineGun: { returnID = true; } break;
         case ITEMID.pickaxe_greenPickaxe: { returnID = true; } break;
+        case ITEMID.acc_copperSlingDrive: { returnID = true; } break;
     }
 }
 

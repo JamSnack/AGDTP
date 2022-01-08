@@ -35,6 +35,7 @@
     <sound>sound\snd_swish2</sound>
     <sound>sound\snd_swish3</sound>
     <sound>sound\snd_swish4</sound>
+    <sound>sound\snd_dash</sound>
     <sound>sound\snd_rareItem</sound>
     <sound>sound\snd_player_hurt</sound>
     <sound>sound\snd_inventoryClick</sound>

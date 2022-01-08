@@ -104,7 +104,7 @@ else
         
         case ITEMTYPE.accessory:
         {
-            text[1] += ("Accessory##");//Slot Cost: "+string(scr_getSlotCost(item_id)))
+            text[1] += ("Accessory#");//Slot Cost: "+string(scr_getSlotCost(item_id)))
         }
         break;
         
@@ -166,6 +166,7 @@ switch item_id
     case ITEMID.pickaxe_seashellPickaxe: { text[0] = "Seashell-Metal Pickaxe"; text[1] += "A strong pickaxe made out of the metals of the sea."; } break;
     case ITEMID.acc_copperCompass: { text[0] = "Copper Compass"; text[1] += "Provides guidance in the underground Grasslands."; } break;
     case ITEMID.acc_metalCompass: { text[0] = "Metal Compass"; text[1] += "Provides guidance in the underground Coral Cove and in lower regions."; } break;
+    case ITEMID.acc_copperSlingDrive: { text[0] = "Copper Sling-Drive"; text[1] += "Cooldown: 60#Force: 4#Jumps: 1#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
 }
 
 //-TAG DESCRIPTIONS;
@@ -178,6 +179,7 @@ Stat Effect: effect
 */
 
 //TAG TEXT
+/*
 var tagsUnloaded = "";
 if selectedSlot != noone { tagsUnloaded = inventorySlotTags[selectedSlot]; }
 

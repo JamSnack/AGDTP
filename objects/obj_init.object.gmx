@@ -90,7 +90,8 @@ global.key_right = ord("D");
 global.key_down = ord("S");
 global.key_inven = ord("F");
 global.key_craft = ord("C");
-global.key_interact = ord("E");
+global.key_interact = ord("R");
+global.key_sling = ord("E");
 global.key_quick_heal = ord("Q");
 global.key_1 = ord("1");
 global.key_2 = ord("2");
@@ -168,7 +169,8 @@ enum ITEMID
     pickaxe_seashellPickaxe,
     weapon_sandySeadollar,
     acc_copperCompass,
-    acc_metalCompass
+    acc_metalCompass,
+    acc_copperSlingDrive
 }
 
 //Item Types
@@ -222,7 +224,7 @@ globalvar particle_system,_part_gib,part_dirt_frag,part_stone_frag,part_nullGib,
 particle_system = part_system_create();
 
 
-//####################NOTE: Partilce types should be destroyed when not needed. If many particles are used in the future, be sure to destroy them later.
+//####################NOTE: Particle types should be destroyed when not needed. If many particles are used in the future, be sure to destroy them later.
 
 //- gib particles
 
