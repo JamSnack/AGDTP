@@ -176,7 +176,7 @@ else
 //vine movement
 vine_direction = point_direction(ox,oy,vine_target_x,vine_target_y);
 image_angle = vine_direction;
-vine_length = point_distance(ox,oy,vine_target_x,vine_target_y);
+vine_length = point_distance(ox,oy,vine_x,vine_y);
 vine_parts = floor(vine_length/vine_segment_length);
 vine_direction_x = lengthdir_x(vine_segment_length, vine_direction);
 vine_direction_y = lengthdir_y(vine_segment_length, vine_direction);
@@ -209,21 +209,28 @@ else if behavior_return == true// &amp;&amp; point_distance(vine_x,vine_y,vine_t
     }
     
     if point_distance(vine_x,vine_y,ox,oy) &lt; 4{
-        print("obj_vine&gt; death");
         instance_destroy();
     }
 }
 
 //Grab an instance
-if instance_to_grab != noone &amp;&amp; instance_exists(instance_to_grab)
+if instance_to_grab != noone &amp;&amp; (instance_exists(instance_to_grab) || object_exists(instance_to_grab))
 {
     if instance_grabbed == false
     {
         var _grab = collision_circle(vine_x,vine_y,4,instance_to_grab,false,true);
-    
-        if _grab == instance_to_grab
+        
+        if _grab != noone
         {
-            instance_grabbed = true;
+            var correct_tile_type = (object_get_parent(_grab.object_index) != TOTEM &amp;&amp; _grab.object_index != obj_pie &amp;&amp; _grab.object_index != obj_vineTile);
+            
+            if correct_tile_type
+            {
+                instance_grabbed = true;
+                
+                //update instance_to_grab, as we checked for an object_index and may have grabbed a new instance.
+                instance_to_grab = _grab;
+            }
         }
     }
     else
@@ -270,45 +277,19 @@ if behavior_return == true &amp;&amp; collision_circle(vine_x,vine_y,2,OBSTA,fal
           <argument>
             <kind>1</kind>
             <string>///Draw the vine
-var x_perc_flipped = false;
-var y_perc_flipped = false;
-
-if vine_x &gt; vine_target_x then x_perc_flipped = true;
-if vine_y &lt; vine_target_y then y_perc_flipped = true;
-
-//Calculate how close the vine is to its target and use it as a percentage
-var x_perc,y_perc;
-
-//x_percentage
-if x_perc_flipped
-{
-   x_perc = ((vine_target_x-vine_target_x+0.1)/(vine_x+0.1-vine_target_x));
-}
-else x_perc = ((vine_x-ox+0.1)/(vine_target_x-ox+0.1));
-
-//y_percentage
-if y_perc_flipped
-{
-   y_perc = ((vine_y-oy+0.1)/(vine_target_y-oy+0.1));
-}
-else y_perc = ((vine_target_y-vine_target_y+0.1)/(vine_y+0.1-vine_target_y));
-
-
 for(_i = 0; _i &lt; vine_parts; _i++)
 {
     if _i == vine_parts-1
     {
         //Vine knife
-        draw_sprite_ext( spr_melon_vine, 0, ox+(vine_direction_x)*(_i*x_perc), oy+(vine_direction_y)*(_i*y_perc), 1, 1, vine_direction, c_white, 1);
+        draw_sprite_ext( spr_melon_vine, 0, ox+(vine_direction_x)*(_i), oy+(vine_direction_y)*(_i), 1, 1, vine_direction, c_white, 1);
     }
     else
     {
         //Default vine sprite
-        draw_sprite_ext( spr_melon_vine, 1, ox+(vine_direction_x)*(_i*x_perc), oy+(vine_direction_y)*(_i*y_perc), 1, 1, vine_direction, c_white, 1);
+        draw_sprite_ext( spr_melon_vine, 1, ox+(vine_direction_x)*(_i), oy+(vine_direction_y)*(_i), 1, 1, vine_direction, c_white, 1);
     }
 }
-
-draw_circle(vine_x,vine_y,4,true);
 </string>
           </argument>
         </arguments>

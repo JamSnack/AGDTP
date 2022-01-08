@@ -166,6 +166,7 @@
         <sprite>sprites\spr_stoneGremlinJump</sprite>
       </sprites>
       <sprite>sprites\spr_hornedHapp</sprite>
+      <sprite>sprites\spr_watermelon_gremlin</sprite>
       <sprite>sprites\spr_hiveGrowth</sprite>
       <sprite>sprites\spr_crabKing</sprite>
       <sprite>sprites\spr_crab</sprite>
@@ -226,6 +227,7 @@
       <sprite>sprites\spr_rifleBullet</sprite>
       <sprite>sprites\spr_waterBlast</sprite>
       <sprite>sprites\spr_stinger</sprite>
+      <sprite>sprites\spr_seed_shot</sprite>
       <sprite>sprites\spr_coralSpike</sprite>
     </sprites>
     <sprites name="Ui">
@@ -481,6 +483,7 @@
       <object>objects\obj_projectile</object>
       <objects name="Enemy Projectiles">
         <object>objects\obj_stinger</object>
+        <object>objects\obj_seed_shot</object>
         <object>objects\obj_coralSpike</object>
         <object>objects\ENEMY_PROJ</object>
         <object>objects\obj_crabDrop</object>
@@ -583,6 +586,8 @@
         <object>objects\obj_lemon</object>
         <object>objects\obj_blueberryGremlin</object>
         <object>objects\obj_blueberry_bomb</object>
+        <object>objects\obj_watermelon_gremlin</object>
+        <object>objects\obj_breaker_bloom</object>
       </objects>
     </objects>
     <object>objects\obj_bomb</object>

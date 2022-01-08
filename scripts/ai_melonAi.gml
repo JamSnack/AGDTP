@@ -111,11 +111,11 @@ switch state
         
         _xscale = dir*scale;
         
-        if place_meeting_fast(hAccel,0,TILE) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
+        if place_meeting_fast(hAccel,0,OBSTA) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
         
         x += hAccel;
         
-        if place_meeting_fast(0,vAccel,TILE) && !place_meeting_fast(0,vAccel,obj_vineTile) then vAccel = -vAccel;
+        if place_meeting_fast(0,vAccel,OBSTA) && !place_meeting_fast(0,vAccel,obj_vineTile) then vAccel = -vAccel;
         
         y += vAccel;
     }
@@ -137,7 +137,7 @@ switch state
         _xscale = dir*scale;
         
         //Drop stuff when we nearby the base_point
-        if point_distance(x,y,base_point_x,base_point_y) <= 48
+        if (depot_delay <= 0 && point_distance(x,y,base_point_x,base_point_y) <= 8)
         {
             
             //Begin depositing essence for minions.
@@ -145,11 +145,13 @@ switch state
             {
                 instance_create(x,y,obj_builder_bloom);
                 local_essence -= 25;
+                depot_delay = room_speed*4;
             }
             else if (local_essence > 10)
             {
                 instance_create(x,y,obj_spawn_seed);
                 local_essence -= 10;
+                depot_delay = room_speed/2;
                 //print("DROP");
             }
             else
@@ -185,10 +187,16 @@ if vine_delay <= 0 && (tile_grab = false ) && instance_exists(TILE) && (distance
     
     //Eat the tile!
     var _tile = instance_nearest(x+lengthdir_x(16,direction_to_objective),y+lengthdir_y(16,direction_to_objective),TILE);
+    var correct_tile_type = (object_get_parent(_tile.object_index) != TOTEM && _tile.object_index != obj_pie && _tile.object_index != obj_vineTile);
     
-    if _tile != noone && distance_to_object(_tile) < sight && (_tile.object_index != TOTEM && _tile.object_index != obj_pie && _tile.object_index != obj_vineTile)
+    if _tile != noone && distance_to_object(_tile) < sight && correct_tile_type
     {
-        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 100, 12, _tile);
+        tile_grab_vine = scr_create_vine(x,y,_tile.x,_tile.y, true, 100, 8, _tile);
+    } 
+    else if !correct_tile_type
+    {
+        //Motor babble and grab tiles at random until the issue has been resolved
+        tile_grab_vine = scr_create_vine(x,y,x+lengthdir_x(sight,direction_to_objective+irandom_range(-20,20)),y+lengthdir_y(sight,direction_to_objective+irandom_range(-20,20)), true, 100, 8, TILE);
     }
 }
 else if !instance_exists(tile_grab_vine)
@@ -208,15 +216,15 @@ if (gremlin_grab = false ) && instance_exists(GR_ENEMY) && (distance_to_nearest_
     
     gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 100, 12, _grem);
 }
-else if vine_player_delay <= 0 && ( gremlin_grab = false ) && player_in_sight && !collision_line(x,y,obj_player.x,obj_player.y,TILE_ALL,false,true)
+else if vine_player_delay <= 0 && ( gremlin_grab = false ) && player_in_sight && !collision_line(x,y,obj_player.x,obj_player.y,OBSTA,false,true)
 {
     vine_player_delay = vine_delay_set*6;
     gremlin_grab = true;
     
-    //Eat the gremlin!
+    //Eat the player!
     var _grem = instance_nearest(x,y,obj_player);
     
-    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 15, 2, _grem);
+    gremlin_grab_vine = scr_create_vine(x,y,_grem.x,_grem.y, true, 15, 3, _grem);
 }
 else if !instance_exists(gremlin_grab_vine)
 {
@@ -264,10 +272,6 @@ if (gremlin_grab == true || tile_grab == true)
     image_index = 1;
 } else image_index = 0;
 
-//- vine delay
-if vine_delay > 0 then vine_delay -= 1
-if vine_player_delay > 0 then vine_player_delay -= 1;;
-
 
 //Knockback Collision ---------------------------------------------
 if ( hForce != 0 || vForce != 0 )
@@ -300,4 +304,26 @@ if ( hForce != 0 || vForce != 0 )
 }
 
 //Animate
-image_angle = point_direction(x,y,xObjective,yObjective);
+if direction_to_objective < image_angle
+{
+    image_angle -= 8;
+    
+    if direction_to_objective >= image_angle then image_angle = direction_to_objective;
+} else if direction_to_objective > image_angle
+{
+    image_angle += 8;
+    
+    if direction_to_objective <= image_angle then image_angle = direction_to_objective;
+}
+
+//Anti-stuck
+if point_distance(x,y,xprevious,yprevious) < 1
+{
+    hAccel += random_range(0.2,0.65)*choose(1,-1);
+    vAccel += random(0.5)*choose(1,-1);
+}
+
+//Delays
+if vine_delay > 0 then vine_delay -= 1
+if vine_player_delay > 0 then vine_player_delay -= 1;
+if depot_delay > 0 then depot_delay -= 1;

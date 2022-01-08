@@ -282,8 +282,8 @@ if current_grem != 0 &amp;&amp; !instance_exists(ENEMY)
 }
 
 //- init logic
-var playerX = obj_player.x;
-var playerY = obj_player.y;
+var playerX = camera.x;
+var playerY = camera.y;
 var view_zoom = camera.view_zoom;
 var playerLight = obj_player.playerLight;
 
@@ -296,8 +296,8 @@ if view_zoom != view_zoom_buffer
     //Update view_zoom
     view_zoom = view_zoom_buffer;
     
-    //-Deactivation and Reactivation updates every eight tiles.
-    if (player_distance_amt_x &gt; 16*16 || player_distance_amt_y &gt; 16*16)
+    //-Deactivation and Reactivation updates every so and so tiles.
+    if (player_distance_amt_x &gt; 16*14 || player_distance_amt_y &gt; 16*14)
     {         
         //-Deactivate offscreen objects.
         if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
@@ -307,6 +307,7 @@ if view_zoom != view_zoom_buffer
         
         //Keep some objects active.
         instance_activate_object(obj_sapling);
+        instance_activate_object(obj_vineTile);
         instance_activate_object(TOTEM);
         instance_activate_object(ENEMY);
         

@@ -32,7 +32,7 @@ vForce = 0;
 hspd = 0;
 vsp = 0;
 knock_resistance = 100;
-agility = 2;
+agility = 4;
 dropItem = false;
 death_gib = spr_gib;
 knockAmt = 5;
@@ -45,6 +45,7 @@ tiles_x_away_from_target = 0;
 tiles_y_away_from_target = 0;
 target_x = obj_pie.x;
 target_y = obj_pie.y;
+
 
 if (point_distance(x,0,RAIDBOUND_Lower,0) &lt;= point_distance(x,0,RAIDBOUND_Upper,0))
 {
@@ -67,7 +68,7 @@ building_point_y = 0;
 
 //Initial velocity
 vspeed = -2;
-hspeed = irandom_range(-2,2);
+hspeed = 2*sign(x-RAIDBOUND_Lower);
 gravity = grav;
 
 
@@ -294,8 +295,10 @@ for(i=0;i&lt;9;i++)
 tiles_x_away_from_target = round(point_distance(x,0,target_x,0)/16)*16;
 tiles_y_away_from_target = round(point_distance(0,y,0,target_y)/16)*16;
 
+instance_create(x,y-16,obj_breaker_bloom);
+
 //Delayed off-screen instance deactivation
-if !on_screen then alarm[2] = 1;
+//if !on_screen then alarm[2] = 1;
 </string>
           </argument>
         </arguments>
