@@ -151,7 +151,7 @@ switch item_id
     case ITEMID.acc_satchel: {text[0] = "Essential Satchel-Pack"; text[1] += "Increases inventory size by 4." } break;
     case ITEMID.tile_battery: { text[0] = "Battery"; text[1] += "Place within 8 tiles of the pie to charge over time. Energy is distributed when needed. Holds 8 energy."; } break;
     case ITEMID.acc_beehiveBackpack: { text[0] = "Beehive Backpack"; text[1] += "Increase jump-height by 1 tile."; } break;
-    case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "A delectable little snack! Heals 10 health points."; } break;
+    case ITEMID.cons_treeFruit: { text[0] = "Tree Fruit"; text[1] += "A delectable little snack! Heals 10 HP."; } break;
     case ITEMID.weapon_acornRifle: { text[0] = "Acorn Rifle"; text[1] += "A true marksman's humble beginning."; } break;
     case ITEMID.item_sweetComb: { text[0] = "Sweet Comb"; text[1] += "The prized treasure of the bees."; } break; 
     case ITEMID.item_seashellMetal: { text[0] = "Seashell Metal"; text[1] += "A hard, lustrous seashell."; } break;
@@ -167,6 +167,7 @@ switch item_id
     case ITEMID.acc_copperCompass: { text[0] = "Copper Compass"; text[1] += "Provides guidance in the underground Grasslands."; } break;
     case ITEMID.acc_metalCompass: { text[0] = "Metal Compass"; text[1] += "Provides guidance in the underground Coral Cove and in lower regions."; } break;
     case ITEMID.acc_copperSlingDrive: { text[0] = "Copper Sling-Drive"; text[1] += "Cooldown: 60#Force: 4.5#Jumps: 1#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
+    case ITEMID.cons_melonChunk: { text[0] = "Melon Chunk"; text[1] += "A small snack to help quickly get you back in the fight! Heals 5 HP."; } break;
 }
 
 //-TAG DESCRIPTIONS;

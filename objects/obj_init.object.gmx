@@ -170,7 +170,8 @@ enum ITEMID
     weapon_sandySeadollar,
     acc_copperCompass,
     acc_metalCompass,
-    acc_copperSlingDrive
+    acc_copperSlingDrive,
+    cons_melonChunk
 }
 
 //Item Types

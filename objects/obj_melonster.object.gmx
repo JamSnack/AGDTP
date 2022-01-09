@@ -281,7 +281,7 @@ ai_melonAi(state,1,objective,-4,atkBox);
           <argument>
             <kind>1</kind>
             <string>draw_self();
-draw_text(x,y+5,"state: "+string(state));
+/*draw_text(x,y+5,"state: "+string(state));
 draw_text(x,y+10,"essence: "+string(local_essence));
 var direction_to_objective = point_direction(x,y,objective.x,objective.y);
 draw_circle(x+lengthdir_x(16*4,direction_to_objective),y+lengthdir_y(16*4,direction_to_objective),2,false);

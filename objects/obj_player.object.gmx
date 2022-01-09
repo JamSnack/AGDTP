@@ -120,6 +120,7 @@ if tip_controls == false
 while place_meeting(x,y,PLRTILE) y-=16;
 
 /*
+scr_dropItem(ITEMID.cons_melonChunk,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.acc_copperSlingDrive,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.cons_bomb,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,ITEMTYPE.def,x,y,noone);
@@ -493,14 +494,12 @@ if dead = false &amp;&amp; g_over == false
         sling_jumps_remaining -= 1;
         
         //movement
-        var _d = point_direction(x,y,mouse_x,mouse_y);
-        
-        hForce = lengthdir_x(sling_force,_d);
-        vForce = lengthdir_y(sling_force,_d);
+        hForce = sling_force*(key_right-key_left);
+        vForce = sling_force*(key_down-key_jump);
         
         //i-frames
         canHurt = false;
-        alarm[0] = sling_force*2;
+        alarm[0] = (sling_force+1)*2;
         
         //sound
         audio_play_sound(snd_dash,11,false);
@@ -602,7 +601,7 @@ else if image_alpha != 1
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Interact
+            <string>///Interact &amp; Quick Heal
 //-------INTERACT KEY------------
 if keyboard_check_released(global.key_interact)
 {
@@ -626,6 +625,7 @@ if keyboard_check_released(global.key_quick_heal) &amp;&amp; obj_player.dead == 
         //List of items to look for.
         var heal_list = array_create(1);
         heal_list[0] = ITEMID.cons_treeFruit;
+        heal_list[1] = ITEMID.cons_melonChunk;
         
         //Quickly heal by searching for the first healing item in the inventory and eating it!
         var loop_size = array_length_1d(heal_list);
@@ -1047,10 +1047,11 @@ else
     compass_target = noone;
 }
 //SLING DEBUGGING
+/*
 draw_text(x,y,"jumps: "+string(sling_jumps_remaining));
 draw_text(x,y+5,"cd: "+string(sling_cooldown));
 //PLATFORM DEBUGGING
-/*
+
 var on_platform; //Whether or not the gremlin is on a platform.
 
 if place_meeting_fast(0,2,obj_platform)

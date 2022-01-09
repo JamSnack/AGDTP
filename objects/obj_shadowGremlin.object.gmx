@@ -116,8 +116,7 @@ if worldControl.special_raidID == "SR_Shadow" &amp;&amp; c &gt;= 99 &amp;&amp; i
 
 if raid_boss == true
 {
-    if c &gt;= 80
-    { scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone); }
+    scr_dropItem(ITEMID.acc_ultrablueStar,0,ITEMTYPE.accessory,x,y,noone);
 }
 </string>
           </argument>

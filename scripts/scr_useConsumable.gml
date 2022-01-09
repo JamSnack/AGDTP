@@ -12,6 +12,9 @@ armAngleRate = 0;
 toolSprite = spr_copperOre;
 alarm[2] = room_speed;
 */
+var is_healing = false;
+var heal_amount = 0;
+var cooldown_time = 0;
 
 switch item
 {
@@ -51,34 +54,51 @@ switch item
     
     case ITEMID.cons_treeFruit:
     {
-        if toolReady == true
-        {
-            armIndex = sprite_arm_swing;
-            armAngleGoal = 51;
-            armAngle = 50; //Out a bit
-            armAngleRate = 0;
-            toolSprite = spr_itemDrops; //hold nothing
-            alarm[2] = 20;
-        }
+        is_healing = true;
+        heal_amount = 10;
+        cooldown_time = 20;
+    }
+    break;
     
-        var _hp = obj_player.hp;
-        var _maxHp = obj_player.maxHp;
-        
-        if _hp < _maxHp
-        {
-            obj_player.hp = approach(_hp,_maxHp,10);
-            
-            audio_play_sound(snd_heal,8,false);
-            scr_popMessage("+10",global.fnt_menu,1,c_green,x-4,y);
-        }
-        else if _hp >= _maxHp
-        {
-            audio_play_sound(snd_invalid,12,false);
-            scr_popMessage("HP full",global.fnt_menu,1,c_red,x-8,y);
-            exit;
-        }
+    case ITEMID.cons_melonChunk:
+    {
+        is_healing = true;
+        heal_amount = 5;
+        cooldown_time = 10;
     }
     break;
 }
+
+//Use a healing item
+if is_healing == true
+{
+    if toolReady == true
+    {
+        armIndex = sprite_arm_swing;
+        armAngleGoal = 51;
+        armAngle = 50; //Out a bit
+        armAngleRate = 0;
+        toolSprite = spr_itemDrops; //hold nothing
+        alarm[2] = cooldown_time;
+    }
+
+    var _hp = obj_player.hp;
+    var _maxHp = obj_player.maxHp;
+    
+    if _hp < _maxHp
+    {
+        obj_player.hp = approach(_hp,_maxHp,heal_amount);
+        
+        audio_play_sound(snd_heal,8,false);
+        scr_popMessage("+"+string(heal_amount),global.fnt_menu,1,c_green,x-4,y);
+    }
+    else if _hp >= _maxHp
+    {
+        audio_play_sound(snd_invalid,12,false);
+        scr_popMessage("HP full",global.fnt_menu,1,c_red,x-8,y);
+        exit;
+    }
+}
+
 //Slot is non-specific due to quick heal using this script :)
 scr_invenRemoveItem(item,1,4,false,-1,noone);
