@@ -118,7 +118,7 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-
+scr_dropItem(ITEMID.weapon_meloniteBow,0,ITEMTYPE.weapon,x,y,noone);
 /*
 scr_dropItem(ITEMID.cons_melonChunk,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.acc_copperSlingDrive,0,ITEMTYPE.accessory,x,y,noone);
@@ -1038,9 +1038,13 @@ if y &gt; stoneLayer &amp;&amp; compass_level &gt; 0 &amp;&amp; instance_exists(
     }
     
     //Draw the compass indicator
-    var _len = 16;
-    var _dir = point_direction(x,y,compass_target.x,compass_target.y);
-    draw_sprite_ext(spr_compass_arrow,0,x+lengthdir_x(_len,_dir),y+lengthdir_y(_len,_dir),0.5,0.5,_dir+90,c_white,1);
+    
+    if instance_exists(compass_target)
+    {
+        var _len = 16;
+        var _dir = point_direction(x,y,compass_target.x,compass_target.y);
+        draw_sprite_ext(spr_compass_arrow,0,x+lengthdir_x(_len,_dir),y+lengthdir_y(_len,_dir),0.5,0.5,_dir+90,c_white,1);
+    }
 }
 else
 {

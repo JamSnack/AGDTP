@@ -124,6 +124,7 @@
       <sprite>sprites\spr_sword</sprite>
       <sprite>sprites\spr_seashellSpear</sprite>
       <sprite>sprites\spr_weakBow</sprite>
+      <sprite>sprites\spr_melonite_bow</sprite>
       <sprite>sprites\spr_pickaxe</sprite>
       <sprite>sprites\spr_pickaxeGreen</sprite>
       <sprite>sprites\spr_seashellPickaxe</sprite>

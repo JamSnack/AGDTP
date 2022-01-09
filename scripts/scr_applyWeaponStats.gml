@@ -24,6 +24,7 @@ switch item_id
     case ITEMID.weapon_waterGun: { toolAnimation = "SHOOT"; proj_spd = 9; proj_dec = 0; tool_spr = spr_waterGun; proj_spr = spr_waterBlast; proj_type = 2; tool_snd = snd_rifle; } break;
     case ITEMID.weapon_seashellSpear: { toolAnimation = "STAB"; proj_spd = 0; proj_dec = 35; tool_spr = spr_seashellSpear; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
     case ITEMID.weapon_sandySeadollar: { toolAnimation = "SHOOT"; proj_spd = 3.5; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_sandySeadollar; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
+    case ITEMID.weapon_meloniteBow: { toolAnimation = "SHOOT"; proj_spd = 13; proj_dec = 0; tool_spr = spr_melonite_bow; proj_spr = spr_arrow; proj_type = 1; tool_snd = snd_enemy_shoot;} break; 
 }
 
 

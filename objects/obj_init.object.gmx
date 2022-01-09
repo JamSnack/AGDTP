@@ -172,7 +172,8 @@ enum ITEMID
     acc_metalCompass,
     acc_copperSlingDrive,
     cons_melonChunk,
-    item_melonite
+    item_melonite,
+    weapon_meloniteBow,
 }
 
 //Item Types
