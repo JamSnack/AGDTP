@@ -171,7 +171,8 @@ enum ITEMID
     acc_copperCompass,
     acc_metalCompass,
     acc_copperSlingDrive,
-    cons_melonChunk
+    cons_melonChunk,
+    item_melonite
 }
 
 //Item Types
@@ -310,10 +311,11 @@ turret_capacity_max = 1; //maximum turret capacity
 accessories_equipped = ds_list_create();
 
 //- recipes
-globalvar recipe_copperOre,recipe_sweetComb,recipe_seashellMetal;
+globalvar recipe_copperOre,recipe_sweetComb,recipe_seashellMetal,recipe_melonite;
 recipe_copperOre = false;
 recipe_sweetComb = false;
 recipe_seashellMetal = false;
+recipe_melonite = false;
 
 //- currency
 globalvar currency_essence;

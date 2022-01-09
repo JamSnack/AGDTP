@@ -175,6 +175,7 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
             recipe_copperOre = _list[| 0];
             recipe_sweetComb = _list[| 1];
             recipe_seashellMetal = _list[| 2];
+            recipe_melonite = _list[| 3];
         }
     }
     
@@ -277,9 +278,10 @@ if (file_exists("agdtpSaveData.sav")) && empty == true
         global.key_5 = _list[| 12];
         global.key_6 = _list[| 13];
         global.key_7 = _list[| 14];
+        global.key_sling = _list[| 15];
         
-        music_volume = _list[| 15];
-        vsyncToggled = _list[| 16];
+        music_volume = _list[| 16];
+        vsyncToggled = _list[| 17];
     }
     
     //Check for and eat essence from old save-files!

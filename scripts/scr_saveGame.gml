@@ -57,6 +57,7 @@ with hudControl
 ds_list_add(recipe_list,recipe_copperOre);
 ds_list_add(recipe_list,recipe_sweetComb);
 ds_list_add(recipe_list,recipe_seashellMetal);
+ds_list_add(recipe_list,recipe_melonite);
 
 ds_list_add(quest_list,mainQuest);
 ds_list_add(quest_list,tip_controls);
@@ -105,6 +106,7 @@ ds_list_add(settings_list,global.key_4);
 ds_list_add(settings_list,global.key_5);
 ds_list_add(settings_list,global.key_6);
 ds_list_add(settings_list,global.key_7);
+ds_list_add(settings_list,global.key_sling);
 
 //- save other settings
 ds_list_add(settings_list,music_volume);
