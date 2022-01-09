@@ -25,6 +25,7 @@ if craft_filter_weapon == false
         case ITEMID.weapon_waterGun: { returnID = ITEMTYPE.weapon; } break;
         case ITEMID.weapon_seashellSpear: { returnID = ITEMTYPE.weapon; } break;
         case ITEMID.weapon_sandySeadollar: { returnID = ITEMTYPE.weapon; } break;
+        case ITEMID.weapon_meloniteBow: { returnID = ITEMTYPE.weapon; } break;
     }
 }
 

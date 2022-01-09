@@ -45,6 +45,7 @@ if recipe_sweetComb == true
     }
 }
 
+//seashell metal
 if recipe_seashellMetal == true
 {
     switch argument0
@@ -55,6 +56,15 @@ if recipe_seashellMetal == true
         case ITEMID.pickaxe_seashellPickaxe: { returnID = true; } break;
         case ITEMID.weapon_sandySeadollar: { returnID = true; } break;
         case ITEMID.acc_metalCompass: { returnID = true; } break;
+    }
+}
+
+//melonite
+if recipe_melonite == true
+{
+    switch argument0
+    {
+        case ITEMID.weapon_meloniteBow: { returnID = true; } break;
     }
 }
 
