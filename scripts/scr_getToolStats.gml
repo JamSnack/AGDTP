@@ -12,7 +12,7 @@ switch argument0
     case ITEMID.weapon_greenSword: { tool_firerate = 30; wep_Dam = 4; wep_Knock = 3.25; } break;
     case ITEMID.weapon_starter: { tool_firerate = 34; wep_Dam = 2; wep_Knock = 2.75; } break;
     case ITEMID.weapon_weakBow: { tool_firerate = 35; wep_Dam = 3; wep_Knock = 1; } break;
-    case ITEMID.weapon_subLimeMachineGun: {tool_firerate = 12; wep_Dam = 3; wep_Knock = 1.1; } break;
+    case ITEMID.weapon_subLimeMachineGun: {tool_firerate = 14; wep_Dam = 3; wep_Knock = 1.1; } break;
     case ITEMID.weapon_sphereLauncher: {tool_firerate = 55; wep_Dam = 3; wep_Knock = 2; } break;
     case ITEMID.weapon_beemerang: { tool_firerate = 50; wep_Dam = 4; wep_Knock = 2; } break;
     case ITEMID.weapon_sandySeadollar: { tool_firerate = 30; wep_Dam = 5; wep_Knock = 1.5; } break;
