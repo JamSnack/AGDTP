@@ -27,7 +27,7 @@
             <kind>1</kind>
             <string>event_inherited();
 level = 0;
-maxHp = 25;
+maxHp = 15;
 hp = maxHp;
 item = ITEMID.item_dirtClump;
 amt = 1;
