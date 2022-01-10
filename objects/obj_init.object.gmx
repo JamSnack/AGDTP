@@ -267,12 +267,12 @@ part_type_size(part_dirt_frag, 0.3, 1, -0.01, 0);
 part_type_scale(part_dirt_frag, 1, 1);
 part_type_colour1(part_dirt_frag, c_white);
 part_type_alpha1(part_dirt_frag, 1);
-part_type_speed(part_dirt_frag, 1, 1.4, 0, 0);
+part_type_speed(part_dirt_frag, 1.2, 1.6, 0, 0);
 part_type_direction(part_dirt_frag, 0, 180, 0, 0);
-part_type_gravity(part_dirt_frag, 0.15, 270);
+part_type_gravity(part_dirt_frag, 0.1, 270);
 part_type_orientation(part_dirt_frag, 0, 0, irandom_range(2,-2), 0, 1);
 part_type_blend(part_dirt_frag, false);
-part_type_life(part_dirt_frag, 45, room_speed);
+part_type_life(part_dirt_frag, 25, 35);
 
 //- stone particles
 part_stone_frag = part_type_create();
@@ -281,12 +281,12 @@ part_type_size(part_stone_frag, 0.3, 1, -0.01, 0);
 part_type_scale(part_stone_frag, 1, 1);
 part_type_colour1(part_stone_frag, c_white);
 part_type_alpha1(part_stone_frag, 1);
-part_type_speed(part_stone_frag, 1, 1.4, 0, 0);
+part_type_speed(part_stone_frag, 1.2, 1.6, 0, 0);
 part_type_direction(part_stone_frag, 0, 180, 0, 0);
-part_type_gravity(part_stone_frag, 0.15, 270);
+part_type_gravity(part_stone_frag, 0.1, 270);
 part_type_orientation(part_stone_frag, 0, 0, irandom_range(2,-2), 0, 1);
 part_type_blend(part_stone_frag, false);
-part_type_life(part_stone_frag, 45, room_speed);
+part_type_life(part_stone_frag, 25, 35);
 
 //- essence trail
 part_esc = part_type_create();

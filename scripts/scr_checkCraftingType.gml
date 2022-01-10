@@ -62,7 +62,7 @@ if craft_filter_plrtile == false
         case ITEMID.tile_copperTurret: { returnID = ITEMTYPE.playertile; } break;
         case ITEMID.tile_platform: { returnID = ITEMTYPE.playertile; } break;
         case ITEMID.tile_packedStone: { returnID = ITEMTYPE.playertile; } break;
-        case ITEMID.tile_battery: { returnID = ITEMTYPE.playertile; } break;
+        //case ITEMID.tile_battery: { returnID = ITEMTYPE.playertile; } break;
         case ITEMID.tile_beeTurret: { returnID = ITEMTYPE.playertile; } break;
         case ITEMID.tile_copperBlock: { returnID = ITEMTYPE.playertile; } break;
         case ITEMID.tile_grillBlock: { returnID = ITEMTYPE.playertile; } break;

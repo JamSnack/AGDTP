@@ -20,7 +20,7 @@ if recipe_copperOre == true
 {
     switch argument0
     {
-        case ITEMID.tile_battery: { returnID = true; } break;
+        //case ITEMID.tile_battery: { returnID = true; } break;
         case ITEMID.tile_copperTurret: { returnID = true; } break;
         case ITEMID.acc_copperChestplate: { returnID = true; } break;
         case ITEMID.acc_copperCompass: { returnID = true; } break;

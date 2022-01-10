@@ -592,7 +592,7 @@ else if image_alpha != 1
 }
 
 //---Shake certain tools---
-if (toolSprite == spr_melonite_chainsaw || toolSprite == spr_stingerDrill)
+if (armIndex != spr_armWalk &amp;&amp; armIndex != spr_armIdle &amp;&amp; armIndex != spr_armJump) &amp;&amp; (toolSprite == spr_melonite_chainsaw || toolSprite == spr_stingerDrill)
 {
     tool_shake_x += choose(1,-1);
     tool_shake_x = clamp(tool_shake_x,-2,2);
