@@ -43,4 +43,5 @@ switch argument0
     case ITEMID.acc_copperSlingDrive: { cost = 400; mats[0] = ITEMID.item_copperOre; matsAmt[0] = 8; mats[1] = ITEMID.item_stick; matsAmt[1] = 25; itemAmt = 0; itemType = ITEMTYPE.accessory; } break;
     case ITEMID.acc_seashellSlingDrive: { cost = 950; mats[0] = ITEMID.item_seashellMetal; matsAmt[0] = 10; mats[1] = ITEMID.item_copperOre; matsAmt[1] = 5; mats[2] = ITEMID.item_stick; matsAmt[2] = 25; itemAmt = 0; itemType = ITEMTYPE.accessory; } break;
     case ITEMID.weapon_meloniteBow: { cost = 0; mats[0] = ITEMID.item_melonite; matsAmt[0] = 12; mats[1] = ITEMID.item_stick; matsAmt[1] = 25; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
+    case ITEMID.weapon_meloniteChainsaw: { cost = 0; mats[0] = ITEMID.item_melonite; matsAmt[0] = 14; mats[1] = ITEMID.item_seashellMetal; matsAmt[1] = 5; mats[2] = ITEMID.item_stick; matsAmt[2] = 20; itemAmt = 0; itemType = ITEMTYPE.weapon; } break;
 }

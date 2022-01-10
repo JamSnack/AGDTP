@@ -66,6 +66,7 @@ if recipe_melonite == true
     switch argument0
     {
         case ITEMID.weapon_meloniteBow: { returnID = true; } break;
+        case ITEMID.weapon_meloniteChainsaw: { returnID = true; } break;
     }
 }
 
