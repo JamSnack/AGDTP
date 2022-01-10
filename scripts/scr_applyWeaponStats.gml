@@ -1,7 +1,7 @@
 ///scr_applyWeaponStats(weapon);
 //Update the player variables to accomodate the equipped weapon.
 var proj_spd,proj_dec,tool_spr,proj_spr,toolAnimation, proj_type,tool_snd;
-
+var pitch_shift = true;
 tool_snd = noone;
 var swish = choose(snd_swish1,snd_swish2,snd_swish3,snd_swish4);
 
@@ -25,7 +25,7 @@ switch item_id
     case ITEMID.weapon_seashellSpear: { toolAnimation = "STAB"; proj_spd = 0; proj_dec = 35; tool_spr = spr_seashellSpear; proj_spr = hbox_sword; proj_type = 0; tool_snd = swish;} break;
     case ITEMID.weapon_sandySeadollar: { toolAnimation = "SHOOT"; proj_spd = 3.5; proj_dec = 0; tool_spr = spr_nothing; proj_spr = spr_sandySeadollar; proj_type = "BOOMERANG"; tool_snd = snd_swish1;} break;
     case ITEMID.weapon_meloniteBow: { toolAnimation = "SHOOT"; proj_spd = 13; proj_dec = 0; tool_spr = spr_melonite_bow; proj_spr = spr_arrow; proj_type = 1; tool_snd = snd_enemy_shoot;} break; 
-    case ITEMID.weapon_meloniteChainsaw: { toolAnimation = "SHOOT"; proj_spd = 3.5; proj_dec = 0; tool_spr = spr_melonite_chainsaw; proj_spr = spr_melonite_chainsaw; proj_type = 0; tool_snd = swish;} break; 
+    case ITEMID.weapon_meloniteChainsaw: { toolAnimation = "SHOOT"; proj_spd = 0; proj_dec = 0; tool_spr = spr_melonite_chainsaw; proj_spr = spr_melonite_chainsaw; proj_type = 0; tool_snd = snd_chainsaw; pitch_shift = false;} break; 
 }
 
 
@@ -45,3 +45,4 @@ obj_player.weaponKnockback = weaponKnockback;
 obj_player.toolAnimation = toolAnimation;
 obj_player.proj_type = proj_type;
 obj_player.tool_snd = tool_snd;
+obj_player.pitch_shift = pitch_shift;

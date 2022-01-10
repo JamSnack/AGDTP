@@ -31,6 +31,7 @@
     <sound>sound\snd_shoot</sound>
     <sound>sound\snd_invalid</sound>
     <sound>sound\snd_machineGunSoft</sound>
+    <sound>sound\snd_motor_low</sound>
     <sound>sound\snd_swish1</sound>
     <sound>sound\snd_swish2</sound>
     <sound>sound\snd_swish3</sound>
@@ -45,6 +46,7 @@
     <sound>sound\snd_bliplo_death</sound>
     <sound>sound\snd_bliplo_prepare</sound>
     <sound>sound\snd_modificationSuccess</sound>
+    <sound>sound\snd_chainsaw</sound>
     <sound>sound\snd_rifle</sound>
     <sounds name="Stone">
       <sound>sound\snd_stoneHit_1</sound>

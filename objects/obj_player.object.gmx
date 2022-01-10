@@ -72,6 +72,9 @@ knock_resistance = 0.15;
 toolReady = true;
 toolSprite = spr_sword;
 toolFireRate = 40;
+tool_shake_x = 0;
+tool_shake_y = 0;
+pitch_shift = true;
 projSpeed = 3.5;
 projDecay = 0.25;
 projSprite = spr_projectile1;
@@ -118,7 +121,7 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-scr_dropItem(ITEMID.weapon_meloniteBow,0,ITEMTYPE.weapon,x,y,noone);
+scr_dropItem(ITEMID.weapon_meloniteChainsaw,0,ITEMTYPE.weapon,x,y,noone);
 /*
 scr_dropItem(ITEMID.cons_melonChunk,99,ITEMTYPE.consumable,x,y,noone);
 scr_dropItem(ITEMID.acc_copperSlingDrive,0,ITEMTYPE.accessory,x,y,noone);
@@ -160,6 +163,10 @@ toolReady = true;
 armAngle = 0;
 armOffset = 0;
 armOffsetRate = 0;
+hitSyncX = 0;
+hitSyncY = 0;
+tool_shake_x = 0;
+tool_shake_y = 0;
 </string>
           </argument>
         </arguments>
@@ -476,6 +483,8 @@ if dead = false &amp;&amp; g_over == false
         image_xscale = sign(mouse_x-x);
         armIndex = sprite_arm_swing; //Still a straight arm.
         if image_xscale == 1 then armAngle = _dir else armAngle = (_dir-180)*-1;
+        hitSyncY = y+lengthdir_y((armOffset),_dir);
+        hitSyncX = x+lengthdir_x((armOffset)*image_xscale,_dir);
     }
     
     //Face mouse when using item
@@ -581,6 +590,16 @@ else if image_alpha != 1
 {
     image_alpha = approach(image_alpha,1,0.1);
 }
+
+//---Shake certain tools---
+if (toolSprite == spr_melonite_chainsaw || toolSprite == spr_stingerDrill)
+{
+    tool_shake_x += choose(1,-1);
+    tool_shake_x = clamp(tool_shake_x,-3,3);
+    tool_shake_y += choose(1,-1)
+    tool_shake_y = clamp(tool_shake_y,-3,3);;
+}
+
 </string>
           </argument>
         </arguments>
@@ -808,7 +827,7 @@ if dead == false &amp;&amp; hudControl.settingsMenu == false &amp;&amp; hudContr
             }
         
             audio_play_sound(snd,10,false);
-            audio_sound_pitch(snd,choose(0.9,1,1.1));
+            if pitch_shift = true then audio_sound_pitch(snd,choose(0.92,1,1.07));
         }
         
         
@@ -977,13 +996,13 @@ if dead == false
         {
             case "SWING":
             {
-                draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+                draw_sprite_ext(toolSprite,current_time/100,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
             } 
             break;
             
             case "SHOOT":
             {
-                draw_sprite_ext(toolSprite,0,x+lengthdir_x(11*image_xscale,armAngle),y-lengthdir_y(-10,armAngle)-2,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
+                draw_sprite_ext(toolSprite,current_time/100,x+lengthdir_x(11*image_xscale,armAngle)+tool_shake_x,y-lengthdir_y(-10,armAngle)-2+tool_shake_y,image_xscale,image_yscale,armAngle*image_xscale,c_white,1);
             }
             break;
             
@@ -1000,9 +1019,9 @@ if dead == false
                 var yOffset = lengthdir_y((armOffset),_dir);
                 var xOffset = lengthdir_x((armOffset)*image_xscale,_dir);
                 
-                draw_sprite_ext(toolSprite,0,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+                draw_sprite_ext(toolSprite,current_time/100,x+xOffset,y+yOffset,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
                 //- STAB arm animator
-                draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
+                draw_sprite_ext(armIndex,armFrame,x+tool_shake_x,y+tool_shake_y,image_xscale,image_yscale,_dir*image_xscale,c_white,1);
             }
             break;
         }
@@ -1127,7 +1146,8 @@ else if sprite_idle = spr_timeGuyIdle
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if dev != true then exit;
+            <string>print(instance_number(obj_projectile));
+/*if dev != true then exit;
 instance_create(x,y,region_shifter);
 </string>
           </argument>

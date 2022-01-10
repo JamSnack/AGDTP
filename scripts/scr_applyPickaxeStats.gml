@@ -5,6 +5,7 @@ var tool_firerate,tool_spr,pick_Dam,pick_range,pick_level,toolAnimation,tool_snd
 toolAnimation = "SWING";
 pick_range = 2;
 tool_snd = "SWISH";
+var pitch_shift = true;
 
 //Apply animation and other variables
 var item_id = argument0;
@@ -13,7 +14,7 @@ switch item_id
 {
     case 4: { tool_spr = spr_pickaxe; } break;
     case 5: { tool_spr = spr_pickaxeGreen; } break;
-    case ITEMID.pickaxe_stingerDrill: { toolAnimation = "SHOOT"; tool_spr = spr_stingerDrill; } break;
+    case ITEMID.pickaxe_stingerDrill: { toolAnimation = "SHOOT"; tool_spr = spr_stingerDrill; tool_snd = snd_motor_low; pitch_shift = false; } break;
     case ITEMID.pickaxe_seashellPickaxe: { tool_spr = spr_seashellPickaxe; } break;
 }
 
@@ -27,3 +28,4 @@ obj_player.pickRange = pick_range;
 obj_player.pickLevel = pickLevel;
 obj_player.toolAnimation = toolAnimation;
 obj_player.tool_snd = tool_snd;
+obj_player.pitch_shift = pitch_shift;
