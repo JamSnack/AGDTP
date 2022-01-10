@@ -122,6 +122,7 @@
     </sprites>
     <sprites name="Tools">
       <sprite>sprites\spr_sword</sprite>
+      <sprite>sprites\spr_melonite_chainsaw</sprite>
       <sprite>sprites\spr_seashellSpear</sprite>
       <sprite>sprites\spr_weakBow</sprite>
       <sprite>sprites\spr_melonite_bow</sprite>
