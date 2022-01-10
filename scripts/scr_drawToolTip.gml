@@ -171,6 +171,7 @@ switch item_id
     case ITEMID.cons_melonChunk: { text[0] = "Melon Chunk"; text[1] += "A small snack to help quickly get you back in the fight! Heals 5 HP."; } break;
     case ITEMID.item_melonite: { text[0] = "Melonite"; text[1] += "A hard resin pulled from the carnage of the Melon Bloom's terror."; } break;
     case ITEMID.weapon_meloniteBow: { text[0] = "Melonite Bow"; text[1] += "Taking advantage of Melonite's flexibility, this bow fires arrows at an incredible velocity."; } break;
+    case ITEMID.weapon_meloniteBow: { text[0] = "Melonite Chainsaw"; text[1] += "Rip through hordes of Gremlins."; } break;
 }
 
 //-TAG DESCRIPTIONS;

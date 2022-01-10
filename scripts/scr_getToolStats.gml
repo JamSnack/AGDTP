@@ -20,6 +20,7 @@ switch argument0
     case ITEMID.weapon_waterGun: { tool_firerate = 20; wep_Dam = 6; wep_Knock = 2;} break;
     case ITEMID.weapon_seashellSpear: { tool_firerate = 34; wep_Dam = 7; wep_Knock = 3.75; } break;
     case ITEMID.weapon_meloniteBow: { tool_firerate = 40; wep_Dam = 9; wep_Knock = 4.2; } break;
+    case ITEMID.weapon_meloniteChainsaw: { tool_firerate = 35; wep_Dam = 11; wep_Knock = 4.2; } break;
     
     // ---- PICKAXES ----
     case 4: { tool_firerate = 45; pick_Dam = 1; pick_level = 0; } break;
