@@ -87,7 +87,7 @@ _xscale = 0; //Used for calculating image_angle in-place of classic image_xscale
 
 image_xscale = sign(target.x-x);
 
-spawn_weight = 8;
+spawn_weight = 4;
 event_inherited();
 scale = 0.8;
 image_xscale = scale;

@@ -166,7 +166,8 @@ switch item_id
     case ITEMID.pickaxe_seashellPickaxe: { text[0] = "Seashell-Metal Pickaxe"; text[1] += "A strong pickaxe made out of the metals of the sea."; } break;
     case ITEMID.acc_copperCompass: { text[0] = "Copper Compass"; text[1] += "Provides guidance in the underground Grasslands."; } break;
     case ITEMID.acc_metalCompass: { text[0] = "Metal Compass"; text[1] += "Provides guidance in the underground Coral Cove and in lower regions."; } break;
-    case ITEMID.acc_copperSlingDrive: { text[0] = "Copper Sling-Drive"; text[1] += "Cooldown: 60#Force: 4.5#Jumps: 1#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
+    case ITEMID.acc_copperSlingDrive: { text[0] = "Copper Sling-Drive"; text[1] += "Cooldown: 60#Force: 5#Jumps: 1#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
+    case ITEMID.acc_seashellSlingDrive: { text[0] = "Seashell-Metal Sling-Drive"; text[1] += "Cooldown: 52#Force: 6#Jumps: 1#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
     case ITEMID.cons_melonChunk: { text[0] = "Melon Chunk"; text[1] += "A small snack to help quickly get you back in the fight! Heals 5 HP."; } break;
     case ITEMID.item_melonite: { text[0] = "Melonite"; text[1] += "A hard resin pulled from the carnage of the Melon Bloom's terror."; } break;
     case ITEMID.weapon_meloniteBow: { text[0] = "Melonite Bow"; text[1] += "Taking advantage of Melonite's flexibility, this bow fires arrows at an incredible velocity."; } break;

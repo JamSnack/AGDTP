@@ -171,6 +171,7 @@ enum ITEMID
     acc_copperCompass,
     acc_metalCompass,
     acc_copperSlingDrive,
+    acc_seashellSlingDrive,
     cons_melonChunk,
     item_melonite,
     weapon_meloniteBow,

@@ -60,7 +60,7 @@ jumping = false;
 stateLock = true;
 alarm[stateLockAlarm] = 20;
 
-spawn_weight = 3;
+spawn_weight = 0;
 event_inherited();
 knockType = "LAND";
 

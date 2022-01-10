@@ -58,7 +58,7 @@ alarm[stateLockAlarm] = 20;
 
 image_xscale = sign(target.x-x)*scale;
 
-spawn_weight = 1;
+spawn_weight = 0;
 event_inherited();
 knockType = "FLY";
 knock_resistance = 0.4;
