@@ -13,6 +13,7 @@ var no_col = collision_point(mouse_x,mouse_y,NOCOL,false,false);
 if instance_exists(col)
 {
     var hit_sound = col.hit_sound;
+    var hit_part = col.tile_frag;
     
     //Ensure the tile reachable.
     if distance_to_object(col) <= pickRange*16 && collision_line(x,y,col.x,col.y,col,false,false)
@@ -82,6 +83,9 @@ if instance_exists(col)
             
             //SET heal alarm
             col.alarm[0] = room_speed*5;
+            
+            //We hit the tile! spit out a lil' somethin' for tha feels of it, y'know? >(~ > u O~)/ what the fuck did I just write
+            part_particles_create(particle_system,mouse_x,mouse_y,hit_part,irandom_range(3,5));
         }
     }
 }

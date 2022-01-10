@@ -595,9 +595,9 @@ else if image_alpha != 1
 if (toolSprite == spr_melonite_chainsaw || toolSprite == spr_stingerDrill)
 {
     tool_shake_x += choose(1,-1);
-    tool_shake_x = clamp(tool_shake_x,-3,3);
+    tool_shake_x = clamp(tool_shake_x,-2,2);
     tool_shake_y += choose(1,-1)
-    tool_shake_y = clamp(tool_shake_y,-3,3);;
+    tool_shake_y = clamp(tool_shake_y,-2,2);;
 }
 
 </string>
@@ -1029,7 +1029,7 @@ if dead == false
     
     //- Default arm animator
     if armOffset == 0
-    { draw_sprite_ext(armIndex,armFrame,x,y,image_xscale,image_yscale,armAngle*image_xscale,c_white,image_alpha); }
+    { draw_sprite_ext(armIndex,armFrame,x+tool_shake_x,y+tool_shake_y,image_xscale,image_yscale,armAngle*image_xscale,c_white,image_alpha); }
 }
 else if dead == true
 {
