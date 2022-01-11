@@ -209,7 +209,7 @@ if instance_exists(objective)
     ai_shadowGremlin(state,spr_gremlinIdle,spr_gremlinJump,spr_gremlinWalk,1,objective,-4,atkBox); 
     
     //Seed attack
-    if canSeeTarget &amp;&amp; seed_shot_delay &lt;= 0
+    if seed_shot_delay &lt;= 0 &amp;&amp; (canSeeTarget || objective.object_index = obj_pie)
     {
         seed_shot_delay = room_speed*(1.6+random_range(0.4,1.2));
         

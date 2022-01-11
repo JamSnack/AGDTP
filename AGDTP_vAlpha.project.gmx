@@ -233,6 +233,7 @@
       <sprite>sprites\spr_waterBlast</sprite>
       <sprite>sprites\spr_stinger</sprite>
       <sprite>sprites\spr_seed_shot</sprite>
+      <sprite>sprites\spr_tear_shot</sprite>
       <sprite>sprites\spr_coralSpike</sprite>
     </sprites>
     <sprites name="Ui">

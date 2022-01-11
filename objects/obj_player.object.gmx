@@ -1073,7 +1073,7 @@ else
 /*
 draw_text(x,y,"jumps: "+string(sling_jumps_remaining));
 draw_text(x,y+5,"cd: "+string(sling_cooldown));
-*/
+
 //PLATFORM DEBUGGING
 
 var on_platform; //Whether or not the gremlin is on a platform.

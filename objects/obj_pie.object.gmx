@@ -42,6 +42,8 @@ hit_sound = snd_shield_deployed;
 deactivate_method = 0;
 
 draw_stats = false; //Whether or not to display certain stats.
+
+tile_frag = part_esc;
 </string>
           </argument>
         </arguments>
