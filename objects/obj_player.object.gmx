@@ -262,7 +262,7 @@ if dead = false &amp;&amp; g_over == false
 
     if place_meeting_fast(0,2,obj_platform)
     {
-        if instance_nearest(x,bbox_bottom,obj_platform).y &gt; y+7
+        if instance_nearest(x,bbox_bottom,obj_platform).y &gt; y+6
         {
             on_platform = true;
         }
@@ -361,13 +361,13 @@ if dead = false &amp;&amp; g_over == false
     else if !key_down &amp;&amp; instance_exists(obj_platform) &amp;&amp; vsp+vForce &gt; 0// &amp;&amp; platform_collide == true
     {
         
-        var _plat = collision_line(x-3,bbox_bottom+true_vsp+1,x+3,bbox_bottom+true_vsp+1,obj_platform,false,true);
+        var _plat = collision_line(x-3,bbox_bottom+true_vsp+1,x+3,bbox_bottom+true_vsp+2,obj_platform,false,true);
                 
-        if _plat != noone &amp;&amp; bbox_bottom &lt; _plat.y-7
+        if _plat != noone &amp;&amp; bbox_bottom &lt; _plat.y-6
         {            
             vForce = 0;
             vsp = 0;
-            y = _plat.y-8-sprite_get_height(spr_playerIdle)/2;
+            y = _plat.y-9-sprite_get_height(spr_playerIdle)/2;
         }
     }
 
@@ -375,7 +375,7 @@ if dead = false &amp;&amp; g_over == false
     vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
-    if vsp != 0 &amp;&amp; !place_meeting_fast(0,1,OBSTA)
+    if vsp != 0 &amp;&amp; !place_meeting_fast(0,1,OBSTA) &amp;&amp; !on_platform
     {
         if sprite_index != sprite_jump then sprite_index = sprite_jump;
         if armIndex != sprite_arm_jump &amp;&amp; armAngle == 0 then armIndex = sprite_arm_jump;
@@ -406,7 +406,7 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != sprite_walk &amp;&amp; (collision_point(x,1+bbox_bottom,OBSTA,false,true) || collision_point(x,1+bbox_bottom,obj_platform,false,true) ) then sprite_index = sprite_walk;
+            if sprite_index != sprite_walk &amp;&amp; (collision_point(x,1+bbox_bottom,OBSTA,false,true) || collision_point(x,2+bbox_bottom,obj_platform,false,true) ) then sprite_index = sprite_walk;
             if armIndex != sprite_arm_walk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_walk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             
@@ -1073,13 +1073,14 @@ else
 /*
 draw_text(x,y,"jumps: "+string(sling_jumps_remaining));
 draw_text(x,y+5,"cd: "+string(sling_cooldown));
+*/
 //PLATFORM DEBUGGING
 
 var on_platform; //Whether or not the gremlin is on a platform.
 
 if place_meeting_fast(0,2,obj_platform)
 {
-    if instance_nearest(x,y+1,obj_platform).y &gt; y+7
+    if instance_nearest(x,y+1,obj_platform).y &gt; y+6
     {
         on_platform = true;
     }
