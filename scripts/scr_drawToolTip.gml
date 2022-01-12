@@ -172,6 +172,7 @@ switch item_id
     case ITEMID.item_melonite: { text[0] = "Melonite"; text[1] += "A hard resin pulled from the carnage of the Melon Bloom's terror."; } break;
     case ITEMID.weapon_meloniteBow: { text[0] = "Melonite Bow"; text[1] += "Taking advantage of Melonite's flexibility, this bow fires arrows at an incredible velocity."; } break;
     case ITEMID.weapon_meloniteChainsaw: { text[0] = "Melonite Chainsaw"; text[1] += "Rip through hordes of Gremlins."; } break;
+    case ITEMID.acc_meloniteSlingDrive: { text[0] = "Melonite Sling-Drive"; text[1] += "Cooldown: 50#Force: 7#Jumps: 2#Press "+scr_get_character(global.key_sling)+" to perform a dash."; } break;
 }
 
 //-TAG DESCRIPTIONS;

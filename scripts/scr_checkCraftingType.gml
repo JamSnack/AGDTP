@@ -82,6 +82,7 @@ if craft_filter_acc == false
         case ITEMID.acc_metalCompass: { returnID = ITEMTYPE.accessory; } break;
         case ITEMID.acc_copperSlingDrive: { returnID = ITEMTYPE.accessory; } break;
         case ITEMID.acc_seashellSlingDrive: { returnID = ITEMTYPE.accessory; } break;
+        case ITEMID.acc_meloniteSlingDrive: { returnID = ITEMTYPE.accessory; } break;
     }
 }
 

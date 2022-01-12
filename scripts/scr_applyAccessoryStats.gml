@@ -23,6 +23,7 @@ if instance_exists(obj_player)
         case ITEMID.acc_metalCompass: { obj_player.compass_level = 2*equip; } break;
         case ITEMID.acc_copperSlingDrive: { obj_player.sling_force = 5*equip; obj_player.sling_jumps_set = 1*equip; obj_player.sling_jumps_remaining += 1*equip; obj_player.sling_cooldown_set = 60*equip; } break;
         case ITEMID.acc_seashellSlingDrive: { obj_player.sling_force = 6*equip; obj_player.sling_jumps_set = 1*equip; obj_player.sling_jumps_remaining += 1*equip; obj_player.sling_cooldown_set = 52*equip; } break;
+        case ITEMID.acc_meloniteSlingDrive: { obj_player.sling_force = 7*equip; obj_player.sling_jumps_set = 2*equip; obj_player.sling_jumps_remaining += 2*equip; obj_player.sling_cooldown_set = 50*equip; } break;
     }
 }
 

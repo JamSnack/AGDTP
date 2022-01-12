@@ -67,6 +67,7 @@ if recipe_melonite == true
     {
         case ITEMID.weapon_meloniteBow: { returnID = true; } break;
         case ITEMID.weapon_meloniteChainsaw: { returnID = true; } break;
+        case ITEMID.acc_meloniteSlingDrive: { returnID = true; } break;
     }
 }
 
