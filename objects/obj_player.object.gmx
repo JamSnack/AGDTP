@@ -121,7 +121,7 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
-scr_dropItem(ITEMID.acc_meloniteSlingDrive,0,ITEMTYPE.accessory,x,y,noone);
+scr_dropItem(ITEMID.tile_seedlingTurret,5,ITEMTYPE.playertile,x,y,noone);
 /*
 scr_dropItem(ITEMID.weapon_meloniteChainsaw,0,ITEMTYPE.weapon,x,y,noone);
 scr_dropItem(ITEMID.cons_melonChunk,99,ITEMTYPE.consumable,x,y,noone);

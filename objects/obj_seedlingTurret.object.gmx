@@ -30,7 +30,7 @@ hp = maxHp;
 
 event_inherited();
 
-tileID = 12;
+tileID = ITEMID.tile_seedlingTurret;
 type = 3;
 
 //Turret stuff
