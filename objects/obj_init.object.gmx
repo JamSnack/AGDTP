@@ -177,6 +177,7 @@ enum ITEMID
     weapon_meloniteBow,
     weapon_meloniteChainsaw,
     acc_meloniteSlingDrive,
+    tile_seedlingTurret
 }
 
 //Item Types
