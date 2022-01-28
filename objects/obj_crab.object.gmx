@@ -66,6 +66,7 @@ shield_health_max = 3;
 shield_health = shield_health_max;
 charge_rate = 9*room_speed;
 alarm[3] = charge_rate;
+knockAmt = 3.5;
 
 shield_scale = shield_health/shield_health_max;
 

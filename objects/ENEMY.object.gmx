@@ -36,7 +36,7 @@ agility = 0.1;
 dropItem = false;
 death_gib = spr_gib;
 canDespawn = true;
-knockAmt = 5;
+knockAmt = 3.5;
 
 shield_charges_max = 0;
 shield_charges = 0;
