@@ -162,8 +162,6 @@ if drawText == true &amp;&amp; str != ""
     draw_text_transformed_colour(display_get_width()/2,60,str,2,2,0,color,color,color,color,transition_time/transition_length);
 }
 
-print(str);
-
 //Draw loading bar
 if (instance_exists(region_shifter))
 {
