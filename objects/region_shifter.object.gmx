@@ -152,6 +152,12 @@ animation_frame = approach(animation_frame,animation_max,0.075);
 draw_set_alpha(animation_frame);
 draw_rectangle(0,0,window_get_width(),window_get_height(),false);
 draw_set_alpha(1);
+
+//Draw loading bar
+draw_set_font(global.fnt_menu);
+draw_set_halign(fa_center);
+draw_text(display_get_gui_width()/2, display_get_gui_height()-60, "Loading... "+string( ((time/70)*100) ) + "%" );
+draw_set_halign(fa_left);
 </string>
           </argument>
         </arguments>

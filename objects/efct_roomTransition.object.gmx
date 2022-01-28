@@ -156,6 +156,19 @@ if drawText == true &amp;&amp; str != ""
     draw_set_colour(color);
     draw_text_transformed_colour((280)-string_width(str)*2,60,str,2,2,0,color,color,color,color,transition_time/transition_length);
 }
+
+//Draw loading bar
+if (instance_exists(region_shifter))
+{
+    draw_set_font(global.fnt_menu);
+    draw_set_halign(fa_center);
+    var _perc = ((region_shifter.time/70));
+    
+    draw_text_transformed(display_get_gui_width()/2, display_get_gui_height()-50, "Loading... "+string( _perc*100 ) + "%", 2, 2, 0 );
+    draw_set_halign(fa_left);
+    
+    draw_sprite_stretched(spr_ui_loading,0,40,display_get_gui_height()-30,(display_get_gui_width()-40)*_perc,9);
+}
 </string>
           </argument>
         </arguments>
