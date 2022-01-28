@@ -86,7 +86,8 @@ draw_text(x,y+15,string((objective.y &gt; y &amp;&amp; !collision_line(x,y,objec
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
+            <string>event_inherited();
+
 if insideView(x,y)
 {
     repeat(9)

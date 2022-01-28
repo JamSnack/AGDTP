@@ -100,6 +100,16 @@ if nextRaid == "RAID" &amp;&amp; interm == true &amp;&amp; insideView(x,y) == tr
     nextRaid = "SPHERE";
     scr_hudMessage("Tonight is going to be strange..",global.fnt_menu,20,0,c_purple,0);
 }
+
+//Remove from enemy sprites
+
+var enemySprites = hudControl.enemySprites;
+
+if ds_exists(enemySprites,ds_type_list) &amp;&amp; instance_number(object_index) == 1
+{
+    var pos = ds_list_find_index(enemySprites,object_index);
+    ds_list_delete(enemySprites,pos);
+}
 </string>
           </argument>
         </arguments>
