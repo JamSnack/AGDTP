@@ -265,7 +265,7 @@ if dev == true
             <string>if gameOver == true
 {
     event_user(0);
-    scr_roomTransition("WARP","Loading...",global.fnt_menu,c_white,rm_menu);
+    scr_roomTransition("WARP",get_tip(),global.fnt_menu,c_white,rm_menu);
 }
 </string>
           </argument>
