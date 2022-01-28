@@ -195,6 +195,7 @@
         <sprite>sprites\spr_modBench</sprite>
         <sprite>sprites\spr_furnace</sprite>
         <sprite>sprites\spr_turretHead</sprite>
+        <sprite>sprites\spr_meloniteHead</sprite>
         <sprite>sprites\spr_railgunHead</sprite>
         <sprite>sprites\spr_beeTurretHead</sprite>
         <sprite>sprites\spr_beeTurretBase</sprite>

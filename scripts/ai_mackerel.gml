@@ -109,7 +109,7 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 
                 if target_distance > 16*4 && jump_charges == 0
                 {
-                    vAccel = jump_speed;
+                    vAccel = jump_speed*2;
                     jump_charges = 0;
                 
                     if dir == -1 //Objective is to the right

@@ -28,7 +28,7 @@
             <string>image_xscale = 0.5;
 image_yscale = 0.5;
 image_speed = 0;
-max_break = 3;
+max_break = 5;
 </string>
           </argument>
         </arguments>
@@ -66,9 +66,6 @@ if  _tile != noone
     with _tile
     {
         scr_hurt(100,0,false,0);
-        
-        //Crack open them tiles for some exotic loot:
-        if object_get_parent(object_index) == TILE then event_user(2);
     }
     
     max_break -= 1;

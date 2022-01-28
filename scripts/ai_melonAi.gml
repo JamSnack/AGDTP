@@ -126,7 +126,7 @@ switch state
         //Return to base and depot.
         //Direction
         var dir = sign(base_point_x-x);
-        var vdir = sign(base_point_y-y);
+        var vdir = sign(max( base_point_y-distance_to_point(base_point_x, base_point_y) , base_point_y-16*8) - y);
         
         //Horizontal Acceleration
         hAccel = approach(hAccel,maxAccel*dir,accelRate);
@@ -154,10 +154,20 @@ switch state
                 depot_delay = room_speed/2;
                 //print("DROP");
             }
+            else if ((instance_exists(obj_player) && obj_player.dead == true && instance_number(ENEMY) >= 3))
+            {
+                state = "ATTACK";
+            }
             else
             {
                 state = "DIG";
             }
+        }
+        
+        //Attack the player a bit more sensitively
+        if (instance_number(ENEMY) > 6 && local_essence <= essence_needed_to_depot/2)
+        {
+            state = "ATTACK";
         }
         
         if place_meeting_fast(hAccel,0,TILE) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
@@ -168,11 +178,44 @@ switch state
         
         y += vAccel;
         
-        //Local_essence clamp
-        local_essence = clamp(local_essence,0,essence_needed_to_depot*2);
         
         //New direction objective for mining
         direction_to_objective = point_direction(x,y,base_point_x,base_point_y);
+    }
+    break;
+    
+    case "ATTACK":
+    {
+        //Fly towards the pie! Be annoying!
+        //Direction
+        var dir = sign((room_width/2)-x);
+        
+        var _bh = scr_getHighestBasePoint();
+        
+        var vdir = sign(max( _bh-distance_to_point((room_width/2), _bh) , _bh-16*5) - y);
+        
+        //Horizontal Acceleration
+        hAccel = approach(hAccel,maxAccel*dir,accelRate);
+        
+        //Vertical Acceleration
+        vAccel = approach(vAccel,maxAccel*vdir,accelRate);
+        
+        _xscale = dir*scale;
+        
+        if place_meeting_fast(hAccel,0,TILE) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
+        
+        x += hAccel;
+        
+        if place_meeting_fast(0,vAccel,TILE) && !place_meeting_fast(0,vAccel,obj_vineTile) then vAccel = -vAccel;
+        
+        y += vAccel;
+        
+        
+        //Stop the attack
+        if (instance_exists(obj_player) && obj_player.dead == false && distance_to_object(obj_player) <= 16*7)
+        {
+            state = "DEPOT";
+        }
     }
     break;
 }
@@ -327,3 +370,6 @@ if point_distance(x,y,xprevious,yprevious) < 1
 if vine_delay > 0 then vine_delay -= 1
 if vine_player_delay > 0 then vine_player_delay -= 1;
 if depot_delay > 0 then depot_delay -= 1;
+
+//Local_essence clamp
+local_essence = clamp(local_essence,0,essence_needed_to_depot*2);

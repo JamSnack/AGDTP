@@ -122,7 +122,7 @@ alarm[11] = fireRate*room_speed;
             <kind>1</kind>
             <string>
 //Draw head
-draw_sprite_ext(spr_turretHead,0,x,y,1,1,turretDirection,c_white,1);
+draw_sprite_ext(spr_meloniteHead,0,x,y,1,1,turretDirection,c_white,1);
 
 //Draw Ammo
 if fireRate == fr_slow
