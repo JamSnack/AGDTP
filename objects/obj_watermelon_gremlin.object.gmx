@@ -108,7 +108,7 @@ mask_index = spr_hornedHapp;
 
 if dropItem != true then exit;
 
-if (irandom(10) == 5)
+if (irandom(9) == 5)
 {
     scr_dropItem(ITEMID.cons_melonChunk,irandom(2)+1,ITEMTYPE.consumable,x,y,noone);
 }

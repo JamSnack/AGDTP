@@ -387,7 +387,7 @@ if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || pla
 
 
 //------------- Proliferate every tick ---------------------------
-if (heal_Time &gt;= room_speed)
+if (heal_Time &gt;= room_speed+30)
 {
     //Tile regeneration
     if interm == true
@@ -398,7 +398,7 @@ if (heal_Time &gt;= room_speed)
     }
     
     //-Energy &amp; health regeneration-
-    if obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false 
+    if instance_exists(obj_player) &amp;&amp; obj_player.hp != obj_player.maxHp &amp;&amp; obj_player.dead == false 
     {
         with obj_player { hp += 1; if hp &gt;= maxHp then hp = maxHp; }
     }
