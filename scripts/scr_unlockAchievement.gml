@@ -24,7 +24,7 @@ if (achievements_unlocked[_ach] != 1)
     {
         case ACHIEVEMENT.the_king_of_lesser_things: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.the_king_of_sky_and_sea: { turret_capacity_max += 1; save = true; } break;
-        case ACHIEVEMENT.speedrunner_1: { turret_capacity_max += 1; save = true; } break;
+        case ACHIEVEMENT.fruity: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.speedrunner_2: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.getting_dirty: { turret_capacity_max += 1; save = true; } break;
     }
@@ -33,7 +33,7 @@ if (achievements_unlocked[_ach] != 1)
     
     //ACHIEVEMENT - The King of Everything
     //For very little optimal purposes, run this check only after we've collected the hardest achievement in the game.
-    if (achievements_unlocked[ACHIEVEMENT.speedrunner_2] == 1)
+    if (achievements_unlocked[ACHIEVEMENT.fruity] == 1)
     {
         for(ach_index=0;ach_index<ACHIEVEMENT.last;ach_index++)
         {

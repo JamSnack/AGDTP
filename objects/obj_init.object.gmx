@@ -209,16 +209,13 @@ enum ACHIEVEMENT
     beached, //Collected Seashell Metal Ore-
     
     impenetrable, //Placed 100 blocks in the flatlands.-
-    stalwart_creation, //Placed 10000 blocks in the flatlands.-
     new_world, //Region shifted +
-    avant_garde, //Used a tag on a tool.
     
     explosive_gremlin, //Killed the Bomb King+
     triple_king, //Killed the Sphere King+
     the_king_of_lesser_things, //Killed Nilmerg - 
     the_king_of_sky_and_sea, //Killed Bliplo +
-    speedrunner_1, //Killed Nilmerg on wave 1 +
-    speedrunner_2, //Killed Bliplo by wave 3+
+    fruity, //Killed Melon Blooommmm
     the_king_of_everything, //Get every achievement. +
     //RECIPE UNLOCKS
     last,

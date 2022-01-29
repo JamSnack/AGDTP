@@ -1789,15 +1789,14 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                                 //achievement logic
                                 var _b = global.base_tiles_placed;
                                 
-                                if _b &gt;= 25 &amp;&amp; _b &lt; 1000
+                                if _b &gt;= 25 &amp;&amp; _b &lt; 500
                                 {
                                     scr_unlockAchievement(ACHIEVEMENT.starter_base);
                                 }
-                                else if _b &gt;= 1000 &amp;&amp; _b &lt; 50000
+                                else if _b &gt;= 500
                                 {
                                    scr_unlockAchievement(ACHIEVEMENT.impenetrable); 
                                 }
-                                else if _b &gt;= 50000 then scr_unlockAchievement(ACHIEVEMENT.stalwart_creation);
                             }
                             
                             //Sound

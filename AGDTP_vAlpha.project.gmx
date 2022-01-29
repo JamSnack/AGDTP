@@ -487,7 +487,6 @@
     <object>objects\obj_essenceDrop</object>
     <object>objects\obj_pie</object>
     <object>objects\obj_pieBetwixt</object>
-    <object>objects\obj_lobbyPlatform</object>
     <objects name="PROJECTILES">
       <object>objects\BULLET</object>
       <object>objects\obj_projectile</object>
