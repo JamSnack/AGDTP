@@ -77,7 +77,7 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
         if hAccel <= 1
         {
             //Slow hAcceleration to zero
-            if hAccel > 0 then hAccel -= deAccelRate else if hAccel < 0 then hAccel += deAccelRate;
+            if hAccel > 0.2 then hAccel -= deAccelRate else if hAccel < 0.2 then hAccel += deAccelRate;
         }
         
         //-Vertical movement
@@ -109,7 +109,7 @@ if vspeed == 0 && hspeed == 0 //disable Ai states as long as knockback is being 
                 
                 if target_distance > 16*4 && jump_charges == 0
                 {
-                    vAccel = jump_speed*2;
+                    vAccel = jump_speed;
                     jump_charges = 0;
                 
                     if dir == -1 //Objective is to the right

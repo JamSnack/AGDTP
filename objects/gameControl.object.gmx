@@ -75,7 +75,7 @@ draw_texture_flush();
             <string>///Background and frame skip control
 //frame_skip += 60-fps;
 //if frame_skip &gt; frame_skip_max
-if fps_real &lt;= 90 &amp;&amp; !instance_exists(obj_pausedObject) &amp;&amp; !instance_exists(efct_roomTransition)
+if fps_real &lt;= 100 &amp;&amp; !instance_exists(obj_pausedObject) &amp;&amp; !instance_exists(region_shifter)
 {
     frame_skip = 0;
     draw_enable_drawevent(false);

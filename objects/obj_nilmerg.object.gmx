@@ -38,7 +38,7 @@ vsp = 0;
 atkBox = 32; //divided by 2 on calculation.
 b_atkBox = 16*7; //Range for bomb attack.
 damage = 8; //body damage.
-s_damage = 15; //swoop damage. (DAMAGE DONE TO TILES IS DIVIDED BY 10)
+s_damage = 15; //swoop damage. (DAMAGE DONE TO TILES IS DIVIDED BY ?)
 attackCooldown = 4; //How long until the boss rolls for another attack.
 
 hurtAlarm = 1;
@@ -62,7 +62,7 @@ accelRate = 0.8;
 wander_pointX = choose(RAIDBOUND_Lower,RAIDBOUND_Upper);
 wander_pointY = world_height-(2*16);
 transition_to = "WANDER";
-tile_punch_max = 8;
+tile_punch_max = 12;
 tile_punch = tile_punch_max; //How many player tiles Nilmerg can punthrough before returning to WANDER.
 
 

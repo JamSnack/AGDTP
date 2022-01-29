@@ -1721,7 +1721,7 @@ if invOpen == true
           <argument>
             <kind>1</kind>
             <string>///Place blocks
-if room == rm_lobby || (settingsMenu == true || keybindMenu_visible == true) then exit;
+if (instance_exists(obj_player) &amp;&amp; obj_player.dead == true) || room == rm_lobby || (settingsMenu == true || keybindMenu_visible == true) then exit;
 
 var xx = round(mouse_x/16)*16;
 var yy = round(mouse_y/16)*16;
@@ -2033,7 +2033,6 @@ if showSuperMenu == true
                 scr_craftingToolTip(craftSelect); //initializes text and recipe variables and sets recipe varialbes
                 scr_drawToolTip(craftSelect,scr_checkCraftingType(craftSelect),true); //initializes and sets text variables
                 
-                
                 text[1] = scr_fitText(text[1],58);
                 
                 draw_text_transformed(132,134,text[0],1.25,1.25,0); //Item Name
@@ -2065,7 +2064,13 @@ if showSuperMenu == true
                     
                     
                     draw_sprite_ext(spr_itemDrops,mats[_i],133+x_offset,y_pos+y_offset+2,_scal,_scal,0,c_white,1);
+                    
+                    if (matsAmt[_i] &gt; scr_getInvenItemAmt(mats[_i]))
+                        { draw_set_colour(c_red) } else draw_set_colour(c_white);
+                    
                     if matsAmt[_i] &gt; 0 then draw_text(135+x_offset,y_pos+y_offset,"x"+string(matsAmt[_i]));
+                    
+                    draw_set_colour(c_white);
                 }
             }
     //#endregion

@@ -202,11 +202,11 @@ switch state
         
         _xscale = dir*scale;
         
-        if place_meeting_fast(hAccel,0,TILE) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
+        if place_meeting_fast(hAccel,0,OBSTA) && !place_meeting_fast(hAccel,0,obj_vineTile) then hAccel = -hAccel;
         
         x += hAccel;
         
-        if place_meeting_fast(0,vAccel,TILE) && !place_meeting_fast(0,vAccel,obj_vineTile) then vAccel = -vAccel;
+        if place_meeting_fast(0,vAccel,OBSTA) && !place_meeting_fast(0,vAccel,obj_vineTile) then vAccel = -vAccel;
         
         y += vAccel;
         

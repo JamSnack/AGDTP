@@ -8,7 +8,7 @@ if audio_exists(soundID)
 }
 
 audio_sound_gain(soundID,volume,0);
-audio_play_sound_at(soundID,xx,yy,0,0,16*6,1,loop,priority); 
+audio_play_sound_at(soundID,xx,yy,0,0,0,1,loop,priority); 
 
 if dynamic_pitch == true
 {

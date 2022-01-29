@@ -314,6 +314,7 @@
     <sprite>sprites\spr_seed</sprite>
     <sprite>sprites\spr_builder_bloom</sprite>
     <sprite>sprites\spr_vineTile</sprite>
+    <sprite>sprites\spr_loading_screen</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bkg_cave</background>
@@ -423,6 +424,7 @@
       <script>scripts\scr_convertFullNumberToString.gml</script>
       <script>scripts\draw_nineSliceBox.gml</script>
       <script>scripts\scr_get_character.gml</script>
+      <script>scripts\get_tip.gml</script>
     </scripts>
     <scripts name="Effects">
       <script>scripts\scr_hudMessage.gml</script>
@@ -463,7 +465,6 @@
     <script>scripts\scr_unlockAchievement.gml</script>
     <script>scripts\distance_to_nearest_object.gml</script>
     <script>scripts\scr_create_vine.gml</script>
-    <script>scripts\get_tip.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\sh_saturation.shader</shader>

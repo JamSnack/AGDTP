@@ -52,7 +52,7 @@ switch state
     {
         var dive_maxAccel = (maxAccel*3)-((dive_time-60)/60);
         
-        knockback_strength = 2+dive_maxAccel;
+        knockback_strength = 6;
         
         //Attack the living player!
         if obj_player.dead == false && insideView(x,y) then objective = obj_player;

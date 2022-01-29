@@ -32,7 +32,7 @@ vForce = 0;
 hspd = 0;
 vsp = 0;
 knock_resistance = 100;
-agility = 6;
+agility = 7;
 dropItem = false;
 death_gib = spr_gib;
 knockAmt = 5;
@@ -184,7 +184,7 @@ if (target_height &gt;= 0 &amp;&amp; landed == false)
 else
 {
     //Building
-    if (tiles_y_away_from_target &gt;= tiles_x_away_from_target)
+    if (tiles_y_away_from_target &gt; tiles_x_away_from_target)
     {
         if (point_distance(x,y,x,building_point_y) &lt;= 2)
         {
@@ -256,7 +256,7 @@ image_angle += 6;
 //Temp activation
 
 var on_screen = insideView(x,y);
-var border = 16;
+var border = 48;
 if !on_screen then instance_activate_region(x-border,y-border,border*2,border*2,true);
 
 //Destroy intruding objects

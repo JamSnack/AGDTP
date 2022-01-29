@@ -16,7 +16,7 @@ if !instance_exists(efct_roomTransition)
     var i = instance_create(0,0,efct_roomTransition);
     var type = argument0;
     i.type = roomTransition_1;
-    i.str = argument1;
+    i.str = scr_fitText(argument1,60);
     i.font = argument2;
     i.color = argument3;
     i.rm_goto = argument4;

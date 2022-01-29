@@ -126,6 +126,10 @@ if region == "COVE" &amp;&amp; kingDied_2 == false &amp;&amp; worldControl.raidB
     
     //Drop more items for king kill
     scr_dropItem(ITEMID.item_seashellMetal,4+irandom(4),0,x,y,noone);
+    
+    //Spawn the melon bloom
+    instance_create(irandom_range(64,room_width-64), room_height-64, obj_melonster);
+    scr_hudMessage("A creature has crawled up from the depths!",global.fnt_Ui,5,0,c_green,0); 
 }
 
 event_inherited();

@@ -73,6 +73,8 @@ vine_delay_set = 27;
 vine_delay = 0;
 vine_player_delay = 0;
 depot_delay = 0;
+seed_shot_delay = 0;
+
 
 while (collision_rectangle(base_point_x-2,base_point_y-2,base_point_x+2,base_point_y+64,OBSTA,false,false) != noone)
 {
@@ -239,9 +241,46 @@ canHurt = true;
 
 //Gremlin Ai
 //target = obj_pie;
-objective = obj_pie;
+if (instance_exists(obj_player) &amp;&amp; distance_to_object(obj_player) &lt;= 16*9)
+{
+    objective = obj_player;
+} else if instance_exists(obj_pie) then objective = obj_pie;
 
 ai_melonAi(state,1,objective,-4,atkBox);
+
+//Seed attack
+if seed_shot_delay &lt;= 0 &amp;&amp; (canSeeTarget || objective.object_index = obj_pie)
+{
+    seed_shot_delay = room_speed*(1.6+random_range(0.4,1.2));
+    
+    var stinger = instance_create(x,y,obj_seed_shot);
+    var _dir = point_direction(x,y,objective.x,objective.y);
+    stinger.direction = _dir;
+    stinger.speed = 6;
+    stinger.dam = 12;
+    stinger.image_angle = _dir;
+    
+    var stinger = instance_create(x,y,obj_seed_shot);
+    var _dir = point_direction(x,y,objective.x,objective.y);
+    stinger.direction = _dir+3;
+    stinger.speed = 6;
+    stinger.dam = 12;
+    stinger.image_angle = _dir;
+    
+    var stinger = instance_create(x,y,obj_seed_shot);
+    var _dir = point_direction(x,y,objective.x,objective.y);
+    stinger.direction = _dir-3;
+    stinger.speed = 6;
+    stinger.dam = 12;
+    stinger.image_angle = _dir;
+    
+    if (insideView(x,y))
+        { scr_playSound(snd_enemy_shoot,false,12,x,y,1,true); }
+}
+else
+{
+    seed_shot_delay -= 1;
+}
 </string>
           </argument>
         </arguments>
