@@ -165,7 +165,7 @@ switch state
         }
         
         //Attack the player a bit more sensitively
-        if (instance_number(ENEMY) > 6 && local_essence <= essence_needed_to_depot/2)
+        if (instance_number(ENEMY) > 12 && local_essence <= essence_needed_to_depot/2)
         {
             state = "ATTACK";
         }
