@@ -624,7 +624,7 @@ print('RAID_PROGRESSED');
 //Increase progress meter
 if raidProgress &lt; maxRaidProgress
 {
-    if ((raidBoss == false &amp;&amp; !instance_exists(INV_ENEMY) &amp;&amp; raidProgress+1 &lt; maxRaidProgress) || (raidBoss == true &amp;&amp; raidProgress+1 &lt; maxRaidProgress)) then raidProgress += 1;
+    if ((raidBoss == false &amp;&amp; !(instance_exists(INV_ENEMY) &amp;&amp; raidProgress+1 &lt; maxRaidProgress)) || (raidBoss == true &amp;&amp; raidProgress+1 &lt; maxRaidProgress)) then raidProgress += 1;
 }
 
 
