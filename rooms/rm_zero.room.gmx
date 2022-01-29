@@ -54,7 +54,6 @@
     <instance objName="camera" x="64" y="0" name="inst_CA470D69" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="gameControl" x="0" y="0" name="inst_46B3AAC2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="worldControl" x="32" y="0" name="inst_65F370E5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="FLATLAND" x="1256" y="1344" name="inst_66D0C072" locked="0" code="" scaleX="164" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_tutorialControl" x="96" y="0" name="inst_1F1B5105" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>

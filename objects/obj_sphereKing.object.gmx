@@ -66,14 +66,14 @@ spawn_weight = 1;
 event_inherited();
 
 //Other Locals
-spwnRate = 3-(0.5*floor(wave/3));
+spwnRate = 2-(0.5*floor(wave/3));
 spwnRate = clamp(spwnRate,1,5);
 alarm[3] = 1;
 knockType = "FLY";
 death_gib = spr_nullGib;
 knock_resistance = 1;
 sphere_backup = 1;
-sphere_max = 8;
+sphere_max = 12;
 
 repeat(clamp(floor(wave/4),1,3))
 {
@@ -175,7 +175,7 @@ if !place_meeting_fast(x,y,OBSTA)
 }
 else sphere_backup += 1;
 
-alarm[3] = room_speed*spwnRate;
+alarm[3] = 30*spwnRate;
 </string>
           </argument>
         </arguments>

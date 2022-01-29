@@ -47,6 +47,7 @@ turretDirection = 0;
 ammoMax = 3;
 ammo = 0;
 cooled_down = false;
+attack_delay = 0;
 </string>
           </argument>
         </arguments>
@@ -95,8 +96,10 @@ ammo = ammoMax;
           <argument>
             <kind>1</kind>
             <string>///Attack/Target Enemy
-if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
+if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0 &amp;&amp; attack_delay &lt;= 0
 {
+    attack_delay = 25;
+    
     var nearestEnemy = instance_nearest(x,y,ENEMY);
     
     if distance_to_object(nearestEnemy) &lt;= targetRange
@@ -106,6 +109,10 @@ if instance_exists(ENEMY) &amp;&amp; ammo &gt; 0
         turretDirection = scr_predictedDirection(x,y,target.x,target.y,target.hspd,target.vsp);
     }
 } 
+else
+{
+    attack_delay -= 1;
+}
 
 
 //Reload sequence

@@ -32,7 +32,7 @@ vForce = 0;
 hspd = 0;
 vsp = 0;
 knock_resistance = 100;
-agility = 8;
+agility = 16;
 dropItem = false;
 death_gib = spr_gib;
 knockAmt = 5;
@@ -44,7 +44,7 @@ hurtAlarm = 1;
 tiles_x_away_from_target = 0;
 tiles_y_away_from_target = 0;
 target_x = obj_pie.x;
-target_y = obj_pie.y;
+target_y = obj_pie.y+32;
 
 
 if (point_distance(x,0,RAIDBOUND_Lower,0) &lt;= point_distance(x,0,RAIDBOUND_Upper,0))

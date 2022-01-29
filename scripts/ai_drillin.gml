@@ -92,7 +92,6 @@ switch current_state
     
     case WANDER:
     {
-        if y+vAccel > room_height-8 then vAccel = -vAccel;
         if x+hAccel > room_width || x+hAccel < 0 then hAccel = -hAccel;
     
     
