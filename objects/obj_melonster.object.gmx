@@ -127,7 +127,7 @@ alarm[3] = 2;
           <argument>
             <kind>1</kind>
             <string>event_inherited();
-
+scr_unlockAchievement(ACHIEVEMENT.fruity);
 scr_spawnEssence(1,2,local_essence);
 
 repeat(2+irandom(2))

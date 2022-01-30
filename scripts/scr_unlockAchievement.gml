@@ -25,7 +25,6 @@ if (achievements_unlocked[_ach] != 1)
         case ACHIEVEMENT.the_king_of_lesser_things: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.the_king_of_sky_and_sea: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.fruity: { turret_capacity_max += 1; save = true; } break;
-        case ACHIEVEMENT.speedrunner_2: { turret_capacity_max += 1; save = true; } break;
         case ACHIEVEMENT.getting_dirty: { turret_capacity_max += 1; save = true; } break;
     }
     

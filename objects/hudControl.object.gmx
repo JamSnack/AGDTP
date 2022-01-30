@@ -1789,11 +1789,11 @@ if (lastPlaceX != xx || lastPlaceY != yy) &amp;&amp; selectedSlot != noone
                                 //achievement logic
                                 var _b = global.base_tiles_placed;
                                 
-                                if _b &gt;= 25 &amp;&amp; _b &lt; 500
+                                if _b &gt;= 25 &amp;&amp; _b &lt; 250
                                 {
                                     scr_unlockAchievement(ACHIEVEMENT.starter_base);
                                 }
-                                else if _b &gt;= 500
+                                else if _b &gt;= 250
                                 {
                                    scr_unlockAchievement(ACHIEVEMENT.impenetrable); 
                                 }
@@ -2092,7 +2092,7 @@ if showSuperMenu == true
                 var y2 = (_posY)+size+yOff;
                 
                 draw_set_font(global.fnt_Ui);
-                var _text = "Tool Workshop";//"Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
+                var _text = "Tool Workshop Disabled";//"Modify your tools and equipment with Mod Tags. Drag a Mod Tag from your inventory into the slot on the left and a tool you want to modify into the slot on the right. Click on the result to consume the tool and the tag and create a new, modified tool!"
                 _text = scr_fitText(_text,45);
                 
                 draw_text(_posX+10,_posY+10,_text);

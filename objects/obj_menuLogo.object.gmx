@@ -188,10 +188,17 @@ if dConfirm == true &amp;&amp; deleteButton_active == true &amp;&amp; dWait == f
         currency_essence = 0;
         turret_capacity_max = 1;
         
+        global.kills = 0;
+        global.base_tiles_placed = 0;
+        global.waves_survived = 0;
+        global.tiles_mined = 0;
+        global.items_crafted = 0;
+        
         // - reset recipes
         recipe_copperOre = false;
         recipe_sweetComb = false;
         recipe_seashellMetal = false;
+        recipe_melonite = false;
         
         // - reset tips
         tip_controls = false;

@@ -117,8 +117,6 @@ if region == "GRASSLANDS" &amp;&amp; kingDied_1 == false &amp;&amp; worldControl
     scr_unlockAchievement(ACHIEVEMENT.the_king_of_lesser_things);
     kingDied_1 = true;
     
-    if wave == 1 then scr_unlockAchievement(ACHIEVEMENT.speedrunner_1);
-    
     //Drop more items for king kill
     scr_dropItem(ITEMID.item_sweetComb,4+irandom(3),0,x,y,noone);
 }
