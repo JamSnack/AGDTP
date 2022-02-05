@@ -63,6 +63,8 @@ event_inherited();
             <string>event_inherited();
 scr_updateConnections(x,y);
 
+if itemDrop == false then exit;
+
 scr_dropItem(tileID,1,type,x,y,noone);
 </string>
           </argument>

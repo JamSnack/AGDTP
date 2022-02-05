@@ -179,14 +179,18 @@ if bStab == true
         
         direction = _dir;
     
-        x = obj_player.hitSyncX;
-        y = obj_player.hitSyncY;
         alarm[2] = 4;
     }
+    
+    x = obj_player.hitSyncX;
+    y = obj_player.hitSyncY;
+    
+    //Cleanup stupid melonite-chainsaw hitbox fuckery that I don't care about ACTUALLY fixing
+    if (x == 0 &amp;&amp; obj_player.toolReady == true) then instance_destroy();
 }
 else if bSwing == true
 {
-    if obj_player.armAngle &lt; -40
+    if obj_player.armAngle &lt; -40 || (obj_player.toolSprite == spr_stingerDrill &amp;&amp; obj_player.tool == ITEMTYPE.pickaxe &amp;&amp; obj_player.toolReady == true)
     {
         instance_destroy();
     }
