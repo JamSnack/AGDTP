@@ -406,6 +406,7 @@
       <script>scripts\waveScale.gml</script>
       <script>scripts\scr_treeCreate.gml</script>
       <script>scripts\scr_saveString.gml</script>
+      <script>scripts\scr_spawnWorldCreatures.gml</script>
     </scripts>
     <scripts name="Twitch Integration">
       <script>scripts\twitch_chat_say.gml</script>
@@ -631,8 +632,8 @@
     <constant name="JUMP">3</constant>
     <constant name="MOVE">1</constant>
     <constant name="WANDER">4</constant>
-    <constant name="HURT_LONG">30</constant>
-    <constant name="DEF_HURT">15</constant>
+    <constant name="HURT_LONG">35</constant>
+    <constant name="DEF_HURT">25</constant>
     <constant name="DEF_FRIC">0.15</constant>
   </constants>
   <help>

@@ -32,14 +32,16 @@ imageAccelerationMax = 0.025;
 imageAcceleration = imageAccelerationMax;
 imageThreshold = 3;
 
-text = choose("And then Drake said 'miowefoawmefo ffleiam?'","Discontinued (or is it?)","Plants Vs. Zombies 3");
+randomize();
+
+text = choose("And then Drake said 'miowefoawmefo ffleiam?'","Obligatory flavor text.","Discontinued (or is it?)","What version are we on again?");
 
 playButton_active = false;
 deleteButton_active = false;
 dConfirm = false;
 dWait = false;
 
-randomize();
+
 </string>
           </argument>
         </arguments>

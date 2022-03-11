@@ -204,6 +204,9 @@ if g_over == false
     dead = false;
     hForce = 0;
     vForce = 0;
+    
+    canHurt = false;
+    alarm[0] = room_speed*2;
 }
 </string>
           </argument>
@@ -550,7 +553,7 @@ if dead == false
     if hp &lt;= 0 || g_over == true
     {
         dead = true;
-        alarm[1] = room_speed*20-(interm*60*15);
+        alarm[1] = room_speed*20 - (interm*60*15); //20 seconds minus intermission*15 seconds
         //visible = false;
         
         //LOSE ESSENCE
@@ -1175,7 +1178,7 @@ instance_create(x,y,region_shifter);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
+            <string>/*scr_dropItem(ITEMID.item_stonePiece,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_dirtClump,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_gremEssence,99,0,x,y,noone);
 scr_dropItem(ITEMID.item_copperOre,99,0,x,y,noone);

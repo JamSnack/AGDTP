@@ -95,11 +95,19 @@ switch presetSettings
             }
         }
         
-        //Spawn melon-bloom
+        //SPAWN WORLD CREATURES
         if (kingDied_2 == true && !instance_exists(INV_ENEMY) && irandom(1) == 0)
         {
             instance_create(irandom_range(64,room_width-64), room_height-64, obj_melonster);
             scr_hudMessage("A creature has crawled up from the depths!",global.fnt_Ui,5,0,c_green,0); 
+        }
+        
+        if (difficulty > 3)
+        {
+            if (region == "GRASSLANDS")
+            {
+                scr_spawnWorldCreatures(obj_hiveGrowth);
+            }
         }
     }
     break;

@@ -31,6 +31,8 @@ scale = 0;
 alarm[0] = instance_number(efct_achievement)*4*room_speed;
 
 text = "Omongus Testus";
+
+spr_width = sprite_get_width(spr_ui_achievement);
 </string>
           </argument>
         </arguments>
@@ -110,7 +112,7 @@ if image_alpha == 1 &amp;&amp; scale &lt; scale_target
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var xx = 442;
+            <string>var xx = display_get_gui_width()-(spr_width/2)-2;
 var yy = 248;
 
 //Draw sprite

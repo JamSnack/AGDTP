@@ -19,4 +19,5 @@ switch argument0
     case ITEMID.tile_grillBlock: { return obj_grillBlock; } break;
     case ITEMID.tile_copperBlock: { return obj_copperBlock; } break;
     case ITEMID.tile_seedlingTurret: { return obj_seedlingTurret; } break;
+    default: { return 0; } break;;
 }

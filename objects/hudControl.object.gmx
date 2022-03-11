@@ -1496,7 +1496,7 @@ if invOpen == true
             <string>///UI &amp; SETTINGS INTERACTION
 if room == rm_menu then exit;
 
-if showSuperMenu == true &amp;&amp; obj_player.dead == false
+if showSuperMenu == true //&amp;&amp; obj_player.dead == false
 {
     var _posX = viewWidth/2-120;
     var _posY = viewHeight/2-105;
@@ -1915,6 +1915,75 @@ var my = device_mouse_y_to_gui(0);
 
 if dev == true then draw_text(10,20,"FPS: "+string(fps)+"FPS_REAL: "+string(fps_real));
 
+
+//-------------------- Healthbars ---------------------------
+//#region
+if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; instance_exists(obj_player)
+{
+    draw_set_font(global.fnt_menu);
+
+    var playerHp = obj_player.hp;
+    var playerMaxHp = obj_player.maxHp;
+    
+    if playerHp &gt; 0
+    { draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,100*(playerHp/playerMaxHp),6); }
+    draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
+    
+    //- Red Health vial
+    draw_sprite(spr_ui_vial,0,viewWidth-110,9);
+    
+    
+    //- Pie health bar
+    if instance_exists(obj_pie)
+    {
+        var pieHp = obj_pie.hp;
+        
+        if pieHp &gt; 0
+        { draw_sprite_stretched(spr_ui_pieHealth,0,viewWidth-110,21,pieHp,6) }
+        draw_text(viewWidth-95,20,"PIE: "+string(pieHp)+"\"+string(obj_pie.maxHp));
+        
+        //-Blue health vial
+        draw_sprite(spr_ui_vial,0,viewWidth-110,19);
+    }
+    
+    //- Boss health bar
+    if worldControl.raidBoss == true
+    {
+        //Boss ID
+        var boss = worldControl.raidBossID;
+        var bossName = "Null";
+        
+        //Return the boss's name.
+        switch boss.object_index
+        {
+            //All possible boss objects.
+            case obj_bombKing: { bossName = "The Bomb King" } break;
+            case obj_sphereKing: {bossName = "The Sphere King"} break;
+            case obj_nilmerg: {bossName = "Nilmerg the Gremlin Bee"} break;
+            case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
+            case obj_bliplo: {bossName = "Bliplo the Crustaceous"} break;
+            case obj_crabKing: {bossName = "Crab Elite"} break;
+        }
+        
+        if boss != noone
+        {
+            var bossHp = boss.hp;
+            var bossMaxHp = boss.maxHp
+            draw_text(18,dispHeight-30,bossName);
+            draw_nineSliceBox(spr_ui_healthBar,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
+            draw_nineSliceBox(spr_ui_vial,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
+        }
+    }
+    
+    // - Energy
+    /*if instance_exists(worldControl) &amp;&amp; room == rm_zero
+    { 
+        draw_text(viewWidth-12,30,string(energy));
+        draw_sprite(spr_ui_electricity,0,viewWidth-25,30);
+    }*/
+}
+
+
 //--------------------Super Menu Control----------------------
 
 if showSuperMenu == true
@@ -1930,7 +1999,7 @@ if showSuperMenu == true
 
     //---SURFACE STUFF WIP
     //THESE NUMBERS ARE SO MAGICAL FUUUUUUUCKKKKKK HOW DOES THIS WORKKKK
-    var surface_left = 125;
+    var surface_left = _posX+5;
     var surface_width = 116+surface_left;
     
     
@@ -2575,72 +2644,7 @@ if cursorHoldItem == true &amp;&amp; drawCursorItem == true
 }
 //#endregion
 
-//-------------------- Healthbars ---------------------------
-//#region
-if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; instance_exists(obj_player)
-{
-    draw_set_font(global.fnt_menu);
 
-    var playerHp = obj_player.hp;
-    var playerMaxHp = obj_player.maxHp;
-    
-    if playerHp &gt; 0
-    { draw_sprite_stretched(spr_ui_healthBar,0,viewWidth-110,10,100*(playerHp/playerMaxHp),6); }
-    draw_text(viewWidth-95,10,"HP: "+string(playerHp)+"\"+string(playerMaxHp));
-    
-    //- Red Health vial
-    draw_sprite(spr_ui_vial,0,viewWidth-110,9);
-    
-    
-    //- Pie health bar
-    if instance_exists(obj_pie)
-    {
-        var pieHp = obj_pie.hp;
-        
-        if pieHp &gt; 0
-        { draw_sprite_stretched(spr_ui_pieHealth,0,viewWidth-110,21,pieHp,6) }
-        draw_text(viewWidth-95,20,"PIE: "+string(pieHp)+"\"+string(obj_pie.maxHp));
-        
-        //-Blue health vial
-        draw_sprite(spr_ui_vial,0,viewWidth-110,19);
-    }
-    
-    //- Boss health bar
-    if worldControl.raidBoss == true
-    {
-        //Boss ID
-        var boss = worldControl.raidBossID;
-        var bossName = "Null";
-        
-        //Return the boss's name.
-        switch boss.object_index
-        {
-            //All possible boss objects.
-            case obj_bombKing: { bossName = "The Bomb King" } break;
-            case obj_sphereKing: {bossName = "The Sphere King"} break;
-            case obj_nilmerg: {bossName = "Nilmerg the Gremlin Bee"} break;
-            case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
-            case obj_bliplo: {bossName = "Bliplo the Crustaceous"} break;
-            case obj_crabKing: {bossName = "Crab Elite"} break;
-        }
-        
-        if boss != noone
-        {
-            var bossHp = boss.hp;
-            var bossMaxHp = boss.maxHp
-            draw_text(18,dispHeight-30,bossName);
-            draw_nineSliceBox(spr_ui_healthBar,16,dispHeight-16,(dispWidth-16)*(bossHp/bossMaxHp),dispHeight-8,0);
-            draw_nineSliceBox(spr_ui_vial,16,dispHeight-16,dispWidth-16,dispHeight-8,0);
-        }
-    }
-    
-    // - Energy
-    /*if instance_exists(worldControl) &amp;&amp; room == rm_zero
-    { 
-        draw_text(viewWidth-12,30,string(energy));
-        draw_sprite(spr_ui_electricity,0,viewWidth-25,30);
-    }*/
-}
 //#endregion
 
 //-------------------Settings Menu-----------------------------
@@ -2824,6 +2828,10 @@ if (settingsMenu == false &amp;&amp; keybindMenu_visible == false) &amp;&amp; (r
     //Building indicator
     var xx = round(mouse_x/16)*16;
     var yy = round(mouse_y/16)*16;
+    
+    //this might fix some problem drake had? We can only hope for the best
+    if (is_undefined(xx)) then xx = 0;
+    if (is_undefined(yy)) then yy = 0;
     
     var mouse_distance_to_player = point_distance(xx,yy,obj_player.x,obj_player.y);
     
