@@ -159,9 +159,9 @@ else if time == 44
     //Ore veins
     var oreHeight = yy+(16*16);
     var oreHeightMax = yy+(59*16);
-    var spawnAmt = 20;
-    var veinAmt_max = 7;
-    var veinAmt_min = 3;
+    var spawnAmt = 55;
+    var veinAmt_max = 12;
+    var veinAmt_min = 6;
     
     for (i=0;i<spawnAmt;i++)
     {

@@ -70,6 +70,17 @@ if right != noone &amp;&amp; right.object_index == obj_nullLight then with right
 if left != noone &amp;&amp; left.object_index == obj_nullLight then with left alarm[0] = 1;
 if down != noone &amp;&amp; down.object_index == obj_nullLight then with down alarm[0] = 1;
 if up != noone &amp;&amp; up.object_index == obj_nullLight then with up alarm[0] = 1;
+
+//Light up surrounding tiles
+right = instance_position(x+16,y,TILE);
+left = instance_position(x-16,y,TILE);
+down = instance_position(x,y+16,TILE);
+up = instance_position(x,y-16,TILE);
+
+if right != noone then with right light_level = 255;
+if left != noone then with left light_level = 255;
+if down != noone then with down light_level = 255;
+if up != noone then with up light_level = 255;
 </string>
           </argument>
         </arguments>
