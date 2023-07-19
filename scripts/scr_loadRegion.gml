@@ -5,6 +5,7 @@
 //----------GENERATE THE REGION VARIABLES----------------
 randomize();
 var preset = argument0, region_type = argument1;
+var yy = 384; //TODO: Replace this with a global constant
 
 /*-------- Presets:
 -- "TUTORIAL"

@@ -184,7 +184,7 @@ if gameOver == true
 {
     draw_text(x-83,y+16,"Press 'Enter' to return to the menu.");
 }
-else if wave == 0 &amp;&amp; world_Time &lt; 450
+else if wave == 0 &amp;&amp; world_Time &lt; room_speed*(5*59) //wave 1 should start at room_speed*(5*60)
 {
     draw_text(x-37,y-16,"Protect the pie!");
     draw_sprite(spr_red_arrow_down,world_Time/4,x-0.5,y-6);

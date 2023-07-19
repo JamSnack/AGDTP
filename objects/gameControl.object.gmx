@@ -216,7 +216,7 @@ if dev == true
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//if dev == true then with ENEMY instance_destroy();
+            <string>if dev == true then with ENEMY instance_destroy();
 </string>
           </argument>
         </arguments>

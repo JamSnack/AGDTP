@@ -674,7 +674,7 @@ if raidProgress &gt;= maxRaidProgress
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//if dev == true then scr_raidControl(nextRaid,0,0,0,0);
+            <string>if dev == true then scr_raidControl(nextRaid,0,0,0,0);
 </string>
           </argument>
         </arguments>

@@ -102,7 +102,7 @@ switch presetSettings
             scr_hudMessage("A creature has crawled up from the depths!",global.fnt_Ui,5,0,c_green,0); 
         }
         
-        if (difficulty > 3)
+        if (difficulty >= 4)
         {
             if (region == "GRASSLANDS")
             {

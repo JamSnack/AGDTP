@@ -1962,7 +1962,7 @@ if settingsMenu == false &amp;&amp; keybindMenu_visible == false &amp;&amp; inst
             case obj_nilmerg: {bossName = "Nilmerg the Gremlin Bee"} break;
             case obj_shadowGremlin: {bossName = "Shadow Gremlin Champion"} break;
             case obj_bliplo: {bossName = "Bliplo the Crustaceous"} break;
-            case obj_crabKing: {bossName = "Crab Elite"} break;
+            case obj_crabKing: {bossName = "Dominant Crabstacean"} break;
         }
         
         if boss != noone
