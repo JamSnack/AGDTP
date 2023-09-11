@@ -37,6 +37,7 @@ knockPoint_y = 0;
 climbSpeed = 2;
 platformCollide = true;
 deactivate_method = 0;
+can_quick_fall = false;
 
 //Sprite stuff
 image_speed = 10/60;
@@ -297,8 +298,13 @@ if dead = false &amp;&amp; g_over == false
         if key_jump
         {
             vsp = vsp_jump;
+            can_quick_fall = true;
         }
     }
+    
+    // - quick fall
+    if (vsp &lt; 0 &amp;&amp; !key_jump &amp;&amp; can_quick_fall)
+        vsp = lerp(vsp, 0, 0.1);
     
     
     
@@ -357,8 +363,18 @@ if dead = false &amp;&amp; g_over == false
         }
     
         //move as close as we can
-        while (!place_meeting_fast(0,vdir+1,OBSTA))
-        { y += vdir; }
+        var _r = sign(vdir)*0.1;
+        repeat (10)
+        {  
+            y += _r;
+        
+            if (place_meeting(x,y,OBSTA))
+            {
+                y -= _r;
+                break;
+            }
+        }
+        
         vsp = 0;
         vForce = 0;
     }
