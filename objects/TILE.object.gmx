@@ -2,7 +2,7 @@
 <object>
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
-  <visible>-1</visible>
+  <visible>0</visible>
   <depth>1</depth>
   <persistent>0</persistent>
   <parentName>OBSTA</parentName>
@@ -251,11 +251,8 @@ scr_deactivateOffscreen(id);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//if !insideView(x,y) then exit;
-draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
-//draw_text(x,y,string(light_level));
+            <string>draw_sprite_ext(sprite_index,image_index,x,y,1,1,0,light_color,1);
 if hp != maxHp then draw_sprite(spr_break,floor((hp/maxHp)*10),x,y); //10 subimages
-
 </string>
           </argument>
         </arguments>

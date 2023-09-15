@@ -35,9 +35,11 @@ knockBack = false;
 knockPoint_x = 0;
 knockPoint_y = 0;
 climbSpeed = 2;
+climbing_ladder = false;
 platformCollide = true;
 deactivate_method = 0;
 can_quick_fall = false;
+on_ground = false;
 
 //Sprite stuff
 image_speed = 10/60;
@@ -122,6 +124,9 @@ if tip_controls == false
 
 //SPAWN NOT INSIDE TILES
 while place_meeting(x,y,PLRTILE) y-=16;
+
+//init slow step
+alarm[3] = 1;
 /*
 scr_dropItem(ITEMID.item_sweetComb,99,ITEMTYPE.def,x,y,noone);
 scr_dropItem(ITEMID.tile_seedlingTurret,5,ITEMTYPE.playertile,x,y,noone);
@@ -138,6 +143,32 @@ scr_dropItem(ITEMID.acc_satchel,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_beehiveBackpack,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_copperChestplate,0,ITEMTYPE.accessory,x,y,noone);
 scr_dropItem(ITEMID.acc_metalCompass,0,ITEMTYPE.accessory,x,y,noone);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//Slow step
+climbing_ladder = place_meeting(x, y, obj_ladder);
+
+alarm[3] = 2;
 </string>
           </argument>
         </arguments>
@@ -266,7 +297,7 @@ if dead = false &amp;&amp; g_over == false
     var platformCollide; //Whether or not to collide with platforms at all.
     var on_platform; //Whether or not the gremlin is on a platform.
 
-    if place_meeting_fast(0,2,obj_platform)
+    if place_meeting(x,y+2,obj_platform)
     {
         if instance_nearest(x,bbox_bottom,obj_platform).y &gt; y+6
         {
@@ -276,6 +307,9 @@ if dead = false &amp;&amp; g_over == false
     } else on_platform = false;
     
     //--- init movement ---
+    //check if on_ground this frame
+    on_ground = place_meeting(x,y+1,OBSTA);
+    
     if knockBack == false
     {
         key_right = keyboard_check(global.key_right);
@@ -285,10 +319,13 @@ if dead = false &amp;&amp; g_over == false
     }
     
     hsp = (key_right - key_left) * hsp_walk;
-    if vsp &lt; maxGrav then vsp = vsp + grav;
+    
+    //add gravity
+    if !on_ground &amp;&amp; vsp &lt; maxGrav then vsp = vsp + grav;
+    
     
     //jump check
-    if  vsp &gt;= 0 &amp;&amp; ((collision_point(x-3,bbox_bottom+1,OBSTA,false,true) || collision_point(x+2,bbox_bottom+1,OBSTA,false,true)) || on_platform)
+    if  vsp &gt;= 0 &amp;&amp; (on_ground || on_platform)
     {
         if sling_cooldown &lt;= 0
         {
@@ -312,10 +349,10 @@ if dead = false &amp;&amp; g_over == false
     var hdir = sign(hsp+hForce) //Horizontal Direction
     
     if hdir != 0 then image_xscale = hdir;
-    if (place_meeting_fast(hsp+hForce,0,OBSTA))
+    if (hsp+hForce != 0 &amp;&amp; place_meeting(x+hsp+hForce,y,OBSTA))
     {
         //move as close as we can
-        while (!place_meeting_fast(hdir,0,OBSTA))
+        while (!place_meeting(x+hdir,y,OBSTA))
         { x = x + hdir; }
         hsp = 0;
         hForce = 0;
@@ -332,29 +369,24 @@ if dead = false &amp;&amp; g_over == false
     var true_vsp = vsp+vForce;
     
     //-- Ladder Logic --
-    if place_meeting_fast(0,0,obj_ladder)
+    if climbing_ladder
     {
         //Stop falling
         if vsp != 0 { vsp = 0; }
         
         //-Climb the ladder
-        if !place_meeting_fast(0,-climbSpeed,OBSTA) &amp;&amp; key_jump 
-        {
-            y-=climbSpeed;
-        }
-        else if !place_meeting_fast(0,climbSpeed,OBSTA) &amp;&amp; key_down 
-        {
-            y+=climbSpeed;
-        }
+        var _c = climbSpeed*(key_down-key_up);
+        
+        if (!place_meeting(x, y+_c, OBSTA))
+            y += _c
         
         //Don't collide with platforms
         platformCollide = false;
     }
-    
-    
+
     //-- Collision with ground; else platform --
     //Complex Condition note: We have two complex coniditions, one is run when moving upward and checks corresponding points; two is run when moving downward and does the same.
-    if true_vsp != 0 &amp;&amp; place_meeting_fast(0,true_vsp+1,OBSTA)//((true_vsp &gt; 0 &amp;&amp; (position_meeting(x-3,y+spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y+spr_height+true_vsp+1,OBSTA))) || (true_vsp &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y-spr_height+true_vsp+1,OBSTA))))
+    if true_vsp != 0 &amp;&amp; place_meeting(x,y+true_vsp+1,OBSTA)//((true_vsp &gt; 0 &amp;&amp; (position_meeting(x-3,y+spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y+spr_height+true_vsp+1,OBSTA))) || (true_vsp &lt; 0 &amp;&amp; (position_meeting(x-3,y-spr_height+true_vsp+1,OBSTA) || position_meeting(x+3,y-spr_height+true_vsp+1,OBSTA))))
     {
         // Correct the while loop iterator in-case values are less than 1
         if true_vsp != 0 &amp;&amp; (true_vsp &lt; 1 || true_vsp &gt; -1)
@@ -364,7 +396,7 @@ if dead = false &amp;&amp; g_over == false
     
         //move as close as we can
         var _r = sign(vdir)*0.1;
-        repeat (10)
+        repeat (20)
         {  
             y += _r;
         
@@ -382,7 +414,7 @@ if dead = false &amp;&amp; g_over == false
     else if !key_down &amp;&amp; instance_exists(obj_platform) &amp;&amp; vsp+vForce &gt; 0// &amp;&amp; platform_collide == true
     {
         
-        var _plat = collision_line(x-3,bbox_bottom+true_vsp+1,x+3,bbox_bottom+true_vsp+2,obj_platform,false,true);
+        var _plat = instance_place(x,y+true_vsp+1,obj_platform);
                 
         if _plat != noone &amp;&amp; bbox_bottom &lt; _plat.y-6
         {            
@@ -396,13 +428,15 @@ if dead = false &amp;&amp; g_over == false
     vForce = approach(vForce,0,knock_resistance);
     
     //Jump sprites
-    if vsp != 0 &amp;&amp; !place_meeting_fast(0,1,OBSTA) &amp;&amp; !on_platform
+    if vsp != 0// &amp;&amp; !place_meeting_fast(0,1,OBSTA) &amp;&amp; !on_platform
     {
         if sprite_index != sprite_jump then sprite_index = sprite_jump;
         if armIndex != sprite_arm_jump &amp;&amp; armAngle == 0 then armIndex = sprite_arm_jump;
         if y &gt; yprevious then image_index = 1 else image_index = 0;
         armFrame = image_index;
-        platformCollide = false;
+        
+        if (vsp &lt; 0)
+            platformCollide = false;
     }
     
     ///Knockback
@@ -427,7 +461,7 @@ if dead = false &amp;&amp; g_over == false
     
         case MOVE:
         {
-            if sprite_index != sprite_walk &amp;&amp; (collision_point(x,1+bbox_bottom,OBSTA,false,true) || collision_point(x,2+bbox_bottom,obj_platform,false,true) ) then sprite_index = sprite_walk;
+            if sprite_index != sprite_walk &amp;&amp; (on_ground || on_platform) then sprite_index = sprite_walk;
             if armIndex != sprite_arm_walk &amp;&amp; armAngle == 0 &amp;&amp; vsp == 0 then armIndex = sprite_arm_walk;
             if image_speed != (14+((hsp_walk)/10))/60 then image_speed = (14+((hsp_walk)/10))/60;
             

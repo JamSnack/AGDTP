@@ -31,6 +31,7 @@ canHurt = true;
 hurtAlarm = 0;
 
 light_level = 255;
+light_color = c_white;
 level = 99;
 
 shield_charges = 0;
