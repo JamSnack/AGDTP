@@ -40,6 +40,7 @@ stoneLayer = (384)+(10*16); //Around the layer of stone
 energy = 0; //NOTE: CURRENTLY REPLACING WITH turret_capacity; 11/9/21
 turret_capacity = 0;
 current_grem = 0; //Number of gremlins in the world based on their spawn weight.
+tile_index = 0;
 
 
 //- boss checklist
@@ -121,11 +122,11 @@ with PAUSE
     var parent = object_get_parent(object_index);
     if parent != EFFECT &amp;&amp; parent != CONTROL &amp;&amp; parent != TILE_ALL
     {   
-        visible = scr_tileVisibleCheck(bbox_left,bbox_top,bbox_right,bbox_bottom);
+        visible = scr_tileVisibleCheck(x,y);
     }
 }
 
-alarm[2] = floor(120/(fps))*5;
+//alarm[2] = floor(120/(fps))*5;
 
 </string>
           </argument>
@@ -300,10 +301,10 @@ if view_zoom != view_zoom_buffer
     if (player_distance_amt_x &gt; 16*14 || player_distance_amt_y &gt; 16*14)
     {         
         //-Deactivate offscreen objects.
-        if instance_exists(obj_itemDrop) then with obj_itemDrop scr_deactivateOffscreen(id);
-        if instance_exists(TILE) then with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); alarm[2] = 1; }
-        if instance_exists(INTERACT) then with INTERACT scr_deactivateOffscreen(id);
-        if instance_exists(NOCOL) then with NOCOL if object_get_parent(object_index) != PLR_NOCOL &amp;&amp; object_index != GREM_BLOCK then scr_deactivateOffscreen(id);
+        with obj_itemDrop scr_deactivateOffscreen(id);
+        with TILE if object_index != obj_pie { scr_deactivateOffscreen(id); alarm[2] = 1; }
+        with INTERACT scr_deactivateOffscreen(id);
+        with NOCOL if object_get_parent(object_index) != PLR_NOCOL &amp;&amp; object_index != GREM_BLOCK then scr_deactivateOffscreen(id);
         
         //Keep some objects active.
         instance_activate_object(obj_sapling);
@@ -340,46 +341,31 @@ if view_zoom != view_zoom_buffer
 
 //-----------Light up underground tiles----------------
 //Updates every tile.
-if playerY &gt; stoneLayer-16*4 &amp;&amp; (player_distance_amt_x &gt; 15 || player_distance_amt_y &gt; 15)
+var check_lighting = playerY &gt; stoneLayer-16*4;
+if (player_distance_amt_x &gt; 15 || player_distance_amt_y &gt; 15)
 {
-    if instance_exists(TILE)
+    with TILE
     {
-        var daylight_offset = world_Time-(world_TimeMax*0.4);
-    
-        with TILE
+        var vis_check = scr_tileVisibleCheck(x,y);
+
+        if visible == false &amp;&amp; vis_check
+            visible = true;
+        else if visible == true
+            if !vis_check { visible = false; }
+            
+        if (!visible)
+            continue;
+        
+        //Underground lighting calculations
+        if (check_lighting)
         {
-            var dist = point_distance(x,y,playerX,playerY);
-            if dist &gt; (playerLight)+16*4 then continue; //Skip tiles that are far away.
-        
-            if light_level &lt; 255 //Only change the light of tiles that aren't completely bright
+            if light_color != c_white //Only change the light of tiles that aren't completely bright
             {
-                var light_dist = floor(255+(playerLight)-dist*4);
-                
-                if dist &lt; (playerLight)+32
-                { light_level = 255;}
-                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                else light_level = 0;
-               
-                light_color = make_colour_hsv(160,max(light_saturation+clamp(daylight_offset/20-3*65,0,max_saturation),max_saturation-max_saturation*interm),light_level); //Increase saturation for cool 'nightime' effect.
-            }
-        }
-    }
-    
-    if instance_exists(obj_nullLight)
-    {
-        with obj_nullLight
-        {   
-            if insideView(x,y) == false then continue;
-        
-            if light_level &lt; 255
-            {
-                var dist = point_distance(x,y,playerX,playerY);
-                var light_dist = floor(255+(playerLight)-dist*3);
-                
-                if dist &lt; (playerLight)+32
-                { instance_destroy(); }
-                else if light_dist &lt;= 255 &amp;&amp; light_dist &gt; 0  { light_level = light_dist; }
-                else light_level = 0;
+                if point_distance(x,y,playerX,playerY) &lt; 16*4
+                {
+                    light_level = 255;
+                    light_color = c_white;//make_colour_hsv(160,0,light_level); //Increase saturation for cool 'nightime' effect.
+                }
             }
         }
     }
@@ -392,8 +378,8 @@ if (heal_Time &gt;= room_speed+30)
     //Tile regeneration
     if interm == true
     {
-        if instance_exists(PLRTILE) then with PLRTILE event_user(15);
-        if instance_exists(PLR_NOCOL) then with PLR_NOCOL event_user(15);
+        with PLRTILE event_user(15);
+        with PLR_NOCOL event_user(15);
         with obj_pie event_user(1);
     }
     
@@ -461,6 +447,31 @@ else if interm == false &amp;&amp; gameOver == false
 {
     //Makes the alpha drain a little faster during the day transition if set to 0.6;
     dayAlpha = aMax;
+}
+
+
+
+//Tile culling
+
+/*
+if (!instance_exists(obj_player))
+    exit;
+    
+var playerY = obj_player.y;
+var playerX = obj_player.x;
+var playerLight = obj_player.playerLight;
+var check_lighting = playerY &gt; stoneLayer-16*4;
+repeat (100)
+{
+    if (tile_index &lt; 0)
+        tile_index = instance_number(TILE)-1;
+        
+    var _w = world_TimeMax;
+        
+    with (instance_find(TILE, tile_index--))
+    {
+
+    }
 }
 </string>
           </argument>

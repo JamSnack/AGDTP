@@ -85,7 +85,7 @@ switch presetSettings
                 instance_create(x,y,region_shifter);
                 
                 //- hud message
-                scr_hudMessage("The region is shifing...",global.fnt_Ui,5,0,c_aqua,0);
+                scr_hudMessage("The region is shifting...",global.fnt_Ui,5,0,c_aqua,0);
                 
                 //- remove essence
                 scr_removeEssence(_cost);

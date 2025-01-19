@@ -99,7 +99,7 @@ if x_previous = xObjective //Do not stand on top of pie.
 //Fall check---------------------------------------------
 // -- platformCollide = false and on a platform means we should fall through the platform.
 //if current_state != FALL && (!place_meeting_fast(0,1,OBSTA) || platformCollide == false && on_platform)
-if current_state != FALL && ((vForce == 0 && vsp == 0 && !place_meeting_fast(0,1,OBSTA)) || platformCollide == false && on_platform)
+if current_state != FALL && ((vForce == 0 && vsp == 0 && !on_ground) || platformCollide == false && on_platform)
 {
     if on_platform && (yObjective > y+spr_height/2 && canSeeObjective)
     { platformCollide = false; state = FALL; }
@@ -139,7 +139,7 @@ if vForce == 0 && hForce == 0
             var obsta_in_front = place_meeting_fast(hspd,0,OBSTA);
             
             //---Jump check--- if on ground || on platform and if there's a gap in the ground or a block in-front of us
-            if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA)))
+            if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || obsta_in_front))
             {
                 vsp = jump_speed;
             }
@@ -215,7 +215,7 @@ if vForce == 0 && hForce == 0
                 
                 //--Jump Conditions
                 //- If tile in front or gap in front
-                if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || place_meeting_fast(8*sign(hspd),0,OBSTA)))
+                if (on_ground || on_platform) && (hspd != 0 && (!place_meeting_fast(8*sign(hspd),8,OBSTA) || obsta_in_front))
                 {
                     vsp = jump_speed;
                 } else if obsta_in_front { image_xscale = -image_xscale; hspd = 0; }

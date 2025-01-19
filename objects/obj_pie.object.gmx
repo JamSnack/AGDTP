@@ -32,6 +32,8 @@ hurtAlarm = 0;
 
 light_level = 255;
 light_color = c_white;
+max_saturation = 255;
+light_saturation = 255;
 level = 99;
 
 shield_charges = 0;
